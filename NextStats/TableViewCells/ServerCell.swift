@@ -23,7 +23,7 @@ class ServerCell: UITableViewCell {
         spinner.isHidden = true
         
         // style view
-        bkView.style()
+        //bkView.style()
         
         // Set cell values
         serverName.text = server?.name

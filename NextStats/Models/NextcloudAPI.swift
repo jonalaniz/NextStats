@@ -48,7 +48,6 @@ struct NextServer: Codable {
 }
 
 struct tableStat {
-    
     struct tableStatGroup {
         let statGroupType: String
         var stats: [String: String]
@@ -147,7 +146,7 @@ struct tableStat {
 }
 
 // ----------------------------------------------------------------------------
-// MARK: - Authorization Structs
+// MARK: - Authorization Structs - For use when adding server
 // ----------------------------------------------------------------------------
 
 // MARK: - AuthResponse
@@ -179,7 +178,7 @@ struct ServerAuthenticationInfo: Codable {
 }
 
 // ----------------------------------------------------------------------------
-// MARK: - JSON Struct
+// MARK: - Server Monitor API JSON Struct
 // ----------------------------------------------------------------------------
 
 // MARK: - Monitor

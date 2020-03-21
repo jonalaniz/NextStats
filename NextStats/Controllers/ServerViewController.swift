@@ -32,12 +32,30 @@ class ServerViewController: UITableViewController {
         
     }
     
+    // ----------------------------------------------------------------------------
+    // MARK: - Add Server Flow
+    // ----------------------------------------------------------------------------
+    
     @objc func addServer() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
             vc.mainViewController = self
             self.present(vc, animated: true, completion: nil)
         }
     }
+    
+    func returned(with server: NextServer) {
+        // Append the new server to the servers array.
+        servers.append(server)
+        
+        // Save servers to keychain encoded as data
+        KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
+        
+        tableView.reloadData()
+    }
+    
+    // ----------------------------------------------------------------------------
+    // MARK: - TableView Overrides
+    // ----------------------------------------------------------------------------
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -49,9 +67,11 @@ class ServerViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
+        let backgroundAlpha = (0.1 + (Double(indexPath.row) * 0.1))
+        
         cell.server = servers[indexPath.row]
         cell.configureCell()
-        //cell.logoImage.image = logos[indexPath.row]
+        cell.contentView.backgroundColor = UIColor(displayP3Red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
         return cell
     }
     
@@ -72,16 +92,6 @@ class ServerViewController: UITableViewController {
             // Save servers to keychain encoded as data
             KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
         }
-    }
-    
-    func returned(with server: NextServer) {
-        // Append the new server to the servers array.
-        servers.append(server)
-        
-        // Save servers to keychain encoded as data
-        KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
-        
-        tableView.reloadData()
     }
 
 }

@@ -211,7 +211,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
             print("LOGO:\(secureUrl)")
             guard error == nil else {
                 // server down
-                print(error)
+                print(error?.localizedDescription)
                 self.hasCustomLogo = false
                 return
             }
