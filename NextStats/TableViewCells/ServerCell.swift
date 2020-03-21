@@ -16,22 +16,20 @@ class ServerCell: UITableViewCell {
     @IBOutlet var bkView: UIView!
     @IBOutlet var spinner: UIActivityIndicatorView!
     
-    var server: NextServer?
-    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var server: NextServer!
     
     func configureCell() {
         // hide the spinner because storyboard doesnt listen when i say to hide it
         spinner.isHidden = true
         
         // style view
-        bkView.layer.cornerRadius = 10
-        bkView.clipsToBounds = true
+        bkView.style()
         
         // Set cell values
         serverName.text = server?.name
         friendlyURLLabel.text = server?.friendlyURL
         ping()
-        checkForServerImageLogo()
+        checkForServerLogoImage()
     }
     
     // ----------------------------------------------------------------------------
@@ -82,20 +80,19 @@ class ServerCell: UITableViewCell {
     // MARK: - Logo Image Flow
     // ----------------------------------------------------------------------------
     
-    // 1 - Check to see if server has custom logo
-    func checkForServerImageLogo() {
-        if server!.hasCustomLogo {
+    // Check to see if server has custom logo
+    func checkForServerLogoImage() {
+        if server.hasCustomLogo {
             // Check if server has logo cached already
-            if let imgPath = server?.documentsDirectory.appendingPathComponent("\(server!.friendlyURL).png", isDirectory: true).path {
-                if imageAlreadyCached(at: imgPath) {
-                    print("image downloaded: true")
-                    spinner.deactivate()
-                    retrieveSavedImage(from: imgPath)
-                } else {
-                    print("image downloaded: false")
-                    spinner.activate()
-                    downloadImage(to: imgPath)
-                }
+            if server.imageCached() {
+                // If cached, pull the cached image function from server api
+                print("image cached")
+                spinner.deactivate()
+                logoImage.image = server.cachedImage()
+            } else {
+                print("image not cached, will download")
+                spinner.activate()
+                downloadImage(to: server.imagePath())
             }
         } else {
             // if no logo, do nothing
@@ -103,38 +100,19 @@ class ServerCell: UITableViewCell {
         }
     }
     
-    // 2 - Check to see if image is already cached
-    func imageAlreadyCached(at path: String) -> Bool {
-        print(path)
-        if !FileManager.default.fileExists(atPath: path) {
-            print("Image not cached, will download")
-            return false
-        } else {
-            print("Image cached, pulling from cache")
-            return true
-        }
-    }
-    
-    // 3a - Retrieve cached image
-    func retrieveSavedImage(from path: String) {
-        logoImage.image = UIImage(contentsOfFile: path)
-    }
-    
-    // 3b - Download and save image
+    // Download and save image
     
     func downloadImage(to path: String) {
         self.logoImage.isHidden = true
-        let urlstring = (server?.friendlyURL.secureURLString())! + logoEndpoint
-        print("URLSTRING: \(urlstring)")
-        let url = URL(string: urlstring)!
+        let url = URL(string: server.imageURL())!
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) {
-            (data, resposne, error) in
+            (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
             } else {
-                if let response = resposne as? HTTPURLResponse {
+                if let response = response as? HTTPURLResponse {
                     if response.statusCode != 200 {
                         // No image found, put default image in place
                         DispatchQueue.main.async {
@@ -161,12 +139,11 @@ class ServerCell: UITableViewCell {
     }
     
     func saveImage(img: UIImage, at path: String) {
-        if !FileManager.default.fileExists(atPath: path) {
-            do {
-                try img.pngData()?.write(to: URL(string: path)!)
-            } catch {
-                print("Error, image not saved")
-            }
+        do {
+            try img.pngData()?.write(to: URL(string: "file://\(path)")!)
+        } catch {
+            print("Error, image not saved")
+            print(error)
         }
     }
 

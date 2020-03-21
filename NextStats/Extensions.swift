@@ -40,12 +40,10 @@ extension UIActivityIndicatorView {
 }
 
 extension UINavigationController {
+    
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-}
-
-extension UINavigationController {
 
     func setStatusBar(backgroundColor: UIColor) {
         let statusBarFrame: CGRect
@@ -58,5 +56,12 @@ extension UINavigationController {
         statusBarView.backgroundColor = UIColor(displayP3Red: 22, green: 24, blue: 39, alpha: 1)
         view.addSubview(statusBarView)
     }
+}
 
+
+extension UIView {
+    func style() {
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
+    }
 }

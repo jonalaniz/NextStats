@@ -239,7 +239,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         styleTextField(textField: serverURLField)
         styleTextField(textField: nicknameField)
         connectButton.isEnabled = false
-        connectButton.layer.cornerRadius = 10
+        connectButton.style()
         spinner.isHidden = true
         
         // Setup the targets
@@ -255,8 +255,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 
         textField.borderStyle = .none
         textField.layoutIfNeeded()
-        textField.layer.cornerRadius = 10
-        textField.layer.masksToBounds = true
+        textField.style()
     }
     
     func activateSpinner() {

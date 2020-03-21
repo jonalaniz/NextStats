@@ -9,67 +9,51 @@
 import UIKit
 
 class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet var backgroundImage: UIImageView!
-    @IBOutlet var logoImage: UIImageView!
+    @IBOutlet var statController: UITableView!
     
-    var serverName: String?
-    var urlString: String?
-    var user: String?
-    var pass: String?
-    
-    override func viewWillAppear(_ animated: Bool) {
-        backgroundImage.layer.cornerRadius = 10
-        backgroundImage.layer.opacity = 0.7
-    }
+    var server: NextServer!
+    var tableStatContainer = tableStat()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = serverName
         
+        statController.delegate = self
+        statController.dataSource = self
+        statController.backgroundColor = .clear
+        statController.sectionHeaderHeight = 40
+        
+        title = server.name
         getStats()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        //navigationController?.navigationBar.isTranslucent = false
     }
     
     func getStats() {
         // Get the server status info
-        if urlString != nil {
-            if user != nil {
-                if pass != nil {
-                    let passwordData = "\(user!):\(pass!)".data(using: .utf8)
-                    let base64PasswordData = passwordData?.base64EncodedString()
-                    let authString = "Basic \(base64PasswordData!)"
-                    let url = URL(string: urlString!)
-                    let request = URLRequest(url: url!)
-                    let config = URLSessionConfiguration.default
-                    config.httpAdditionalHeaders = ["Authorization": authString]
+        let passwordData = "\(server.username):\(server.password)".data(using: .utf8)
+        let base64PasswordData = passwordData?.base64EncodedString()
+        let authString = "Basic \(base64PasswordData!)"
+        let url = URL(string: server.URLString)
+        let request = URLRequest(url: url!)
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = ["Authorization": authString]
 
-                    let session = URLSession(configuration: config)
-                    let task = session.dataTask(with: request) {
-                        (data, response, error) in
-                        if let error = error {
-                            print("Error: \(error.localizedDescription)")
-                            DispatchQueue.main.async {
-                                self.displayErrorAndReturn()
-                            }
-                        } else {
-                            if let response = response as? HTTPURLResponse {
-                                print("Status Code: \(response.statusCode)")
-                            }
-                            if let data = data {
-                                self.parseJSON(json: data)
-                            }
-                        }
-                    }
-                    task.resume()
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request) {
+            (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.displayErrorAndReturn()
+                }
+            } else {
+                if let response = response as? HTTPURLResponse {
+                    print("Status Code: \(response.statusCode)")
+                }
+                if let data = data {
+                    self.parseJSON(json: data)
                 }
             }
         }
+        task.resume()
     }
     
     func parseJSON(json: Data) {
@@ -77,16 +61,13 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
             DispatchQueue.main.async {
-                self.updateUI(with: (jsonStream.ocs?.data)!)
                 print(jsonStream)
+                self.tableStatContainer.updateStats(with: (jsonStream.ocs?.data?.nextcloud)!, webServer: (jsonStream.ocs?.data?.server)!, users: (jsonStream.ocs?.data?.activeUsers)!)
+                self.statController.reloadData()
             }
         } else {
             // feck
         }
-    }
-    
-    func updateUI(with stat: DataClass) {
-        
     }
     
     func displayErrorAndReturn() {
@@ -99,37 +80,38 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.popViewController(animated: true)
     }
     
+    // ----------------------------------------------------------------------------
+    // MARK: - Table View Functions
+    // ----------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        return tableStatContainer.tableStatsArray[section].stats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
-                return cell
+        let keys = tableStatContainer.keys[indexPath.section]
+        let key = keys[indexPath.row]
+        
+        cell.backgroundColor = .clear
+        cell.textLabel?.textColor = .white
+        cell.detailTextLabel?.textColor = .white
+        cell.textLabel?.text = key
+        cell.detailTextLabel?.text = tableStatContainer.tableStatsArray[indexPath.section].stats[key]
+        return cell
     }
     
-    
-    
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        return 3
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
-//        return cell
-//    }
-//
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Section: \(section)"
-//    }
-//
-//    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        view.backgroundColor = .clear
-//        view.tintColor = .clear
-//    }
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tableStatContainer.tableStatsArray.count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tableStatContainer.tableStatsArray[section].statGroupType
+    }
+
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).backgroundView = UIView(frame: view.bounds)
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor(red: 22/255, green: 24/255, blue: 39/255, alpha: 1)
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = .white
+    }
 }

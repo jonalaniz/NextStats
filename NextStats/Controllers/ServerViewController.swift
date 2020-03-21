@@ -57,10 +57,7 @@ class ServerViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "StatsView") as? StatsViewController {
-            vc.serverName = servers[indexPath.row].name
-            vc.urlString = servers[indexPath.row].URLString
-            vc.user = servers[indexPath.row].username
-            vc.pass = servers[indexPath.row].password
+            vc.server = servers[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
         }
     }
