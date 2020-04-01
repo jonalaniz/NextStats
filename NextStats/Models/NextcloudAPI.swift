@@ -13,6 +13,26 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 let loginEndpoint = "/index.php/login/v2"
 let logoEndpoint = "/index.php/apps/theming/image/logo"
 
+enum ServerError {
+    case unauthorized
+    case noResponse
+    case jsonError
+    case other
+    
+    var typeAndDescription: (title: String, description: String) {
+        switch self {
+        case .unauthorized:
+            return("Unauthorized User", "You must have admin privilidges to view server stats. Please check with your administrator.")
+        case .noResponse:
+            return("No Response", "Your server cannot be reached, please check your internet connection or contact your adminstrator.")
+        case .jsonError:
+            return("JSON Error", "Could not parse JSON. Please check with your administrator.")
+        case .other:
+            return("Error", "Unspecified error, server cannot be reached")
+        }
+    }
+}
+
 struct NextServer: Codable {
     let name: String
     let friendlyURL: String
@@ -61,10 +81,10 @@ struct tableStat {
     ]
     
     var tableStatsArray: [tableStatGroup] = {
-        let system = tableStatGroup(statGroupType: "System", stats: ["Version": "", "CPU Load": "", "Memory Usage": "", "Memory": "", "Swap Usage": "", "Swap": "", "Local Cache": "", "Distributed Cache": ""])
-        let storage = tableStatGroup(statGroupType: "Storage", stats: ["Free Space": "", "Number of Files": ""])
-        let server = tableStatGroup(statGroupType: "Server", stats: ["Webserver": "", "PHP Version": "", "Database": "", "Database Version": ""])
-        let activeUsers = tableStatGroup(statGroupType: "Active Users", stats: ["Last 5 Minutes": "", "Last Hour": "", "Last Day": "", "Total": ""])
+        let system = tableStatGroup(statGroupType: "System", stats: ["Version": "...", "CPU Load": "...", "Memory Usage": "...", "Memory": "...", "Swap Usage": "...", "Swap": "...", "Local Cache": "...", "Distributed Cache": "..."])
+        let storage = tableStatGroup(statGroupType: "Storage", stats: ["Free Space": "...", "Number of Files": "..."])
+        let server = tableStatGroup(statGroupType: "Server", stats: ["Webserver": "...", "PHP Version": "...", "Database": "...", "Database Version": "..."])
+        let activeUsers = tableStatGroup(statGroupType: "Active Users", stats: ["Last 5 Minutes": "...", "Last Hour": "...", "Last Day": "...", "Total": "..."])
         
         return [system, storage, server, activeUsers]
     }()

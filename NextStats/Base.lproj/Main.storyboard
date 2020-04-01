@@ -85,7 +85,7 @@
                                 <color key="textColor" red="1" green="0.16344945739952166" blue="0.33142424653500324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NextStat supports the Nexctloud servers running version 17 or higher using SSL encryption (https)." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYd-XQ-LvH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NextStat supports the Nexctloud servers using SSL encryption (https)." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYd-XQ-LvH">
                                 <rect key="frame" x="16" y="362" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RPO-RC-6An"/>

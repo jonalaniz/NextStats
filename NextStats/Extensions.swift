@@ -57,11 +57,3 @@ extension UINavigationController {
         view.addSubview(statusBarView)
     }
 }
-
-
-extension UIView {
-    func style() {
-        self.layer.cornerRadius = 10
-        self.clipsToBounds = true
-    }
-}

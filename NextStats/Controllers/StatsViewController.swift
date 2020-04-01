@@ -14,6 +14,8 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var server: NextServer!
     var tableStatContainer = tableStat()
 
+    let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,11 +25,15 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         statController.sectionHeaderHeight = 40
         
         title = server.name
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        self.navigationItem.setRightBarButton(barButton, animated: true)
+        
         getStats()
+        activityIndicator.startAnimating()
     }
     
     func getStats() {
-        // Get the server status info
+        // Prepare the user authentication credentials
         let passwordData = "\(server.username):\(server.password)".data(using: .utf8)
         let base64PasswordData = passwordData?.base64EncodedString()
         let authString = "Basic \(base64PasswordData!)"
@@ -36,21 +42,29 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = ["Authorization": authString]
 
+        // Begin URLSession
         let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request) {
-            (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
-                    self.displayErrorAndReturn()
+                    self.displayErrorAndReturn(error: .noResponse)
                 }
             } else {
                 if let response = response as? HTTPURLResponse {
-                    print("Status Code: \(response.statusCode)")
+                    switch response.statusCode {
+                    case 200:
+                        if let data = data {
+                            self.parseJSON(json: data)
+                        }
+                    case 401:
+                        self.displayErrorAndReturn(error: .unauthorized)
+                    default:
+                        self.displayErrorAndReturn(error: .other)
+                    }
                 }
-                if let data = data {
-                    self.parseJSON(json: data)
-                }
+                
             }
         }
         task.resume()
@@ -64,14 +78,18 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 print(jsonStream)
                 self.tableStatContainer.updateStats(with: (jsonStream.ocs?.data?.nextcloud)!, webServer: (jsonStream.ocs?.data?.server)!, users: (jsonStream.ocs?.data?.activeUsers)!)
                 self.statController.reloadData()
+                self.activityIndicator.deactivate()
+                self.activityIndicator.isHidden = true
             }
         } else {
-            // feck
+            DispatchQueue.main.async {
+                self.displayErrorAndReturn(error: .jsonError)
+            }
         }
     }
     
-    func displayErrorAndReturn() {
-        let ac = UIAlertController(title: "Error", message: "Cannot reach server, please check your internet connection.", preferredStyle: .alert)
+    func displayErrorAndReturn(error: ServerError) {
+        let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: returnToTable))
         present(ac, animated: true)
     }

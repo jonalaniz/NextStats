@@ -71,7 +71,8 @@ class ServerViewController: UITableViewController {
         
         cell.server = servers[indexPath.row]
         cell.configureCell()
-        cell.contentView.backgroundColor = UIColor(displayP3Red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
+        cell.contentView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
+        //cell.contentView.backgroundColor = UIColor(displayP3Red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
         return cell
     }
     
