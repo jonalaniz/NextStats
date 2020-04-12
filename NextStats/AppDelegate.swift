@@ -33,9 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func configureNavigationBar() {
+        let accentColor = UIColor(red: 87/255, green: 96/255, blue: 155/255, alpha: 1)
+        let backgroundColor = UIColor(displayP3Red: 22/255, green: 23/255, blue: 37/255, alpha: 1)
         let appearance = UINavigationBarAppearance()
+        let buttonAppearance = UIBarButtonItemAppearance()
+        
         appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = UIColor(displayP3Red: 22/255, green: 23/255, blue: 37/255, alpha: 1)
+        appearance.backgroundColor = backgroundColor
         appearance.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white
         ]
@@ -43,15 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.white
         ]
 
-        let buttonAppearance = UIBarButtonItemAppearance()
-        buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+        buttonAppearance.normal.titleTextAttributes = [.foregroundColor: accentColor]
         appearance.buttonAppearance = buttonAppearance
 
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         
-        UIBarButtonItem.appearance().tintColor = UIColor.white
+        UIBarButtonItem.appearance().tintColor = accentColor
     }
 
 }
