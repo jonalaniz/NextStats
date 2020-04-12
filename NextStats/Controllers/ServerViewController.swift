@@ -13,16 +13,15 @@ class ServerViewController: UITableViewController {
     var servers = [NextServer]()
     
     override func viewWillAppear(_ animated: Bool) {
+        title = "Servers"
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addServer))
+        navigationItem.leftBarButtonItem = self.editButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Servers"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addServer))
-        navigationItem.leftBarButtonItem = self.editButtonItem
-        
         // Try and pull server data from keychain if available
         if let data = KeychainWrapper.standard.data(forKey:"servers") {
             if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
@@ -72,7 +71,7 @@ class ServerViewController: UITableViewController {
         cell.server = servers[indexPath.row]
         cell.configureCell()
         cell.contentView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
-        //cell.contentView.backgroundColor = UIColor(displayP3Red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
+
         return cell
     }
     

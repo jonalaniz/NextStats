@@ -64,7 +64,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         self.displayErrorAndReturn(error: .other)
                     }
                 }
-                
             }
         }
         task.resume()

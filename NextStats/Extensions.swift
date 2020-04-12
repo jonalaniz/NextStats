@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 extension String {
     // Replace http:// with https://
@@ -44,16 +45,22 @@ extension UINavigationController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+}
 
-    func setStatusBar(backgroundColor: UIColor) {
-        let statusBarFrame: CGRect
-        if #available(iOS 13.0, *) {
-            statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
-        } else {
-            statusBarFrame = UIApplication.shared.statusBarFrame
+extension WKWebView {
+    func cleanAllCookies() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        print("All cookies deleted")
+
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                print("Cookie ::: \(record) deleted")
+            }
         }
-        let statusBarView = UIView(frame: statusBarFrame)
-        statusBarView.backgroundColor = UIColor(displayP3Red: 22, green: 24, blue: 39, alpha: 1)
-        view.addSubview(statusBarView)
+    }
+
+    func refreshCookies() {
+        self.configuration.processPool = WKProcessPool()
     }
 }
