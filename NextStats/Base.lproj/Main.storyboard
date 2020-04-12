@@ -313,7 +313,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zhs-Sd-KzE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.086736239490000006" green="0.09289950877" blue="0.15295359489999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="lEy-Kr-sZd" detailTextLabel="LBI-Wk-LZQ" style="IBUITableViewCellStyleValue1" id="cQI-IB-Yyo">
@@ -350,7 +350,7 @@
                             <constraint firstItem="zhs-Sd-KzE" firstAttribute="top" secondItem="GPQ-al-gDb" secondAttribute="top" id="6hR-9R-wj8"/>
                             <constraint firstItem="zhs-Sd-KzE" firstAttribute="leading" secondItem="GPQ-al-gDb" secondAttribute="leading" id="a5N-JH-VXb"/>
                             <constraint firstItem="zhs-Sd-KzE" firstAttribute="trailing" secondItem="GPQ-al-gDb" secondAttribute="trailing" id="mrt-Md-MfJ"/>
-                            <constraint firstAttribute="bottom" secondItem="zhs-Sd-KzE" secondAttribute="bottom" constant="20" symbolic="YES" id="x97-YF-2lm"/>
+                            <constraint firstAttribute="bottom" secondItem="zhs-Sd-KzE" secondAttribute="bottom" id="x97-YF-2lm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GPQ-al-gDb"/>
                     </view>
