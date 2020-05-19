@@ -14,10 +14,8 @@ class ServerViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         title = "Servers"
+        setupUI()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addServer))
-        navigationItem.leftBarButtonItem = self.editButtonItem
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidLoad() {
@@ -29,6 +27,23 @@ class ServerViewController: UITableViewController {
             }
         }
         
+    }
+    
+    private func setupUI() {
+        // Setup Bar Button Items
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addServer))
+        navigationItem.leftBarButtonItem = self.editButtonItem
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // Setup Pull To Refresh Controls
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.refreshControl?.tintColor = UIColor.white
+    }
+    
+    @objc func refresh() {
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
     }
     
     // ----------------------------------------------------------------------------
@@ -55,6 +70,13 @@ class ServerViewController: UITableViewController {
     // ----------------------------------------------------------------------------
     // MARK: - TableView Overrides
     // ----------------------------------------------------------------------------
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.5, delay: 0.1 * Double(indexPath.row), animations: {
+            cell.alpha = 1
+        })
+    }
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
