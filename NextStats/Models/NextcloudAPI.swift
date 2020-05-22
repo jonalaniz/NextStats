@@ -239,23 +239,7 @@ struct Nextcloud: Codable {
 
 // MARK: - Shares
 struct Shares: Codable {
-    let numShares, numSharesUser, numSharesGroups, numSharesLink: Int?
-    let numSharesMail, numSharesRoom, numSharesLinkNoPassword, numFedSharesSent: Int?
-    let numFedSharesReceived: Int?
-    let permissions3_1: String?
-
-    enum CodingKeys: String, CodingKey {
-        case numShares = "num_shares"
-        case numSharesUser = "num_shares_user"
-        case numSharesGroups = "num_shares_groups"
-        case numSharesLink = "num_shares_link"
-        case numSharesMail = "num_shares_mail"
-        case numSharesRoom = "num_shares_room"
-        case numSharesLinkNoPassword = "num_shares_link_no_password"
-        case numFedSharesSent = "num_fed_shares_sent"
-        case numFedSharesReceived = "num_fed_shares_received"
-        case permissions3_1 = "permissions_3_1"
-    }
+    // Shares are unused, and therefore ignored.
 }
 
 // MARK: - Storage
