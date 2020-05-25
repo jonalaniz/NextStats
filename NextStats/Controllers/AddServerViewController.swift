@@ -22,8 +22,9 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     var appPassword: String?
     var serverURL: String?
     var hasCustomLogo: Bool?
-    
     var authAPIURL: URL?
+    
+    let placeholderTextColor = UIColor(red: 149/255, green: 152/255, blue: 167/255, alpha: 0.4)
     
     var webViewOpened = false
     
@@ -239,10 +240,12 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     func setupUI() {
         // Style the UI
-        styleTextField(textField: serverURLField)
         styleTextField(textField: nicknameField)
+        nicknameField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
+        styleTextField(textField: serverURLField)
+        serverURLField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
+
         connectButton.isEnabled = false
-        //connectButton.style()
         spinner.isHidden = true
         
         // Setup the targets
