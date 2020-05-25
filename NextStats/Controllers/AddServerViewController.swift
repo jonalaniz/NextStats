@@ -68,23 +68,31 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         authAPIURL = nil
         
         // Safely unwrap urlString
-        guard var urlString = serverURLField.text else { return }
-        
-        // Check if url has has prefix, if not add it
-        if !urlString.hasPrefix("http") {
-            urlString = "https://" + urlString
-        }
+        guard let urlString = serverURLField.text else { return }
         
         // Setup and test url
-        let urlRegEx = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
-        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-        let result = urlTest.evaluate(with: urlString)
+        let urlRegEx = "^(https://|http://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
+        let ipRegEx = #"(^192\.168\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])$)|(^172\.([1][6-9]|[2][0-9]|[3][0-1])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])$)|(^10\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])$)"#
         
-        // Check for nil and return the correct value
-        if (result) {
+        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+        let ipTest = NSPredicate(format:"SELF MATCHES %@", ipRegEx)
+        
+        let isURL = urlTest.evaluate(with: urlString)
+        let isIPAddress = ipTest.evaluate(with: urlString)
+        
+        // Check for a valid address
+        if (isURL) {
             statusLabel.isHidden = true
             connectButton.isEnabled = true
-            authAPIURL = URL(string: urlString)
+            
+            // Check protocol
+            authAPIURL = URL(string: urlString.addDomainPrefix())
+        } else if (isIPAddress) {
+            statusLabel.isHidden = true
+            connectButton.isEnabled = true
+            
+            // Check protocol
+            authAPIURL = URL(string: urlString.addIPPrefix())
         } else {
             statusLabel.isHidden = false
             connectButton.isEnabled = false
@@ -96,13 +104,8 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         
         // Append endpoint to url
         let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
-        let urlString = urlWithEndpoint.absoluteString
-        print(urlString)
         
-        // If using http, switch to https
-        let secureUrl = URL(string: urlString.secureURLString())!
-        
-        var request = URLRequest(url: secureUrl)
+        var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
         
         let task = URLSession.shared.dataTask(with: request) {
@@ -111,7 +114,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
                 DispatchQueue.main.async {
                     self.statusLabel.text = "Not a valid host, please check url"
                     self.deactivateSpinner()
-                    
                 }
             } else {
                 if let response = resposne as? HTTPURLResponse {
@@ -147,7 +149,9 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         } else {
-            statusLabel.text = "Unable to connect, contact server administrator."
+            DispatchQueue.main.async {
+                self.statusLabel.text = "Unable to connect, contact server administrator."
+            }
         }
     }
     
@@ -189,7 +193,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         let name: String!
         let friendlyURL = serverURL?.makeFriendlyURL()
         
-        if nicknameField.text != nil || nicknameField.text != "" {
+        if nicknameField.text != nil && nicknameField.text != "" {
             name = nicknameField.text
         } else {
             name = friendlyURL
@@ -202,13 +206,12 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkForLogo(in url: URL) {
-        let urlString = url.absoluteString + logoEndpoint
-        let secureUrl = URL(string: urlString.secureURLString())!
-        var request = URLRequest(url: secureUrl)
+        let urlWithEndpoint = url.appendingPathComponent(logoEndpoint)
+        var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "HEAD"
         
         URLSession(configuration: .default).dataTask(with: request) { (_, response, error) in
-            print("LOGO:\(secureUrl)")
+            print("LOGO:\(urlWithEndpoint)")
             guard error == nil else {
                 // server down
                 print(error?.localizedDescription)

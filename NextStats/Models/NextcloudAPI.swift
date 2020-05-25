@@ -43,8 +43,12 @@ struct NextServer: Codable {
     
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
-    func imageURL() -> String {
-        return friendlyURL.secureURLString() + logoEndpoint
+    func imageURL() -> URL {
+        let url = URL(string: URLString)!
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.path = ""
+        
+        return (components.url?.appendingPathComponent(logoEndpoint))!
     }
     
     func imagePath() -> String {

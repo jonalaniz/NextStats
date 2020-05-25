@@ -10,10 +10,10 @@ import UIKit
 import WebKit
 
 extension String {
-    // Replace http:// with https://
-    func secureURLString() -> String {
+    // Add https
+    func addDomainPrefix() -> String {
         if self.hasPrefix("http://") {
-            return self.replacingOccurrences(of: "http://", with: "https://")
+            return "https://" + self
         } else if self.hasPrefix("https://") {
             return self
         } else {
@@ -21,9 +21,22 @@ extension String {
         }
     }
     
+    func addIPPrefix() -> String {
+        if self.hasPrefix("http://") {
+            return self
+        } else {
+            return "http://" + self
+        }
+    }
+    
     // Remove https://
     func makeFriendlyURL() -> String {
-        return self.replacingOccurrences(of: "https://", with: "")
+        if self.hasPrefix("https://") {
+            return self.replacingOccurrences(of: "https://", with: "")
+        } else {
+            return self.replacingOccurrences(of: "http://", with: "")
+        }
+        
     }
 }
 

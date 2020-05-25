@@ -37,8 +37,11 @@ class ServerCell: UITableViewCell {
     // ----------------------------------------------------------------------------
     
     func ping() {
-        if let url = URL(string: (server?.friendlyURL.secureURLString())!) {
-            var request = URLRequest(url: url)
+        if let url = URL(string: server!.URLString) {
+            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+            components.path = ""
+            
+            var request = URLRequest(url: components.url!)
             request.httpMethod = "HEAD"
             
             URLSession(configuration: .default).dataTask(with: request) { (_, response, error) in
@@ -58,6 +61,7 @@ class ServerCell: UITableViewCell {
                 self.setOnlineStatus(to: true)
                 
             }.resume()
+            
         }
     }
     
@@ -104,7 +108,7 @@ class ServerCell: UITableViewCell {
     
     func downloadImage(to path: String) {
         self.logoImage.isHidden = true
-        let url = URL(string: server.imageURL())!
+        let url = server.imageURL()
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) {

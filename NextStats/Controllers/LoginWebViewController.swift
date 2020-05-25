@@ -21,7 +21,6 @@ class LoginWebViewController: UIViewController {
         super.viewDidLoad()
         guard let urlString = passedURLString else { return }
         guard let url = URL(string: urlString) else { return }
-
         webView.cleanAllCookies()
         webView.load(URLRequest(url: url))
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
