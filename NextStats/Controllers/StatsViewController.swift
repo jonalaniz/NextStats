@@ -16,17 +16,12 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        statController.delegate = self
-        statController.dataSource = self
-        statController.backgroundColor = .clear
-        statController.sectionHeaderHeight = 40
-        
-        title = server.name
-        let barButton = UIBarButtonItem(customView: activityIndicator)
-        self.navigationItem.setRightBarButton(barButton, animated: true)
         
         getStats()
         activityIndicator.startAnimating()
@@ -45,7 +40,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Begin URLSession
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: request) { (data, response, error) in
-            
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 self.displayErrorAndReturn(error: .noResponse)
@@ -79,9 +73,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 self.activityIndicator.isHidden = true
             }
         } else {
-            DispatchQueue.main.async {
-                self.displayErrorAndReturn(error: .jsonError)
-            }
+            self.displayErrorAndReturn(error: .jsonError)
         }
     }
     
@@ -96,6 +88,17 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func returnToTable(action: UIAlertAction! = nil) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func setupView() {
+        title = server.name
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        self.navigationItem.setRightBarButton(barButton, animated: true)
+        
+        statController.delegate = self
+        statController.dataSource = self
+        statController.backgroundColor = .clear
+        statController.sectionHeaderHeight = 40
     }
     
     // ----------------------------------------------------------------------------
