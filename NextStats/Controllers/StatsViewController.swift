@@ -48,9 +48,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if let error = error {
                 print("Error: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self.displayErrorAndReturn(error: .noResponse)
-                }
+                self.displayErrorAndReturn(error: .noResponse)
             } else {
                 if let response = response as? HTTPURLResponse {
                     switch response.statusCode {
@@ -88,9 +86,12 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func displayErrorAndReturn(error: ServerError) {
-        let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: returnToTable))
-        present(ac, animated: true)
+        DispatchQueue.main.async {
+            let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
+            self.present(ac, animated: true)
+        }
+        
     }
     
     func returnToTable(action: UIAlertAction! = nil) {
