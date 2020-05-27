@@ -69,7 +69,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         authAPIURL = nil
         
         // Safely unwrap urlString
-        guard let urlString = serverURLField.text else { return }
+        guard let urlString = serverURLField.text?.lowercased() else { return }
         
         // Setup and test url
         let urlRegEx = "^(https://|http://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
@@ -222,7 +222,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
             
             guard(response as? HTTPURLResponse)?.statusCode == 200 else {
                 // guard against anything but a 200 OK code
-                print(response)
+                print("Response: \(response)")
                 self.hasCustomLogo = false
                 return
             }
