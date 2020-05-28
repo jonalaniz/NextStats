@@ -94,10 +94,18 @@ struct tableStat {
     }()
     
     mutating func updateStats(with server: Nextcloud, webServer: Server, users: ActiveUsers) {
-        let memory = calculateMemory(freeMemory: server.system!.memFree!, totalMemory: server.system!.memTotal!)
-        let memoryUsage = calculateMemoryUsage(freeMemory: server.system!.memFree!, totalMemory: server.system!.memTotal!)
-        let swap = calculateMemory(freeMemory: server.system!.swapFree!, totalMemory: server.system!.swapTotal!)
-        let swapUsage = calculateMemoryUsage(freeMemory: server.system!.swapFree!, totalMemory: server.system!.swapTotal!)
+        var memory = "N/A"
+        var memoryUsage = "N/A"
+        var swap = "N/A"
+        var swapUsage = "N/A"
+        
+        // If memory values are present, calculate and insert values
+        if server.system?.memTotal?.intValue != nil {
+            memory = calculateMemory(freeMemory: server.system!.memFree!.intValue!, totalMemory: server.system!.memTotal!.intValue!)
+            memoryUsage = calculateMemoryUsage(freeMemory: server.system!.memFree!.intValue!, totalMemory: server.system!.memTotal!.intValue!)
+            swap = calculateMemory(freeMemory: server.system!.swapFree!.intValue!, totalMemory: server.system!.swapTotal!.intValue!)
+            swapUsage = calculateMemoryUsage(freeMemory: server.system!.swapFree!.intValue!, totalMemory: server.system!.swapTotal!.intValue!)
+        }
         
         let freeSpace = (Double(server.system!.freespace!) / 1073741824.0)
         
@@ -224,7 +232,7 @@ struct System: Codable {
     let memcacheDistributed, filelockingEnabled, memcacheLocking, debug: String?
     let freespace: Int?
     let cpuload: [Double]?
-    let memTotal, memFree, swapTotal, swapFree: Int?
+    let memTotal, memFree, swapTotal, swapFree: MemoryValue?
     let apps: Apps?
     
     enum CodingKeys: String, CodingKey {
@@ -256,11 +264,58 @@ struct System: Codable {
         self.debug = try container.decode(String.self, forKey: .debug)
         self.freespace = try container.decode(Int.self, forKey: .freespace)
         self.cpuload = try container.decode([Double].self, forKey: .cpuload)
-        self.memTotal = try container.decode(Int.self, forKey: .memTotal)
-        self.memFree = try container.decode(Int.self, forKey: .memFree)
-        self.swapTotal = try container.decode(Int.self, forKey: .swapTotal)
-        self.swapFree = try container.decode(Int.self, forKey: .swapFree)
+        self.memTotal = try container.decode(MemoryValue.self, forKey: .memTotal)
+        self.memFree = try container.decode(MemoryValue.self, forKey: .memFree)
+        self.swapTotal = try container.decode(MemoryValue.self, forKey: .swapTotal)
+        self.swapFree = try container.decode(MemoryValue.self, forKey: .swapFree)
         self.apps = try container.decode(Apps.self, forKey: .apps)
+    }
+}
+
+// Nextcloud memory values can sometimes be "N/A"
+enum MemoryValue: Codable {
+    case string(String)
+    case int(Int)
+    
+    var stringValue: String? {
+        switch self {
+        case .string(let s):
+            return s
+        default:
+            return nil
+        }
+    }
+    
+    var intValue: Int? {
+        switch self {
+        case .int(let i):
+            return i
+        default:
+            return nil
+        }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let x = try? container.decode(String.self) {
+            self = .string(x)
+            return
+        }
+        if let x = try? container.decode(Int.self) {
+            self = .int(x)
+            return
+        }
+        throw DecodingError.typeMismatch(MemoryValue.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Memory type mismatch"))
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .string(let x):
+            try container.encode(x)
+        case .int(let x):
+            try container.encode(x)
+        }
     }
 }
 
