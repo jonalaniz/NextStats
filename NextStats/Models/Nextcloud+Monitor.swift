@@ -10,6 +10,10 @@ import Foundation
 
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
+// ----------------------------------------------------------------------------
+// MARK: - Server Error Types + Return Strings
+// ----------------------------------------------------------------------------
+
 enum ServerError {
     case unauthorized
     case noResponse
@@ -29,6 +33,10 @@ enum ServerError {
         }
     }
 }
+
+// ----------------------------------------------------------------------------
+// MARK: - Server Monitor API JSON Struct
+// ----------------------------------------------------------------------------
 
 struct tableStat {
     enum StatGroup: String, CaseIterable {
