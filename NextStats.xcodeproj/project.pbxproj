@@ -14,13 +14,14 @@
 		56557EEB23C8B09A008CF684 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56557EE923C8B09A008CF684 /* Main.storyboard */; };
 		56557EED23C8B09C008CF684 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56557EEC23C8B09C008CF684 /* Assets.xcassets */; };
 		56557EF023C8B09C008CF684 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56557EEE23C8B09C008CF684 /* LaunchScreen.storyboard */; };
-		56557EF823C8B556008CF684 /* NextcloudAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF723C8B556008CF684 /* NextcloudAPI.swift */; };
+		56557EF823C8B556008CF684 /* Nextcloud+Monitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF723C8B556008CF684 /* Nextcloud+Monitor.swift */; };
 		56557EFA23CA6E89008CF684 /* LoginWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* LoginWebViewController.swift */; };
 		56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EFF23CA89B9008CF684 /* StatsViewController.swift */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
 		56924DD223F802A70043C9BE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56924DD123F802A70043C9BE /* Extensions.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
+		56BCF6B42487CA8D0048B991 /* Nextcloud+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* Nextcloud+Login.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,13 +34,14 @@
 		56557EEC23C8B09C008CF684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56557EEF23C8B09C008CF684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56557EF123C8B09C008CF684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56557EF723C8B556008CF684 /* NextcloudAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextcloudAPI.swift; sourceTree = "<group>"; };
+		56557EF723C8B556008CF684 /* Nextcloud+Monitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nextcloud+Monitor.swift"; sourceTree = "<group>"; };
 		56557EF923CA6E89008CF684 /* LoginWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebViewController.swift; sourceTree = "<group>"; };
 		56557EFF23CA89B9008CF684 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
+		56BCF6B32487CA8D0048B991 /* Nextcloud+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nextcloud+Login.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +91,8 @@
 		5689894D23D4CF2000D13B12 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56557EF723C8B556008CF684 /* NextcloudAPI.swift */,
+				56557EF723C8B556008CF684 /* Nextcloud+Monitor.swift */,
+				56BCF6B32487CA8D0048B991 /* Nextcloud+Login.swift */,
 				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
 				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
 			);
@@ -188,7 +191,7 @@
 			files = (
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56557EFA23CA6E89008CF684 /* LoginWebViewController.swift in Sources */,
-				56557EF823C8B556008CF684 /* NextcloudAPI.swift in Sources */,
+				56557EF823C8B556008CF684 /* Nextcloud+Monitor.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
@@ -196,6 +199,7 @@
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
 				56924DD223F802A70043C9BE /* Extensions.swift in Sources */,
+				56BCF6B42487CA8D0048B991 /* Nextcloud+Login.swift in Sources */,
 				56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

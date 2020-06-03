@@ -106,28 +106,29 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // ----------------------------------------------------------------------------
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableStatContainer.tableStatsArray[section].stats.count
+        // return tableStatContainer.tableStatsArray[section].stats.count
+        return tableStatContainer.statsArray[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
-        let keys = tableStatContainer.keys[indexPath.section]
-        let key = keys[indexPath.row]
+        let section = indexPath.section
+        let row = indexPath.row
         
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.textColor = .white
-        cell.textLabel?.text = key
-        cell.detailTextLabel?.text = tableStatContainer.tableStatsArray[indexPath.section].stats[key]
+        cell.textLabel?.text = tableStatContainer.getStatLabel(forRow: row, inSection: section)
+        cell.detailTextLabel?.text = tableStatContainer.statsArray[section][row]
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return tableStatContainer.tableStatsArray.count
+        return tableStatContainer.statsArray.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableStatContainer.tableStatsArray[section].statGroupType
+        return tableStat.StatGroup.allCases[section].rawValue
     }
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

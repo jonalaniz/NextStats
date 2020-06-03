@@ -7,11 +7,8 @@
 //
 
 import Foundation
-import UIKit
 
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
-let loginEndpoint = "/index.php/login/v2"
-let logoEndpoint = "/index.php/apps/theming/image/logo"
 
 enum ServerError {
     case unauthorized
@@ -33,69 +30,50 @@ enum ServerError {
     }
 }
 
-struct NextServer: Codable {
-    let name: String
-    let friendlyURL: String
-    let URLString: String
-    let username: String
-    let password: String
-    let hasCustomLogo: Bool
-    
-    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    
-    func imageURL() -> URL {
-        let url = URL(string: URLString)!
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path = ""
-        
-        return (components.url?.appendingPathComponent(logoEndpoint))!
-    }
-    
-    func imagePath() -> String {
-        return documentsDirectory.appendingPathComponent("\(friendlyURL).png", isDirectory: true).path
-    }
-    
-    func imageCached() -> Bool {
-        let path = imagePath()
-        if FileManager.default.fileExists(atPath: path) {
-            print(FileManager.default.fileExists(atPath: path))
-            return true
-        } else {
-            print(FileManager.default.fileExists(atPath: path))
-            return false
-        }
-    }
-    
-    func cachedImage() -> UIImage {
-        return UIImage(contentsOfFile: imagePath())!
-    }
-}
-
 struct tableStat {
-    struct tableStatGroup {
-        let statGroupType: String
-        var stats: [String: String]
+    enum StatGroup: String, CaseIterable {
+        case system = "System"
+        case storage = "Storage"
+        case server = "Server"
+        case activeUsers = "Active Users"
     }
     
-    enum StatGroup: Hashable {
-        
+    enum System: String, CaseIterable {
+        case version = "Version"
+        case cpuLoad = "CPU Load"
+        case memoryUsage = "Memory Usage"
+        case memory = "Memory"
+        case swapUsage = "Swap Usage"
+        case swap = "Swap"
+        case localCache = "Local Cache"
+        case distributedCache = "Distributed Cache"
     }
-    
-    let keys = [
-        ["Version", "CPU Load", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"],
-        ["Free Space", "Number of Files"],
-        ["Webserver", "PHP Version", "Database", "Database Version"],
-        ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
+
+    enum Storage: String, CaseIterable {
+        case freeSpace = "Free Space"
+        case numberOfFiles = "Number of Files"
+    }
+
+    enum ServerEnum: String, CaseIterable {
+        case webServer = "Web Server"
+        case phpVersion = "PHP Version"
+        case database = "Database"
+        case databaseVersion = "Database Version"
+    }
+
+    enum ActiveUsersEnum: String, CaseIterable {
+        case last5Minutes = "Last 5 Minutes"
+        case lastHour = "Last Hour"
+        case lastDay = "Last Day"
+        case total = "Total"
+    }
+
+    var statsArray = [
+        Array(repeating: "...", count: System.allCases.count),
+        Array(repeating: "...", count: Storage.allCases.count),
+        Array(repeating: "...", count: ServerEnum.allCases.count),
+        Array(repeating: "...", count: ActiveUsersEnum.allCases.count)
     ]
-    
-    var tableStatsArray: [tableStatGroup] = {
-        let system = tableStatGroup(statGroupType: "System", stats: ["Version": "...", "CPU Load": "...", "Memory Usage": "...", "Memory": "...", "Swap Usage": "...", "Swap": "...", "Local Cache": "...", "Distributed Cache": "..."])
-        let storage = tableStatGroup(statGroupType: "Storage", stats: ["Free Space": "...", "Number of Files": "..."])
-        let server = tableStatGroup(statGroupType: "Server", stats: ["Webserver": "...", "PHP Version": "...", "Database": "...", "Database Version": "..."])
-        let activeUsers = tableStatGroup(statGroupType: "Active Users", stats: ["Last 5 Minutes": "...", "Last Hour": "...", "Last Day": "...", "Total": "..."])
-        
-        return [system, storage, server, activeUsers]
-    }()
     
     mutating func updateStats(with server: Nextcloud, webServer: Server, users: ActiveUsers) {
         var memory = "N/A"
@@ -120,27 +98,45 @@ struct tableStat {
         let lastDay = String(users.last24Hours!)
         let total = String(server.storage!.numUsers!)
         
-        tableStatsArray[0].stats["Version"] = server.system?.version
-        tableStatsArray[0].stats["CPU Load"] = doubleArrayToString(array: server.system!.cpuload!)
-        tableStatsArray[0].stats["Memory Usage"] = memoryUsage
-        tableStatsArray[0].stats["Memory"] = memory
-        tableStatsArray[0].stats["Swap Usage"] = swapUsage
-        tableStatsArray[0].stats["Swap"] = swap
-        tableStatsArray[0].stats["Local Cache"] = server.system?.memcacheLocal
-        tableStatsArray[0].stats["Distributed Cache"] = server.system?.memcacheDistributed
+        print("StatsGroup[\(StatGroup.system.hashValue)], System[\(System.version.hashValue)]")
+        statsArray[StatGroup.system.index!][System.version.index!] = (server.system?.version) ?? "N/A"
+        statsArray[StatGroup.system.index!][System.cpuLoad.index!] = doubleArrayToString(array: server.system!.cpuload!)
+        statsArray[StatGroup.system.index!][System.memoryUsage.index!] = memoryUsage
+        statsArray[StatGroup.system.index!][System.memory.index!] = memory
+        statsArray[StatGroup.system.index!][System.swapUsage.index!] = swapUsage
+        statsArray[StatGroup.system.index!][System.swap.index!] = swap
+        statsArray[StatGroup.system.index!][System.localCache.index!] = (server.system?.memcacheLocal) ?? "N/A"
+        statsArray[StatGroup.system.index!][System.distributedCache.index!] = server.system?.memcacheDistributed ?? "N/A"
         
-        tableStatsArray[1].stats["Free Space"] = "\(String(format: "%.2f", freeSpace)) GB"
-        tableStatsArray[1].stats["Number of Files"] = String(numberOfFiles)
+        statsArray[StatGroup.storage.index!][Storage.freeSpace.index!] = "\(String(format: "%.2f", freeSpace)) GB"
+        statsArray[StatGroup.storage.index!][Storage.numberOfFiles.index!] = String(numberOfFiles)
         
-        tableStatsArray[2].stats["Webserver"] = webServer.webserver
-        tableStatsArray[2].stats["PHP Version"] = webServer.php?.version
-        tableStatsArray[2].stats["Database"] = webServer.database?.type
-        tableStatsArray[2].stats["Database Version"] = webServer.database?.version
+        statsArray[StatGroup.server.index!][ServerEnum.webServer.index!] = webServer.webserver ?? "N/A"
+        statsArray[StatGroup.server.index!][ServerEnum.phpVersion.index!] = webServer.php?.version ?? "N/A"
+        statsArray[StatGroup.server.index!][ServerEnum.database.index!] = webServer.database?.type ?? "N/A"
+        statsArray[StatGroup.server.index!][ServerEnum.databaseVersion.index!] = webServer.database?.version ?? "N/A"
         
-        tableStatsArray[3].stats["Last 5 Minutes"] = last5
-        tableStatsArray[3].stats["Last Hour"] = lastHour
-        tableStatsArray[3].stats["Last Day"] = lastDay
-        tableStatsArray[3].stats["Total"] = total
+        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.last5Minutes.index!] = last5
+        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.lastHour.index!] = lastHour
+        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.lastDay.index!] = lastDay
+        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.total.index!] = total
+    }
+    
+    func calculateMemory(freeMemory: Int, totalMemory: Int) -> String {
+        let totalGB = Double(totalMemory) / 1048576.0
+        let totalFree = Double(freeMemory) / 1048576.0
+        let memoryUsed = totalGB - totalFree
+        let memoryString = "\(String(format: "%.2f", memoryUsed))/\(String(format: "%.2f", totalGB)) GB"
+        
+        return memoryString
+    }
+    
+    func calculateMemoryUsage(freeMemory: Int, totalMemory: Int) -> String {
+        let memoryUsed = totalMemory - freeMemory
+        let doubleUsage: Double = (Double(memoryUsed) / Double(totalMemory)) * 100
+        let usage = Int(doubleUsage)
+        
+        return "\(usage)%"
     }
     
     func doubleArrayToString(array: [Double]) -> String {
@@ -163,41 +159,33 @@ struct tableStat {
         }
     }
     
-    func calculateMemory(freeMemory: Int, totalMemory: Int) -> String {
-        let totalGB = Double(totalMemory) / 1048576.0
-        let totalFree = Double(freeMemory) / 1048576.0
-        let memoryUsed = totalGB - totalFree
-        let memoryString = "\(String(format: "%.2f", memoryUsed))/\(String(format: "%.2f", totalGB)) GB"
-        
-        return memoryString
+    func getStatLabel(forRow row: Int, inSection section: Int) -> String {
+        switch section {
+        case 0:
+            return System.allCases[row].rawValue
+        case 1:
+            return Storage.allCases[row].rawValue
+        case 2:
+            return ServerEnum.allCases[row].rawValue
+        case 3:
+            return ActiveUsersEnum.allCases[row].rawValue
+        default:
+            return "You shouldn't be here"
+        }
     }
     
-    func calculateMemoryUsage(freeMemory: Int, totalMemory: Int) -> String {
-        let memoryUsed = totalMemory - freeMemory
-        let doubleUsage: Double = (Double(memoryUsed) / Double(totalMemory)) * 100
-        let usage = Int(doubleUsage)
-        
-        return "\(usage)%"
+    func getArrayIndex(for group: StatGroup) -> Int {
+        switch group {
+        case .system:
+            return 0
+        case .storage:
+            return 1
+        case .server:
+            return 2
+        case .activeUsers:
+            return 3
+        }
     }
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - Authorization Structs - For use when adding server
-// ----------------------------------------------------------------------------
-struct AuthResponse: Codable {
-    let poll: Poll?
-    let login: String?
-}
-
-struct Poll: Codable {
-    let token: String?
-    let endpoint: String?
-}
-
-struct ServerAuthenticationInfo: Codable {
-    let server: String?
-    let loginName: String?
-    let appPassword: String?
 }
 
 // ----------------------------------------------------------------------------
