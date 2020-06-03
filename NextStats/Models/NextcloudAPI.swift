@@ -77,6 +77,10 @@ struct tableStat {
         var stats: [String: String]
     }
     
+    enum StatGroup: Hashable {
+        
+    }
+    
     let keys = [
         ["Version", "CPU Load", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"],
         ["Free Space", "Number of Files"],
