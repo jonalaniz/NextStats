@@ -111,6 +111,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     statController.backgroundColor = .clear
                     statController.sectionHeaderHeight = 40
                     statController.isHidden = false
+                    isInitialLoad = false
                 } else {
                     title = ""
                     statController.isHidden = true
@@ -161,7 +162,7 @@ extension StatsViewController: ServerSelectionDelegate {
         server = newServer
         title = server.name
         setupView(withData: true)
-        isInitialLoad = false
+        //isInitialLoad = false
         getStats()
     }
 }
