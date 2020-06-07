@@ -33,6 +33,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicator.color = .white
         activityIndicator.startAnimating()
     }
     
@@ -100,21 +101,25 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     private func setupView(withData data: Bool) {
-        if data {
-            title = server.name
-            navigationController?.isNavigationBarHidden = false
-            let barButton = UIBarButtonItem(customView: activityIndicator)
-            self.navigationItem.setRightBarButton(barButton, animated: true)
-            
-            statController.isHidden = false
-            statController.delegate = self
-            statController.dataSource = self
-            statController.backgroundColor = .clear
-            statController.sectionHeaderHeight = 40
-        } else {
-            title = ""
-            statController.isHidden = true
-            navigationController?.isNavigationBarHidden = true
+        // Check if statController is instantiated
+        // Keeps iPhone from crashinga
+        if statController != nil {
+            if data {
+                title = server.name
+                navigationController?.isNavigationBarHidden = false
+                let barButton = UIBarButtonItem(customView: activityIndicator)
+                self.navigationItem.setRightBarButton(barButton, animated: true)
+                
+                statController.delegate = self
+                statController.dataSource = self
+                statController.backgroundColor = .clear
+                statController.sectionHeaderHeight = 40
+                statController.isHidden = false
+            } else {
+                title = ""
+                statController.isHidden = true
+                navigationController?.isNavigationBarHidden = true
+            }
         }
         
     }
