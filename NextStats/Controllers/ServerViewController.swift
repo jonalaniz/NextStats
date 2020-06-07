@@ -20,7 +20,6 @@ class ServerViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         title = "Servers"
         setupUI()
-        
     }
     
     override func viewDidLoad() {
@@ -29,6 +28,10 @@ class ServerViewController: UITableViewController {
         if let data = KeychainWrapper.standard.data(forKey:"servers") {
             if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
                 servers = savedServers
+                // Sort the server array - This is only necessary for legacy users
+                servers.sort {
+                    $0.name < $1.name
+                }
             }
         }
         
@@ -65,6 +68,11 @@ class ServerViewController: UITableViewController {
     func returned(with server: NextServer) {
         // Append the new server to the servers array.
         servers.append(server)
+        
+        // Sort Servers by friendlyURL before saving
+        servers.sort {
+            $0.name < $1.name
+        }
         
         // Save servers to keychain encoded as data
         KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
