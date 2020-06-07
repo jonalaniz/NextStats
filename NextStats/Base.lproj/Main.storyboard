@@ -318,7 +318,7 @@
             </objects>
             <point key="canvasLocation" x="1159" y="1267"/>
         </scene>
-        <!--Jon's Server-->
+        <!--Stats View Controller-->
         <scene sceneID="ikq-4c-OX1">
             <objects>
                 <viewController storyboardIdentifier="StatsView" automaticallyAdjustsScrollViewInsets="NO" id="C0e-Ti-2rV" customClass="StatsViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
@@ -368,7 +368,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GPQ-al-gDb"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Jon's Server" largeTitleDisplayMode="always" id="EpF-b1-Qp0"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="EpF-b1-Qp0"/>
                     <connections>
                         <outlet property="statController" destination="zhs-Sd-KzE" id="GjB-XN-XZe"/>
                     </connections>

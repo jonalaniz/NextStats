@@ -11,13 +11,9 @@ import UIKit
 class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var statController: UITableView!
     
-    var server: NextServer! {
-        didSet {
-            setupView(withData: true)
-            getStats()
-        }
-    }
+    var server: NextServer!
     var tableStatContainer = tableStat()
+    var isInitialLoad = true
 
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
@@ -27,7 +23,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             setupView(withData: false)
         }
-        
     }
     
     override func viewDidLoad() {
@@ -101,27 +96,28 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     private func setupView(withData data: Bool) {
-        // Check if statController is instantiated
-        // Keeps iPhone from crashinga
-        if statController != nil {
-            if data {
-                title = server.name
-                navigationController?.isNavigationBarHidden = false
-                let barButton = UIBarButtonItem(customView: activityIndicator)
-                self.navigationItem.setRightBarButton(barButton, animated: true)
-                
-                statController.delegate = self
-                statController.dataSource = self
-                statController.backgroundColor = .clear
-                statController.sectionHeaderHeight = 40
-                statController.isHidden = false
-            } else {
-                title = ""
-                statController.isHidden = true
-                navigationController?.isNavigationBarHidden = true
+        // Check if initialized with data
+        if isInitialLoad {
+            // Check if statController is instantiated
+            // Keeps iPhone from crashing
+            if statController != nil {
+                if data {
+                    navigationController?.isNavigationBarHidden = false
+                    let barButton = UIBarButtonItem(customView: activityIndicator)
+                    self.navigationItem.setRightBarButton(barButton, animated: true)
+                    
+                    statController.delegate = self
+                    statController.dataSource = self
+                    statController.backgroundColor = .clear
+                    statController.sectionHeaderHeight = 40
+                    statController.isHidden = false
+                } else {
+                    title = ""
+                    statController.isHidden = true
+                    navigationController?.isNavigationBarHidden = true
+                }
             }
         }
-        
     }
     
     // ----------------------------------------------------------------------------
@@ -163,5 +159,9 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 extension StatsViewController: ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer) {
         server = newServer
+        title = server.name
+        setupView(withData: true)
+        isInitialLoad = false
+        getStats()
     }
 }
