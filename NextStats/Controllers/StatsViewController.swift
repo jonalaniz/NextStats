@@ -29,10 +29,11 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         
         activityIndicator.color = .white
-        activityIndicator.startAnimating()
     }
     
     func getStats() {
+        activityIndicator.startAnimating()
+        
         // Prepare the user authentication credentials
         let passwordData = "\(server.username):\(server.password)".data(using: .utf8)
         let base64PasswordData = passwordData?.base64EncodedString()
@@ -162,7 +163,6 @@ extension StatsViewController: ServerSelectionDelegate {
         server = newServer
         title = server.name
         setupView(withData: true)
-        //isInitialLoad = false
         getStats()
     }
 }
