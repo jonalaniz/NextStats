@@ -11,19 +11,28 @@ import UIKit
 class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var statController: UITableView!
     
-    var server: NextServer!
+    var server: NextServer! {
+        didSet {
+            setupView(withData: true)
+            getStats()
+        }
+    }
     var tableStatContainer = tableStat()
 
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
     override func viewWillAppear(_ animated: Bool) {
-        setupView()
+        if (server != nil) {
+            setupView(withData: true)
+        } else {
+            setupView(withData: false)
+        }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getStats()
         activityIndicator.startAnimating()
     }
     
@@ -90,15 +99,24 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.popViewController(animated: true)
     }
     
-    private func setupView() {
-        title = server.name
-        let barButton = UIBarButtonItem(customView: activityIndicator)
-        self.navigationItem.setRightBarButton(barButton, animated: true)
+    private func setupView(withData data: Bool) {
+        if data {
+            title = server.name
+            navigationController?.isNavigationBarHidden = false
+            let barButton = UIBarButtonItem(customView: activityIndicator)
+            self.navigationItem.setRightBarButton(barButton, animated: true)
+            
+            statController.isHidden = false
+            statController.delegate = self
+            statController.dataSource = self
+            statController.backgroundColor = .clear
+            statController.sectionHeaderHeight = 40
+        } else {
+            title = ""
+            statController.isHidden = true
+            navigationController?.isNavigationBarHidden = true
+        }
         
-        statController.delegate = self
-        statController.dataSource = self
-        statController.backgroundColor = .clear
-        statController.sectionHeaderHeight = 40
     }
     
     // ----------------------------------------------------------------------------
@@ -106,7 +124,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // ----------------------------------------------------------------------------
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return tableStatContainer.tableStatsArray[section].stats.count
         return tableStatContainer.statsArray[section].count
     }
     
@@ -128,12 +145,18 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableStat.StatGroup.allCases[section].rawValue
+        return StatGroup.allCases[section].rawValue
     }
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).backgroundView = UIView(frame: view.bounds)
         (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor(red: 22/255, green: 24/255, blue: 39/255, alpha: 1)
         (view as! UITableViewHeaderFooterView).textLabel?.textColor = .white
+    }
+}
+
+extension StatsViewController: ServerSelectionDelegate {
+    func serverSelected(_ newServer: NextServer) {
+        server = newServer
     }
 }

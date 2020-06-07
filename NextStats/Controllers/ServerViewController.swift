@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol ServerSelectionDelegate: class {
+    func serverSelected(_ newServer: NextServer)
+}
+
 class ServerViewController: UITableViewController {
     
+    weak var delegate: ServerSelectionDelegate?
     var servers = [NextServer]()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,9 +103,11 @@ class ServerViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(identifier: "StatsView") as? StatsViewController {
-            vc.server = servers[indexPath.row]
-            navigationController?.pushViewController(vc, animated: true)
+        let selectedServer = servers[indexPath.row]
+        delegate?.serverSelected(selectedServer)
+        
+        if let statViewController = delegate as? StatsViewController, let statNavigationController = statViewController.navigationController {
+            splitViewController?.showDetailViewController(statNavigationController, sender: nil)
         }
     }
     

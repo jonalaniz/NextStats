@@ -11,9 +11,10 @@ import Foundation
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
 // ----------------------------------------------------------------------------
-// MARK: - Server Error Types + Return Strings
+// MARK: - Enums
 // ----------------------------------------------------------------------------
 
+// Server Error Types + Return Strings
 enum ServerError {
     case unauthorized
     case noResponse
@@ -34,51 +35,53 @@ enum ServerError {
     }
 }
 
+// Stat enums for tableview
+enum StatGroup: String, CaseIterable {
+    case system = "System"
+    case storage = "Storage"
+    case server = "Server"
+    case activeUsers = "Active Users"
+}
+
+enum SystemEnum: String, CaseIterable {
+    case version = "Version"
+    case cpuLoad = "CPU Load"
+    case memoryUsage = "Memory Usage"
+    case memory = "Memory"
+    case swapUsage = "Swap Usage"
+    case swap = "Swap"
+    case localCache = "Local Cache"
+    case distributedCache = "Distributed Cache"
+}
+
+enum StorageEnum: String, CaseIterable {
+    case freeSpace = "Free Space"
+    case numberOfFiles = "Number of Files"
+}
+
+enum ServerEnum: String, CaseIterable {
+    case webServer = "Web Server"
+    case phpVersion = "PHP Version"
+    case database = "Database"
+    case databaseVersion = "Database Version"
+}
+
+enum ActiveUsersEnum: String, CaseIterable {
+    case last5Minutes = "Last 5 Minutes"
+    case lastHour = "Last Hour"
+    case lastDay = "Last Day"
+    case total = "Total"
+}
+
 // ----------------------------------------------------------------------------
-// MARK: - Server Monitor API JSON Struct
+// MARK: - Monitor Struct for TableView
 // ----------------------------------------------------------------------------
 
 struct tableStat {
-    enum StatGroup: String, CaseIterable {
-        case system = "System"
-        case storage = "Storage"
-        case server = "Server"
-        case activeUsers = "Active Users"
-    }
-    
-    enum System: String, CaseIterable {
-        case version = "Version"
-        case cpuLoad = "CPU Load"
-        case memoryUsage = "Memory Usage"
-        case memory = "Memory"
-        case swapUsage = "Swap Usage"
-        case swap = "Swap"
-        case localCache = "Local Cache"
-        case distributedCache = "Distributed Cache"
-    }
-
-    enum Storage: String, CaseIterable {
-        case freeSpace = "Free Space"
-        case numberOfFiles = "Number of Files"
-    }
-
-    enum ServerEnum: String, CaseIterable {
-        case webServer = "Web Server"
-        case phpVersion = "PHP Version"
-        case database = "Database"
-        case databaseVersion = "Database Version"
-    }
-
-    enum ActiveUsersEnum: String, CaseIterable {
-        case last5Minutes = "Last 5 Minutes"
-        case lastHour = "Last Hour"
-        case lastDay = "Last Day"
-        case total = "Total"
-    }
 
     var statsArray = [
-        Array(repeating: "...", count: System.allCases.count),
-        Array(repeating: "...", count: Storage.allCases.count),
+        Array(repeating: "...", count: SystemEnum.allCases.count),
+        Array(repeating: "...", count: StorageEnum.allCases.count),
         Array(repeating: "...", count: ServerEnum.allCases.count),
         Array(repeating: "...", count: ActiveUsersEnum.allCases.count)
     ]
@@ -106,18 +109,17 @@ struct tableStat {
         let lastDay = String(users.last24Hours!)
         let total = String(server.storage!.numUsers!)
         
-        print("StatsGroup[\(StatGroup.system.hashValue)], System[\(System.version.hashValue)]")
-        statsArray[StatGroup.system.index!][System.version.index!] = (server.system?.version) ?? "N/A"
-        statsArray[StatGroup.system.index!][System.cpuLoad.index!] = doubleArrayToString(array: server.system!.cpuload!)
-        statsArray[StatGroup.system.index!][System.memoryUsage.index!] = memoryUsage
-        statsArray[StatGroup.system.index!][System.memory.index!] = memory
-        statsArray[StatGroup.system.index!][System.swapUsage.index!] = swapUsage
-        statsArray[StatGroup.system.index!][System.swap.index!] = swap
-        statsArray[StatGroup.system.index!][System.localCache.index!] = (server.system?.memcacheLocal) ?? "N/A"
-        statsArray[StatGroup.system.index!][System.distributedCache.index!] = server.system?.memcacheDistributed ?? "N/A"
+        statsArray[StatGroup.system.index!][SystemEnum.version.index!] = (server.system?.version) ?? "N/A"
+        statsArray[StatGroup.system.index!][SystemEnum.cpuLoad.index!] = doubleArrayToString(array: server.system!.cpuload!)
+        statsArray[StatGroup.system.index!][SystemEnum.memoryUsage.index!] = memoryUsage
+        statsArray[StatGroup.system.index!][SystemEnum.memory.index!] = memory
+        statsArray[StatGroup.system.index!][SystemEnum.swapUsage.index!] = swapUsage
+        statsArray[StatGroup.system.index!][SystemEnum.swap.index!] = swap
+        statsArray[StatGroup.system.index!][SystemEnum.localCache.index!] = (server.system?.memcacheLocal) ?? "N/A"
+        statsArray[StatGroup.system.index!][SystemEnum.distributedCache.index!] = server.system?.memcacheDistributed ?? "N/A"
         
-        statsArray[StatGroup.storage.index!][Storage.freeSpace.index!] = "\(String(format: "%.2f", freeSpace)) GB"
-        statsArray[StatGroup.storage.index!][Storage.numberOfFiles.index!] = String(numberOfFiles)
+        statsArray[StatGroup.storage.index!][StorageEnum.freeSpace.index!] = "\(String(format: "%.2f", freeSpace)) GB"
+        statsArray[StatGroup.storage.index!][StorageEnum.numberOfFiles.index!] = String(numberOfFiles)
         
         statsArray[StatGroup.server.index!][ServerEnum.webServer.index!] = webServer.webserver ?? "N/A"
         statsArray[StatGroup.server.index!][ServerEnum.phpVersion.index!] = webServer.php?.version ?? "N/A"
@@ -169,13 +171,13 @@ struct tableStat {
     
     func getStatLabel(forRow row: Int, inSection section: Int) -> String {
         switch section {
-        case 0:
-            return System.allCases[row].rawValue
-        case 1:
-            return Storage.allCases[row].rawValue
-        case 2:
+        case StatGroup.system.index:
+            return SystemEnum.allCases[row].rawValue
+        case StatGroup.storage.index:
+            return StorageEnum.allCases[row].rawValue
+        case StatGroup.server.index:
             return ServerEnum.allCases[row].rawValue
-        case 3:
+        case StatGroup.activeUsers.index:
             return ActiveUsersEnum.allCases[row].rawValue
         default:
             return "You shouldn't be here"
