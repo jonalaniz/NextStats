@@ -15,7 +15,7 @@ class LoginWebViewController: UIViewController {
     var passedURLString: String?
     var passedPollURL: URL?
     var passedToken: String?
-    var shouldStillPoll = true
+    var shouldContinuePolling = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class LoginWebViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         mainViewController?.returned()
-        shouldStillPoll = false
+        shouldContinuePolling = false
     }
     
     func pollForCredentials() {
@@ -51,13 +51,13 @@ class LoginWebViewController: UIViewController {
         request.httpBody = (tokenPrefix + token).data(using: .utf8)
         
         let task = URLSession.shared.dataTask(with: request) {
-            (data, resposne, error) in
+            (data, response, error) in
             if let error = error {
                 print("Error: \(error)")
             } else {
-                if let response = resposne as? HTTPURLResponse {
+                if let response = response as? HTTPURLResponse {
                     if response.statusCode != 200 {
-                        if self.shouldStillPoll {
+                        if self.shouldContinuePolling {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 self.pollForCredentials()
                             }
