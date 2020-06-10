@@ -15,10 +15,17 @@ protocol ServerSelectionDelegate: class {
 class ServerViewController: UITableViewController {
     
     weak var delegate: ServerSelectionDelegate?
-    var servers = [NextServer]()
+    var initialLoad = true
+    
+    var servers = [NextServer]() {
+        didSet {
+            servers.sort {
+                $0.name < $1.name
+            }
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
-        title = "Servers"
         setupUI()
     }
     
@@ -28,13 +35,8 @@ class ServerViewController: UITableViewController {
         if let data = KeychainWrapper.standard.data(forKey:"servers") {
             if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
                 servers = savedServers
-                // Sort the server array - This is only necessary for legacy users
-                servers.sort {
-                    $0.name < $1.name
-                }
             }
         }
-        
     }
     
     private func setupUI() {
@@ -69,14 +71,8 @@ class ServerViewController: UITableViewController {
         // Append the new server to the servers array.
         servers.append(server)
         
-        // Sort Servers by friendlyURL before saving
-        servers.sort {
-            $0.name < $1.name
-        }
-        
         // Save servers to keychain encoded as data
         KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
-        
         tableView.reloadData()
     }
     
