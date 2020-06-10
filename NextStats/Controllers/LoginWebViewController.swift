@@ -9,13 +9,18 @@
 import UIKit
 import WebKit
 
+protocol CaptureServerCredentialsDelegate: class {
+    func captureServerCredentials(with credentials: ServerAuthenticationInfo?)
+}
+
 class LoginWebViewController: UIViewController {
-    var mainViewController: AddServerViewController?
     var webView: WKWebView!
     var passedURLString: String?
     var passedPollURL: URL?
     var passedToken: String?
     var shouldContinuePolling = true
+    
+    weak var delegate: CaptureServerCredentialsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +39,11 @@ class LoginWebViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        mainViewController?.returned()
-        shouldContinuePolling = false
+        // If server credentials were not captured, call the captureServerCredentials with nill
+        if shouldContinuePolling {
+            self.delegate?.captureServerCredentials(with: nil)
+            shouldContinuePolling = false
+        }
     }
     
     func pollForCredentials() {
@@ -66,21 +74,20 @@ class LoginWebViewController: UIViewController {
                     print("Poll Status Code: \(response.statusCode)")
                 }
                 if let data = data {
-                    self.getCredentialsFromJSON(json: data)
+                    self.decodeCredentialsFrom(json: data)
                 }
             }
         }
         task.resume()
     }
     
-    func getCredentialsFromJSON(json: Data) {
+    func decodeCredentialsFrom(json: Data) {
         let decoder = JSONDecoder()
         if let jsonStream = try? decoder.decode(ServerAuthenticationInfo.self, from: json) {
             DispatchQueue.main.async {
                 print(jsonStream)
-                self.mainViewController?.username = jsonStream.loginName
-                self.mainViewController?.appPassword = jsonStream.appPassword
-                self.mainViewController?.serverURL = jsonStream.server
+                self.delegate?.captureServerCredentials(with: jsonStream)
+                self.shouldContinuePolling = false
                 self.dismiss(animated: true)
             }
         }

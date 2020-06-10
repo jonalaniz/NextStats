@@ -25,12 +25,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             let detailViewController = (splitViewController.viewControllers.last as? UINavigationController)?.topViewController as? StatsViewController
         else { fatalError()}
         splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.view.backgroundColor = .black
         masterViewController.delegate = detailViewController
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = .allVisible
-        // MARK TODO: Select first server if available, else show instructions
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

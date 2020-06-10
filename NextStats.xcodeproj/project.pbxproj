@@ -102,8 +102,8 @@
 		5689894E23D4CF3400D13B12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
 				56557EF923CA6E89008CF684 /* LoginWebViewController.swift */,
+				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
 				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 			);

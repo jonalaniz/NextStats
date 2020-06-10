@@ -25,9 +25,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     var authAPIURL: URL?
     
     let placeholderTextColor = UIColor(red: 149/255, green: 152/255, blue: 167/255, alpha: 0.4)
-    
-    var webViewOpened = false
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         setupUI()
     }
@@ -48,7 +46,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         initiateAuthURLRequest(withURL: url)
         checkForLogo(in: url)
         
-        activateSpinner()
+        spinner.activate()
         
         // Invalidate the url in case user returns and needs to enter again
         authAPIURL = nil
@@ -157,55 +155,22 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     }
     
     // ----------------------------------------------------------------------------
-    // MARK: - Server Capture Step 2: Load Login
+    // MARK: - Server Capture Step 2: Load LoginViewController
     // ----------------------------------------------------------------------------
     
     func loadLoginView(with urlString: String, pollURL: URL, token: String) {
-        webViewOpened = true
         let vc = LoginWebViewController()
         vc.passedURLString = urlString
         vc.passedPollURL = pollURL
         vc.passedToken = token
-        vc.mainViewController = self
-        vc.modalPresentationStyle = .automatic
+        vc.delegate = self
         self.present(vc, animated: true)
     }
     
     // ----------------------------------------------------------------------------
-    // MARK: - Server Capture Step 3: Capture or Reset
+    // MARK: - Server Capture Step 3: Check for Logo
     // ----------------------------------------------------------------------------
-    
-    func returned() {
-        // Called when view is returned to from webView. Test if data was succesfully captured.
-        deactivateSpinner()
-        
-        if webViewOpened {
-            if username != nil && appPassword != nil && serverURL != nil {
-                statusLabel.text = "success"
-                finalizeServer()
-            } else {
-                statusLabel.text = "authentication canceled"
-            }
-        }
-    }
-    
-    func finalizeServer() {
-        // Assemble captured server data and return server object to Main controller.
-        let name: String!
-        let friendlyURL = serverURL?.makeFriendlyURL()
-        
-        if nicknameField.text != nil && nicknameField.text != "" {
-            name = nicknameField.text
-        } else {
-            name = friendlyURL
-        }
-        
-        let server = NextServer(name: name, friendlyURL: friendlyURL!, URLString: serverURL! + statEndpoint, username: username!, password: appPassword!, hasCustomLogo: hasCustomLogo!)
-        
-        mainViewController?.returned(with: server)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
     func checkForLogo(in url: URL) {
         let urlWithEndpoint = url.appendingPathComponent(logoEndpoint)
         var request = URLRequest(url: urlWithEndpoint)
@@ -258,13 +223,8 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = UITextField.ViewMode.always
-
         textField.borderStyle = .none
         textField.layoutIfNeeded()
-    }
-    
-    func activateSpinner() {
-        spinner.activate()
     }
     
     func deactivateSpinner() {
@@ -281,4 +241,28 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return .lightContent
     }
     
+}
+
+extension AddServerViewController: CaptureServerCredentialsDelegate {
+    func captureServerCredentials(with credentials: ServerAuthenticationInfo?) {
+        if let serverURL = credentials?.server, let username = credentials?.loginName, let password = credentials?.appPassword {
+            statusLabel.text = "success"
+            var name: String!
+            let URLString = serverURL + statEndpoint
+            let friendlyURL = serverURL.makeFriendlyURL()
+            
+            if nicknameField.text != nil && nicknameField.text != "" {
+                name = nicknameField.text
+            } else {
+                name = serverURL
+            }
+            
+            let server = NextServer(name: name, friendlyURL: friendlyURL, URLString: URLString, username: username, password: password, hasCustomLogo: hasCustomLogo!)
+            mainViewController?.returned(with: server)
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            deactivateSpinner()
+            statusLabel.text = "authentication canceled"
+        }
+    }
 }

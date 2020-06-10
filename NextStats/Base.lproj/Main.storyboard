@@ -308,7 +308,7 @@
         <!--Split View Controller-->
         <scene sceneID="GdQ-4P-tcn">
             <objects>
-                <splitViewController id="zVB-Na-2p6" customClass="SplitViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController id="zVB-Na-2p6" sceneMemberID="viewController">
                     <connections>
                         <segue destination="mY6-rP-Bi7" kind="relationship" relationship="masterViewController" id="CKh-oi-Pus"/>
                         <segue destination="fyi-oR-INh" kind="relationship" relationship="detailViewController" id="VQf-EI-kpf"/>
