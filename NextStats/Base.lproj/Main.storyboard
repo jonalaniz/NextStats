@@ -180,7 +180,7 @@
         <!--Servers-->
         <scene sceneID="ONT-k7-GTC">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="4Yk-0Y-zTJ" customClass="ServerViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ServerView" clearsSelectionOnViewWillAppear="NO" id="4Yk-0Y-zTJ" customClass="ServerViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5NN-wy-Wyr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

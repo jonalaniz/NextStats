@@ -93,7 +93,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func returnToTable(action: UIAlertAction! = nil) {
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
     private func setupView(withData data: Bool) {
