@@ -86,10 +86,11 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func displayErrorAndReturn(error: ServerError) {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
+            self.activityIndicator.deactivate()
+            self.statController.isHidden = true
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
             self.present(ac, animated: true)
         }
-        
     }
     
     func returnToTable(action: UIAlertAction! = nil) {
@@ -160,6 +161,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
 extension StatsViewController: ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer) {
+        if statController != nil { statController.isHidden = false }
         server = newServer
         title = server.name
         setupView(withData: true)
