@@ -27,6 +27,9 @@ class ServerViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupUI()
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRow, animated: true)
+        }
     }
     
     override func viewDidLoad() {
@@ -37,6 +40,7 @@ class ServerViewController: UITableViewController {
                 servers = savedServers
             }
         }
+        self.clearsSelectionOnViewWillAppear = false
     }
     
     private func setupUI() {
@@ -81,7 +85,7 @@ class ServerViewController: UITableViewController {
     // ----------------------------------------------------------------------------
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
-        UIView.animate(withDuration: 0.5, delay: 0.1 * Double(indexPath.row), animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.1 * Double(indexPath.row), animations: {
             cell.alpha = 1
         })
     }
@@ -114,7 +118,7 @@ class ServerViewController: UITableViewController {
             splitViewController?.showDetailViewController(statNavigationController, sender: nil)
         }
     }
-    
+
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

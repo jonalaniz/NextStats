@@ -22,8 +22,9 @@ class ServerCell: UITableViewCell {
         // hide the spinner because storyboard doesnt listen when i say to hide it
         spinner.isHidden = true
         
-        // style view
-        //bkView.style()
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: 1)
+        self.selectedBackgroundView = backgroundView
         
         // Set cell values
         serverName.text = server?.name
