@@ -31,6 +31,32 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         activityIndicator.color = .white
     }
     
+    private func setupView(withData data: Bool) {
+        // Check if initialized with data
+        if isInitialLoad {
+            // Check if statController is instantiated
+            // Keeps iPhone from crashing
+            if statController != nil {
+                if data {
+                    navigationController?.isNavigationBarHidden = false
+                    let barButton = UIBarButtonItem(customView: activityIndicator)
+                    self.navigationItem.setRightBarButton(barButton, animated: true)
+                    
+                    statController.delegate = self
+                    statController.dataSource = self
+                    statController.backgroundColor = .clear
+                    statController.sectionHeaderHeight = 40
+                    statController.isHidden = false
+                    isInitialLoad = false
+                } else {
+                    title = ""
+                    statController.isHidden = true
+                    navigationController?.isNavigationBarHidden = true
+                }
+            }
+        }
+    }
+    
     func getStats() {
         activityIndicator.startAnimating()
         
@@ -97,31 +123,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
-    private func setupView(withData data: Bool) {
-        // Check if initialized with data
-        if isInitialLoad {
-            // Check if statController is instantiated
-            // Keeps iPhone from crashing
-            if statController != nil {
-                if data {
-                    navigationController?.isNavigationBarHidden = false
-                    let barButton = UIBarButtonItem(customView: activityIndicator)
-                    self.navigationItem.setRightBarButton(barButton, animated: true)
-                    
-                    statController.delegate = self
-                    statController.dataSource = self
-                    statController.backgroundColor = .clear
-                    statController.sectionHeaderHeight = 40
-                    statController.isHidden = false
-                    isInitialLoad = false
-                } else {
-                    title = ""
-                    statController.isHidden = true
-                    navigationController?.isNavigationBarHidden = true
-                }
-            }
-        }
-    }
+    
     
     // ----------------------------------------------------------------------------
     // MARK: - Table View Functions
