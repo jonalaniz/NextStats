@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RefreshServerTableViewDelegate: class {
+    func refreshTableView()
+}
+
 class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var nicknameField: UITextField!
@@ -17,7 +21,9 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var spinner: UIActivityIndicatorView!
     @IBOutlet var infoLabel: UILabel!
     
-    var mainViewController: ServerViewController?
+    weak var delegate: RefreshServerTableViewDelegate?
+    
+    var servers: NextServers!
     var username: String?
     var appPassword: String?
     var serverURL: String?
@@ -258,7 +264,8 @@ extension AddServerViewController: CaptureServerCredentialsDelegate {
             }
             
             let server = NextServer(name: name, friendlyURL: friendlyURL, URLString: URLString, username: username, password: password, hasCustomLogo: hasCustomLogo!)
-            mainViewController?.returned(with: server)
+            servers.instances.append(server)
+            self.delegate?.refreshTableView()
             presentingViewController?.dismiss(animated: true, completion: nil)
         } else {
             deactivateSpinner()

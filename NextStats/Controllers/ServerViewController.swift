@@ -12,8 +12,7 @@ protocol ServerSelectionDelegate: class {
     func serverSelected(_ newServer: NextServer)
 }
 
-class ServerViewController: UITableViewController {
-    
+class ServerViewController: UITableViewController, RefreshServerTableViewDelegate {
     weak var delegate: ServerSelectionDelegate?
     var initialLoad = true
     
@@ -54,14 +53,13 @@ class ServerViewController: UITableViewController {
     
     @objc func addServer() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
-            vc.mainViewController = self
+            vc.servers = self.servers
+            vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }
     }
     
-    func returned(with server: NextServer) {
-        // Append the new server to the servers array.
-        servers.instances.append(server)
+    func refreshTableView() {
         tableView.reloadData()
     }
     
