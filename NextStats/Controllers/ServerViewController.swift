@@ -17,13 +17,7 @@ class ServerViewController: UITableViewController {
     weak var delegate: ServerSelectionDelegate?
     var initialLoad = true
     
-    var servers = [NextServer]() {
-        didSet {
-            servers.sort {
-                $0.name < $1.name
-            }
-        }
-    }
+    var servers = NextServers()
     
     override func viewWillAppear(_ animated: Bool) {
         setupUI()
@@ -34,12 +28,6 @@ class ServerViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Try and pull server data from keychain if available
-        if let data = KeychainWrapper.standard.data(forKey:"servers") {
-            if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
-                servers = savedServers
-            }
-        }
         self.clearsSelectionOnViewWillAppear = false
     }
     
@@ -73,10 +61,7 @@ class ServerViewController: UITableViewController {
     
     func returned(with server: NextServer) {
         // Append the new server to the servers array.
-        servers.append(server)
-        
-        // Save servers to keychain encoded as data
-        KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
+        servers.instances.append(server)
         tableView.reloadData()
     }
     
@@ -96,14 +81,14 @@ class ServerViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return servers.count
+        return servers.instances.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
         let backgroundAlpha = (0.1 + (Double(indexPath.row) * 0.1))
         
-        cell.server = servers[indexPath.row]
+        cell.server = servers.instances[indexPath.row]
         cell.configureCell()
         cell.contentView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
 
@@ -111,7 +96,7 @@ class ServerViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedServer = servers[indexPath.row]
+        let selectedServer = servers.instances[indexPath.row]
         delegate?.serverSelected(selectedServer)
         
         if let statViewController = delegate as? StatsViewController, let statNavigationController = statViewController.navigationController {
@@ -123,11 +108,8 @@ class ServerViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from array and tableView
-            servers.remove(at: indexPath.row)
+            servers.instances.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-
-            // Save servers to keychain encoded as data
-            KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
         }
     }
 

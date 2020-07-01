@@ -16,6 +16,27 @@ let logoEndpoint = "/index.php/apps/theming/image/logo"
 // MARK: - Server Address + Login Struct
 // ----------------------------------------------------------------------------
 
+class NextServers {
+    var instances = [NextServer]() {
+        didSet {
+            // sort, then encode array into keychain
+            KeychainWrapper.standard.set(try! PropertyListEncoder().encode(instances), forKey:"servers")
+        }
+    }
+    
+    init() {
+        // try to pull server data from keychain
+        if let data = KeychainWrapper.standard.data(forKey:"servers") {
+            if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
+                self.instances = savedServers
+                return
+            }
+        }
+        // if data is not available, create empty array
+        self.instances = []
+    }
+}
+
 struct NextServer: Codable {
     let name: String
     let friendlyURL: String
