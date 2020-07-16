@@ -110,5 +110,4 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-
 }

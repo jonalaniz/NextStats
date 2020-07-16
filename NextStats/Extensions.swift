@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 
 extension CaseIterable where Self: Equatable {
-
     var index: Self.AllCases.Index? {
         return Self.allCases.firstIndex { self == $0 }
     }
@@ -83,6 +82,3 @@ extension WKWebView {
         self.configuration.processPool = WKProcessPool()
     }
 }
-
-
-//extension 
