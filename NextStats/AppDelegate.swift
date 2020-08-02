@@ -33,8 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func configureNavigationBar() {
-        let accentColor = UIColor(red: 87/255, green: 96/255, blue: 155/255, alpha: 1)
-        let backgroundColor = UIColor(displayP3Red: 22/255, green: 23/255, blue: 37/255, alpha: 1)
+        
         let appearance = UINavigationBarAppearance()
         let buttonAppearance = UIBarButtonItemAppearance()
         

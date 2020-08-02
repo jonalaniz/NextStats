@@ -23,7 +23,7 @@ class ServerCell: UITableViewCell {
         spinner.isHidden = true
         
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: 1)
+        backgroundView.backgroundColor = cellBackgroundColor
         self.selectedBackgroundView = backgroundView
         
         // Set cell values
