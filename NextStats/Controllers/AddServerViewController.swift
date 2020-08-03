@@ -30,8 +30,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     var hasCustomLogo: Bool?
     var authAPIURL: URL?
     
-    let placeholderTextColor = UIColor(red: 149/255, green: 152/255, blue: 167/255, alpha: 0.4)
-        
     override func viewWillAppear(_ animated: Bool) {
         setupUI()
     }
@@ -76,9 +74,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         guard let urlString = serverURLField.text?.lowercased() else { return }
         
         // Setup and test url
-        let urlRegEx = "^(https://|http://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
-        let ipRegEx = #"(^192\.168\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])$)|(^172\.([1][6-9]|[2][0-9]|[3][0-1])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])$)|(^10\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])$)"#
-        
         let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
         let ipTest = NSPredicate(format:"SELF MATCHES %@", ipRegEx)
         

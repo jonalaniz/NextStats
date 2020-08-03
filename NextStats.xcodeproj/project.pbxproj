@@ -22,7 +22,8 @@
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
 		56924DD223F802A70043C9BE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56924DD123F802A70043C9BE /* Extensions.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
-		56BCF6B42487CA8D0048B991 /* Nextcloud+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* Nextcloud+Login.swift */; };
+		56BCF6B42487CA8D0048B991 /* NextServers+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* NextServers+Login.swift */; };
+		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +44,8 @@
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
-		56BCF6B32487CA8D0048B991 /* Nextcloud+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nextcloud+Login.swift"; sourceTree = "<group>"; };
+		56BCF6B32487CA8D0048B991 /* NextServers+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NextServers+Login.swift"; sourceTree = "<group>"; };
+		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,8 @@
 			isa = PBXGroup;
 			children = (
 				564C8DC824D779240095D43B /* Constants.swift */,
+				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
+				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -103,9 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				56557EF723C8B556008CF684 /* Nextcloud+Monitor.swift */,
-				56BCF6B32487CA8D0048B991 /* Nextcloud+Login.swift */,
-				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
-				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
+				56BCF6B32487CA8D0048B991 /* NextServers+Login.swift */,
+				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56557EFA23CA6E89008CF684 /* LoginWebViewController.swift in Sources */,
 				56557EF823C8B556008CF684 /* Nextcloud+Monitor.swift in Sources */,
@@ -211,7 +215,7 @@
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
 				56924DD223F802A70043C9BE /* Extensions.swift in Sources */,
-				56BCF6B42487CA8D0048B991 /* Nextcloud+Login.swift in Sources */,
+				56BCF6B42487CA8D0048B991 /* NextServers+Login.swift in Sources */,
 				56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

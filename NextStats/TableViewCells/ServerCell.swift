@@ -62,7 +62,6 @@ class ServerCell: UITableViewCell {
                 self.setOnlineStatus(to: true)
                 
             }.resume()
-            
         }
     }
     
