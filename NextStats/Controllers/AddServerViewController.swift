@@ -23,7 +23,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     weak var delegate: RefreshServerTableViewDelegate?
     
-    var servers: NextServers!
+    var servers: ServerManager!
     var username: String?
     var appPassword: String?
     var serverURL: String?
@@ -259,7 +259,7 @@ extension AddServerViewController: CaptureServerCredentialsDelegate {
             }
             
             let server = NextServer(name: name, friendlyURL: friendlyURL, URLString: URLString, username: username, password: password, hasCustomLogo: hasCustomLogo!)
-            servers.instances.append(server)
+            servers.servers.append(server)
             self.delegate?.refreshTableView()
             presentingViewController?.dismiss(animated: true, completion: nil)
         } else {

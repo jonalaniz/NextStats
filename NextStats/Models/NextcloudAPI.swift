@@ -197,6 +197,25 @@ struct tableStat {
 }
 
 // ----------------------------------------------------------------------------
+// MARK: - Authorization Structs - For use when adding server
+// ----------------------------------------------------------------------------
+struct AuthResponse: Codable {
+    let poll: Poll?
+    let login: String?
+}
+
+struct Poll: Codable {
+    let token: String?
+    let endpoint: String?
+}
+
+struct ServerAuthenticationInfo: Codable {
+    let server: String?
+    let loginName: String?
+    let appPassword: String?
+}
+
+// ----------------------------------------------------------------------------
 // MARK: - Server Monitor API JSON Struct
 // ----------------------------------------------------------------------------
 

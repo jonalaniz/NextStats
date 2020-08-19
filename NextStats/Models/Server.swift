@@ -1,5 +1,5 @@
 //
-//  ServerCellModel.swift
+//  Server.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 8/2/20.
