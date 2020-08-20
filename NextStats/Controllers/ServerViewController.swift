@@ -58,7 +58,6 @@ class ServerViewController: UITableViewController {
     @objc func addServer() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
             vc.serverManager = self.serverManager
-            vc.delegate = self
             self.present(vc, animated: true, completion: nil)
         }
     }
@@ -69,15 +68,6 @@ class ServerViewController: UITableViewController {
 // ----------------------------------------------------------------------------
 extension ServerViewController: ServerManagerDelegate {
     func serverAdded() {
-        tableView.reloadData()
-    }
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - ServerManager Delegate
-// ----------------------------------------------------------------------------
-extension ServerViewController: RefreshServerTableViewDelegate {
-    func refreshTableView() {
         tableView.reloadData()
     }
 }

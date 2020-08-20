@@ -21,7 +21,9 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
     
     @objc optional func failedToGetAuthorizationURL(withError error: String)
     
-    @objc optional func authorizationDataRecieved(loginURL: String, pollURL: URL, token: String)
+    @objc optional func authorizationDataRecieved(loginURL: String)
+    
+    @objc optional func serverCredentialsCaptured()
 }
 
 open class ServerManager {
@@ -34,6 +36,10 @@ open class ServerManager {
      The delegate object for the 'ServerManager'.
      */
     open weak var delegate: ServerManagerDelegate?
+    
+    var shouldPoll = false
+        
+    var name: String?
     
     var servers = [NextServer]() {
         didSet {
@@ -60,7 +66,10 @@ open class ServerManager {
      Requests token and URL for server authorization
      
      */
-    func requestAuthorizationURL(withURL url: URL) {
+    func requestAuthorizationURL(withURL url: URL, withName name: String) {
+        // Give our server a name
+        self.name = name
+        
         // Append endpoint to url
         let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
         
@@ -105,7 +114,9 @@ open class ServerManager {
                 if let pollURL = URL(string: (jsonStream.poll?.endpoint)!) {
                     if let token = jsonStream.poll?.token {
                         if let loginURL = jsonStream.login {
-                            self.delegate?.authorizationDataRecieved?(loginURL: loginURL, pollURL: pollURL, token: token)
+                            self.shouldPoll = true
+                            self.delegate?.authorizationDataRecieved?(loginURL: loginURL)
+                            self.pollForCredentials(at: pollURL, with: token)
                         }
                     }
                 }
@@ -117,12 +128,117 @@ open class ServerManager {
         }
     }
     
+    /**
+     Begins polling the server for authorization credentials
+     */
     
-    
-    
-    func addServer() {
+    func pollForCredentials(at url: URL, with token: String) {
+        // attach token and setup request
+        let tokenPrefix = "token="
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        request.httpBody = (tokenPrefix + token).data(using: .utf8)
         
-        delegate?.serverAdded?()
+        let task = URLSession.shared.dataTask(with: request) {
+            (data, response, error) in
+            if let error = error {
+                print("Error: \(error)")
+                // TODO: Error
+                return
+            } else {
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode != 200 {
+                        print("Poll Status Code: \(response.statusCode)")
+                        if self.shouldPoll {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                self.pollForCredentials(at: url, with: token)
+                            }
+                        }
+                        // TODO: Error
+                        return
+                    }
+                    
+                }
+                if let data = data {
+                    print("whats going on here")
+                    self.shouldPoll = false
+                    self.decodeCredentialsFrom(json: data)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    /**
+     Decodes the login credentials from the JSON object
+     
+     */
+    func decodeCredentialsFrom(json: Data) {
+        let decoder = JSONDecoder()
+        if let credentials = try? decoder.decode(ServerAuthenticationInfo.self, from: json) {
+            DispatchQueue.main.async {
+                print(credentials)
+                self.setupServer(with: credentials)
+            }
+        }
+    }
+    
+    /**
+     Setup values and test for custom logo
+     
+     */
+    func setupServer(with credentials: ServerAuthenticationInfo) {
+        if let serverURL = credentials.server, let username = credentials.loginName, let password = credentials.appPassword {
+            let URLString = serverURL + statEndpoint
+            let friendlyURL = serverURL.makeFriendlyURL()
+            let logoURLString = serverURL + logoEndpoint
+            let logoURL = URL(string: logoURLString)!
+            var hasLogo: Bool
+            
+            var request = URLRequest(url: logoURL)
+            request.httpMethod = "HEAD"
+            
+            URLSession(configuration: .default).dataTask(with: request) { (_, response, error) in
+                print("LOGO:\(logoURL)")
+                guard error == nil else {
+                    // Logo not found
+                    print(error?.localizedDescription)
+                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: false)
+                    return
+                }
+                
+                guard(response as? HTTPURLResponse)?.statusCode == 200 else {
+                    // Guard against anything but a 200 OK code
+                    print("Response: \(response)")
+                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: false)
+                    return
+                }
+                
+                // Logo was found
+                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: true)
+            }.resume()
+        } else {
+            // Error
+        }
+    }
+    
+    /**
+     Capture new server and append to array
+     */
+    func captureServer(serverURLString: String, friendlyURL: String, username: String, password: String, customLogo: Bool) {
+        let server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: customLogo)
+        
+        servers.append(server)
+        
+        DispatchQueue.main.async {
+            self.delegate?.serverAdded?()
+        }
+        
+    }
+    
+    func cancelAuthorization() {
+        // cancel
     }
 }
 

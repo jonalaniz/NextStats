@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol RefreshServerTableViewDelegate: class {
-    func refreshTableView()
-}
+//protocol RefreshServerTableViewDelegate: class {
+//    func refreshTableView()
+//}
 
 class AddServerViewController: UIViewController, UITextFieldDelegate {
     
@@ -20,9 +20,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var connectButton: UIButton!
     @IBOutlet var spinner: UIActivityIndicatorView!
     @IBOutlet var infoLabel: UILabel!
-    
-    weak var delegate: RefreshServerTableViewDelegate?
-    
+
     var serverManager: ServerManager!
     var username: String?
     var appPassword: String?
@@ -42,10 +40,10 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     @IBAction func connectButtonPressed(_ sender: Any) {
         // Check to make sure checkValidURL worked
         guard let url = authAPIURL else { return }
+        let serverName = nicknameField.text ?? "Server"
         
         // Initiate the authorization request, and check for logo
-        serverManager.requestAuthorizationURL(withURL: url)
-        checkForLogo(in: url)
+        serverManager.requestAuthorizationURL(withURL: url, withName: serverName)
         
         spinner.activate()
         
@@ -85,45 +83,11 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func loadLoginView(with urlString: String, pollURL: URL, token: String) {
+    func loadLoginView(with urlString: String) {
         let vc = LoginWebViewController()
+        vc.serverManager = serverManager
         vc.passedURLString = urlString
-        vc.passedPollURL = pollURL
-        vc.passedToken = token
-        vc.delegate = self
         self.present(vc, animated: true)
-    }
-    
-    // ----------------------------------------------------------------------------
-    // MARK: - Server Capture Step 3: Check for Logo
-    // ----------------------------------------------------------------------------
-
-    func checkForLogo(in url: URL) {
-        let urlWithEndpoint = url.appendingPathComponent(logoEndpoint)
-        var request = URLRequest(url: urlWithEndpoint)
-        request.httpMethod = "HEAD"
-        
-        URLSession(configuration: .default).dataTask(with: request) { (_, response, error) in
-            print("LOGO:\(urlWithEndpoint)")
-            guard error == nil else {
-                // server down
-                print(error?.localizedDescription)
-                self.hasCustomLogo = false
-                return
-            }
-            
-            guard(response as? HTTPURLResponse)?.statusCode == 200 else {
-                // guard against anything but a 200 OK code
-                print("Response: \(response)")
-                self.hasCustomLogo = false
-                return
-            }
-            
-            // if we made it this far, we good b
-            self.hasCustomLogo = true
-            return
-            
-        }.resume()
     }
     
     // MARK: - UI
@@ -168,38 +132,19 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-extension AddServerViewController: CaptureServerCredentialsDelegate {
-    func captureServerCredentials(with credentials: ServerAuthenticationInfo?) {
-        if let serverURL = credentials?.server, let username = credentials?.loginName, let password = credentials?.appPassword {
-            statusLabel.text = "success"
-            var name: String!
-            let URLString = serverURL + statEndpoint
-            let friendlyURL = serverURL.makeFriendlyURL()
-            
-            if nicknameField.text != nil && nicknameField.text != "" {
-                name = nicknameField.text
-            } else {
-                name = serverURL
-            }
-            
-            let server = NextServer(name: name, friendlyURL: friendlyURL, URLString: URLString, username: username, password: password, hasCustomLogo: hasCustomLogo!)
-            serverManager.servers.append(server)
-            self.delegate?.refreshTableView()
-            presentingViewController?.dismiss(animated: true, completion: nil)
-        } else {
-            deactivateSpinner()
-            statusLabel.text = "authentication canceled"
-        }
-    }
-}
-
 extension AddServerViewController: ServerManagerDelegate {
-    func authorizationDataRecieved(loginURL: String, pollURL: URL, token: String) {
-        loadLoginView(with: loginURL, pollURL: pollURL, token: token)
+    func authorizationDataRecieved(loginURL: String) {
+        loadLoginView(with: loginURL)
     }
     
     func failedToGetAuthorizationURL(withError error: String) {
         statusLabel.text = error
         deactivateSpinner()
+    }
+    
+    func serverAdded() {
+        deactivateSpinner()
+        statusLabel.text = "success"
+        self.dismiss(animated: true)
     }
 }
