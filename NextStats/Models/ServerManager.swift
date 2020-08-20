@@ -11,12 +11,17 @@ import UIKit
 
 let loginEndpoint = "/index.php/login/v2"
 let logoEndpoint = "/index.php/apps/theming/image/logo"
+let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
 @objc public protocol ServerManagerDelegate: class {
     /**
      Called when server is successfully added to the manager
      */
     @objc optional func serverAdded()
+    
+    @objc optional func failedToGetAuthorizationURL(withError error: String)
+    
+    @objc optional func authorizationDataRecieved(loginURL: String, pollURL: URL, token: String)
 }
 
 open class ServerManager {
@@ -48,6 +53,72 @@ open class ServerManager {
         // if data is not available, create empty array
         self.servers = []
     }
+    
+    //MARK: - Server Authorization Flow
+    
+    /**
+     Requests token and URL for server authorization
+     
+     */
+    func requestAuthorizationURL(withURL url: URL) {
+        // Append endpoint to url
+        let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
+        
+        var request = URLRequest(url: urlWithEndpoint)
+        request.httpMethod = "POST"
+        
+        let task = URLSession.shared.dataTask(with: request) {
+            (data, resposne, error) in
+            if error != nil {
+                DispatchQueue.main.async {
+                    self.delegate?.failedToGetAuthorizationURL?(withError: "Not a valid host, please check url")
+                }
+            } else {
+                if let response = resposne as? HTTPURLResponse {
+                    // If server not found, alert user and return
+                    if response.statusCode == 404 {
+                        DispatchQueue.main.async {
+                            self.delegate?.failedToGetAuthorizationURL?(withError: "Nextcloud server not found, please check url")
+                        }
+                        return
+                    }
+
+                }
+                if let data = data {
+                    self.parseJSONFrom(data: data)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    /**
+     Parses JSON from server, captures authentication URL and token
+     */
+    
+    func parseJSONFrom(data: Data) {
+        let decoder = JSONDecoder()
+        
+        if let jsonStream = try? decoder.decode(AuthResponse.self, from: data) {
+            DispatchQueue.main.async {
+                print(jsonStream)
+                if let pollURL = URL(string: (jsonStream.poll?.endpoint)!) {
+                    if let token = jsonStream.poll?.token {
+                        if let loginURL = jsonStream.login {
+                            self.delegate?.authorizationDataRecieved?(loginURL: loginURL, pollURL: pollURL, token: token)
+                        }
+                    }
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.delegate?.failedToGetAuthorizationURL?(withError: "Unable to parse server response, contact server administrator.")
+            }
+        }
+    }
+    
+    
+    
     
     func addServer() {
         

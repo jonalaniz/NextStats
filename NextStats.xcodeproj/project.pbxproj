@@ -23,6 +23,7 @@
 		56924DD223F802A70043C9BE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56924DD123F802A70043C9BE /* Extensions.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
 		56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* ServerManager.swift */; };
+		56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA258724EE48F90034CA96 /* URLChecker.swift */; };
 		56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* Server.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				564C8DC824D779240095D43B /* Constants.swift */,
+				56CA258724EE48F90034CA96 /* URLChecker.swift */,
 				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
 				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
 			);
@@ -214,6 +217,7 @@
 				564C8DC924D779240095D43B /* Constants.swift in Sources */,
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
+				56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */,
 				56924DD223F802A70043C9BE /* Extensions.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */,
 				56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */,

@@ -23,7 +23,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     weak var delegate: RefreshServerTableViewDelegate?
     
-    var servers: ServerManager!
+    var serverManager: ServerManager!
     var username: String?
     var appPassword: String?
     var serverURL: String?
@@ -36,18 +36,15 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        serverManager.delegate = self
     }
-    
-    // ----------------------------------------------------------------------------
-    // MARK: - IBActions
-    // ----------------------------------------------------------------------------
     
     @IBAction func connectButtonPressed(_ sender: Any) {
         // Check to make sure checkValidURL worked
         guard let url = authAPIURL else { return }
         
         // Initiate the authorization request, and check for logo
-        initiateAuthURLRequest(withURL: url)
+        serverManager.requestAuthorizationURL(withURL: url)
         checkForLogo(in: url)
         
         spinner.activate()
@@ -60,10 +57,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true)
     }
     
-    // ----------------------------------------------------------------------------
-    // MARK: - Server Capture Step 1: Authenticate
-    // ----------------------------------------------------------------------------
-    
     // 1 - Check the textField for a valid url, if valid enable the connect button
     @objc func checkURLValidity() {
         
@@ -73,21 +66,14 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         // Safely unwrap urlString
         guard let urlString = serverURLField.text?.lowercased() else { return }
         
-        // Setup and test url
-        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-        let ipTest = NSPredicate(format:"SELF MATCHES %@", ipRegEx)
-        
-        let isURL = urlTest.evaluate(with: urlString)
-        let isIPAddress = ipTest.evaluate(with: urlString)
-        
         // Check for a valid address
-        if (isURL) {
+        if (urlString.isValidURL()) {
             statusLabel.isHidden = true
             connectButton.isEnabled = true
             
             // Check protocol
             authAPIURL = URL(string: urlString.addDomainPrefix())
-        } else if (isIPAddress) {
+        } else if (urlString.isValidIPAddress()) {
             statusLabel.isHidden = true
             connectButton.isEnabled = true
             
@@ -98,66 +84,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
             connectButton.isEnabled = false
         }
     }
-    
-    // 2 - Check if url points to a valid Nextcloud instance
-    func initiateAuthURLRequest(withURL url: URL) {
-        
-        // Append endpoint to url
-        let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
-        
-        var request = URLRequest(url: urlWithEndpoint)
-        request.httpMethod = "POST"
-        
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, resposne, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self.statusLabel.text = "Not a valid host, please check url"
-                    self.deactivateSpinner()
-                }
-            } else {
-                if let response = resposne as? HTTPURLResponse {
-                    // If server not found, alert user and return
-                    if response.statusCode == 404 {
-                        DispatchQueue.main.async {
-                            self.statusLabel.text = "Nextcloud server not found, please check url"
-                            self.deactivateSpinner()
-                        }
-                        return
-                    }
-
-                }
-                if let data = data {
-                    self.parseJSONFrom(data: data)
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    // 3 - Parse the JSON delivered
-    func parseJSONFrom(data: Data) {
-        let decoder = JSONDecoder()
-        
-        if let jsonStream = try? decoder.decode(AuthResponse.self, from: data) {
-            DispatchQueue.main.async {
-                print(jsonStream)
-                if let pollURL = URL(string: (jsonStream.poll?.endpoint)!) {
-                    if let token = jsonStream.poll?.token {
-                        self.loadLoginView(with: jsonStream.login!, pollURL: pollURL, token: token)
-                    }
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.statusLabel.text = "Unable to connect, contact server administrator."
-            }
-        }
-    }
-    
-    // ----------------------------------------------------------------------------
-    // MARK: - Server Capture Step 2: Load LoginViewController
-    // ----------------------------------------------------------------------------
     
     func loadLoginView(with urlString: String, pollURL: URL, token: String) {
         let vc = LoginWebViewController()
@@ -200,9 +126,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         }.resume()
     }
     
-    // ----------------------------------------------------------------------------
-    // MARK: - UI Functions
-    // ----------------------------------------------------------------------------
+    // MARK: - UI
     
     func setupUI() {
         // Style the UI
@@ -259,12 +183,23 @@ extension AddServerViewController: CaptureServerCredentialsDelegate {
             }
             
             let server = NextServer(name: name, friendlyURL: friendlyURL, URLString: URLString, username: username, password: password, hasCustomLogo: hasCustomLogo!)
-            servers.servers.append(server)
+            serverManager.servers.append(server)
             self.delegate?.refreshTableView()
             presentingViewController?.dismiss(animated: true, completion: nil)
         } else {
             deactivateSpinner()
             statusLabel.text = "authentication canceled"
         }
+    }
+}
+
+extension AddServerViewController: ServerManagerDelegate {
+    func authorizationDataRecieved(loginURL: String, pollURL: URL, token: String) {
+        loadLoginView(with: loginURL, pollURL: pollURL, token: token)
+    }
+    
+    func failedToGetAuthorizationURL(withError error: String) {
+        statusLabel.text = error
+        deactivateSpinner()
     }
 }
