@@ -18,11 +18,11 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
     /**
      Called when server is successfully added to the manager
      */
-    @objc optional func failedToGetAuthorizationURL(withError error: String)
+    func failedToGetAuthorizationURL(withError error: String)
     
-    @objc optional func authorizationDataRecieved(loginURL: String)
+    func authorizationDataRecieved(loginURL: String)
     
-    @objc optional func serverCredentialsCaptured()
+    func serverCredentialsCaptured()
 }
 
 open class ServerManager {
@@ -79,14 +79,14 @@ open class ServerManager {
             (data, resposne, error) in
             if error != nil {
                 DispatchQueue.main.async {
-                    self.delegate?.failedToGetAuthorizationURL?(withError: "Not a valid host, please check url")
+                    self.delegate?.failedToGetAuthorizationURL(withError: "Not a valid host, please check url")
                 }
             } else {
                 if let response = resposne as? HTTPURLResponse {
                     // If server not found, alert user and return
                     if response.statusCode == 404 {
                         DispatchQueue.main.async {
-                            self.delegate?.failedToGetAuthorizationURL?(withError: "Nextcloud server not found, please check url")
+                            self.delegate?.failedToGetAuthorizationURL(withError: "Nextcloud server not found, please check url")
                         }
                         return
                     }
@@ -114,7 +114,7 @@ open class ServerManager {
                     if let token = jsonStream.poll?.token {
                         if let loginURL = jsonStream.login {
                             self.shouldPoll = true
-                            self.delegate?.authorizationDataRecieved?(loginURL: loginURL)
+                            self.delegate?.authorizationDataRecieved(loginURL: loginURL)
                             self.pollForCredentials(at: pollURL, with: token)
                         }
                     }
@@ -122,7 +122,7 @@ open class ServerManager {
             }
         } else {
             DispatchQueue.main.async {
-                self.delegate?.failedToGetAuthorizationURL?(withError: "Unable to parse server response, contact server administrator.")
+                self.delegate?.failedToGetAuthorizationURL(withError: "Unable to parse server response, contact server administrator.")
             }
         }
     }

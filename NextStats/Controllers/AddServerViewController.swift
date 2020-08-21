@@ -8,10 +8,6 @@
 
 import UIKit
 
-//protocol RefreshServerTableViewDelegate: class {
-//    func refreshTableView()
-//}
-
 class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var nicknameField: UITextField!
@@ -133,6 +129,10 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 }
 
 extension AddServerViewController: ServerManagerAuthenticationDelegate {
+    func serverCredentialsCaptured() {
+        dismiss(animated: true)
+    }
+    
     func authorizationDataRecieved(loginURL: String) {
         loadLoginView(with: loginURL)
     }
