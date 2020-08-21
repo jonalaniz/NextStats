@@ -14,6 +14,7 @@ let logoEndpoint = "/index.php/apps/theming/image/logo"
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
 @objc public protocol ServerManagerAuthenticationDelegate: class {
+    
     /**
      Called when server is successfully added to the manager
      */
