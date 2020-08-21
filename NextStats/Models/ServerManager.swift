@@ -13,12 +13,10 @@ let loginEndpoint = "/index.php/login/v2"
 let logoEndpoint = "/index.php/apps/theming/image/logo"
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
-@objc public protocol ServerManagerDelegate: class {
+@objc public protocol ServerManagerAuthenticationDelegate: class {
     /**
      Called when server is successfully added to the manager
      */
-    @objc optional func serverAdded()
-    
     @objc optional func failedToGetAuthorizationURL(withError error: String)
     
     @objc optional func authorizationDataRecieved(loginURL: String)
@@ -35,7 +33,7 @@ open class ServerManager {
     /**
      The delegate object for the 'ServerManager'.
      */
-    open weak var delegate: ServerManagerDelegate?
+    open weak var delegate: ServerManagerAuthenticationDelegate?
     
     var shouldPoll = false
         
@@ -194,7 +192,6 @@ open class ServerManager {
             let friendlyURL = serverURL.makeFriendlyURL()
             let logoURLString = serverURL + logoEndpoint
             let logoURL = URL(string: logoURLString)!
-            var hasLogo: Bool
             
             var request = URLRequest(url: logoURL)
             request.httpMethod = "HEAD"
@@ -232,7 +229,7 @@ open class ServerManager {
         servers.append(server)
         
         DispatchQueue.main.async {
-            self.delegate?.serverAdded?()
+            NotificationCenter.default.post(name: .serverDidChange, object: nil)
         }
         
     }
@@ -242,6 +239,6 @@ open class ServerManager {
     }
 }
 
-
-
-
+extension Notification.Name {
+    static let serverDidChange = Notification.Name("serversDidChange")
+}

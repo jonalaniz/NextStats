@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class LoginWebViewController: UIViewController, ServerManagerDelegate {
+class LoginWebViewController: UIViewController, ServerManagerAuthenticationDelegate {
     var webView: WKWebView!
     var passedURLString: String?
     var serverManager: ServerManager!

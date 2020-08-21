@@ -15,8 +15,6 @@ protocol ServerSelectionDelegate: class {
 class ServerViewController: UITableViewController {
     weak var delegate: ServerSelectionDelegate?
     
-    var initialLoad = true
-    
     var serverManager = ServerManager.shared
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,6 +27,8 @@ class ServerViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .serverDidChange, object: nil)
     }
     
     private func setupUI() {
@@ -48,8 +48,8 @@ class ServerViewController: UITableViewController {
         if tableView.refreshControl?.isRefreshing == true {
             tableView.refreshControl?.endRefreshing()
         }
-        
     }
+    
     
     // ----------------------------------------------------------------------------
     // MARK: - Add Server Flow
@@ -60,15 +60,6 @@ class ServerViewController: UITableViewController {
             vc.serverManager = self.serverManager
             self.present(vc, animated: true, completion: nil)
         }
-    }
-}
-
-// ----------------------------------------------------------------------------
-// MARK: - ServerManager Delegate
-// ----------------------------------------------------------------------------
-extension ServerViewController: ServerManagerDelegate {
-    func serverAdded() {
-        tableView.reloadData()
     }
 }
 

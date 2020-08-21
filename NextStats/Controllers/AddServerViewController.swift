@@ -132,7 +132,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-extension AddServerViewController: ServerManagerDelegate {
+extension AddServerViewController: ServerManagerAuthenticationDelegate {
     func authorizationDataRecieved(loginURL: String) {
         loadLoginView(with: loginURL)
     }
