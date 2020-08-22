@@ -20,8 +20,13 @@ class LoginWebViewController: UIViewController {
         super.viewDidLoad()
         guard let urlString = passedURLString else { return }
         guard let url = URL(string: urlString) else { return }
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
+        self.webView.navigationDelegate = self
         webView.cleanAllCookies()
         webView.load(URLRequest(url: url))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(serverAdded), name: .serverDidChange, object: nil)
     }
     
     override func loadView() {
@@ -36,7 +41,13 @@ class LoginWebViewController: UIViewController {
         }
     }
     
-    func serverAdded() {
-        dismiss(animated: true)
+    @objc func serverAdded() {
+        navigationController?.dismiss(animated: true)
+    }
+}
+
+extension LoginWebViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        self.navigationItem.title = webView.title
     }
 }

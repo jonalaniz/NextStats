@@ -47,7 +47,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         authAPIURL = nil
     }
     
-    @IBAction func cancelPressed(_ sender: Any) {
+    @objc func cancelPressed() {
         dismiss(animated: true)
     }
     
@@ -83,12 +83,17 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         let vc = LoginWebViewController()
         vc.serverManager = serverManager
         vc.passedURLString = urlString
-        self.present(vc, animated: true)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - UI
     
     func setupUI() {
+        // Setup Top Bar
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
+        
         // Style the UI
         styleTextField(textField: nicknameField)
         nicknameField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
@@ -130,7 +135,8 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 
 extension AddServerViewController: ServerManagerAuthenticationDelegate {
     func serverCredentialsCaptured() {
-        dismiss(animated: true)
+        //navigationController?.dismiss(animated: true)
+        //dismiss(animated: true)
     }
     
     func authorizationDataRecieved(loginURL: String) {
