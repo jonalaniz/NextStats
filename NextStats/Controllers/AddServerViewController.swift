@@ -31,6 +31,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         serverManager.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(authenticationCanceled), name: .authenticationCanceled, object: nil)
     }
     
     @IBAction func connectButtonPressed(_ sender: Any) {
@@ -49,6 +50,11 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     @objc func cancelPressed() {
         dismiss(animated: true)
+    }
+    
+    @objc func authenticationCanceled() {
+        deactivateSpinner()
+        statusLabel.text = "Authentication canceled"
     }
     
     // 1 - Check the textField for a valid url, if valid enable the connect button
@@ -143,8 +149,8 @@ extension AddServerViewController: ServerManagerAuthenticationDelegate {
         loadLoginView(with: loginURL)
     }
     
-    func failedToGetAuthorizationURL(withError error: String) {
-        statusLabel.text = error
+    func failedToGetAuthorizationURL(withError error: ServerManagerAuthenticationError) {
+        statusLabel.text = error.description
         deactivateSpinner()
     }
     

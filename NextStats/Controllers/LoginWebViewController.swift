@@ -37,7 +37,9 @@ class LoginWebViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         // If server credentials were not captured, call the captureServerCredentials with nill
         if serverManager.shouldPoll {
+            print("Authentication Canceled")
             serverManager.cancelAuthorization()
+            NotificationCenter.default.post(name: .authenticationCanceled, object: nil)
         }
     }
     

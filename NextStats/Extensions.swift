@@ -15,6 +15,11 @@ extension CaseIterable where Self: Equatable {
     }
 }
 
+extension Notification.Name {
+    static let serverDidChange = Notification.Name("serversDidChange")
+    static let authenticationCanceled = Notification.Name("authenticationCanceled")
+}
+
 extension String {
     // Add https
     func addDomainPrefix() -> String {
