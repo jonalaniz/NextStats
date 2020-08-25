@@ -217,7 +217,6 @@ open class ServerManager {
     
     /**
      Decodes the login credentials from the JSON object
-     
      */
     func decodeCredentialsFrom(json: Data) {
         let decoder = JSONDecoder()
@@ -231,7 +230,6 @@ open class ServerManager {
     
     /**
      Setup values and test for custom logo
-     
      */
     func setupServer(with credentials: ServerAuthenticationInfo) {
         if let serverURL = credentials.server, let username = credentials.loginName, let password = credentials.appPassword {

@@ -43,7 +43,7 @@
 		56557EFF23CA89B9008CF684 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
-		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Extensions.swift; sourceTree = SOURCE_ROOT; };
+		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Helpers/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
@@ -65,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				564C8DC824D779240095D43B /* Constants.swift */,
+				56924DD123F802A70043C9BE /* Extensions.swift */,
 				56CA258724EE48F90034CA96 /* URLChecker.swift */,
 				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
 				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
@@ -92,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				564C8DC724D779150095D43B /* Helpers */,
-				56924DD123F802A70043C9BE /* Extensions.swift */,
 				56ECA8CE23E4C450001A6899 /* TableViewCells */,
 				5689894D23D4CF2000D13B12 /* Models */,
 				5689894E23D4CF3400D13B12 /* Controllers */,

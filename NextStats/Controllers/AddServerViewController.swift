@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AddServerViewController.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/10/20.
@@ -14,22 +14,17 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var serverURLField: UITextField!
     @IBOutlet var statusLabel: UILabel!
     @IBOutlet var connectButton: UIButton!
-    @IBOutlet var spinner: UIActivityIndicatorView!
+    @IBOutlet var activityIndicatior: UIActivityIndicatorView!
     @IBOutlet var infoLabel: UILabel!
 
     var serverManager: ServerManager!
-    var username: String?
-    var appPassword: String?
     var serverURL: String?
-    var hasCustomLogo: Bool?
     var authAPIURL: URL?
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupUI()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        
         serverManager.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(authenticationCanceled), name: .authenticationCanceled, object: nil)
     }
@@ -42,7 +37,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         // Initiate the authorization request, and check for logo
         serverManager.requestAuthorizationURL(withURL: url, withName: serverName)
         
-        spinner.activate()
+        activityIndicatior.activate()
         
         // Invalidate the url in case user returns and needs to enter again
         authAPIURL = nil
@@ -57,7 +52,9 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         statusLabel.text = "Authentication canceled"
     }
     
-    // 1 - Check the textField for a valid url, if valid enable the connect button
+    /**
+     Detects if URLField has a proper IP Address or URL, formats the string for use with ServerManager
+     */
     @objc func checkURLValidity() {
         
         // Reset the authAPIURL if for some reason they had already entered a valid URL
@@ -103,20 +100,22 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         // Style the UI
         styleTextField(textField: nicknameField)
         nicknameField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
+        
         styleTextField(textField: serverURLField)
         serverURLField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
 
         connectButton.isEnabled = false
-        spinner.isHidden = true
+        activityIndicatior.isHidden = true
         
-        // Setup the targets
+        // Add url checker to serverURLField
         serverURLField.addTarget(self, action: #selector(checkURLValidity), for: UIControl.Event.editingDidEnd)
     }
     
     func styleTextField(textField: UITextField) {
         // Style the textFields
-        textField.delegate = self
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
+
+        textField.delegate = self
         textField.leftView = paddingView
         textField.leftViewMode = UITextField.ViewMode.always
         textField.borderStyle = .none
@@ -124,7 +123,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     }
     
     func deactivateSpinner() {
-        spinner.deactivate()
+        activityIndicatior.deactivate()
         statusLabel.isHidden = false
     }
     
@@ -133,16 +132,11 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
 }
 
 extension AddServerViewController: ServerManagerAuthenticationDelegate {
     func serverCredentialsCaptured() {
-        //navigationController?.dismiss(animated: true)
-        //dismiss(animated: true)
+        // Do nothing, the LoginWebViewController now dismisses the parent NavigationView
     }
     
     func authorizationDataRecieved(loginURL: String) {

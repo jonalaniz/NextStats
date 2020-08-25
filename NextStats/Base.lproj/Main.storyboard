@@ -127,11 +127,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Server" largeTitleDisplayMode="always" id="oF7-GQ-5M4"/>
                     <connections>
+                        <outlet property="activityIndicatior" destination="K5S-lw-RtW" id="6CB-cA-U4i"/>
                         <outlet property="connectButton" destination="Zr4-ck-mx8" id="SS0-iU-zrz"/>
                         <outlet property="infoLabel" destination="eYd-XQ-LvH" id="5tD-Fh-LjN"/>
                         <outlet property="nicknameField" destination="9f0-K0-NI9" id="sAf-Lc-dpc"/>
                         <outlet property="serverURLField" destination="01T-XB-asV" id="EIy-SK-jLh"/>
-                        <outlet property="spinner" destination="K5S-lw-RtW" id="6CB-cA-U4i"/>
                         <outlet property="statusLabel" destination="Oab-Pr-I9Q" id="1U5-cT-l5m"/>
                     </connections>
                 </viewController>
@@ -360,6 +360,7 @@
         <!--Navigation Controller-->
         <scene sceneID="N14-7a-h8R">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="54v-yY-LTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qqh-hG-EmY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gXb-Ub-N8x">
@@ -371,7 +372,6 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9Bc-GP-hxT"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="54v-yY-LTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1157.9710144927537" y="616.304347826087"/>
         </scene>
