@@ -87,6 +87,20 @@ enum StorageIndex: Int {
     case numberOfFiles
 }
 
+enum ServerIndex: Int {
+    case webServer
+    case phpVersion
+    case database
+    case databaseVersion
+}
+
+enum ActiveUsersInded: Int {
+    case last5Minutes
+    case lastHour
+    case lastDay
+    case total
+}
+
 // ----------------------------------------------------------------------------
 // MARK: - Monitor Struct for TableView
 // ----------------------------------------------------------------------------
@@ -205,7 +219,7 @@ struct ServerTableViewDataContainer {
     let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
     let storageSectionLabels = ["Free Space", "Number of Files"]
     let serverSectionLabels = ["Web Server", "PHP Version", "Database", "Database Version"]
-    let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day"]
+    let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
     
     // MARK: - ServerData
     var systemSectionData = [String]()
