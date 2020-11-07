@@ -98,8 +98,12 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
             DispatchQueue.main.async {
-                print(jsonStream)
-                self.tableViewDataContainer.updateStats(with: (jsonStream.ocs?.data?.nextcloud)!, webServer: (jsonStream.ocs?.data?.server)!, users: (jsonStream.ocs?.data?.activeUsers)!)
+                guard let server = jsonStream.ocs?.data?.nextcloud else { return }
+                guard let webServer = jsonStream.ocs?.data?.server else { return }
+                guard let users = jsonStream.ocs?.data?.activeUsers else { return }
+                
+                //self.tableViewDataContainer.updateStats(with: server, webServer: webServer, users: users)
+                self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
                 self.statController.reloadData()
                 self.activityIndicator.deactivate()
                 self.activityIndicator.isHidden = true
