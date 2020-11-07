@@ -71,11 +71,27 @@ enum ActiveUsersEnum: String, CaseIterable {
     case total = "Total"
 }
 
+enum SystemIndex: Int {
+    case version
+    case cpuLoad
+    case memoryUsage
+    case memory
+    case swapUsage
+    case swap
+    case localCache
+    case distributedCache
+}
+
+enum StorageIndex: Int {
+    case freeSpace
+    case numberOfFiles
+}
+
 // ----------------------------------------------------------------------------
 // MARK: - Monitor Struct for TableView
 // ----------------------------------------------------------------------------
 
-struct tableStat {
+struct ServerTableViewDataContainer {
 
     var statsArray = [
         Array(repeating: "...", count: SystemEnum.allCases.count),
@@ -148,6 +164,9 @@ struct tableStat {
     }
     
     func doubleArrayToString(array: [Double]) -> String {
+        // Check that array has a value
+        if array.isEmpty { return "N/A" }
+        
         var string = ""
         var pass = 0
         
@@ -167,21 +186,6 @@ struct tableStat {
         }
     }
     
-    func getStatLabel(forRow row: Int, inSection section: Int) -> String {
-        switch section {
-        case StatGroup.system.index:
-            return SystemEnum.allCases[row].rawValue
-        case StatGroup.storage.index:
-            return StorageEnum.allCases[row].rawValue
-        case StatGroup.server.index:
-            return ServerEnum.allCases[row].rawValue
-        case StatGroup.activeUsers.index:
-            return ActiveUsersEnum.allCases[row].rawValue
-        default:
-            return "You shouldn't be here"
-        }
-    }
-    
     func getArrayIndex(for group: StatGroup) -> Int {
         switch group {
         case .system:
@@ -192,6 +196,96 @@ struct tableStat {
             return 2
         case .activeUsers:
             return 3
+        }
+    }
+    
+    // MARK: - Labels
+    let sectionLabels = ["System", "Storage", "Server", "Active Users"]
+    
+    let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
+    let storageSectionLabels = ["Free Space", "Number of Files"]
+    let serverSectionLabels = ["Web Server", "PHP Version", "Database", "Database Version"]
+    let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day"]
+    
+    // MARK: - ServerData
+    var systemSectionData = [String]()
+    var storageSectionData = [String]()
+    var serverSectionData = [String]()
+    var activeUsersSectionData = [String]()
+    
+    init() {
+        systemSectionData = Array(repeating: "...", count: systemSectionLabels.count)
+        storageSectionData = Array(repeating: "...", count: storageSectionLabels.count)
+        serverSectionData = Array(repeating: "...", count: serverSectionLabels.count)
+        activeUsersSectionData = Array(repeating: "...", count: activeUsersSectionLabels.count)
+    }
+    
+    // MARK: - Data Parsing and Update
+    mutating func updateDataWith(server: Nextcloud, webServer: Server, users: ActiveUsers) {
+        systemSectionData[SystemIndex.version.rawValue] = server.system?.version ?? "N/A"
+        systemSectionData[SystemIndex.cpuLoad.rawValue] = doubleArrayToString(array: server.system?.cpuload ?? [])
+        systemSectionData[SystemIndex.memoryUsage.rawValue] = "N/A"
+        systemSectionData[SystemIndex.memory.rawValue] = "N/A"
+        systemSectionData[SystemIndex.swapUsage.rawValue] = "N/A"
+        systemSectionData[SystemIndex.swap.rawValue] = "N/A"
+        systemSectionData[SystemIndex.localCache.rawValue] = "N/A"
+        systemSectionData[SystemIndex.distributedCache.rawValue] = "N/A"
+        
+        
+    }
+    
+    // MARK: - TableView Data Getters
+    
+    func sections() -> Int {
+        return sectionLabels.count
+    }
+    
+    func sectionLabel(for section: Int) -> String {
+        return sectionLabels[section]
+    }
+    
+    func rows(in section: Int) -> Int {
+        switch section {
+        case 0:
+            return systemSectionLabels.count
+        case 1:
+            return storageSectionLabels.count
+        case 2:
+            return serverSectionLabels.count
+        case 3:
+            return activeUsersSectionLabels.count
+        default:
+            return 0
+        }
+    }
+    
+    func rowLabel(forRow row: Int, inSection section: Int) -> String {
+        switch section {
+        case 0:
+            return systemSectionLabels[row]
+        case 1:
+            return storageSectionLabels[row]
+        case 2:
+            return serverSectionLabels[row]
+        case 3:
+            return activeUsersSectionLabels[row]
+        default:
+            return "N/A"
+        }
+    }
+    
+    func rowData(forRow row: Int, inSection section: Int) -> String {
+        switch section {
+        case 0:
+            return systemSectionData[row]
+        case 1:
+            return storageSectionData[row]
+        case 2:
+            return serverSectionData[row]
+        case 3:
+            return activeUsersSectionData[row]
+        default:
+            return "N/A"
         }
     }
 }
