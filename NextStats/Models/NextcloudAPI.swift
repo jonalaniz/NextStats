@@ -33,7 +33,7 @@ enum ServerError {
     }
 }
 
-// Index Structs
+// Server Data Label Enums
 enum SystemIndex: Int {
     case version
     case cpuLoad
