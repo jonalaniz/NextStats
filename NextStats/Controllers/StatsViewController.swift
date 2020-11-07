@@ -12,7 +12,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet var statController: UITableView!
     
     var server: NextServer!
-    var tableStatContainer = tableStat()
+    var tableViewDataContainer = ServerTableViewDataContainer()
     var isInitialLoad = true
 
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
@@ -98,8 +98,12 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
             DispatchQueue.main.async {
-                print(jsonStream)
-                self.tableStatContainer.updateStats(with: (jsonStream.ocs?.data?.nextcloud)!, webServer: (jsonStream.ocs?.data?.server)!, users: (jsonStream.ocs?.data?.activeUsers)!)
+                guard let server = jsonStream.ocs?.data?.nextcloud else { return }
+                guard let webServer = jsonStream.ocs?.data?.server else { return }
+                guard let users = jsonStream.ocs?.data?.activeUsers else { return }
+                
+                //self.tableViewDataContainer.updateStats(with: server, webServer: webServer, users: users)
+                self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
                 self.statController.reloadData()
                 self.activityIndicator.deactivate()
                 self.activityIndicator.isHidden = true
@@ -129,8 +133,16 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: - Table View Functions
     // ----------------------------------------------------------------------------
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tableViewDataContainer.sections()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableStatContainer.statsArray[section].count
+        return tableViewDataContainer.rows(in: section)
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return tableViewDataContainer.sectionLabel(for: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -141,18 +153,13 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.textColor = .white
-        cell.textLabel?.text = tableStatContainer.getStatLabel(forRow: row, inSection: section)
-        cell.detailTextLabel?.text = tableStatContainer.statsArray[section][row]
+        cell.textLabel?.text = tableViewDataContainer.rowLabel(forRow: row, inSection: section)
+//        cell.detailTextLabel?.text = tableStatContainer.statsArray[section][row]
+        cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
         return cell
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return tableStatContainer.statsArray.count
-    }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return StatGroup.allCases[section].rawValue
-    }
+    
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).backgroundView = UIView(frame: view.bounds)

@@ -12,11 +12,10 @@ protocol ServerSelectionDelegate: class {
     func serverSelected(_ newServer: NextServer)
 }
 
-class ServerViewController: UITableViewController, RefreshServerTableViewDelegate {
+class ServerViewController: UITableViewController {
     weak var delegate: ServerSelectionDelegate?
-    var initialLoad = true
     
-    var servers = NextServers()
+    var serverManager = ServerManager.shared
     
     override func viewWillAppear(_ animated: Bool) {
         setupUI()
@@ -28,6 +27,8 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .serverDidChange, object: nil)
     }
     
     private func setupUI() {
@@ -44,8 +45,11 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
     
     @objc func refresh() {
         tableView.reloadData()
-        tableView.refreshControl?.endRefreshing()
+        if tableView.refreshControl?.isRefreshing == true {
+            tableView.refreshControl?.endRefreshing()
+        }
     }
+    
     
     // ----------------------------------------------------------------------------
     // MARK: - Add Server Flow
@@ -53,19 +57,18 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
     
     @objc func addServer() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
-            vc.servers = self.servers
-            vc.delegate = self
-            self.present(vc, animated: true, completion: nil)
+            vc.serverManager = self.serverManager
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.present(navigationController, animated: true, completion: nil)
         }
     }
-    
-    func refreshTableView() {
-        tableView.reloadData()
-    }
-    
-    // ----------------------------------------------------------------------------
-    // MARK: - TableView Overrides
-    // ----------------------------------------------------------------------------
+}
+
+// ----------------------------------------------------------------------------
+// MARK: - TableView Methods
+// ----------------------------------------------------------------------------
+
+extension ServerViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
         UIView.animate(withDuration: 0.3, delay: 0.1 * Double(indexPath.row), animations: {
@@ -79,14 +82,14 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return servers.instances.count
+        return serverManager.servers.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
         let backgroundAlpha = (0.1 + (Double(indexPath.row) * 0.1))
         
-        cell.server = servers.instances[indexPath.row]
+        cell.server = serverManager.servers[indexPath.row]
         cell.configureCell()
         cell.contentView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
 
@@ -94,7 +97,7 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedServer = servers.instances[indexPath.row]
+        let selectedServer = serverManager.servers[indexPath.row]
         delegate?.serverSelected(selectedServer)
         
         if let statViewController = delegate as? StatsViewController, let statNavigationController = statViewController.navigationController {
@@ -106,7 +109,7 @@ class ServerViewController: UITableViewController, RefreshServerTableViewDelegat
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from array and tableView
-            servers.instances.remove(at: indexPath.row)
+            serverManager.servers.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }

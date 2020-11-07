@@ -33,103 +33,183 @@ enum ServerError {
     }
 }
 
-// Stat enums for tableview
-enum StatGroup: String, CaseIterable {
-    case system = "System"
-    case storage = "Storage"
-    case server = "Server"
-    case activeUsers = "Active Users"
+// Server Data Label Enums
+enum SystemIndex: Int {
+    case version
+    case cpuLoad
+    case memoryUsage
+    case memory
+    case swapUsage
+    case swap
+    case localCache
+    case distributedCache
 }
 
-enum SystemEnum: String, CaseIterable {
-    case version = "Version"
-    case cpuLoad = "CPU Load"
-    case memoryUsage = "Memory Usage"
-    case memory = "Memory"
-    case swapUsage = "Swap Usage"
-    case swap = "Swap"
-    case localCache = "Local Cache"
-    case distributedCache = "Distributed Cache"
+enum StorageIndex: Int {
+    case freeSpace
+    case numberOfFiles
 }
 
-enum StorageEnum: String, CaseIterable {
-    case freeSpace = "Free Space"
-    case numberOfFiles = "Number of Files"
+enum ServerIndex: Int {
+    case webServer
+    case phpVersion
+    case database
+    case databaseVersion
 }
 
-enum ServerEnum: String, CaseIterable {
-    case webServer = "Web Server"
-    case phpVersion = "PHP Version"
-    case database = "Database"
-    case databaseVersion = "Database Version"
-}
-
-enum ActiveUsersEnum: String, CaseIterable {
-    case last5Minutes = "Last 5 Minutes"
-    case lastHour = "Last Hour"
-    case lastDay = "Last Day"
-    case total = "Total"
+enum ActiveUsersIndex: Int {
+    case last5Minutes
+    case lastHour
+    case lastDay
+    case total
 }
 
 // ----------------------------------------------------------------------------
 // MARK: - Monitor Struct for TableView
 // ----------------------------------------------------------------------------
 
-struct tableStat {
-
-    var statsArray = [
-        Array(repeating: "...", count: SystemEnum.allCases.count),
-        Array(repeating: "...", count: StorageEnum.allCases.count),
-        Array(repeating: "...", count: ServerEnum.allCases.count),
-        Array(repeating: "...", count: ActiveUsersEnum.allCases.count)
-    ]
+struct ServerTableViewDataContainer {
+    // MARK: - Labels
+    let sectionLabels = ["System", "Storage", "Server", "Active Users"]
+    let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
+    let storageSectionLabels = ["Free Space", "Number of Files"]
+    let serverSectionLabels = ["Web Server", "PHP Version", "Database", "Database Version"]
+    let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
     
-    mutating func updateStats(with server: Nextcloud, webServer: Server, users: ActiveUsers) {
-        var memory = "N/A"
-        var memoryUsage = "N/A"
-        var swap = "N/A"
-        var swapUsage = "N/A"
-        
-        // If memory values are present, calculate and insert values
-        if server.system?.memTotal?.intValue != nil {
-            memory = calculateMemory(freeMemory: server.system!.memFree!.intValue!, totalMemory: server.system!.memTotal!.intValue!)
-            memoryUsage = calculateMemoryUsage(freeMemory: server.system!.memFree!.intValue!, totalMemory: server.system!.memTotal!.intValue!)
-            swap = calculateMemory(freeMemory: server.system!.swapFree!.intValue!, totalMemory: server.system!.swapTotal!.intValue!)
-            swapUsage = calculateMemoryUsage(freeMemory: server.system!.swapFree!.intValue!, totalMemory: server.system!.swapTotal!.intValue!)
-        }
-        
-        let freeSpace = (Double(server.system!.freespace!) / 1073741824.0)
-        
-        let numberOfFiles = server.storage!.numFiles!
-        
-        let last5 = String(users.last5Minutes!)
-        let lastHour = String(users.last1Hour!)
-        let lastDay = String(users.last24Hours!)
-        let total = String(server.storage!.numUsers!)
-        
-        statsArray[StatGroup.system.index!][SystemEnum.version.index!] = (server.system?.version) ?? "N/A"
-        statsArray[StatGroup.system.index!][SystemEnum.cpuLoad.index!] = doubleArrayToString(array: server.system!.cpuload!)
-        statsArray[StatGroup.system.index!][SystemEnum.memoryUsage.index!] = memoryUsage
-        statsArray[StatGroup.system.index!][SystemEnum.memory.index!] = memory
-        statsArray[StatGroup.system.index!][SystemEnum.swapUsage.index!] = swapUsage
-        statsArray[StatGroup.system.index!][SystemEnum.swap.index!] = swap
-        statsArray[StatGroup.system.index!][SystemEnum.localCache.index!] = (server.system?.memcacheLocal) ?? "N/A"
-        statsArray[StatGroup.system.index!][SystemEnum.distributedCache.index!] = server.system?.memcacheDistributed ?? "N/A"
-        
-        statsArray[StatGroup.storage.index!][StorageEnum.freeSpace.index!] = "\(String(format: "%.2f", freeSpace)) GB"
-        statsArray[StatGroup.storage.index!][StorageEnum.numberOfFiles.index!] = String(numberOfFiles)
-        
-        statsArray[StatGroup.server.index!][ServerEnum.webServer.index!] = webServer.webserver ?? "N/A"
-        statsArray[StatGroup.server.index!][ServerEnum.phpVersion.index!] = webServer.php?.version ?? "N/A"
-        statsArray[StatGroup.server.index!][ServerEnum.database.index!] = webServer.database?.type ?? "N/A"
-        statsArray[StatGroup.server.index!][ServerEnum.databaseVersion.index!] = webServer.database?.version ?? "N/A"
-        
-        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.last5Minutes.index!] = last5
-        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.lastHour.index!] = lastHour
-        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.lastDay.index!] = lastDay
-        statsArray[StatGroup.activeUsers.index!][ActiveUsersEnum.total.index!] = total
+    // MARK: - ServerData
+    var systemSectionData = [String]()
+    var storageSectionData = [String]()
+    var serverSectionData = [String]()
+    var activeUsersSectionData = [String]()
+    
+    init() {
+        systemSectionData = Array(repeating: "...", count: systemSectionLabels.count)
+        storageSectionData = Array(repeating: "...", count: storageSectionLabels.count)
+        serverSectionData = Array(repeating: "...", count: serverSectionLabels.count)
+        activeUsersSectionData = Array(repeating: "...", count: activeUsersSectionLabels.count)
     }
     
+    // MARK: - Data Parsing and Update
+    mutating func updateDataWith(server system: Nextcloud, webServer: Server, users: ActiveUsers) {
+
+        // Update the System Section
+        let memoryUsage: String = {
+            if let freeMemory = system.system?.memFree?.intValue {
+                if let totalMemory = system.system?.memTotal?.intValue {
+                    return calculateMemoryUsage(freeMemory: freeMemory, totalMemory: totalMemory)
+                }
+            }
+            
+            return "N/A"
+        }()
+        
+        let memory: String = {
+            if let freeMemory = system.system?.memFree?.intValue {
+                if let totalMemory = system.system?.memTotal?.intValue {
+                    return calculateMemory(freeMemory: freeMemory, totalMemory: totalMemory)
+                }
+            }
+            
+            return "N/A"
+        }()
+        
+        let swapUsage: String = {
+            if let freeMemory = system.system?.swapFree?.intValue {
+                if let totalMemory = system.system?.swapTotal?.intValue {
+                    return calculateMemoryUsage(freeMemory: freeMemory, totalMemory: totalMemory)
+                }
+            }
+            
+            return "N/A"
+        }()
+        
+        let swap: String = {
+            if let freeMemory = system.system?.swapFree?.intValue {
+                if let totalMemory = system.system?.swapTotal?.intValue {
+                    return calculateMemory(freeMemory: freeMemory, totalMemory: totalMemory)
+                }
+            }
+            
+            return "N/A"
+        }()
+        
+        systemSectionData[SystemIndex.version.rawValue] = system.system?.version ?? "N/A"
+        systemSectionData[SystemIndex.cpuLoad.rawValue] = doubleArrayToString(array: system.system?.cpuload ?? [])
+        systemSectionData[SystemIndex.memoryUsage.rawValue] = memoryUsage
+        systemSectionData[SystemIndex.memory.rawValue] = memory
+        systemSectionData[SystemIndex.swapUsage.rawValue] = swapUsage
+        systemSectionData[SystemIndex.swap.rawValue] = swap
+        systemSectionData[SystemIndex.localCache.rawValue] = system.system?.memcacheLocal ?? "N/A"
+        systemSectionData[SystemIndex.distributedCache.rawValue] = system.system?.memcacheDistributed ?? "N/A"
+        
+        // Update the Storage Section
+        let freeSpace: String = {
+            if let value = system.system?.freespace {
+                let valueInGigabytes = Double(value) / 1073741824.0
+                return "\(String(format: "%.2f", valueInGigabytes)) GB"
+            } else {
+                return "N/A"
+            }
+        }()
+        
+        let numberOfFiles: String = {
+            if let value = system.storage?.numFiles {
+                return String(value)
+            } else {
+                return "N/A"
+            }
+        }()
+        
+        storageSectionData[StorageIndex.freeSpace.rawValue] = freeSpace
+        storageSectionData[StorageIndex.numberOfFiles.rawValue] = numberOfFiles
+        
+        // Update the Web Server Section
+        serverSectionData[ServerIndex.webServer.rawValue] = webServer.webserver ?? "N/A"
+        serverSectionData[ServerIndex.phpVersion.rawValue] = webServer.php?.version ?? "N/A"
+        serverSectionData[ServerIndex.database.rawValue] = webServer.database?.type ?? "N/A"
+        serverSectionData[ServerIndex.databaseVersion.rawValue] = webServer.database?.version ?? "N/A"
+        
+        // Update the Active Users Section
+        let last5: String = {
+            if let value = users.last5Minutes {
+                return String(value)
+            } else {
+                return "N/A"
+            }
+        }()
+        
+        let lastHour: String = {
+            if let value = users.last1Hour {
+                return String(value)
+            } else {
+                return "N/A"
+            }
+        }()
+        
+        let lastDay: String = {
+            if let value = users.last24Hours {
+                return String(value)
+            } else {
+                return "N/A"
+            }
+        }()
+        
+        let total: String = {
+            if let value = system.storage?.numUsers {
+                return String(value)
+            } else {
+                return "N/A"
+            }
+        }()
+        
+        activeUsersSectionData[ActiveUsersIndex.last5Minutes.rawValue] = last5
+        activeUsersSectionData[ActiveUsersIndex.lastHour.rawValue] = lastHour
+        activeUsersSectionData[ActiveUsersIndex.lastDay.rawValue] = lastDay
+        activeUsersSectionData[ActiveUsersIndex.total.rawValue] = total
+        
+    }
+    
+    // MARK: - Data Helper Functions
     func calculateMemory(freeMemory: Int, totalMemory: Int) -> String {
         let totalGB = Double(totalMemory) / 1048576.0
         let totalFree = Double(freeMemory) / 1048576.0
@@ -148,6 +228,9 @@ struct tableStat {
     }
     
     func doubleArrayToString(array: [Double]) -> String {
+        // Check that array has a value
+        if array.isEmpty { return "N/A" }
+        
         var string = ""
         var pass = 0
         
@@ -167,33 +250,78 @@ struct tableStat {
         }
     }
     
-    func getStatLabel(forRow row: Int, inSection section: Int) -> String {
+    // MARK: - TableView Data Getters
+    func sections() -> Int {
+        return sectionLabels.count
+    }
+    
+    func sectionLabel(for section: Int) -> String {
+        return sectionLabels[section]
+    }
+    
+    func rows(in section: Int) -> Int {
         switch section {
-        case StatGroup.system.index:
-            return SystemEnum.allCases[row].rawValue
-        case StatGroup.storage.index:
-            return StorageEnum.allCases[row].rawValue
-        case StatGroup.server.index:
-            return ServerEnum.allCases[row].rawValue
-        case StatGroup.activeUsers.index:
-            return ActiveUsersEnum.allCases[row].rawValue
+        case 0:
+            return systemSectionLabels.count
+        case 1:
+            return storageSectionLabels.count
+        case 2:
+            return serverSectionLabels.count
+        case 3:
+            return activeUsersSectionLabels.count
         default:
-            return "You shouldn't be here"
+            return 0
         }
     }
     
-    func getArrayIndex(for group: StatGroup) -> Int {
-        switch group {
-        case .system:
-            return 0
-        case .storage:
-            return 1
-        case .server:
-            return 2
-        case .activeUsers:
-            return 3
+    func rowLabel(forRow row: Int, inSection section: Int) -> String {
+        switch section {
+        case 0:
+            return systemSectionLabels[row]
+        case 1:
+            return storageSectionLabels[row]
+        case 2:
+            return serverSectionLabels[row]
+        case 3:
+            return activeUsersSectionLabels[row]
+        default:
+            return "N/A"
         }
     }
+    
+    func rowData(forRow row: Int, inSection section: Int) -> String {
+        switch section {
+        case 0:
+            return systemSectionData[row]
+        case 1:
+            return storageSectionData[row]
+        case 2:
+            return serverSectionData[row]
+        case 3:
+            return activeUsersSectionData[row]
+        default:
+            return "N/A"
+        }
+    }
+}
+
+// ----------------------------------------------------------------------------
+// MARK: - Authorization Structs - For use when adding server
+// ----------------------------------------------------------------------------
+struct AuthResponse: Codable {
+    let poll: Poll?
+    let login: String?
+}
+
+struct Poll: Codable {
+    let token: String?
+    let endpoint: String?
+}
+
+struct ServerAuthenticationInfo: Codable {
+    let server: String?
+    let loginName: String?
+    let appPassword: String?
 }
 
 // ----------------------------------------------------------------------------
