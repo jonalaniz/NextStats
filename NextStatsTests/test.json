@@ -1,0 +1,85 @@
+{
+  "ocs": {
+    "meta": {
+      "status": "ok",
+      "statuscode": 200,
+      "message": "OK"
+    },
+    "data": {
+      "nextcloud": {
+        "system": {
+          "version": "19.0.3.1",
+          "theme": "",
+          "enable_avatars": "yes",
+          "enable_previews": "yes",
+          "memcache.local": "\\OC\\Memcache\\APCu",
+          "memcache.distributed": "none",
+          "filelocking.enabled": "yes",
+          "memcache.locking": "\\OC\\Memcache\\Redis",
+          "debug": "no",
+          "freespace": 346379628544,
+          "cpuload": [
+            0.54638671875,
+            0.60595703125,
+            0.60107421875
+          ],
+          "mem_total": 24665604,
+          "mem_free": 4246872,
+          "swap_total": 0,
+          "swap_free": 0,
+          "apps": {
+            "num_installed": 79,
+            "num_updates_available": 0,
+            "app_updates": []
+          }
+        },
+        "storage": {
+          "num_users": 11,
+          "num_files": 642526,
+          "num_storages": 25,
+          "num_storages_local": 1,
+          "num_storages_home": 12,
+          "num_storages_other": 12
+        },
+        "shares": {
+          "num_shares": 17,
+          "num_shares_user": 8,
+          "num_shares_groups": 5,
+          "num_shares_link": 1,
+          "num_shares_mail": 0,
+          "num_shares_room": 0,
+          "num_shares_link_no_password": 1,
+          "num_fed_shares_sent": 0,
+          "num_fed_shares_received": 0,
+          "permissions_2_0": "1",
+          "permissions_1_1": "1",
+          "permissions_3_1": "1",
+          "permissions_0_17": "2",
+          "permissions_0_21": "2",
+          "permissions_0_31": "4",
+          "permissions_1_31": "4",
+          "permissions_2_31": "2"
+        }
+      },
+      "server": {
+        "webserver": "nginx/1.18.0",
+        "php": {
+          "version": "7.3.22",
+          "memory_limit": 536870912,
+          "max_execution_time": 3600,
+          "upload_max_filesize": 1073741824
+        },
+        "database": {
+          "type": "mysql",
+          "version": "10.4.14",
+          "size": 266772480
+        }
+      },
+      "activeUsers": {
+        "last5minutes": 2,
+        "last1hour": 2,
+        "last24hours": 2
+      }
+    }
+  }
+}
