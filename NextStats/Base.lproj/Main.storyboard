@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zVB-Na-2p6">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -14,11 +14,11 @@
             <objects>
                 <viewController storyboardIdentifier="AddView" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="AddServerViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server Nickname (optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63R-1X-e0P">
-                                <rect key="frame" x="16" y="96" width="382" height="28"/>
+                                <rect key="frame" x="16" y="140" width="382" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="6gl-XN-fkz"/>
                                 </constraints>
@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="My Server" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9f0-K0-NI9">
-                                <rect key="frame" x="16" y="136" width="382" height="44"/>
+                                <rect key="frame" x="16" y="180" width="382" height="44"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="i1P-d9-jlW"/>
@@ -36,7 +36,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server URL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-nr-I68">
-                                <rect key="frame" x="16" y="196" width="382" height="28"/>
+                                <rect key="frame" x="16" y="240" width="382" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Kz9-08-ePz"/>
                                 </constraints>
@@ -45,7 +45,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="https://www.example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="01T-XB-asV">
-                                <rect key="frame" x="16" y="236" width="382" height="44"/>
+                                <rect key="frame" x="16" y="280" width="382" height="44"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="00s-gc-WyJ"/>
@@ -54,7 +54,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done" textContentType="url"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please enter a valid url" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oab-Pr-I9Q">
-                                <rect key="frame" x="16" y="292" width="382" height="16"/>
+                                <rect key="frame" x="16" y="336" width="382" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="yF0-1C-WXU"/>
                                 </constraints>
@@ -63,7 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When monitoring servers externally, Nextstats requires SSL encryption (https)." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYd-XQ-LvH">
-                                <rect key="frame" x="16" y="318" width="382" height="40"/>
+                                <rect key="frame" x="16" y="362" width="382" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RPO-RC-6An"/>
                                 </constraints>
@@ -72,14 +72,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="K5S-lw-RtW">
-                                <rect key="frame" x="16" y="368" width="382" height="40"/>
+                                <rect key="frame" x="16" y="412" width="382" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dgs-qX-9T7"/>
                                 </constraints>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zr4-ck-mx8">
-                                <rect key="frame" x="137" y="422" width="140" height="44"/>
+                                <rect key="frame" x="137" y="466" width="140" height="44"/>
                                 <color key="backgroundColor" red="0.32937070730000001" green="0.36473536490000003" blue="0.58816075329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="jSf-yB-wmW"/>
@@ -143,14 +143,14 @@
             <objects>
                 <tableViewController storyboardIdentifier="ServerView" clearsSelectionOnViewWillAppear="NO" id="4Yk-0Y-zTJ" customClass="ServerViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="5NN-wy-Wyr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="Cil-eY-FUp" customClass="ServerCell" customModule="NextStats" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cil-eY-FUp" id="iKZ-cc-vni">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-7Y-Any">
@@ -163,7 +163,7 @@
                                                         <constraint firstAttribute="width" constant="102" id="o9U-XM-6rF"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nextcloud-logo-transparent" translatesAutoresizingMaskIntoConstraints="NO" id="yah-vD-TXp">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nextcloud-server" translatesAutoresizingMaskIntoConstraints="NO" id="yah-vD-TXp">
                                                     <rect key="frame" x="12" y="10" width="78" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="78" id="WYv-4k-P4k"/>
@@ -195,7 +195,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MkE-HM-nhm">
-                                                    <rect key="frame" x="345" y="7" width="14" height="86.333333333333329"/>
+                                                    <rect key="frame" x="345" y="7" width="14" height="86.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="14" id="yMO-gX-nlZ"/>
                                                     </constraints>
@@ -249,6 +249,7 @@
                             <outlet property="delegate" destination="4Yk-0Y-zTJ" id="eP8-Xu-yIT"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="Servers" id="6tE-HA-qXk"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qm-rp-pIL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -258,11 +259,17 @@
         <!--Navigation Controller-->
         <scene sceneID="kBm-lS-47d">
             <objects>
-                <navigationController id="mY6-rP-Bi7" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="mY6-rP-Bi7" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="KKV-bi-iqw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MHn-S3-WVw">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="4Yk-0Y-zTJ" kind="relationship" relationship="rootViewController" id="PvJ-cw-nPf"/>
                     </connections>
@@ -289,28 +296,28 @@
             <objects>
                 <viewController storyboardIdentifier="StatsView" automaticallyAdjustsScrollViewInsets="NO" id="C0e-Ti-2rV" customClass="StatsViewController" customModule="NextStats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gSM-bg-AiR">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zhs-Sd-KzE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="lEy-Kr-sZd" detailTextLabel="LBI-Wk-LZQ" style="IBUITableViewCellStyleValue1" id="cQI-IB-Yyo">
-                                        <rect key="frame" x="20" y="55.333332061767578" width="374" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="55.5" width="374" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cQI-IB-Yyo" id="UIL-q8-HrV">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lEy-Kr-sZd">
-                                                    <rect key="frame" x="20" y="11.999999999999998" width="33" height="20.333333333333332"/>
+                                                    <rect key="frame" x="20" y="12" width="33" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LBI-Wk-LZQ">
-                                                    <rect key="frame" x="295.66666666666669" y="11.999999999999998" width="58.333333333333336" height="20.333333333333332"/>
+                                                    <rect key="frame" x="295.5" y="12" width="58.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -347,10 +354,13 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyi-oR-INh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="FhM-5T-GUV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="6YI-W6-yi6">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="C0e-Ti-2rV" kind="relationship" relationship="rootViewController" id="KSB-Ss-tih"/>
                     </connections>
@@ -365,7 +375,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qqh-hG-EmY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gXb-Ub-N8x">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -380,7 +390,7 @@
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="nextcloud-logo-transparent" width="446" height="315"/>
+        <image name="nextcloud-server" width="600" height="600"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

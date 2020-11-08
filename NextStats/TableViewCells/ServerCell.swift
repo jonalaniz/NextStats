@@ -100,7 +100,6 @@ class ServerCell: UITableViewCell {
     }
     
     // Download and save image
-    
     func downloadImage(to path: String) {
         self.logoImage.isHidden = true
         let url = server.imageURL()
@@ -115,7 +114,7 @@ class ServerCell: UITableViewCell {
                     if response.statusCode != 200 {
                         // No image found, put default image in place
                         DispatchQueue.main.async {
-                            self.logoImage.image = UIImage(named: "nextcloud-logo-transparent")
+                            self.logoImage.image = UIImage(named: "nextcloud-server")
                             self.logoImage.isHidden = false
                             self.spinner.deactivate()
                         }                    }

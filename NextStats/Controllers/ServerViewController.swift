@@ -32,14 +32,36 @@ class ServerViewController: UITableViewController {
     }
     
     private func setupUI() {
-        // Setup Bar Button Items
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addServer))
-        navigationItem.leftBarButtonItem = self.editButtonItem
+        // Navigation Bar
+        navigationItem.rightBarButtonItem = self.editButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
         
         // Setup Pull To Refresh Controls
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
+        // Set Up Toolbar
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        //let add = UIBarButtonItem(image: UIImage(systemName: "externaldrive.fill.badge.plus"), style: .plain, target: self, action: #selector(addServer))
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
+        button.addTarget(self, action: #selector(addServer), for: .touchUpInside)
+        button.setTitle("  Add a Server", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        button.sizeToFit()
+        let add = UIBarButtonItem(customView: button)
+        add.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        add.customView?.widthAnchor.constraint(equalToConstant: 140).isActive = true
+
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(addServer))
+        
+        toolbarItems = [add, spacer, about]
+        navigationController?.isToolbarHidden = false
+        navigationController?.toolbar.isTranslucent = false
+        navigationController?.toolbar.barTintColor = .systemBackground
+        navigationController?.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+        //navigationController?.toolbar.clipsToBounds = true
+        
     }
     
     @objc func refresh() {
@@ -92,7 +114,6 @@ extension ServerViewController {
             splitViewController?.showDetailViewController(statNavigationController, sender: nil)
         }
     }
-
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
