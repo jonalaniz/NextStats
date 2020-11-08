@@ -152,6 +152,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.textLabel?.text = tableViewDataContainer.rowLabel(forRow: row, inSection: section)
         cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
+        cell.detailTextLabel?.textColor = .secondaryLabel
         return cell
     }
 
