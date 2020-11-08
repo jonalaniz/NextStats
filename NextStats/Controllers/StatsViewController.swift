@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class StatsViewController: UIViewController {
     @IBOutlet var statController: UITableView!
     
     var server: NextServer!
@@ -27,8 +27,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        activityIndicator.color = .white
     }
     
     private func setupView(withData data: Bool) {
@@ -127,12 +125,10 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
-    
-    
-    // ----------------------------------------------------------------------------
-    // MARK: - Table View Functions
-    // ----------------------------------------------------------------------------
-    
+}
+
+// MARK: - Table View Functions
+extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewDataContainer.sections()
     }
@@ -156,15 +152,9 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
 
-    
-
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView = UIView(frame: view.bounds)
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.secondarySystemBackground
-        (view as! UITableViewHeaderFooterView).textLabel?.textColor = .label
-    }
 }
 
+// MARK: - ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer) {
         if statController != nil { statController.isHidden = false }
