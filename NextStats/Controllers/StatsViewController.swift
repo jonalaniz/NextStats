@@ -8,11 +8,11 @@
 
 import UIKit
 
-class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class StatsViewController: UIViewController {
     @IBOutlet var statController: UITableView!
     
     var server: NextServer!
-    var tableViewDataContainer = ServerTableViewDataContainer()
+    var tableViewDataContainer = ServerTableViewDataManager()
     var isInitialLoad = true
 
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
@@ -27,8 +27,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        activityIndicator.color = .white
     }
     
     private func setupView(withData data: Bool) {
@@ -44,8 +42,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     
                     statController.delegate = self
                     statController.dataSource = self
-                    statController.backgroundColor = .clear
-                    statController.sectionHeaderHeight = 40
                     statController.isHidden = false
                     isInitialLoad = false
                 } else {
@@ -102,7 +98,6 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 guard let webServer = jsonStream.ocs?.data?.server else { return }
                 guard let users = jsonStream.ocs?.data?.activeUsers else { return }
                 
-                //self.tableViewDataContainer.updateStats(with: server, webServer: webServer, users: users)
                 self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
                 self.statController.reloadData()
                 self.activityIndicator.deactivate()
@@ -127,12 +122,10 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
-    
-    
-    // ----------------------------------------------------------------------------
-    // MARK: - Table View Functions
-    // ----------------------------------------------------------------------------
-    
+}
+
+// MARK: - Table View Functions
+extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewDataContainer.sections()
     }
@@ -150,24 +143,19 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let section = indexPath.section
         let row = indexPath.row
         
-        cell.backgroundColor = .clear
-        cell.textLabel?.textColor = .white
-        cell.detailTextLabel?.textColor = .white
         cell.textLabel?.text = tableViewDataContainer.rowLabel(forRow: row, inSection: section)
-//        cell.detailTextLabel?.text = tableStatContainer.statsArray[section][row]
         cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
+        cell.detailTextLabel?.textColor = .secondaryLabel
         return cell
     }
-
     
-
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        (view as! UITableViewHeaderFooterView).backgroundView = UIView(frame: view.bounds)
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor(red: 22/255, green: 24/255, blue: 39/255, alpha: 1)
-        (view as! UITableViewHeaderFooterView).textLabel?.textColor = .white
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28
     }
+
 }
 
+// MARK: - ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer) {
         if statController != nil { statController.isHidden = false }

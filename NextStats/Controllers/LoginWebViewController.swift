@@ -18,7 +18,6 @@ class LoginWebViewController: UIViewController {
     var passedURLString: String!
     var serverManager: ServerManager!
     
-
     override func loadView() {
         webView = WKWebView()
         view = webView

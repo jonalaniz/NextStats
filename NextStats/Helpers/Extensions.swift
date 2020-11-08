@@ -61,13 +61,6 @@ extension UIActivityIndicatorView {
         self.isHidden = true
         self.stopAnimating()
     }
-    
-}
-
-extension UINavigationController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 }
 
 extension WKWebView {

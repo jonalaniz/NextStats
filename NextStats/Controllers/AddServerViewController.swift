@@ -99,10 +99,10 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         
         // Style the UI
         styleTextField(textField: nicknameField)
-        nicknameField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
+        nicknameField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
         
         styleTextField(textField: serverURLField)
-        serverURLField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: placeholderTextColor])
+        serverURLField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
 
         connectButton.isEnabled = false
         activityIndicatior.isHidden = true
