@@ -98,7 +98,6 @@ class StatsViewController: UIViewController {
                 guard let webServer = jsonStream.ocs?.data?.server else { return }
                 guard let users = jsonStream.ocs?.data?.activeUsers else { return }
                 
-                //self.tableViewDataContainer.updateStats(with: server, webServer: webServer, users: users)
                 self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
                 self.statController.reloadData()
                 self.activityIndicator.deactivate()
@@ -148,6 +147,10 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
         cell.detailTextLabel?.textColor = .secondaryLabel
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28
     }
 
 }
