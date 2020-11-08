@@ -61,7 +61,6 @@ extension UIActivityIndicatorView {
         self.isHidden = true
         self.stopAnimating()
     }
-    
 }
 
 extension WKWebView {

@@ -40,7 +40,6 @@ class ServerViewController: UITableViewController {
         // Setup Pull To Refresh Controls
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        tableView.refreshControl?.tintColor = UIColor.white
     }
     
     @objc func refresh() {
@@ -49,7 +48,6 @@ class ServerViewController: UITableViewController {
             tableView.refreshControl?.endRefreshing()
         }
     }
-    
     
     // ----------------------------------------------------------------------------
     // MARK: - Add Server Flow
@@ -69,14 +67,6 @@ class ServerViewController: UITableViewController {
 // ----------------------------------------------------------------------------
 
 extension ServerViewController {
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.3, delay: 0.1 * Double(indexPath.row), animations: {
-            cell.alpha = 1
-        })
-    }
-    
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -87,11 +77,9 @@ extension ServerViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
-        let backgroundAlpha = (0.1 + (Double(indexPath.row) * 0.1))
         
         cell.server = serverManager.servers[indexPath.row]
         cell.configureCell()
-        cell.contentView.backgroundColor = UIColor(red: 44/255, green: 48/255, blue: 78/255, alpha: CGFloat(backgroundAlpha))
 
         return cell
     }

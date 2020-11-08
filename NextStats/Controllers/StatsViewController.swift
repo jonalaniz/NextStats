@@ -42,8 +42,6 @@ class StatsViewController: UIViewController {
                     
                     statController.delegate = self
                     statController.dataSource = self
-                    statController.backgroundColor = .clear
-                    statController.sectionHeaderHeight = 40
                     statController.isHidden = false
                     isInitialLoad = false
                 } else {

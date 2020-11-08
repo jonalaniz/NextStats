@@ -13,7 +13,6 @@ class ServerCell: UITableViewCell {
     @IBOutlet var serverName: UILabel!
     @IBOutlet var friendlyURLLabel: UILabel!
     @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var bkView: UIView!
     @IBOutlet var spinner: UIActivityIndicatorView!
     
     var server: NextServer!
@@ -21,10 +20,6 @@ class ServerCell: UITableViewCell {
     func configureCell() {
         // hide the spinner because storyboard doesnt listen when i say to hide it
         spinner.isHidden = true
-        
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = cellBackgroundColor
-        self.selectedBackgroundView = backgroundView
         
         // Set cell values
         serverName.text = server?.name
