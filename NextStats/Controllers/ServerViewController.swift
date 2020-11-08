@@ -42,26 +42,25 @@ class ServerViewController: UITableViewController {
         
         // Set Up Toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        //let add = UIBarButtonItem(image: UIImage(systemName: "externaldrive.fill.badge.plus"), style: .plain, target: self, action: #selector(addServer))
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
-        button.addTarget(self, action: #selector(addServer), for: .touchUpInside)
-        button.setTitle("  Add a Server", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        button.sizeToFit()
-        let add = UIBarButtonItem(customView: button)
-        add.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        add.customView?.widthAnchor.constraint(equalToConstant: 140).isActive = true
-
         let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(addServer))
         
-        toolbarItems = [add, spacer, about]
+        let addButton = UIButton(type: .system)
+        addButton.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
+        addButton.addTarget(self, action: #selector(addServer), for: .touchUpInside)
+        addButton.setTitle("  Add a Server", for: .normal)
+        addButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        addButton.sizeToFit()
+        
+        let addBarButton = UIBarButtonItem(customView: addButton)
+        addBarButton.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        addBarButton.customView?.widthAnchor.constraint(equalToConstant: 140).isActive = true
+
+        toolbarItems = [addBarButton, spacer, about]
+        
         navigationController?.isToolbarHidden = false
         navigationController?.toolbar.isTranslucent = false
-        navigationController?.toolbar.barTintColor = .systemBackground
+        navigationController?.toolbar.barTintColor = .systemGroupedBackground
         navigationController?.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
-        //navigationController?.toolbar.clipsToBounds = true
-        
     }
     
     @objc func refresh() {
