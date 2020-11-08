@@ -12,7 +12,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet var statController: UITableView!
     
     var server: NextServer!
-    var tableViewDataContainer = ServerTableViewDataContainer()
+    var tableViewDataContainer = ServerTableViewDataManager()
     var isInitialLoad = true
 
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
@@ -150,11 +150,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let section = indexPath.section
         let row = indexPath.row
         
-        cell.backgroundColor = .clear
-        cell.textLabel?.textColor = .white
-        cell.detailTextLabel?.textColor = .white
         cell.textLabel?.text = tableViewDataContainer.rowLabel(forRow: row, inSection: section)
-//        cell.detailTextLabel?.text = tableStatContainer.statsArray[section][row]
         cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
         return cell
     }
@@ -163,8 +159,8 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         (view as! UITableViewHeaderFooterView).backgroundView = UIView(frame: view.bounds)
-        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor(red: 22/255, green: 24/255, blue: 39/255, alpha: 1)
-        (view as! UITableViewHeaderFooterView).textLabel?.textColor = .white
+        (view as! UITableViewHeaderFooterView).backgroundView?.backgroundColor = UIColor.secondarySystemBackground
+        (view as! UITableViewHeaderFooterView).textLabel?.textColor = .label
     }
 }
 

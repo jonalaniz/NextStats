@@ -8,9 +8,7 @@
 
 import Foundation
 
-// ----------------------------------------------------------------------------
 // MARK: - Enums
-// ----------------------------------------------------------------------------
 
 // Server Error Types + Return Strings
 enum ServerError {
@@ -64,11 +62,12 @@ enum ActiveUsersIndex: Int {
     case total
 }
 
-// ----------------------------------------------------------------------------
-// MARK: - Monitor Struct for TableView
-// ----------------------------------------------------------------------------
+// MARK: - ServerTableViewDataManager
+/**
+  ServerTableViewDataManager facilitates transforming parts of the Monitor JSON Struct into data useable by UITableView
+ */
 
-struct ServerTableViewDataContainer {
+struct ServerTableViewDataManager {
     // MARK: - Labels
     let sectionLabels = ["System", "Storage", "Server", "Active Users"]
     let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
@@ -77,10 +76,10 @@ struct ServerTableViewDataContainer {
     let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
     
     // MARK: - ServerData
-    var systemSectionData = [String]()
-    var storageSectionData = [String]()
-    var serverSectionData = [String]()
-    var activeUsersSectionData = [String]()
+    private var systemSectionData = [String]()
+    private var storageSectionData = [String]()
+    private var serverSectionData = [String]()
+    private var activeUsersSectionData = [String]()
     
     init() {
         systemSectionData = Array(repeating: "...", count: systemSectionLabels.count)
@@ -305,9 +304,7 @@ struct ServerTableViewDataContainer {
     }
 }
 
-// ----------------------------------------------------------------------------
 // MARK: - Authorization Structs - For use when adding server
-// ----------------------------------------------------------------------------
 struct AuthResponse: Codable {
     let poll: Poll?
     let login: String?
@@ -324,10 +321,7 @@ struct ServerAuthenticationInfo: Codable {
     let appPassword: String?
 }
 
-// ----------------------------------------------------------------------------
 // MARK: - Server Monitor API JSON Struct
-// ----------------------------------------------------------------------------
-
 struct Monitor: Codable {
     let ocs: Ocs?
 }

@@ -64,12 +64,6 @@ extension UIActivityIndicatorView {
     
 }
 
-extension UINavigationController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-}
-
 extension WKWebView {
     func cleanAllCookies() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)

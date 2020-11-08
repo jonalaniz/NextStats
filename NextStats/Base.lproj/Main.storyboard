@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zVB-Na-2p6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zVB-Na-2p6">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17124"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,7 +28,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="My Server" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9f0-K0-NI9">
                                 <rect key="frame" x="16" y="136" width="382" height="44"/>
-                                <color key="backgroundColor" red="0.16860261560000001" green="0.19217348100000001" blue="0.30584055189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="i1P-d9-jlW"/>
                                 </constraints>
@@ -46,7 +47,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="https://www.example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="01T-XB-asV">
                                 <rect key="frame" x="16" y="236" width="382" height="44"/>
-                                <color key="backgroundColor" red="0.16860261560000001" green="0.19217348100000001" blue="0.30584055189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="00s-gc-WyJ"/>
                                 </constraints>
@@ -98,7 +99,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.086260847749999994" green="0.094127304849999996" blue="0.1529171765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="01T-XB-asV" secondAttribute="trailing" constant="16" id="2XI-cl-rqz"/>
                             <constraint firstItem="dGi-nr-I68" firstAttribute="top" secondItem="9f0-K0-NI9" secondAttribute="bottom" constant="16" id="8Er-aM-F4c"/>
@@ -137,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2065.217391304348" y="616.304347826087"/>
+            <point key="canvasLocation" x="3904" y="218"/>
         </scene>
         <!--Servers-->
         <scene sceneID="ONT-k7-GTC">
@@ -146,7 +147,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5NN-wy-Wyr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.082339562480000003" green="0.090205542740000005" blue="0.14899608489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="112" id="Cil-eY-FUp" customClass="ServerCell" customModule="NextStats" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="112"/>
@@ -170,7 +171,6 @@
                                                         <constraint firstAttribute="height" constant="32" id="Y7q-A9-q5k"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlL-Fq-jbJ">
@@ -179,7 +179,6 @@
                                                         <constraint firstAttribute="height" constant="18" id="fsS-dA-Mlj"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MkE-HM-nhm">
@@ -229,7 +228,7 @@
                                         <constraint firstItem="CmC-7Y-Any" firstAttribute="top" secondItem="iKZ-cc-vni" secondAttribute="top" id="oEU-4d-JVQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.086711175739999993" green="0.092998705799999998" blue="0.14903137089999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <connections>
                                     <outlet property="bkView" destination="CmC-7Y-Any" id="2lt-dr-ozp"/>
                                     <outlet property="friendlyURLLabel" destination="agR-Yi-AKr" id="RRg-2U-67E"/>
@@ -278,7 +277,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BuN-fw-aGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1159" y="1267"/>
+            <point key="canvasLocation" x="2065" y="1274"/>
         </scene>
         <!--Stats View Controller-->
         <scene sceneID="ikq-4c-OX1">
@@ -290,7 +289,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zhs-Sd-KzE">
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
-                                <color key="backgroundColor" red="0.086736239490000006" green="0.09289950877" blue="0.15295359489999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="lEy-Kr-sZd" detailTextLabel="LBI-Wk-LZQ" style="IBUITableViewCellStyleValue1" id="cQI-IB-Yyo">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
@@ -314,15 +313,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.16832017899999999" green="0.1930299103" blue="0.30615776779999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GPQ-al-gDb"/>
-                        <color key="backgroundColor" red="0.086711175739999993" green="0.092998705799999998" blue="0.14903137089999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zhs-Sd-KzE" firstAttribute="top" secondItem="GPQ-al-gDb" secondAttribute="top" id="6hR-9R-wj8"/>
                             <constraint firstItem="zhs-Sd-KzE" firstAttribute="leading" secondItem="GPQ-al-gDb" secondAttribute="leading" id="a5N-JH-VXb"/>
@@ -337,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEW-6Z-6Vh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2984.057971014493" y="1591.304347826087"/>
+            <point key="canvasLocation" x="3904" y="1591"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hut-zW-jKQ">
@@ -355,12 +353,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hml-ub-Uz2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2076.8115942028985" y="1591.304347826087"/>
+            <point key="canvasLocation" x="2986" y="1590"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="N14-7a-h8R">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="54v-yY-LTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qqh-hG-EmY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gXb-Ub-N8x">
@@ -372,12 +369,25 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9Bc-GP-hxT"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="54v-yY-LTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1157.9710144927537" y="616.304347826087"/>
+            <point key="canvasLocation" x="2986" y="218"/>
         </scene>
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="nextcloud-logo-transparent" width="446" height="315"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
