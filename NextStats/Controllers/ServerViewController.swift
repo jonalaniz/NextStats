@@ -35,6 +35,7 @@ class ServerViewController: UITableViewController {
         // Navigation Bar
         navigationItem.rightBarButtonItem = self.editButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
+        title = "NextStats"
         
         // Setup Pull To Refresh Controls
         tableView.refreshControl = UIRefreshControl()
@@ -42,7 +43,7 @@ class ServerViewController: UITableViewController {
         
         // Set Up Toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(addServer))
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(pushToInfoView))
         
         let addButton = UIButton(type: .system)
         addButton.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
@@ -77,6 +78,13 @@ class ServerViewController: UITableViewController {
     @objc func addServer() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
             vc.serverManager = self.serverManager
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.present(navigationController, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func pushToInfoView() {
+        if let vc = storyboard?.instantiateViewController(identifier: "InfoView") as? InfoViewController {
             let navigationController = UINavigationController(rootViewController: vc)
             self.present(navigationController, animated: true, completion: nil)
         }

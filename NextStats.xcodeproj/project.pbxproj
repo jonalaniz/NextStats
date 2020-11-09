@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
+		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
 		56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE523C8B09A008CF684 /* SceneDelegate.swift */; };
 		56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE723C8B09A008CF684 /* AddServerViewController.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
+		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56557EE323C8B09A008CF684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56557EE523C8B09A008CF684 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				56557EF923CA6E89008CF684 /* LoginWebViewController.swift */,
 				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
+				564EAE082558CEA80090AFBB /* InfoViewController.swift */,
 				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 			);
@@ -277,6 +280,7 @@
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56557EFA23CA6E89008CF684 /* LoginWebViewController.swift in Sources */,
 				56557EF823C8B556008CF684 /* NextcloudAPI.swift in Sources */,
+				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
@@ -457,7 +461,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -478,7 +482,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
