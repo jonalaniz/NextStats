@@ -59,6 +59,8 @@
 		565975BC25567DF70043C007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		565975C425567ECB0043C007 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		565975C8255680130043C007 /* working.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = working.json; sourceTree = "<group>"; };
+		566E48CF255A750F00E23B3A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		566E48D2255A755000E23B3A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Helpers/Extensions.swift; sourceTree = SOURCE_ROOT; };
@@ -90,9 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				56924DD123F802A70043C9BE /* Extensions.swift */,
-				56CA258724EE48F90034CA96 /* URLChecker.swift */,
 				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
 				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
+				56CA258724EE48F90034CA96 /* URLChecker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -147,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				56557EF723C8B556008CF684 /* NextcloudAPI.swift */,
-				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 				56F7F8F324D78C9E00C667E4 /* Server.swift */,
+				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -237,6 +239,8 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				ja,
 			);
 			mainGroup = 56557ED723C8B09A008CF684;
 			productRefGroup = 56557EE123C8B09A008CF684 /* Products */;
@@ -317,6 +321,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				56557EEA23C8B09A008CF684 /* Base */,
+				566E48CF255A750F00E23B3A /* de */,
+				566E48D2255A755000E23B3A /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -336,6 +342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -397,6 +404,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
