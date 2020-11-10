@@ -396,7 +396,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="gEs-8r-Tvw">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="nextstat-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Uc1-Wo-xZJ">
@@ -429,7 +429,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="onN-hv-il5">
-                                <rect key="frame" x="16" y="175.5" width="288" height="43.5"/>
+                                <rect key="frame" x="16" y="185.5" width="288" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="onN-hv-il5" id="KQn-n0-uTx">
                                     <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
@@ -443,7 +443,7 @@
                             <outlet property="delegate" destination="gro-Tk-tpR" id="NRL-M9-6oL"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Info" largeTitleDisplayMode="always" id="e22-Mb-Is2"/>
+                    <navigationItem key="navigationItem" title="Info" largeTitleDisplayMode="never" id="e22-Mb-Is2"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eOW-jd-LvV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -454,8 +454,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qHd-4c-JvP" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="bAA-YQ-dNH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bAA-YQ-dNH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
