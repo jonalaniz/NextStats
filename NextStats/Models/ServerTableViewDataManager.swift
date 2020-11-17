@@ -1,5 +1,5 @@
 //
-//  NextcloudAPI.swift
+//  ServerTableViewDataManager.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/10/20.

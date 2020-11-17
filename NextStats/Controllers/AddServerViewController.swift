@@ -120,6 +120,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         textField.leftViewMode = UITextField.ViewMode.always
         textField.borderStyle = .none
         textField.layoutIfNeeded()
+        textField.layer.cornerRadius = 10
     }
     
     func deactivateSpinner() {
