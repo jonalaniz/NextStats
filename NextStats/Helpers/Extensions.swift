@@ -9,12 +9,6 @@
 import UIKit
 import WebKit
 
-extension CaseIterable where Self: Equatable {
-    var index: Self.AllCases.Index? {
-        return Self.allCases.firstIndex { self == $0 }
-    }
-}
-
 extension Notification.Name {
     static let serverDidChange = Notification.Name("serversDidChange")
     static let authenticationCanceled = Notification.Name("authenticationCanceled")
