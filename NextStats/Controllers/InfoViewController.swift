@@ -10,9 +10,10 @@ import UIKit
 
 class InfoViewController: UITableViewController {
     
-    let sections = ["Development", "License", "Support"]
-    let developmentTitles = ["Developer", "Translator"]
-    let developmentDescriptions = ["Jon Alaniz", ""]
+    let sections = ["Development", "Translations", "License", "Support NextStats"]
+    let developmentTitles = ["Developer"]
+    let developmentDescriptions = ["Jon Alaniz"]
+    let translationTitles = ["", ""]
     let licenseTitles = ["MIT License", "GNU AGPLv3 License"]
     let supportTitles = ["Small Tip", "Medium Tip", "Large Tip", "Big Chungus Tip"]
 
@@ -34,8 +35,10 @@ class InfoViewController: UITableViewController {
         case 0:
             return developmentTitles
         case 1:
-            return licenseTitles
+            return translationTitles
         case 2:
+            return licenseTitles
+        case 3:
             return supportTitles
         default:
             return []
@@ -54,12 +57,10 @@ class InfoViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         getArrayFor(section: section).count
     }
     
@@ -80,30 +81,14 @@ class InfoViewController: UITableViewController {
         return sections[section]
     }
     
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 28
-//    }
-    
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        
         switch section {
-        case 1:
-            return "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License"
         case 2:
-            return "NextStats is and will alwyas be free. If you find the app usefull, please considering leaving a tip to help further its development."
+            return "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License"
+        case 3:
+            return "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development."
         default:
             return ""
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
