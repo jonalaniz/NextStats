@@ -102,7 +102,7 @@ open class ServerManager {
         // If data is not available, create empty array
         self.servers = []
     }
-    
+
     //MARK: - Server Authorization Flow
     
     /**
@@ -283,6 +283,26 @@ open class ServerManager {
      */
     func cancelAuthorization() {
         shouldPoll = false
+    }
+    
+    // MARK: - Server Removal Flow
+    func removeServer(at index: Int) {
+        
+        // Check for and remove image first
+        let fileManager = FileManager.default
+        let path = servers[index].imagePath()
+        
+        if fileManager.fileExists(atPath: path) {
+            do {
+                try fileManager.removeItem(atPath: path)
+                print("File deleted")
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+        // Remove server from the server array
+        servers.remove(at: index)
     }
 }
 

@@ -117,8 +117,8 @@ extension ServerViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Remove server from array and tableView
-            serverManager.servers.remove(at: indexPath.row)
+            // Remove server from serverManager and tableView
+            serverManager.removeServer(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
