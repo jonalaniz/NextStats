@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
             let masterViewController = leftNavController.viewControllers.first as? ServerViewController,
             let detailViewController = (splitViewController.viewControllers.last as? UINavigationController)?.topViewController as? StatsViewController
-        else { fatalError()}
+        else { fatalError() }
         splitViewController.preferredDisplayMode = .allVisible
         splitViewController.view.backgroundColor = .black
         masterViewController.delegate = detailViewController

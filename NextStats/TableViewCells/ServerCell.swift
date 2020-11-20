@@ -28,10 +28,7 @@ class ServerCell: UITableViewCell {
         checkForServerLogoImage()
     }
     
-    // ----------------------------------------------------------------------------
     // MARK: - Ping Server Flow
-    // ----------------------------------------------------------------------------
-    
     func ping() {
         if let url = URL(string: server!.URLString) {
             var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
@@ -75,9 +72,7 @@ class ServerCell: UITableViewCell {
 
     }
     
-    // ----------------------------------------------------------------------------
     // MARK: - Logo Image Flow
-    // ----------------------------------------------------------------------------
     
     // Check to see if server has custom logo
     func checkForServerLogoImage() {
@@ -100,7 +95,6 @@ class ServerCell: UITableViewCell {
     }
     
     // Download and save image
-    
     func downloadImage(to path: String) {
         self.logoImage.isHidden = true
         let url = server.imageURL()
@@ -115,7 +109,7 @@ class ServerCell: UITableViewCell {
                     if response.statusCode != 200 {
                         // No image found, put default image in place
                         DispatchQueue.main.async {
-                            self.logoImage.image = UIImage(named: "nextcloud-logo-transparent")
+                            self.logoImage.image = UIImage(named: "nextcloud-server")
                             self.logoImage.isHidden = false
                             self.spinner.deactivate()
                         }                    }

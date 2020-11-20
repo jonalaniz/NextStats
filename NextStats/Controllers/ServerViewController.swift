@@ -32,14 +32,36 @@ class ServerViewController: UITableViewController {
     }
     
     private func setupUI() {
-        // Setup Bar Button Items
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addServer))
-        navigationItem.leftBarButtonItem = self.editButtonItem
+        // Navigation Bar
+        navigationItem.rightBarButtonItem = self.editButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
+        title = "NextStats"
         
         // Setup Pull To Refresh Controls
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
+        // Set Up Toolbar
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(loadInfoView))
+        
+        let addButton = UIButton(type: .system)
+        addButton.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
+        addButton.addTarget(self, action: #selector(loadAddServerView), for: .touchUpInside)
+        addButton.setTitle("  Add a Server", for: .normal)
+        addButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        addButton.sizeToFit()
+        
+        let addBarButton = UIBarButtonItem(customView: addButton)
+        addBarButton.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        addBarButton.customView?.widthAnchor.constraint(equalToConstant: 140).isActive = true
+
+        toolbarItems = [addBarButton, spacer, about]
+        
+        navigationController?.isToolbarHidden = false
+        navigationController?.toolbar.isTranslucent = false
+        navigationController?.toolbar.barTintColor = .systemGroupedBackground
+        navigationController?.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
     }
     
     @objc func refresh() {
@@ -49,27 +71,27 @@ class ServerViewController: UITableViewController {
         }
     }
     
-    // ----------------------------------------------------------------------------
-    // MARK: - Add Server Flow
-    // ----------------------------------------------------------------------------
+    // MARK: - Toolbar Buttons: Loads AddServerView and InfoView
     
-    @objc func addServer() {
+    @objc func loadAddServerView() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
             vc.serverManager = self.serverManager
             let navigationController = UINavigationController(rootViewController: vc)
             self.present(navigationController, animated: true, completion: nil)
         }
     }
+    
+    @objc func loadInfoView() {
+        if let vc = storyboard?.instantiateViewController(identifier: "InfoView") as? InfoViewController {
+            let navigationController = UINavigationController(rootViewController: vc)
+            self.present(navigationController, animated: true, completion: nil)
+        }
+    }
 }
 
-// ----------------------------------------------------------------------------
 // MARK: - TableView Methods
-// ----------------------------------------------------------------------------
 
 extension ServerViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.servers.count
@@ -92,7 +114,6 @@ extension ServerViewController {
             splitViewController?.showDetailViewController(statNavigationController, sender: nil)
         }
     }
-
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

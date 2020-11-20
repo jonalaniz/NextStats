@@ -9,12 +9,6 @@
 import UIKit
 import WebKit
 
-extension CaseIterable where Self: Equatable {
-    var index: Self.AllCases.Index? {
-        return Self.allCases.firstIndex { self == $0 }
-    }
-}
-
 extension Notification.Name {
     static let serverDidChange = Notification.Name("serversDidChange")
     static let authenticationCanceled = Notification.Name("authenticationCanceled")
@@ -66,12 +60,10 @@ extension UIActivityIndicatorView {
 extension WKWebView {
     func cleanAllCookies() {
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        print("All cookies deleted")
-
+        
         WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
             records.forEach { record in
                 WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-                print("Cookie ::: \(record) deleted")
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  NextcloudAPI.swift
+//  ServerTableViewDataManager.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/10/20.
@@ -20,9 +20,9 @@ enum ServerError {
     var typeAndDescription: (title: String, description: String) {
         switch self {
         case .unauthorized:
-            return("Unauthorized User", "You must have admin privilidges to view server stats. Please check with your administrator.")
+            return("Unauthorized User", "You must have admin privilidges to view server stats.")
         case .noResponse:
-            return("No Response", "Your server cannot be reached, please check your internet connection or contact your adminstrator.")
+            return("No Response", "The server cannot be reached, please check your internet connection or contact your adminstrator.")
         case .jsonError:
             return("JSON Error", "Could not parse JSON. Please check with your administrator.")
         case .other:
