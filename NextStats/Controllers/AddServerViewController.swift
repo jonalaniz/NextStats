@@ -105,6 +105,8 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         serverURLField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
 
         connectButton.isEnabled = false
+        connectButton.layer.cornerRadius = 10
+        
         activityIndicatior.isHidden = true
         
         // Add url checker to serverURLField

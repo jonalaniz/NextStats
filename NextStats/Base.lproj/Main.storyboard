@@ -79,12 +79,12 @@
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zr4-ck-mx8">
-                                <rect key="frame" x="90" y="417" width="140" height="44"/>
+                                <rect key="frame" x="16" y="417" width="288" height="44"/>
                                 <color key="backgroundColor" red="0.32937070730000001" green="0.36473536490000003" blue="0.58816075329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="jSf-yB-wmW"/>
-                                    <constraint firstAttribute="width" constant="140" id="u2Z-N5-6fU"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Connect">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -104,7 +104,7 @@
                             <constraint firstItem="eYd-XQ-LvH" firstAttribute="top" secondItem="Oab-Pr-I9Q" secondAttribute="bottom" constant="10" id="8h5-hj-kaf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9f0-K0-NI9" secondAttribute="trailing" constant="16" id="9jS-vJ-Ojw"/>
                             <constraint firstItem="9f0-K0-NI9" firstAttribute="top" secondItem="63R-1X-e0P" secondAttribute="bottom" constant="12" id="Des-V3-GJ0"/>
-                            <constraint firstItem="Zr4-ck-mx8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KvE-EG-9lO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zr4-ck-mx8" secondAttribute="trailing" constant="16" id="HVy-If-RNk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="K5S-lw-RtW" secondAttribute="trailing" constant="16" id="ONm-lI-z3P"/>
                             <constraint firstItem="63R-1X-e0P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PTs-MN-2EU"/>
                             <constraint firstItem="K5S-lw-RtW" firstAttribute="top" secondItem="eYd-XQ-LvH" secondAttribute="bottom" constant="10" id="Qwq-hO-hqB"/>
@@ -121,6 +121,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="63R-1X-e0P" secondAttribute="trailing" constant="16" id="qIf-4n-Pnr"/>
                             <constraint firstItem="eYd-XQ-LvH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="rhx-bk-9rE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dGi-nr-I68" secondAttribute="trailing" constant="16" id="sjM-iP-8b2"/>
+                            <constraint firstItem="Zr4-ck-mx8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="uIf-VZ-fTX"/>
                             <constraint firstItem="K5S-lw-RtW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="xXK-Ua-OCH"/>
                         </constraints>
                     </view>
@@ -372,7 +373,7 @@
         <!--Navigation Controller-->
         <scene sceneID="N14-7a-h8R">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qqh-hG-EmY" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AddServerNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Qqh-hG-EmY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gXb-Ub-N8x">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
@@ -385,7 +386,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="54v-yY-LTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4806" y="935"/>
+            <point key="canvasLocation" x="4806" y="934"/>
         </scene>
         <!--Info-->
         <scene sceneID="tW9-LD-fWC">
@@ -408,7 +409,6 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NextStats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAY-sE-vT9">
                                     <rect key="frame" x="126" y="25" width="184" height="36"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="124" id="hOR-4D-vxJ"/>
                                         <constraint firstAttribute="height" constant="36" id="yvx-uQ-yU3"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
@@ -489,7 +489,7 @@
         <!--Navigation Controller-->
         <scene sceneID="3Nb-Hz-bG3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qHd-4c-JvP" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InfoViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="qHd-4c-JvP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bAA-YQ-dNH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

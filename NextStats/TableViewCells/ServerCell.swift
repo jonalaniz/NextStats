@@ -28,10 +28,7 @@ class ServerCell: UITableViewCell {
         checkForServerLogoImage()
     }
     
-    // ----------------------------------------------------------------------------
     // MARK: - Ping Server Flow
-    // ----------------------------------------------------------------------------
-    
     func ping() {
         if let url = URL(string: server!.URLString) {
             var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
@@ -75,9 +72,7 @@ class ServerCell: UITableViewCell {
 
     }
     
-    // ----------------------------------------------------------------------------
     // MARK: - Logo Image Flow
-    // ----------------------------------------------------------------------------
     
     // Check to see if server has custom logo
     func checkForServerLogoImage() {

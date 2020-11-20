@@ -43,11 +43,11 @@ class ServerViewController: UITableViewController {
         
         // Set Up Toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(pushToInfoView))
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(loadInfoView))
         
         let addButton = UIButton(type: .system)
         addButton.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
-        addButton.addTarget(self, action: #selector(addServer), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(loadAddServerView), for: .touchUpInside)
         addButton.setTitle("  Add a Server", for: .normal)
         addButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
         addButton.sizeToFit()
@@ -71,11 +71,9 @@ class ServerViewController: UITableViewController {
         }
     }
     
-    // ----------------------------------------------------------------------------
-    // MARK: - Add Server Flow
-    // ----------------------------------------------------------------------------
+    // MARK: - Toolbar Buttons: Loads AddServerView and InfoView
     
-    @objc func addServer() {
+    @objc func loadAddServerView() {
         if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
             vc.serverManager = self.serverManager
             let navigationController = UINavigationController(rootViewController: vc)
@@ -83,7 +81,7 @@ class ServerViewController: UITableViewController {
         }
     }
     
-    @objc func pushToInfoView() {
+    @objc func loadInfoView() {
         if let vc = storyboard?.instantiateViewController(identifier: "InfoView") as? InfoViewController {
             let navigationController = UINavigationController(rootViewController: vc)
             self.present(navigationController, animated: true, completion: nil)
@@ -91,14 +89,9 @@ class ServerViewController: UITableViewController {
     }
 }
 
-// ----------------------------------------------------------------------------
 // MARK: - TableView Methods
-// ----------------------------------------------------------------------------
 
 extension ServerViewController {
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.servers.count

@@ -245,14 +245,12 @@ open class ServerManager {
                 print("LOGO:\(logoURL)")
                 guard error == nil else {
                     // Logo not found
-                    print(error?.localizedDescription)
                     self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: false)
                     return
                 }
                 
                 guard(response as? HTTPURLResponse)?.statusCode == 200 else {
                     // Guard against anything but a 200 OK code
-                    print("Response: \(response)")
                     self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: false)
                     return
                 }
