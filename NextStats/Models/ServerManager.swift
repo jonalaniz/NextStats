@@ -151,7 +151,7 @@ open class ServerManager {
      2. Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
      */
     
-    func parseJSONFrom(data: Data) {
+    private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
         
         if let jsonStream = try? decoder.decode(AuthResponse.self, from: data) {
@@ -177,7 +177,7 @@ open class ServerManager {
     /**
      Begins polling the server for authorization credentials
      */
-    func pollForCredentials(at url: URL, with token: String) {
+    private func pollForCredentials(at url: URL, with token: String) {
         // attach token and setup request
         let tokenPrefix = "token="
         var request = URLRequest(url: url)
@@ -218,7 +218,7 @@ open class ServerManager {
     /**
      Decodes the login credentials from the JSON object
      */
-    func decodeCredentialsFrom(json: Data) {
+    private func decodeCredentialsFrom(json: Data) {
         let decoder = JSONDecoder()
         if let credentials = try? decoder.decode(ServerAuthenticationInfo.self, from: json) {
             DispatchQueue.main.async {
@@ -231,43 +231,56 @@ open class ServerManager {
     /**
      Setup values and test for custom logo
      */
-    func setupServer(with credentials: ServerAuthenticationInfo) {
+    private func setupServer(with credentials: ServerAuthenticationInfo) {
         if let serverURL = credentials.server, let username = credentials.loginName, let password = credentials.appPassword {
             let URLString = serverURL + statEndpoint
             let friendlyURL = serverURL.makeFriendlyURL()
             let logoURLString = serverURL + logoEndpoint
             let logoURL = URL(string: logoURLString)!
             
-            var request = URLRequest(url: logoURL)
-            request.httpMethod = "HEAD"
+            let request = URLRequest(url: logoURL)
             
-            URLSession(configuration: .default).dataTask(with: request) { (_, response, error) in
+            URLSession(configuration: .default).dataTask(with: request) { (data, response, error) in
                 print("LOGO:\(logoURL)")
                 guard error == nil else {
-                    // Logo not found
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: false)
+                    // The specified endpoint is unreachable
+                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
                     return
                 }
                 
                 guard(response as? HTTPURLResponse)?.statusCode == 200 else {
-                    // Guard against anything but a 200 OK code
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: false)
+                    // Server does not have a logo image at the specificed endpoint
+                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
                     return
                 }
                 
-                // Logo was found
-                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, customLogo: true)
+                // Logo was found at endpoint, download it
+                if let data = data {
+                    print("data found")
+                    guard let image = UIImage(data: data) else { return }
+                    
+                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: image)
+                }
+                
             }.resume()
         } else {
-            // Error
+            print("Error with server credentials: \(credentials)")
         }
     }
     
     /**
      Capture the new server, append it, and sort the server array.
      */
-    func captureServer(serverURLString: String, friendlyURL: String, username: String, password: String, customLogo: Bool) {
-        let server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: customLogo)
+    private func captureServer(serverURLString: String, friendlyURL: String, username: String, password: String, logo: UIImage?) {
+        let server: NextServer
+        if let customLogoImage = logo {
+            // Image was found, initialize the server object and save the image
+            server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: true)
+            saveLogo(image: customLogoImage, to: server.imagePath())
+        } else {
+            // Failed to open the image, initialize the server object without it.
+            server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: false)
+        }
         
         servers.append(server)
         servers.sort(by: { $0.name < $1.name })
@@ -276,6 +289,18 @@ open class ServerManager {
             NotificationCenter.default.post(name: .serverDidChange, object: nil)
         }
         
+    }
+    
+    /**
+     Save  custom server logo
+     */
+    private func saveLogo(image: UIImage, to path: String) {
+        do {
+            try image.pngData()?.write(to: URL(string: "file://\(path)")!)
+        } catch {
+            print("Error, image not saved ")
+            print(error.localizedDescription)
+        }
     }
     
     /**
