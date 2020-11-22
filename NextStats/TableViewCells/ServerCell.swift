@@ -13,15 +13,10 @@ class ServerCell: UITableViewCell {
     @IBOutlet var serverName: UILabel!
     @IBOutlet var friendlyURLLabel: UILabel!
     @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var spinner: UIActivityIndicatorView!
     
     var server: NextServer!
     
     func configureCell() {
-        // hide the spinner because storyboard doesnt listen when i say to hide it
-        spinner.isHidden = true
-        
-        // Set cell values
         serverName.text = server?.name
         friendlyURLLabel.text = server?.friendlyURL
         ping()

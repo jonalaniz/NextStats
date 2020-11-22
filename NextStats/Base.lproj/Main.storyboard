@@ -148,10 +148,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="Cil-eY-FUp" customClass="ServerCell" customModule="NextStats" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="320" height="100"/>
+                                <rect key="frame" x="16" y="55.5" width="288" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cil-eY-FUp" id="iKZ-cc-vni">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="288" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmC-7Y-Any">
@@ -201,10 +201,6 @@
                                                         <constraint firstAttribute="width" constant="14" id="yMO-gX-nlZ"/>
                                                     </constraints>
                                                 </imageView>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="PO4-hX-jC7">
-                                                    <rect key="frame" x="35" y="38" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="agR-Yi-AKr" firstAttribute="leading" secondItem="XQ1-3g-Rop" secondAttribute="leading" id="3Hz-np-PLR"/>
@@ -240,7 +236,6 @@
                                     <outlet property="friendlyURLLabel" destination="agR-Yi-AKr" id="RRg-2U-67E"/>
                                     <outlet property="logoImage" destination="yah-vD-TXp" id="7F8-yV-l9p"/>
                                     <outlet property="serverName" destination="XQ1-3g-Rop" id="NUu-90-gWl"/>
-                                    <outlet property="spinner" destination="PO4-hX-jC7" id="Qnd-5J-YWl"/>
                                     <outlet property="statusLabel" destination="zlL-Fq-jbJ" id="COq-To-Ff7"/>
                                 </connections>
                             </tableViewCell>
