@@ -146,6 +146,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="5NN-wy-Wyr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="Cil-eY-FUp" customClass="ServerCell" customModule="NextStats" customModuleProvider="target">
                                 <rect key="frame" x="16" y="55.5" width="288" height="100"/>
@@ -234,6 +235,7 @@
                                 <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                 <connections>
                                     <outlet property="friendlyURLLabel" destination="agR-Yi-AKr" id="RRg-2U-67E"/>
+                                    <outlet property="logoBackgroundView" destination="5gh-L7-hh7" id="9jA-z1-9kZ"/>
                                     <outlet property="logoImage" destination="yah-vD-TXp" id="7F8-yV-l9p"/>
                                     <outlet property="serverName" destination="XQ1-3g-Rop" id="NUu-90-gWl"/>
                                     <outlet property="statusLabel" destination="zlL-Fq-jbJ" id="COq-To-Ff7"/>

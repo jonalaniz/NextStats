@@ -24,13 +24,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             let masterViewController = leftNavController.viewControllers.first as? ServerViewController,
             let detailViewController = (splitViewController.viewControllers.last as? UINavigationController)?.topViewController as? StatsViewController
         else { fatalError() }
-        splitViewController.preferredDisplayMode = .allVisible
-        splitViewController.view.backgroundColor = .black
+        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        splitViewController.primaryBackgroundStyle = .sidebar
         masterViewController.delegate = detailViewController
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
-        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+            
+        #if targetEnvironment(macCatalyst)
+        if let titlebar = windowScene.titlebar {
+            titlebar.titleVisibility = .hidden
+            titlebar.toolbar = nil
+        }
+        #endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

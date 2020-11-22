@@ -10,6 +10,7 @@ import UIKit
 
 class ServerCell: UITableViewCell {
     @IBOutlet var logoImage: UIImageView!
+    @IBOutlet var logoBackgroundView: UIView!
     @IBOutlet var serverName: UILabel!
     @IBOutlet var friendlyURLLabel: UILabel!
     @IBOutlet var statusLabel: UILabel!
@@ -17,6 +18,10 @@ class ServerCell: UITableViewCell {
     var server: NextServer!
     
     func configureCell() {
+        #if targetEnvironment(macCatalyst)
+        logoBackgroundView.isHidden = true
+        #endif
+        
         serverName.text = server?.name
         friendlyURLLabel.text = server?.friendlyURL
         ping()
