@@ -64,4 +64,15 @@ struct InfoModel {
         default: return ""
         }
     }
+    
+    func licenseURLFor(row: Int) -> String {
+        switch row {
+        case 0:
+            // NextStats MIT License URL
+            return "https://github.com/jonalaniz/NextStats/blob/main/LICENSE"
+        default:
+            // Nextcloud License URL
+            return "https://github.com/nextcloud/nextcloud.com/blob/master/LICENSE"
+        }
+    }
 }
