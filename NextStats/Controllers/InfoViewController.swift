@@ -65,7 +65,7 @@ class InfoViewController: UITableViewController {
             vc.passedURLString = infoModel.licenseURLFor(row: indexPath.row)
             self.navigationController?.pushViewController(vc, animated: true)
         default:
-            print("pp")
+            return
         }
     }
 }
