@@ -11,6 +11,9 @@
 /* Section 1 - Header */
 "Development" = "Development";
 
+/* Section 1 - Cell 1*/
+"Developer" = "Developer";
+
 /* Section 2 - Header */
 "Translators" = "Translators";
 

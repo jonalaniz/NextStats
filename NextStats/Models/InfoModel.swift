@@ -14,7 +14,7 @@ import Foundation
  */
 struct InfoModel {
     private let sections = [NSLocalizedString("Development", comment: ""), NSLocalizedString("Translators", comment: ""), NSLocalizedString("Licenses", comment: "")]
-    private let developerTitles = ["Developer"]
+    private let developerTitles = [NSLocalizedString("Developer", comment: "")]
     private let developerNames = ["Jon Alaniz"]
     private let translatorLanguages = ["Language"]
     private let translatorNames = ["Name"]
