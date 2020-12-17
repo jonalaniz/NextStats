@@ -9,7 +9,7 @@
 // Server View Controller Section
 
 /* Add Server Button */
-"Add Server" = "  Add a Server";
+"Add Server" = " Add a Server";
 
 // Info Controller Sections
 
@@ -21,6 +21,9 @@
 
 /* Section 2 - Header */
 "Translators" = "Translators";
+
+/* Section 2 - Languages */
+"German" = "German";
 
 /* Section 3 - Header */
 "Licenses" = "Licenses";

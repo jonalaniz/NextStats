@@ -16,8 +16,8 @@ struct InfoModel {
     private let sections = [NSLocalizedString("Development", comment: ""), NSLocalizedString("Translators", comment: ""), NSLocalizedString("Licenses", comment: "")]
     private let developerTitles = [NSLocalizedString("Developer", comment: "")]
     private let developerNames = ["Jon Alaniz"]
-    private let translatorLanguages = ["Language"]
-    private let translatorNames = ["Name"]
+    private let translatorLanguages = [NSLocalizedString("German", comment: "")]
+    private let translatorNames = ["Carina Pfaffelhuber"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
     
     func getNumberOfSections() -> Int {

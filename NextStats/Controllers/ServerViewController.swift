@@ -45,18 +45,17 @@ class ServerViewController: UITableViewController {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(loadInfoView))
         
-        let addButton = UIButton(type: .system)
-        addButton.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
-        addButton.addTarget(self, action: #selector(loadAddServerView), for: .touchUpInside)
-        addButton.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
-        addButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        addButton.sizeToFit()
-        
-        let addBarButton = UIBarButtonItem(customView: addButton)
-        addBarButton.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        addBarButton.customView?.widthAnchor.constraint(equalToConstant: 174).isActive = true
+        let addButtonIcon = UIButton(type: .system)
+        addButtonIcon.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
+        addButtonIcon.addTarget(self, action: #selector(loadAddServerView), for: .touchUpInside)
+        addButtonIcon.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
+        addButtonIcon.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        addButtonIcon.contentHorizontalAlignment = .left
+        addButtonIcon.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 10)
+            
+        let addButtonView = UIBarButtonItem(customView: addButtonIcon)
 
-        toolbarItems = [addBarButton, spacer, about]
+        toolbarItems = [addButtonView, spacer, about]
         
         navigationController?.isToolbarHidden = false
         navigationController?.toolbar.isTranslucent = false

@@ -22,6 +22,9 @@
 /* Section 2 - Header */
 "Translators" = "Übersetzer";
 
+/* Section 2 - Languages */
+"German" = "Deutsche";
+
 /* Section 3 - Header */
 "Licenses" = "Lizenzen";
 
@@ -32,4 +35,4 @@
 "Support NextStats" = "Unterstützt NextStats";
 
 /* Section 4 - Footer */
-"NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats ist und bleibt kostenlos. Wenn Sie die App nützlich finden, sollten Sie einen Tipp hinterlassen, um ihre Entwicklung voranzutreiben.";
+"NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
