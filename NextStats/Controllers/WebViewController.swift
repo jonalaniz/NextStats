@@ -10,13 +10,16 @@ import UIKit
 import WebKit
 
 /**
+ Reusable WKWebView controller.
+ 
+ Passing in a ServerManager allows for capturing of server credentials:
  Sets the view to a WKWebView and loads the login page for the user.
  LoginWebViewController also notifies if user canceles authenitcaiton.
  */
-class LoginWebViewController: UIViewController {
+class WebViewController: UIViewController {
     var webView: WKWebView!
     var passedURLString: String!
-    var serverManager: ServerManager!
+    var serverManager: ServerManager?
     
     override func loadView() {
         webView = WKWebView()
@@ -37,10 +40,12 @@ class LoginWebViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        // If server credentials were not captured, cancel authorization and post a notification
-        if serverManager.shouldPoll {
-            serverManager.cancelAuthorization()
-            NotificationCenter.default.post(name: .authenticationCanceled, object: nil)
+        // Check if manager was passed, then check if server credentials were not captured, cancel authorization and post a notification
+        if let manager = serverManager {
+            if manager.shouldPoll {
+                manager.cancelAuthorization()
+                NotificationCenter.default.post(name: .authenticationCanceled, object: nil)
+            }
         }
     }
     
@@ -49,7 +54,7 @@ class LoginWebViewController: UIViewController {
     }
 }
 
-extension LoginWebViewController: WKNavigationDelegate {
+extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.navigationItem.title = webView.title
     }

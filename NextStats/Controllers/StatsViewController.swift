@@ -37,8 +37,10 @@ class StatsViewController: UIViewController {
             if statController != nil {
                 if data {
                     navigationController?.isNavigationBarHidden = false
-                    let barButton = UIBarButtonItem(customView: activityIndicator)
-                    self.navigationItem.setRightBarButton(barButton, animated: true)
+                    let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+                    let loadWebPageButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(loadServerInSafari))
+                    
+                    navigationItem.rightBarButtonItems = [loadWebPageButton, activityIndicatorBarButtonItem]
                     
                     statController.delegate = self
                     statController.dataSource = self
@@ -120,6 +122,12 @@ class StatsViewController: UIViewController {
     
     func returnToTable(action: UIAlertAction! = nil) {
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func loadServerInSafari() {
+        let urlString = server.friendlyURL.addIPPrefix()
+        let url = URL(string: urlString)!
+        UIApplication.shared.open(url)
     }
     
 }

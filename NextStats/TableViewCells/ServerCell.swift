@@ -10,18 +10,18 @@ import UIKit
 
 class ServerCell: UITableViewCell {
     @IBOutlet var logoImage: UIImageView!
+    @IBOutlet var logoBackgroundView: UIView!
     @IBOutlet var serverName: UILabel!
     @IBOutlet var friendlyURLLabel: UILabel!
     @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var spinner: UIActivityIndicatorView!
     
     var server: NextServer!
     
     func configureCell() {
-        // hide the spinner because storyboard doesnt listen when i say to hide it
-        spinner.isHidden = true
+        #if targetEnvironment(macCatalyst)
+        logoBackgroundView.isHidden = true
+        #endif
         
-        // Set cell values
         serverName.text = server?.name
         friendlyURLLabel.text = server?.friendlyURL
         ping()
@@ -69,75 +69,24 @@ class ServerCell: UITableViewCell {
             self.statusLabel.isHidden = false
             
         }
-
     }
     
-    // MARK: - Logo Image Flow
-    
-    // Check to see if server has custom logo
+    // MARK: - Check for and load custom logo
     func checkForServerLogoImage() {
         if server.hasCustomLogo {
-            // Check if server has logo cached already
+            // Server should have custom logo
             if server.imageCached() {
                 // If cached, pull the cached image function from server api
-                print("image cached")
-                spinner.deactivate()
+                print("image found")
                 logoImage.image = server.cachedImage()
             } else {
-                print("image not cached, will download")
-                spinner.activate()
-                downloadImage(to: server.imagePath())
+                print("image not found")
+                logoImage.image = UIImage(named: "nextcloud-server")
             }
         } else {
-            // if no logo, do nothing
+            // No custom logo
+            logoImage.image = UIImage(named: "nextcloud-server")
             return
         }
     }
-    
-    // Download and save image
-    func downloadImage(to path: String) {
-        self.logoImage.isHidden = true
-        let url = server.imageURL()
-        let request = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-                if let response = response as? HTTPURLResponse {
-                    if response.statusCode != 200 {
-                        // No image found, put default image in place
-                        DispatchQueue.main.async {
-                            self.logoImage.image = UIImage(named: "nextcloud-server")
-                            self.logoImage.isHidden = false
-                            self.spinner.deactivate()
-                        }                    }
-                    print("Poll Status Code: \(response.statusCode)")
-                }
-                if let data = data {
-                    guard let img = UIImage(data: data) else { return }
-                    DispatchQueue.main.async {
-                        self.logoImage.image = img
-                        self.saveImage(img: img, at: path)
-                        self.spinner.deactivate()
-                        self.logoImage.isHidden = false
-                    }
-                } else {
-                    
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    func saveImage(img: UIImage, at path: String) {
-        do {
-            try img.pngData()?.write(to: URL(string: "file://\(path)")!)
-        } catch {
-            print("Error, image not saved")
-            print(error)
-        }
-    }
-
 }

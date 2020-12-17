@@ -6,7 +6,7 @@
 "29q-AG-dNi.text" = "Detail";
 
 /* Class = "UILabel"; text = "Server Nickname (optional)"; ObjectID = "63R-1X-e0P"; */
-"63R-1X-e0P.text" = "Server Nickname (optional)";
+"63R-1X-e0P.text" = "Server-Spitzname (optional)";
 
 /* Class = "UINavigationItem"; title = "Servers"; ObjectID = "6tE-HA-qXk"; */
 "6tE-HA-qXk.title" = "Servers";
@@ -18,19 +18,19 @@
 "LBI-Wk-LZQ.text" = "Subtitle";
 
 /* Class = "UILabel"; text = "please enter a valid url"; ObjectID = "Oab-Pr-I9Q"; */
-"Oab-Pr-I9Q.text" = "please enter a valid url";
+"Oab-Pr-I9Q.text" = "Bitte geben Sie eine gültige URL ein";
 
 /* Class = "UILabel"; text = "Created by Jon Alaniz"; ObjectID = "UGg-L8-LRM"; */
-"UGg-L8-LRM.text" = "Created by Jon Alaniz";
+"UGg-L8-LRM.text" = "Erstellt von Jon Alaniz";
 
 /* Class = "UILabel"; text = "Jon's Server"; ObjectID = "XQ1-3g-Rop"; */
 "XQ1-3g-Rop.text" = "Jon's Server";
 
 /* Class = "UILabel"; text = "Nextstats"; ObjectID = "YAY-sE-vT9"; */
-"YAY-sE-vT9.text" = "Nextstats";
+"YAY-sE-vT9.text" = "NextStats";
 
 /* Class = "UIButton"; normalTitle = "Connect"; ObjectID = "Zr4-ck-mx8"; */
-"Zr4-ck-mx8.normalTitle" = "Connect";
+"Zr4-ck-mx8.normalTitle" = "Verbinden";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "aDF-4a-dsq"; */
 "aDF-4a-dsq.text" = "Title";
@@ -45,13 +45,13 @@
 "e22-Mb-Is2.title" = "Info";
 
 /* Class = "UILabel"; text = "When monitoring servers externally, Nextstats requires SSL encryption (https)."; ObjectID = "eYd-XQ-LvH"; */
-"eYd-XQ-LvH.text" = "When monitoring servers externally, Nextstats requires SSL encryption (https).";
+"eYd-XQ-LvH.text" = "Bei der externen Überwachung von Servern benötigt NextStats eine SSL-Verschlüsselung (https).";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "lEy-Kr-sZd"; */
 "lEy-Kr-sZd.text" = "Title";
 
 /* Class = "UINavigationItem"; title = "Add Server"; ObjectID = "oF7-GQ-5M4"; */
-"oF7-GQ-5M4.title" = "Add Server";
+"oF7-GQ-5M4.title" = "Server hinzufügen";
 
 /* Class = "UILabel"; text = "2.0"; ObjectID = "vLc-yW-Itr"; */
 "vLc-yW-Itr.text" = "2.0";

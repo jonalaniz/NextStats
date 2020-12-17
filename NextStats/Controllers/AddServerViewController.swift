@@ -83,7 +83,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loadLoginView(with urlString: String) {
-        let vc = LoginWebViewController()
+        let vc = WebViewController()
         vc.serverManager = serverManager
         vc.passedURLString = urlString
         

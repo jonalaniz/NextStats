@@ -48,13 +48,13 @@ class ServerViewController: UITableViewController {
         let addButton = UIButton(type: .system)
         addButton.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
         addButton.addTarget(self, action: #selector(loadAddServerView), for: .touchUpInside)
-        addButton.setTitle("  Add a Server", for: .normal)
+        addButton.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
         addButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
         addButton.sizeToFit()
         
         let addBarButton = UIBarButtonItem(customView: addButton)
         addBarButton.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        addBarButton.customView?.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        addBarButton.customView?.widthAnchor.constraint(equalToConstant: 174).isActive = true
 
         toolbarItems = [addBarButton, spacer, about]
         
