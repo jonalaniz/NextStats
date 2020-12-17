@@ -6,6 +6,11 @@
   Copyright © 2020 Jon Alaniz. All rights reserved.
 */
 
+// Server View Controller Section
+
+/* Add Server Button */
+"Add Server" = " Add a Server"
+
 // Info Controller Sections
 
 /* Section 1 - Header */

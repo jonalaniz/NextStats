@@ -6,6 +6,11 @@
   Copyright © 2020 Jon Alaniz. All rights reserved.
 */
 
+// Server View Controller Section
+
+/* Add Server Button */
+"Add Server" = " Server hinzufügen"
+
 // Info Controller Sections
 
 /* Section 1 - Header */
@@ -24,7 +29,7 @@
 "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License" = "NextStats wird unter der MIT-Lizenz bereitgestellt. Nextcloud selbst wird von der Nextcloud GmbH unter der AGPLv3-Lizenz bereitgestellt";
 
 /* Section 4 - Header */
-"Support Nextstats" = "Unterstützt NextStats";
+"Support NextStats" = "Unterstützt NextStats";
 
 /* Section 4 - Footer */
 "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats ist und bleibt kostenlos. Wenn Sie die App nützlich finden, sollten Sie einen Tipp hinterlassen, um ihre Entwicklung voranzutreiben.";
