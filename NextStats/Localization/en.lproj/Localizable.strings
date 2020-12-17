@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  NextStats
+
+  Created by Jon Alaniz on 12/16/20.
+  Copyright © 2020 Jon Alaniz. All rights reserved.
+*/
+
+// Info Controller Sections
+
+/* Section 1 - Header */
+"Development" = "Development";
+
+/* Section 2 - Header */
+"Translators" = "Translators";
+
+/* Section 3 - Header */
+"Licenses" = "Licenses";
+
+/* Section 3 - Footer */
+"NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License" = "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License";
+
+/* Section 4 - Header */
+"Support NextStats" = "Support NextStats";
+
+/* Section 4 - Footer */
+"NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.";

@@ -21,6 +21,7 @@
 		565975C525567ECB0043C007 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C425567ECB0043C007 /* test.json */; };
 		565975C9255680130043C007 /* working.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C8255680130043C007 /* working.json */; };
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
+		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
 		56924DD223F802A70043C9BE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56924DD123F802A70043C9BE /* Extensions.swift */; };
@@ -61,6 +62,8 @@
 		565975C425567ECB0043C007 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		565975C8255680130043C007 /* working.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = working.json; sourceTree = "<group>"; };
 		566E48CF255A750F00E23B3A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		56924DD123F802A70043C9BE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = NextStats/Helpers/Extensions.swift; sourceTree = SOURCE_ROOT; };
@@ -126,10 +129,11 @@
 				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
 				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
-				564C8DC724D779150095D43B /* Helpers */,
-				56ECA8CE23E4C450001A6899 /* TableViewCells */,
-				5689894D23D4CF2000D13B12 /* Models */,
 				5689894E23D4CF3400D13B12 /* Controllers */,
+				564C8DC724D779150095D43B /* Helpers */,
+				567BF636258ADDF1000E64D9 /* Localization */,
+				5689894D23D4CF2000D13B12 /* Models */,
+				56ECA8CE23E4C450001A6899 /* TableViewCells */,
 				56557EE923C8B09A008CF684 /* Main.storyboard */,
 				56557EEE23C8B09C008CF684 /* LaunchScreen.storyboard */,
 				56557EF123C8B09C008CF684 /* Info.plist */,
@@ -146,6 +150,14 @@
 				565975BC25567DF70043C007 /* Info.plist */,
 			);
 			path = NextStatsTests;
+			sourceTree = "<group>";
+		};
+		567BF636258ADDF1000E64D9 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				567BF639258ADE5D000E64D9 /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		5689894D23D4CF2000D13B12 /* Models */ = {
@@ -262,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */,
 				56557EF023C8B09C008CF684 /* LaunchScreen.storyboard in Resources */,
 				56557EED23C8B09C008CF684 /* Assets.xcassets in Resources */,
 				56557EEB23C8B09A008CF684 /* Main.storyboard in Resources */,
@@ -337,6 +350,15 @@
 				56557EEF23C8B09C008CF684 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		567BF639258ADE5D000E64D9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				567BF638258ADE5D000E64D9 /* de */,
+				567BF63C258ADE74000E64D9 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
