@@ -22,6 +22,9 @@
 /* Section 2 - Header */
 "Translators" = "Übersetzer";
 
+/* Section 2 - Languages */
+"German" = "Deutsche";
+
 /* Section 3 - Header */
 "Licenses" = "Lizenzen";
 
