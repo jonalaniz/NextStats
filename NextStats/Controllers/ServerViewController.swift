@@ -51,7 +51,7 @@ class ServerViewController: UITableViewController {
         addButtonIcon.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
         addButtonIcon.titleLabel?.font = .boldSystemFont(ofSize: 16)
         addButtonIcon.contentHorizontalAlignment = .left
-        addButtonIcon.contentEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 6)
+        addButtonIcon.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 10)
             
         let addButtonView = UIBarButtonItem(customView: addButtonIcon)
 

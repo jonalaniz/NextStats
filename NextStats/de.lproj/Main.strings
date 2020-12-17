@@ -6,7 +6,7 @@
 "29q-AG-dNi.text" = "Detail";
 
 /* Class = "UILabel"; text = "Server Nickname (optional)"; ObjectID = "63R-1X-e0P"; */
-"63R-1X-e0P.text" = "Server-Spitzname (optional)";
+"63R-1X-e0P.text" = "Servername (optional)";
 
 /* Class = "UINavigationItem"; title = "Servers"; ObjectID = "6tE-HA-qXk"; */
 "6tE-HA-qXk.title" = "Servers";
