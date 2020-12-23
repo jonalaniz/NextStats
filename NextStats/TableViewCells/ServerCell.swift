@@ -9,24 +9,69 @@
 import UIKit
 
 class ServerCell: UITableViewCell {
-    @IBOutlet var logoImage: UIImageView!
-    @IBOutlet var logoBackgroundView: UIView!
-    @IBOutlet var serverName: UILabel!
-    @IBOutlet var friendlyURLLabel: UILabel!
-    @IBOutlet var statusLabel: UILabel!
+    var logoImage = UIImageView()
+    var serverName = UILabel()
+    var friendlyURLLabel = UILabel()
+    var statusLabel = UILabel()
     
     var server: NextServer!
     
     func configureCell() {
-        #if targetEnvironment(macCatalyst)
-        logoBackgroundView.isHidden = true
-        #endif
+        constrainUI()
+        setupContent()
+    }
+    
+    func constrainUI() {
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+        serverName.translatesAutoresizingMaskIntoConstraints = false
+        friendlyURLLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        contentView.addSubview(logoImage)
+        contentView.addSubview(serverName)
+        contentView.addSubview(friendlyURLLabel)
+        contentView.addSubview(statusLabel)
+        
+        NSLayoutConstraint.activate([
+            logoImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            logoImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            logoImage.widthAnchor.constraint(equalToConstant: 80),
+            
+            serverName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
+            serverName.heightAnchor.constraint(equalToConstant: 22),
+            serverName.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 10),
+            serverName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            friendlyURLLabel.heightAnchor.constraint(equalToConstant: 20),
+            friendlyURLLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 1),
+            friendlyURLLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 10),
+            friendlyURLLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            statusLabel.heightAnchor.constraint(equalToConstant: 20),
+            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14),
+            statusLabel.leadingAnchor.constraint(equalTo: logoImage.trailingAnchor, constant: 10),
+            statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+        ])
+    }
+    
+    func setupContent() {
+        backgroundColor = .systemFill
+        
+        serverName.font = .preferredFont(forTextStyle: .title2)
         serverName.text = server?.name
+        
+        friendlyURLLabel.font = .preferredFont(forTextStyle: .headline)
         friendlyURLLabel.text = server?.friendlyURL
+        friendlyURLLabel.textColor = .secondaryLabel
+        
+        statusLabel.font = .preferredFont(forTextStyle: .body)
+        
         ping()
         checkForServerLogoImage()
     }
+    
+    
     
     // MARK: - Ping Server Flow
     func ping() {
