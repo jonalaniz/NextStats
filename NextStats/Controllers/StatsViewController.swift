@@ -9,7 +9,7 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    @IBOutlet var statController: UITableView!
+    @IBOutlet var statTableView: UITableView!
     
     var server: NextServer!
     var tableViewDataContainer = ServerTableViewDataManager()
@@ -34,7 +34,7 @@ class StatsViewController: UIViewController {
         if isInitialLoad {
             // Check if statController is instantiated
             // Keeps iPhone from crashing
-            if statController != nil {
+            if statTableView != nil {
                 if data {
                     navigationController?.isNavigationBarHidden = false
                     let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
@@ -42,13 +42,13 @@ class StatsViewController: UIViewController {
                     
                     navigationItem.rightBarButtonItems = [loadWebPageButton, activityIndicatorBarButtonItem]
                     
-                    statController.delegate = self
-                    statController.dataSource = self
-                    statController.isHidden = false
+                    statTableView.delegate = self
+                    statTableView.dataSource = self
+                    statTableView.isHidden = false
                     isInitialLoad = false
                 } else {
                     title = ""
-                    statController.isHidden = true
+                    statTableView.isHidden = true
                     navigationController?.isNavigationBarHidden = true
                 }
             }
@@ -101,7 +101,7 @@ class StatsViewController: UIViewController {
                 guard let users = jsonStream.ocs?.data?.activeUsers else { return }
                 
                 self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
-                self.statController.reloadData()
+                self.statTableView.reloadData()
                 self.activityIndicator.deactivate()
                 self.activityIndicator.isHidden = true
             }
@@ -114,7 +114,7 @@ class StatsViewController: UIViewController {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
             self.activityIndicator.deactivate()
-            self.statController.isHidden = true
+            self.statTableView.isHidden = true
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
             self.present(ac, animated: true)
         }
@@ -166,7 +166,7 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer) {
-        if statController != nil { statController.isHidden = false }
+        if statTableView != nil { statTableView.isHidden = false }
         server = newServer
         title = server.name
         setupView(withData: true)

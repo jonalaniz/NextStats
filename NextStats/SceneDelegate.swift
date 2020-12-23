@@ -24,9 +24,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         splitViewController.primaryBackgroundStyle = .sidebar
         masterViewController.delegate = detailViewController
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        
+        #if !targetEnvironment(macCatalyst)
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        #endif
             
         #if targetEnvironment(macCatalyst)
         // Grab the windowScene

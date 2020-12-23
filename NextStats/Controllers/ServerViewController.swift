@@ -12,34 +12,44 @@ protocol ServerSelectionDelegate: class {
     func serverSelected(_ newServer: NextServer)
 }
 
-class ServerViewController: UITableViewController {
+class ServerViewController: UIViewController {
+    @IBOutlet var serverTableView: UITableView!
+    
     weak var delegate: ServerSelectionDelegate?
     
     var serverManager = ServerManager.shared
     
     override func viewWillAppear(_ animated: Bool) {
         setupUI()
-        if let selectedRow = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedRow, animated: true)
+        
+        if let selectedRow = serverTableView.indexPathForSelectedRow {
+            serverTableView.deselectRow(at: selectedRow, animated: true)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.clearsSelectionOnViewWillAppear = false
+        serverTableView.delegate = self
+        serverTableView.dataSource = self
+        serverTableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .serverDidChange, object: nil)
     }
     
     private func setupUI() {
+        // Setup Background for Catalyst (for blurry sidebar)
+        #if targetEnvironment(macCatalyst)
+        view.backgroundColor = .clear
+        #endif
+        
         // Navigation Bar
-        navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "NextStats"
         
         // Setup Pull To Refresh Controls
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        serverTableView.refreshControl = UIRefreshControl()
+        serverTableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
         // Set Up Toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -64,9 +74,9 @@ class ServerViewController: UITableViewController {
     }
     
     @objc func refresh() {
-        tableView.reloadData()
-        if tableView.refreshControl?.isRefreshing == true {
-            tableView.refreshControl?.endRefreshing()
+        serverTableView.reloadData()
+        if serverTableView.refreshControl?.isRefreshing == true {
+            serverTableView.refreshControl?.endRefreshing()
         }
     }
     
@@ -90,22 +100,23 @@ class ServerViewController: UITableViewController {
 
 // MARK: - TableView Methods
 
-extension ServerViewController {
+extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.servers.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = serverTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
         
+        cell.accessoryType = .disclosureIndicator
         cell.server = serverManager.servers[indexPath.row]
         cell.configureCell()
 
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedServer = serverManager.servers[indexPath.row]
         delegate?.serverSelected(selectedServer)
         
@@ -114,11 +125,24 @@ extension ServerViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from serverManager and tableView
             serverManager.removeServer(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            serverTableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        // Takes care of toggling the button's title.
+            super.setEditing(editing, animated: true)
+
+            // Toggle table view editing.
+            serverTableView.setEditing(editing, animated: true)
+    }
+    
 }
