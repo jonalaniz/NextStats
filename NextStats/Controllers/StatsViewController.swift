@@ -10,6 +10,7 @@ import UIKit
 
 class StatsViewController: UIViewController {
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+    var viewInitialized = false
     
     var server: NextServer!
     var tableViewDataContainer = ServerTableViewDataManager()
@@ -20,6 +21,10 @@ class StatsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupView()
+        
+        if server != nil {
+            setupTableView()
+        }
     }
         
     internal func setupView() {
@@ -28,6 +33,13 @@ class StatsViewController: UIViewController {
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(openInSafari))
         
         navigationItem.rightBarButtonItems = [openInSafariButton, activityIndicatorBarButtonItem]
+        
+        if !viewInitialized { navigationController?.isNavigationBarHidden = true }
+        
+    }
+    
+    internal func setupTableView() {
+        if viewInitialized { return }
         
         // Initialize the tableView
         tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
@@ -48,11 +60,9 @@ class StatsViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         
-        if server == nil {
-            // Hide view if the server is not initialized
-            navigationController?.isNavigationBarHidden = true
-            tableView.isHidden = true
-        }
+        navigationController?.isNavigationBarHidden = false
+        
+        viewInitialized = true
     }
     
     internal func getStats() {
