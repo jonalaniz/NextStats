@@ -58,6 +58,8 @@ class ServerCell: UITableViewCell {
     func setupContent() {
         backgroundColor = .systemFill
         
+        logoImage.contentMode = .scaleAspectFit
+        
         serverName.font = .preferredFont(forTextStyle: .title2)
         serverName.text = server?.name
         
