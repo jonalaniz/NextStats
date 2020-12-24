@@ -23,7 +23,6 @@ class ServerViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        setupTableView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .serverDidChange, object: nil)
     }
@@ -67,9 +66,7 @@ class ServerViewController: UIViewController {
         let addButtonView = UIBarButtonItem(customView: addButtonIcon)
 
         toolbarItems = [addButtonView, spacer, about]
-    }
-    
-    internal func setupTableView() {
+        
         // Initialize tableView with proper style for platform
         #if targetEnvironment(macCatalyst)
         tableView = UITableView(frame: CGRect.zero, style: .plain)
@@ -86,7 +83,7 @@ class ServerViewController: UIViewController {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
-        // Constraing tableView
+        // Constrain tableView
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,11 +125,11 @@ class ServerViewController: UIViewController {
 
 extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.servers.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
         
         cell.accessoryType = .disclosureIndicator
@@ -142,7 +139,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedServer = serverManager.servers[indexPath.row]
         delegate?.serverSelected(selectedServer)
         
@@ -151,7 +148,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from serverManager and tableView
             serverManager.removeServer(at: indexPath.row)
@@ -159,7 +156,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     

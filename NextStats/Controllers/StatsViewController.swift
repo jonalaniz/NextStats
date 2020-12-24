@@ -9,53 +9,53 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    @IBOutlet var statTableView: UITableView!
+    var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
     
     var server: NextServer!
     var tableViewDataContainer = ServerTableViewDataManager()
-    var isInitialLoad = true
-
+    
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
     override func viewWillAppear(_ animated: Bool) {
-        if (server != nil) {
-            setupView(withData: true)
-        } else {
-            setupView(withData: false)
+        super.viewWillAppear(animated)
+        
+        setupView()
+    }
+        
+    internal func setupView() {
+        // Add Activity Indicator and Open in Safari Button
+        let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(openInSafari))
+        
+        navigationItem.rightBarButtonItems = [openInSafariButton, activityIndicatorBarButtonItem]
+        
+        // Initialize the tableView
+        tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        
+        // Connect tableView to ViewController
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        // Constrain tableView
+        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        
+        if server == nil {
+            // Hide view if the server is not initialized
+            navigationController?.isNavigationBarHidden = true
+            tableView.isHidden = true
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    private func setupView(withData data: Bool) {
-        // Check if initialized with data
-        if isInitialLoad {
-            // Check if statController is instantiated
-            // Keeps iPhone from crashing
-            if statTableView != nil {
-                if data {
-                    navigationController?.isNavigationBarHidden = false
-                    let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-                    let loadWebPageButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(loadServerInSafari))
-                    
-                    navigationItem.rightBarButtonItems = [loadWebPageButton, activityIndicatorBarButtonItem]
-                    
-                    statTableView.delegate = self
-                    statTableView.dataSource = self
-                    statTableView.isHidden = false
-                    isInitialLoad = false
-                } else {
-                    title = ""
-                    statTableView.isHidden = true
-                    navigationController?.isNavigationBarHidden = true
-                }
-            }
-        }
-    }
-    
-    func getStats() {
+    internal func getStats() {
         activityIndicator.startAnimating()
         
         // Prepare the user authentication credentials
@@ -91,7 +91,7 @@ class StatsViewController: UIViewController {
         task.resume()
     }
     
-    func parseJSON(json: Data) {
+    internal func parseJSON(json: Data) {
         let decoder = JSONDecoder()
         
         if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
@@ -101,7 +101,7 @@ class StatsViewController: UIViewController {
                 guard let users = jsonStream.ocs?.data?.activeUsers else { return }
                 
                 self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
-                self.statTableView.reloadData()
+                self.tableView.reloadData()
                 self.activityIndicator.deactivate()
                 self.activityIndicator.isHidden = true
             }
@@ -110,21 +110,21 @@ class StatsViewController: UIViewController {
         }
     }
     
-    func displayErrorAndReturn(error: ServerError) {
+    internal func displayErrorAndReturn(error: ServerError) {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
             self.activityIndicator.deactivate()
-            self.statTableView.isHidden = true
+            self.tableView.isHidden = true
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
             self.present(ac, animated: true)
         }
     }
     
-    func returnToTable(action: UIAlertAction! = nil) {
+    internal func returnToTable(action: UIAlertAction! = nil) {
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
-    @objc func loadServerInSafari() {
+    @objc func openInSafari() {
         let urlString = server.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
@@ -134,30 +134,32 @@ class StatsViewController: UIViewController {
 
 // MARK: - Table View Functions
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    internal func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewDataContainer.sections()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewDataContainer.rows(in: section)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tableViewDataContainer.sectionLabel(for: section)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
         let section = indexPath.section
         let row = indexPath.row
         
         cell.textLabel?.text = tableViewDataContainer.rowLabel(forRow: row, inSection: section)
         cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
         cell.detailTextLabel?.textColor = .secondaryLabel
+        cell.selectionStyle = .none
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    internal func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 28
     }
 
@@ -165,11 +167,19 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
-    func serverSelected(_ newServer: NextServer) {
-        if statTableView != nil { statTableView.isHidden = false }
+    internal func serverSelected(_ newServer: NextServer) {
+        // Initialize server variable with selected server
         server = newServer
+        
+        // Reinitialize the tableViewDataContainer (removes previous server data)
+        tableViewDataContainer = ServerTableViewDataManager()
+        
+        // Unhide UI and set Title
+        navigationController?.isNavigationBarHidden = false
+        tableView.isHidden = false
         title = server.name
-        setupView(withData: true)
+        
+        // Get server stats
         getStats()
     }
 }
