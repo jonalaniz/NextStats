@@ -56,7 +56,7 @@ class ServerCell: UITableViewCell {
     }
     
     func setupContent() {
-        backgroundColor = .systemFill
+        backgroundColor = .secondarySystemGroupedBackground
         
         logoImage.contentMode = .scaleAspectFit
         
