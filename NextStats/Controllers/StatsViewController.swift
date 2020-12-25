@@ -21,10 +21,6 @@ class StatsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupView()
-        
-        if server != nil {
-            setupTableView()
-        }
     }
         
     internal func setupView() {
@@ -186,6 +182,7 @@ extension StatsViewController: ServerSelectionDelegate {
         
         // Unhide UI and set Title
         navigationController?.isNavigationBarHidden = false
+        setupTableView()
         tableView.isHidden = false
         title = server.name
         

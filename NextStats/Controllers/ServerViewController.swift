@@ -14,6 +14,7 @@ protocol ServerSelectionDelegate: class {
 
 class ServerViewController: UIViewController {
     var tableView: UITableView!
+    var noServersView: UIStackView!
     
     weak var delegate: ServerSelectionDelegate?
     
@@ -21,7 +22,6 @@ class ServerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .serverDidChange, object: nil)
@@ -32,9 +32,12 @@ class ServerViewController: UIViewController {
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
+        
+        // Show or hide noServerView as necessary
+        toggleNoServersView()
     }
     
-    internal func setupView() {
+    private func setupView() {
         // Setup Background for Catalyst (for blurry sidebar)
         #if targetEnvironment(macCatalyst)
         view.backgroundColor = .clear
@@ -67,6 +70,35 @@ class ServerViewController: UIViewController {
 
         toolbarItems = [addButtonView, spacer, about]
         
+        // Initialize noServerView
+        noServersView = UIStackView()
+        
+            // Image View
+            let imageView = UIImageView()
+            imageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
+            imageView.image = UIImage(named: "Greyscale-Icon")
+            imageView.layer.cornerRadius = 38
+            imageView.clipsToBounds = true
+
+            // Text Label
+            let textLabel = UILabel()
+            textLabel.widthAnchor.constraint(equalToConstant: 180).isActive = true
+            textLabel.text = "You do not have any servers"
+            textLabel.font = .preferredFont(forTextStyle: .headline)
+            textLabel.numberOfLines = 0
+            textLabel.textAlignment = .center
+            textLabel.textColor = .tertiaryLabel
+
+            //Stack View
+            noServersView.axis = NSLayoutConstraint.Axis.vertical
+            noServersView.distribution = UIStackView.Distribution.equalSpacing
+            noServersView.alignment = UIStackView.Alignment.center
+            noServersView.spacing = 16.0
+
+            noServersView.addArrangedSubview(imageView)
+            noServersView.addArrangedSubview(textLabel)
+
         // Initialize tableView with proper style for platform
         #if targetEnvironment(macCatalyst)
         tableView = UITableView(frame: CGRect.zero, style: .plain)
@@ -74,29 +106,48 @@ class ServerViewController: UIViewController {
         tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         #endif
         
-        // Connect tableView to ViewController and register Cell
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
+            // Connect tableView to ViewController and register Cell
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
+            
+            // Setup Pull To Refresh Controls
+            tableView.refreshControl = UIRefreshControl()
+            tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
-        // Setup Pull To Refresh Controls
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        
-        // Constrain tableView
+        // Constrain our views
         view.addSubview(tableView)
+        view.addSubview(noServersView)
         
+        noServersView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            
+            noServersView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            noServersView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: 50)
         ])
     }
     
+    private func toggleNoServersView() {
+        // Show noServerView if no ServerManager.servers is empty
+        if serverManager.servers.count == 0 {
+            noServersView.isHidden = false
+        } else {
+            noServersView.isHidden = true
+        }
+        
+        // So iPad doesn't get tableView stuck in editing mode
+        setEditing(false, animated: false)
+    }
+    
     @objc func refresh() {
+        toggleNoServersView()
+        
         tableView.reloadData()
         if tableView.refreshControl?.isRefreshing == true {
             tableView.refreshControl?.endRefreshing()
@@ -125,11 +176,11 @@ class ServerViewController: UIViewController {
 
 extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
 
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.servers.count
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
         
         cell.accessoryType = .disclosureIndicator
@@ -139,7 +190,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedServer = serverManager.servers[indexPath.row]
         delegate?.serverSelected(selectedServer)
         
@@ -148,15 +199,18 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from serverManager and tableView
             serverManager.removeServer(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            // Show or hide noServerView as necessary
+            toggleNoServersView()
         }
     }
     
-    internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
