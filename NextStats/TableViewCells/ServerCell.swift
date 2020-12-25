@@ -35,8 +35,8 @@ class ServerCell: UITableViewCell {
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             logoImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            logoImage.widthAnchor.constraint(equalToConstant: 80),
+            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            logoImage.widthAnchor.constraint(equalToConstant: 78),
             
             serverName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
             serverName.heightAnchor.constraint(equalToConstant: 22),
@@ -56,7 +56,9 @@ class ServerCell: UITableViewCell {
     }
     
     func setupContent() {
-        backgroundColor = .secondarySystemGroupedBackground
+        if traitCollection.userInterfaceStyle == .light {
+            backgroundColor = .quaternarySystemFill
+        }
         
         logoImage.contentMode = .scaleAspectFit
         
