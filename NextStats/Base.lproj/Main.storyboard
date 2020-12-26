@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server Nickname (optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63R-1X-e0P">
-                                <rect key="frame" x="16" y="91" width="288" height="28"/>
+                                <rect key="frame" x="16" y="0.0" width="288" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="6gl-XN-fkz"/>
                                 </constraints>
@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="My Server" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9f0-K0-NI9">
-                                <rect key="frame" x="16" y="131" width="288" height="44"/>
+                                <rect key="frame" x="16" y="40" width="288" height="44"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="i1P-d9-jlW"/>
@@ -36,7 +36,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Server URL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-nr-I68">
-                                <rect key="frame" x="16" y="191" width="288" height="28"/>
+                                <rect key="frame" x="16" y="100" width="288" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Kz9-08-ePz"/>
                                 </constraints>
@@ -45,7 +45,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="https://www.example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="01T-XB-asV">
-                                <rect key="frame" x="16" y="231" width="288" height="44"/>
+                                <rect key="frame" x="16" y="140" width="288" height="44"/>
                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="00s-gc-WyJ"/>
@@ -54,7 +54,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done" textContentType="url"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please enter a valid url" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oab-Pr-I9Q">
-                                <rect key="frame" x="16" y="287" width="288" height="16"/>
+                                <rect key="frame" x="16" y="196" width="288" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="yF0-1C-WXU"/>
                                 </constraints>
@@ -63,7 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When monitoring servers externally, NextStats requires SSL encryption (https)." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYd-XQ-LvH">
-                                <rect key="frame" x="16" y="313" width="288" height="40"/>
+                                <rect key="frame" x="16" y="222" width="288" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RPO-RC-6An"/>
                                 </constraints>
@@ -72,14 +72,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="K5S-lw-RtW">
-                                <rect key="frame" x="16" y="363" width="288" height="40"/>
+                                <rect key="frame" x="16" y="272" width="288" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dgs-qX-9T7"/>
                                 </constraints>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zr4-ck-mx8">
-                                <rect key="frame" x="16" y="417" width="288" height="44"/>
+                                <rect key="frame" x="16" y="326" width="288" height="44"/>
                                 <color key="backgroundColor" red="0.32937070730000001" green="0.36473536490000003" blue="0.58816075329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="jSf-yB-wmW"/>
@@ -137,7 +137,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5670" y="934"/>
+            <point key="canvasLocation" x="4659" y="934"/>
         </scene>
         <!--Server View Controller-->
         <scene sceneID="Zae-vk-4rv">
@@ -226,24 +226,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hml-ub-Uz2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2986" y="1590"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="N14-7a-h8R">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="54v-yY-LTj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="AddServerNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Qqh-hG-EmY" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gXb-Ub-N8x">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9Bc-GP-hxT"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="4806" y="934"/>
         </scene>
         <!--Info-->
         <scene sceneID="tW9-LD-fWC">
@@ -341,25 +323,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eOW-jd-LvV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5670" y="1589.7887323943662"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="3Nb-Hz-bG3">
-            <objects>
-                <navigationController storyboardIdentifier="InfoViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="qHd-4c-JvP" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bAA-YQ-dNH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="gro-Tk-tpR" kind="relationship" relationship="rootViewController" id="XOf-65-4Hw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IB3-Dn-QlH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4806" y="1590"/>
+            <point key="canvasLocation" x="4659" y="1590"/>
         </scene>
     </scenes>
     <resources>
