@@ -36,3 +36,9 @@
 
 /* Section 4 - Footer */
 "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
+
+/* IAP Thank You */
+"Thank You" = "Dankeschön";
+
+/* IAP Message */
+"Thank you very much for supporting the further development of NextStats!" = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
