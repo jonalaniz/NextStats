@@ -1,6 +1,8 @@
-# NextStats
+<p align="center">
+    <img src="http://www.jonalaniz.com/wp-content/uploads/2020/12/nextstats-logo.png" alt="Nextstats logo" width="614" maxHeight="171" />
+</p>
 
-<p align="left">
+<p align="center">
     <img src="https://img.shields.io/badge/iOS-13.0+-blueviolet.svg" />
     <img src="https://img.shields.io/badge/macOS-10.15+-red.svg" />
     <img src="https://img.shields.io/badge/Swift-5.0-orange.svg" />
