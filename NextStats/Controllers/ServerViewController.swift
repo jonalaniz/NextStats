@@ -185,7 +185,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.accessoryType = .disclosureIndicator
         cell.server = serverManager.servers[indexPath.row]
-        cell.configureCell()
+        cell.setup()
 
         return cell
     }
