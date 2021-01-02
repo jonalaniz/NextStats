@@ -13,6 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        window?.tintColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
+        
         guard
             let splitViewController = window?.rootViewController as? UISplitViewController,
             let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
