@@ -23,7 +23,7 @@ class StatsViewController: UIViewController {
         setupView()
     }
         
-    internal func setupView() {
+    private func setupView() {
         // Add Activity Indicator and Open in Safari Button
         let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(openInSafari))
@@ -33,8 +33,11 @@ class StatsViewController: UIViewController {
         if !viewInitialized { navigationController?.isNavigationBarHidden = true }
         
     }
-    
-    internal func setupTableView() {
+}
+
+// MARK: Functions
+extension StatsViewController {
+    private func setupTableView() {
         if viewInitialized { return }
         
         // Initialize the tableView
@@ -61,7 +64,7 @@ class StatsViewController: UIViewController {
         viewInitialized = true
     }
     
-    internal func getStats() {
+    private func getStats() {
         activityIndicator.startAnimating()
         
         // Prepare the user authentication credentials
@@ -97,7 +100,7 @@ class StatsViewController: UIViewController {
         task.resume()
     }
     
-    internal func parseJSON(json: Data) {
+    private func parseJSON(json: Data) {
         let decoder = JSONDecoder()
         
         if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
@@ -116,7 +119,7 @@ class StatsViewController: UIViewController {
         }
     }
     
-    internal func displayErrorAndReturn(error: ServerError) {
+    private func displayErrorAndReturn(error: ServerError) {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
             self.activityIndicator.deactivate()
@@ -126,7 +129,7 @@ class StatsViewController: UIViewController {
         }
     }
     
-    internal func returnToTable(action: UIAlertAction! = nil) {
+    private func returnToTable(action: UIAlertAction! = nil) {
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -138,21 +141,21 @@ class StatsViewController: UIViewController {
     
 }
 
-// MARK: - Table View Functions
+// MARK: Table View Functions
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
-    internal func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return tableViewDataContainer.sections()
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewDataContainer.rows(in: section)
     }
     
-    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tableViewDataContainer.sectionLabel(for: section)
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
         let section = indexPath.section
         let row = indexPath.row
@@ -165,13 +168,13 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    internal func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 28
     }
 
 }
 
-// MARK: - ServerSelectionDelegate
+// MARK: ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
     internal func serverSelected(_ newServer: NextServer) {
         // Initialize server variable with selected server
