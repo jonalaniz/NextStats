@@ -103,7 +103,7 @@ extension StatsViewController {
     private func parseJSON(json: Data) {
         let decoder = JSONDecoder()
         
-        if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
+        if let jsonStream = try? decoder.decode(ServerStats.self, from: json) {
             DispatchQueue.main.async {
                 guard let server = jsonStream.ocs?.data?.nextcloud else { return }
                 guard let webServer = jsonStream.ocs?.data?.server else { return }

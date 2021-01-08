@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
+		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
+		561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthResponse.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
@@ -43,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
+		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		561B989025A85C1500A8FE6D /* JSON Structs */ = {
+			isa = PBXGroup;
+			children = (
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
+				561B989725A85C9E00A8FE6D /* AuthResponse.swift */,
+			);
+			path = "JSON Structs";
+			sourceTree = "<group>";
+		};
 		564C8DC724D779150095D43B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +143,7 @@
 				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
 				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
+				561B989025A85C1500A8FE6D /* JSON Structs */,
 				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
 				5689894E23D4CF3400D13B12 /* Controllers */,
 				564C8DC724D779150095D43B /* Helpers */,
@@ -167,6 +183,7 @@
 				56F7F8F324D78C9E00C667E4 /* Server.swift */,
 				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 				56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */,
+				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -297,14 +314,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56557EF823C8B556008CF684 /* ServerTableViewDataManager.swift in Sources */,
+				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
+				561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */,
 				5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */,
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
