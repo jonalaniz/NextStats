@@ -10,6 +10,7 @@
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthResponse.swift */; };
+		561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDataManager.swift; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 		56557ED723C8B09A008CF684 = {
 			isa = PBXGroup;
 			children = (
+				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
 				56557EE223C8B09A008CF684 /* NextStats */,
 				565975B925567DF70043C007 /* NextStatsTests */,
 				56557EE123C8B09A008CF684 /* Products */,
@@ -314,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,

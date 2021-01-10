@@ -32,6 +32,13 @@ enum ServerError {
 }
 
 // Server Data Label Enums
+enum Sections: Int {
+    case system = 0
+    case storage
+    case server
+    case activeUsers
+}
+
 enum SystemIndex: Int {
     case version
     case cpuLoad
@@ -68,14 +75,14 @@ enum ActiveUsersIndex: Int {
  */
 
 struct ServerTableViewDataManager {
-    // MARK: - Labels
+    // MARK: Labels
     let sectionLabels = ["System", "Storage", "Server", "Active Users"]
     let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
     let storageSectionLabels = ["Free Space", "Number of Files"]
     let serverSectionLabels = ["Web Server", "PHP Version", "Database", "Database Version"]
     let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
     
-    // MARK: - ServerData
+    // MARK: Server Stats Data
     private var systemSectionData = [String]()
     private var storageSectionData = [String]()
     private var serverSectionData = [String]()
@@ -87,7 +94,9 @@ struct ServerTableViewDataManager {
         serverSectionData = Array(repeating: "...", count: serverSectionLabels.count)
         activeUsersSectionData = Array(repeating: "...", count: activeUsersSectionLabels.count)
     }
-    
+}
+
+extension ServerTableViewDataManager {
     // MARK: - Data Parsing and Update
     mutating func updateDataWith(server system: Nextcloud, webServer: Server, users: ActiveUsers) {
 
