@@ -30,7 +30,7 @@ class NetworkController {
         
         // Prepare the server credentials
         let credentials = "\(server.username):\(server.password)".data(using: .utf8)!
-        let encryptedCredentials = credentials.base64EncodedData()
+        let encryptedCredentials = credentials.base64EncodedString()
         let authenticatonString = "Basic \(encryptedCredentials)"
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = ["Authorization": authenticatonString]

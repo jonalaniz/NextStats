@@ -31,7 +31,7 @@ class StatisticsDataManager {
     
     private let networkController = NetworkController()
     
-    private var delegate: StatisticsDataManagerDelegate?
+    var delegate: StatisticsDataManagerDelegate?
     
     var server: NextServer! {
         didSet {
@@ -172,7 +172,7 @@ extension StatisticsDataManager {
         if let cpuUsageArray = system.system?.cpuload {
             // CPU array SHOULD only have three values
             if cpuUsageArray.count == 3 {
-                let cpuString = "\(cpuUsageArray[0]), \(cpuUsageArray[1]), \(cpuUsageArray[3])"
+                let cpuString = "\(cpuUsageArray[0]), \(cpuUsageArray[1]), \(cpuUsageArray[2])"
                 
                 cpu = cpuString
             }
@@ -243,6 +243,9 @@ extension StatisticsDataManager {
         activeUsersSectionData[ActiveUsersIndex.lastDay.rawValue] = lastDay
         activeUsersSectionData[ActiveUsersIndex.total.rawValue] = total
         
+        DispatchQueue.main.async {
+            self.delegate?.dataUpdated()
+        }
     }
     
     private func bytesToGigabytes(bytes: Double) -> Double {
