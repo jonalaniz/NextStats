@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "nextstat-logo-transparent.png",
+      "filename" : "nextstat-logo-transparent-ios.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,6 +12,15 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "nextstat-logo-transparent-mac.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "2x"
     }
   ],
   "info" : {
