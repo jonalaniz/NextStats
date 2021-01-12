@@ -10,7 +10,6 @@ import UIKit
 
 class ServerCell: UITableViewCell {
     // MARK: Properties
-    
     var logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +44,7 @@ class ServerCell: UITableViewCell {
     }()
     
     var server: NextServer!
+    let networkController = NetworkController.shared
     
 }
 
@@ -84,36 +84,21 @@ extension ServerCell {
         serverNameLabel.text = server?.name
         friendlyURLLabel.text = server?.friendlyURL
                 
-        ping()
+        pingServer()
         checkForServerLogoImage()
     }
     
-    // MARK: Ping Server Flow
-    func ping() {
-        if let url = URL(string: server!.URLString) {
-            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-            components.path = ""
-            
-            var request = URLRequest(url: components.url!)
-            request.httpMethod = "HEAD"
-            
-            URLSession(configuration: .default).dataTask(with: request) { (_, response, error) in
-                guard error == nil else {
-                    // server down
-                    self.setOnlineStatus(to: false)
-                    return
-                }
-                
-                guard(response as? HTTPURLResponse)?.statusCode == 200 else {
-                    // guard against anything but a 200 OK code
-                    self.setOnlineStatus(to: false)
-                    return
-                }
-                
-                // if we made it this far, we good b
+    func pingServer() {
+        let url = URL(string: server.URLString)!
+
+        networkController.ping(url: url) { (result: Result<Void, FetchError>) in
+            switch result {
+            case .failure(let error):
+                print(error)
+                self.setOnlineStatus(to: false)
+            case .success(()):
                 self.setOnlineStatus(to: true)
-                
-            }.resume()
+            }
         }
     }
     
