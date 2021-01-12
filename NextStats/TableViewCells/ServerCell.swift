@@ -88,7 +88,7 @@ extension ServerCell {
         checkForServerLogoImage()
     }
     
-    func pingServer() {
+    private func pingServer() {
         let url = URL(string: server.URLString)!
 
         networkController.ping(url: url) { (result: Result<Void, FetchError>) in
@@ -102,7 +102,7 @@ extension ServerCell {
         }
     }
     
-    func setOnlineStatus(to online: Bool) {
+    private func setOnlineStatus(to online: Bool) {
         DispatchQueue.main.async {
             if online {
                 self.statusLabel.textColor = .systemGreen
@@ -116,7 +116,7 @@ extension ServerCell {
     }
     
     // MARK: Check for and load custom logo
-    func checkForServerLogoImage() {
+    private func checkForServerLogoImage() {
         if server.hasCustomLogo {
             // Server should have custom logo
             if server.imageCached() {
