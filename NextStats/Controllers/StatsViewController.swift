@@ -9,11 +9,10 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
-    var viewInitialized = false
-    
     var server: NextServer!
     var statisticsDataManager = StatisticsDataManager()
+    var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+    var viewInitialized = false
     
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
@@ -36,7 +35,6 @@ class StatsViewController: UIViewController {
         navigationItem.rightBarButtonItems = [openInSafariButton, activityIndicatorBarButtonItem]
         
         if !viewInitialized { navigationController?.isNavigationBarHidden = true }
-        
     }
 }
 
@@ -69,14 +67,14 @@ extension StatsViewController {
         viewInitialized = true
     }
     
-    private func displayErrorAndReturn(error: ServerError) {
-        DispatchQueue.main.async {
-            let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
-            self.activityIndicator.deactivate()
-            self.tableView.isHidden = true
-            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
-            self.present(ac, animated: true)
-        }
+    private func displayErrorAndReturn(title: String, description: String) {
+        let ac = UIAlertController(title: title, message: description, preferredStyle: .alert)
+        self.activityIndicator.deactivate()
+        self.tableView.isHidden = true
+        
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
+        
+        self.present(ac, animated: true)
     }
     
     private func returnToTable(action: UIAlertAction! = nil) {
@@ -124,7 +122,7 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-// MARK: ServerSelectionDelegate
+/// MARK: ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer) {
         // Initialize server variable with selected server
@@ -135,15 +133,35 @@ extension StatsViewController: ServerSelectionDelegate {
         setupTableView()
         tableView.isHidden = false
         title = statisticsDataManager.server.name
+        activityIndicator.activate()
     }
 }
 
+/// MARK: StatisticsDataManagerDelegate
 extension StatsViewController: StatisticsDataManagerDelegate {
-    func fetchingData() {
-        activityIndicator.activate()
+    func fetchingDidBegin() {
+        // this is possibly not needed
     }
     
     func errorFetchingData(error: FetchError) {
+        switch error {
+        case .invalidData:
+            self.displayErrorAndReturn(title: "Invalid Data", description: "Server response data could not be read.")
+        case .invalidJSON(let error):
+            self.displayErrorAndReturn(title: "Error parsing JSON", description: "JSON Parsing failed with error: \(error.localizedDescription)")
+        case .missingResponse:
+            self.displayErrorAndReturn(title: "Missing Response", description: "Server could be reached, but response was not given.")
+        case .network(let error):
+            self.displayErrorAndReturn(title: "Network Error", description: "\(error.localizedDescription)")
+        case .unexpectedResponse(let response):
+            switch response {
+            case 401:
+                self.displayErrorAndReturn(title: "Unauthorized (\(response))", description: "User must have administrative privileges to fetch server statistics.")
+            default:
+                self.displayErrorAndReturn(title: "Unexpected Response (\(response))", description: "\(response)")
+            }
+        }
+        
         print("Error fetching data \(error)")
     }
     
@@ -153,8 +171,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     }
     
     func errorUpdatingData() {
-        print("Error updating data")
+        self.displayErrorAndReturn(title: "Error updating data.", description: "Statistics data missing from server response.")
     }
-    
     
 }

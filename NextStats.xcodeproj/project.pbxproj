@@ -19,7 +19,6 @@
 		56557EEB23C8B09A008CF684 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56557EE923C8B09A008CF684 /* Main.storyboard */; };
 		56557EED23C8B09C008CF684 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56557EEC23C8B09C008CF684 /* Assets.xcassets */; };
 		56557EF023C8B09C008CF684 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56557EEE23C8B09C008CF684 /* LaunchScreen.storyboard */; };
-		56557EF823C8B556008CF684 /* ServerTableViewDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */; };
 		56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EFF23CA89B9008CF684 /* StatsViewController.swift */; };
 		565975BB25567DF70043C007 /* NextStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565975BA25567DF70043C007 /* NextStatsTests.swift */; };
 		565975C525567ECB0043C007 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C425567ECB0043C007 /* test.json */; };
@@ -61,7 +60,6 @@
 		56557EEC23C8B09C008CF684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56557EEF23C8B09C008CF684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56557EF123C8B09C008CF684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTableViewDataManager.swift; sourceTree = "<group>"; };
 		56557EF923CA6E89008CF684 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		56557EFF23CA89B9008CF684 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		565975B825567DF70043C007 /* NextStatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextStatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,7 +122,6 @@
 		56557ED723C8B09A008CF684 = {
 			isa = PBXGroup;
 			children = (
-				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
 				56557EE223C8B09A008CF684 /* NextStats */,
 				565975B925567DF70043C007 /* NextStatsTests */,
 				56557EE123C8B09A008CF684 /* Products */,
@@ -185,7 +182,7 @@
 				56A56EC32563C5A3005A6D18 /* InfoModel.swift */,
 				56F7F8F324D78C9E00C667E4 /* Server.swift */,
 				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
-				56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */,
+				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
 				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 			);
 			path = Models;
@@ -321,7 +318,6 @@
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
-				56557EF823C8B556008CF684 /* ServerTableViewDataManager.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
@@ -520,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -543,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

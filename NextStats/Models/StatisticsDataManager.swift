@@ -8,11 +8,49 @@
 
 import Foundation
 
+// Server Data Label Enums
+enum Sections: Int {
+    case system
+    case storage
+    case server
+    case activeUsers
+}
+
+enum SystemIndex: Int {
+    case version
+    case cpuLoad
+    case memoryUsage
+    case memory
+    case swapUsage
+    case swap
+    case localCache
+    case distributedCache
+}
+
+enum StorageIndex: Int {
+    case freeSpace
+    case numberOfFiles
+}
+
+enum ServerIndex: Int {
+    case webServer
+    case phpVersion
+    case database
+    case databaseVersion
+}
+
+enum ActiveUsersIndex: Int {
+    case last5Minutes
+    case lastHour
+    case lastDay
+    case total
+}
+
 /**
  The `StatisticsDataManagerDelegate` defined methods you can implement to respond to events associated with `StatisticsDataManager`
  */
 protocol StatisticsDataManagerDelegate: class {
-    func fetchingData()
+    func fetchingDidBegin()
     func errorFetchingData(error: FetchError)
     func dataUpdated()
     func errorUpdatingData()
@@ -21,8 +59,6 @@ protocol StatisticsDataManagerDelegate: class {
 /**
  `StatisticsTableViewManager`: Replaces StatsTableViewDataManager
  - On initilizaton, the server data is populated with "...", therefore UITableView will show that data while the proper data is being fetched
- - When server is set, fetchData() will be called
- -
  */
 
 class StatisticsDataManager {
@@ -35,6 +71,7 @@ class StatisticsDataManager {
     
     var server: NextServer! {
         didSet {
+            resetServerData()
             fetchData(for: server)
         }
     }
@@ -68,9 +105,14 @@ extension StatisticsDataManager {
         activeUsersSectionData = Array(repeating: "...", count: activeUsersSectionLabels.count)
     }
     
+    private func resetServerData() {
+        initializeSectionData()
+        delegate?.dataUpdated()
+    }
+    
     private func fetchData(for server: NextServer) {
         // Notify our delegate that fetching has begun
-        delegate?.fetchingData()
+        delegate?.fetchingDidBegin()
         
         // Fetch data from server using networkController
         networkController.fetchData(for: server) { (result: Result<ServerStats, FetchError>) in
