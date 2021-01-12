@@ -28,12 +28,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
-        
-        #if !targetEnvironment(macCatalyst)
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        #endif
             
         #if targetEnvironment(macCatalyst)
+        // Blurry sidebar
+        masterViewController.view.backgroundColor = .clear
+        
         // Grab the windowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
@@ -47,6 +46,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             titlebar.titleVisibility = .hidden
             titlebar.toolbar = nil
         }
+        #else
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         #endif
     }
 
