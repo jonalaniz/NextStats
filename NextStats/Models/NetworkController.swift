@@ -24,6 +24,40 @@ enum FetchType {
 }
 
 class NetworkController {
+    /// Returns the singleton `StatisticsDataManager` instance
+    public static let shared = NetworkController()
+}
+
+extension NetworkController {
+    // Ping server for online status
+    func ping(url: URL, completion: @escaping (Result<Void, FetchError>) -> Void) {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        components?.path = ""
+        
+        var request = URLRequest(url: (components?.url)!)
+        request.httpMethod = "HEAD"
+        
+        URLSession(configuration: .default).dataTask(with: request) { (_, possibleResponse, error) in
+            guard error == nil else {
+                completion(.failure(.network(error!)))
+                return
+            }
+            
+            guard let response = possibleResponse as? HTTPURLResponse else {
+                completion(.failure(.missingResponse))
+                return
+            }
+            
+            guard (200...299).contains(response.statusCode) else {
+                completion(.failure(.unexpectedResponse(response.statusCode)))
+                return
+            }
+            
+            completion(.success(()))
+        }
+        .resume()
+        
+    }
     
     // Fetch JSON data user server credentials
     func fetchData(for server: NextServer, completion: @escaping (Result<ServerStats, FetchError>) -> Void) {

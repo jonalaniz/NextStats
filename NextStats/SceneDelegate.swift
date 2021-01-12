@@ -28,18 +28,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
-        
-        #if !targetEnvironment(macCatalyst)
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        #endif
             
         #if targetEnvironment(macCatalyst)
+        // Blurry sidebar
+        masterViewController.view.backgroundColor = .clear
+        
         // Grab the windowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         // Set minimum windows size
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
-            windowScene.sizeRestrictions?.minimumSize = CGSize(width: 800, height: 600)
+            let size = CGSize(width: 800, height: 600)
+            
+            windowScene.sizeRestrictions?.minimumSize = size
         }
         
         // Remove titlebar
@@ -47,6 +48,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             titlebar.titleVisibility = .hidden
             titlebar.toolbar = nil
         }
+        #else
+        // Add full screen button for iPad
+        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         #endif
     }
 

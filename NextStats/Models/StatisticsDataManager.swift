@@ -65,7 +65,7 @@ class StatisticsDataManager {
     /// Returns the singleton `StatisticsDataManager` instance
     public static let shared = StatisticsDataManager()
     
-    private let networkController = NetworkController()
+    private let networkController = NetworkController.shared
     
     var delegate: StatisticsDataManagerDelegate?
     

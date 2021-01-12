@@ -10,7 +10,7 @@ import UIKit
 
 class StatsViewController: UIViewController {
     var server: NextServer!
-    var statisticsDataManager = StatisticsDataManager()
+    var statisticsDataManager = StatisticsDataManager.shared
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
     var viewInitialized = false
     

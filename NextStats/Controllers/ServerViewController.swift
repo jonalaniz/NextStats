@@ -38,10 +38,6 @@ class ServerViewController: UIViewController {
     }
     
     private func setupView() {
-        // Setup Background for Catalyst (for blurry sidebar)
-        #if targetEnvironment(macCatalyst)
-        view.backgroundColor = .clear
-        #endif
         
         // Setup Navigation Bar
         title = "NextStats"
