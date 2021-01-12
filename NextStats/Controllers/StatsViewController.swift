@@ -26,7 +26,11 @@ class StatsViewController: UIViewController {
         
         setupView()
     }
-        
+
+}
+
+/// MARK: Functions
+extension StatsViewController {
     private func setupView() {
         // Add Activity Indicator and Open in Safari Button
         let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
@@ -36,10 +40,7 @@ class StatsViewController: UIViewController {
         
         if !viewInitialized { navigationController?.isNavigationBarHidden = true }
     }
-}
-
-// MARK: Functions
-extension StatsViewController {
+    
     private func setupTableView() {
         if viewInitialized { return }
         
@@ -89,7 +90,7 @@ extension StatsViewController {
     
 }
 
-// MARK: Table View Functions
+/// MARK: Table View Functions
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return statisticsDataManager.sections()
