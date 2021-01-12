@@ -9,21 +9,29 @@
 import UIKit
 
 class StatsViewController: UIViewController {
+    var server: NextServer!
+    var statisticsDataManager = StatisticsDataManager()
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
     var viewInitialized = false
     
-    var server: NextServer!
-    var tableViewDataContainer = ServerTableViewDataManager()
-    
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    
+    override func loadView() {
+        super.loadView()
+        statisticsDataManager.delegate = self
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupView()
     }
-        
-    internal func setupView() {
+
+}
+
+/// MARK: Functions
+extension StatsViewController {
+    private func setupView() {
         // Add Activity Indicator and Open in Safari Button
         let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(openInSafari))
@@ -31,10 +39,9 @@ class StatsViewController: UIViewController {
         navigationItem.rightBarButtonItems = [openInSafariButton, activityIndicatorBarButtonItem]
         
         if !viewInitialized { navigationController?.isNavigationBarHidden = true }
-        
     }
     
-    internal func setupTableView() {
+    private func setupTableView() {
         if viewInitialized { return }
         
         // Initialize the tableView
@@ -61,72 +68,17 @@ class StatsViewController: UIViewController {
         viewInitialized = true
     }
     
-    internal func getStats() {
-        activityIndicator.startAnimating()
+    private func displayErrorAndReturn(title: String, description: String) {
+        let ac = UIAlertController(title: title, message: description, preferredStyle: .alert)
+        self.activityIndicator.deactivate()
+        self.tableView.isHidden = true
         
-        // Prepare the user authentication credentials
-        let passwordData = "\(server.username):\(server.password)".data(using: .utf8)
-        let base64PasswordData = passwordData?.base64EncodedString()
-        let authString = "Basic \(base64PasswordData!)"
-        let url = URL(string: server.URLString)
-        let request = URLRequest(url: url!)
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Authorization": authString]
-
-        // Begin URLSession
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-                self.displayErrorAndReturn(error: .noResponse)
-            } else {
-                if let response = response as? HTTPURLResponse {
-                    switch response.statusCode {
-                    case 200:
-                        if let data = data {
-                            self.parseJSON(json: data)
-                        }
-                    case 401:
-                        self.displayErrorAndReturn(error: .unauthorized)
-                    default:
-                        self.displayErrorAndReturn(error: .other)
-                    }
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    internal func parseJSON(json: Data) {
-        let decoder = JSONDecoder()
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
         
-        if let jsonStream = try? decoder.decode(Monitor.self, from: json) {
-            DispatchQueue.main.async {
-                guard let server = jsonStream.ocs?.data?.nextcloud else { return }
-                guard let webServer = jsonStream.ocs?.data?.server else { return }
-                guard let users = jsonStream.ocs?.data?.activeUsers else { return }
-                
-                self.tableViewDataContainer.updateDataWith(server: server, webServer: webServer, users: users)
-                self.tableView.reloadData()
-                self.activityIndicator.deactivate()
-                self.activityIndicator.isHidden = true
-            }
-        } else {
-            self.displayErrorAndReturn(error: .jsonError)
-        }
+        self.present(ac, animated: true)
     }
     
-    internal func displayErrorAndReturn(error: ServerError) {
-        DispatchQueue.main.async {
-            let ac = UIAlertController(title: error.typeAndDescription.title, message: error.typeAndDescription.description, preferredStyle: .alert)
-            self.activityIndicator.deactivate()
-            self.tableView.isHidden = true
-            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
-            self.present(ac, animated: true)
-        }
-    }
-    
-    internal func returnToTable(action: UIAlertAction! = nil) {
+    private func returnToTable(action: UIAlertAction! = nil) {
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
     
@@ -138,55 +90,89 @@ class StatsViewController: UIViewController {
     
 }
 
-// MARK: - Table View Functions
+/// MARK: Table View Functions
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
-    internal func numberOfSections(in tableView: UITableView) -> Int {
-        return tableViewDataContainer.sections()
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return statisticsDataManager.sections()
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewDataContainer.rows(in: section)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return statisticsDataManager.rows(in: section)
     }
     
-    internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableViewDataContainer.sectionLabel(for: section)
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return statisticsDataManager.sectionLabel(for: section)
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
         let section = indexPath.section
         let row = indexPath.row
         
-        cell.textLabel?.text = tableViewDataContainer.rowLabel(forRow: row, inSection: section)
-        cell.detailTextLabel?.text = tableViewDataContainer.rowData(forRow: row, inSection: section)
+        cell.textLabel?.text = statisticsDataManager.rowLabel(forRow: row, inSection: section)
+        cell.detailTextLabel?.text = statisticsDataManager.rowData(forRow: row, inSection: section)
         cell.detailTextLabel?.textColor = .secondaryLabel
         cell.selectionStyle = .none
         
         return cell
     }
     
-    internal func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 28
     }
 
 }
 
-// MARK: - ServerSelectionDelegate
+/// MARK: ServerSelectionDelegate
 extension StatsViewController: ServerSelectionDelegate {
-    internal func serverSelected(_ newServer: NextServer) {
+    func serverSelected(_ newServer: NextServer) {
         // Initialize server variable with selected server
-        server = newServer
-        
-        // Reinitialize the tableViewDataContainer (removes previous server data)
-        tableViewDataContainer = ServerTableViewDataManager()
+        statisticsDataManager.server = newServer
         
         // Unhide UI and set Title
         navigationController?.isNavigationBarHidden = false
         setupTableView()
         tableView.isHidden = false
-        title = server.name
-        
-        // Get server stats
-        getStats()
+        title = statisticsDataManager.server.name
+        activityIndicator.activate()
     }
+}
+
+/// MARK: StatisticsDataManagerDelegate
+extension StatsViewController: StatisticsDataManagerDelegate {
+    func fetchingDidBegin() {
+        // this is possibly not needed
+    }
+    
+    func errorFetchingData(error: FetchError) {
+        switch error {
+        case .invalidData:
+            self.displayErrorAndReturn(title: "Invalid Data", description: "Server response data could not be read.")
+        case .invalidJSON(let error):
+            self.displayErrorAndReturn(title: "Error parsing JSON", description: "JSON Parsing failed with error: \(error.localizedDescription)")
+        case .missingResponse:
+            self.displayErrorAndReturn(title: "Missing Response", description: "Server could be reached, but response was not given.")
+        case .network(let error):
+            self.displayErrorAndReturn(title: "Network Error", description: "\(error.localizedDescription)")
+        case .unexpectedResponse(let response):
+            switch response {
+            case 401:
+                self.displayErrorAndReturn(title: "Unauthorized (\(response))", description: "User must have administrative privileges to fetch server statistics.")
+            default:
+                self.displayErrorAndReturn(title: "Unexpected Response (\(response))", description: "\(response)")
+            }
+        }
+        
+        print("Error fetching data \(error)")
+    }
+    
+    func dataUpdated() {
+        activityIndicator.deactivate()
+        tableView.reloadData()
+    }
+    
+    func errorUpdatingData() {
+        self.displayErrorAndReturn(title: "Error updating data.", description: "Statistics data missing from server response.")
+    }
+    
 }

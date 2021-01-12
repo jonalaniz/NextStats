@@ -21,11 +21,6 @@ class WebViewController: UIViewController {
     var passedURLString: String!
     var serverManager: ServerManager?
     
-    override func loadView() {
-        webView = WKWebView()
-        view = webView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -48,13 +43,18 @@ class WebViewController: UIViewController {
             }
         }
     }
-    
-    @objc func serverAdded() {
-        navigationController?.dismiss(animated: true)
-    }
 }
 
 extension WebViewController: WKNavigationDelegate {
+    @objc func serverAdded() {
+        navigationController?.dismiss(animated: true)
+    }
+    
+    override func loadView() {
+        webView = WKWebView()
+        view = webView
+    }
+
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         self.navigationItem.title = webView.title
     }

@@ -15,7 +15,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "icon-grey@2x.png",
+      "filename" : "light@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -26,12 +26,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icon-grey-dark@2x.png",
+      "filename" : "dark@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon-grey@3x.png",
+      "filename" : "light@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -42,7 +42,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "icon-grey-dark@3x.png",
+      "filename" : "dark@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

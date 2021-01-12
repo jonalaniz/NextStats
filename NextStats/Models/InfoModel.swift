@@ -20,11 +20,11 @@ struct InfoModel {
     private let translatorNames = ["Carina Pfaffelhuber"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
     
-    func getNumberOfSections() -> Int {
+    func numberOfSections() -> Int {
         return sections.count
     }
     
-    func getNumberOfRowsInSection(section: Int) -> Int {
+    func numberOfRows(in section: Int) -> Int {
         switch section {
         case 0: return developerNames.count
         case 1: return translatorNames.count
@@ -33,11 +33,11 @@ struct InfoModel {
         }
     }
     
-    func getSectionTitle(for section: Int) -> String {
+    func title(for section: Int) -> String {
         return sections[section]
     }
     
-    func getSectionFooter(for section: Int) -> String {
+    func footer(for section: Int) -> String {
         switch section {
         case 2:
             return NSLocalizedString("NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License", comment: "")
@@ -48,7 +48,7 @@ struct InfoModel {
         }
     }
     
-    func getTitleFor(row: Int, inSection section: Int) -> String {
+    func titleLabelFor(row: Int, section: Int) -> String {
         switch section {
         case 0: return developerTitles[row]
         case 1: return translatorLanguages[row]
@@ -57,7 +57,7 @@ struct InfoModel {
         }
     }
     
-    func getDetailsFor(row: Int, inSection section: Int) -> String? {
+    func detailLabelFor(row: Int, section: Int) -> String? {
         switch section {
         case 0: return developerNames[row]
         case 1: return translatorNames[row]

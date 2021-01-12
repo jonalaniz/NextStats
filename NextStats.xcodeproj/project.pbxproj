@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
+		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
+		561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthResponse.swift */; };
+		561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
@@ -15,7 +19,6 @@
 		56557EEB23C8B09A008CF684 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56557EE923C8B09A008CF684 /* Main.storyboard */; };
 		56557EED23C8B09C008CF684 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 56557EEC23C8B09C008CF684 /* Assets.xcassets */; };
 		56557EF023C8B09C008CF684 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 56557EEE23C8B09C008CF684 /* LaunchScreen.storyboard */; };
-		56557EF823C8B556008CF684 /* ServerTableViewDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */; };
 		56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EFF23CA89B9008CF684 /* StatsViewController.swift */; };
 		565975BB25567DF70043C007 /* NextStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565975BA25567DF70043C007 /* NextStatsTests.swift */; };
 		565975C525567ECB0043C007 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C425567ECB0043C007 /* test.json */; };
@@ -43,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
+		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
+		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDataManager.swift; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,7 +60,6 @@
 		56557EEC23C8B09C008CF684 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		56557EEF23C8B09C008CF684 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		56557EF123C8B09C008CF684 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTableViewDataManager.swift; sourceTree = "<group>"; };
 		56557EF923CA6E89008CF684 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		56557EFF23CA89B9008CF684 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		565975B825567DF70043C007 /* NextStatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NextStatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		561B989025A85C1500A8FE6D /* JSON Structs */ = {
+			isa = PBXGroup;
+			children = (
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
+				561B989725A85C9E00A8FE6D /* AuthResponse.swift */,
+			);
+			path = "JSON Structs";
+			sourceTree = "<group>";
+		};
 		564C8DC724D779150095D43B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +143,7 @@
 				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
 				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
+				561B989025A85C1500A8FE6D /* JSON Structs */,
 				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
 				5689894E23D4CF3400D13B12 /* Controllers */,
 				564C8DC724D779150095D43B /* Helpers */,
@@ -166,7 +182,8 @@
 				56A56EC32563C5A3005A6D18 /* InfoModel.swift */,
 				56F7F8F324D78C9E00C667E4 /* Server.swift */,
 				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
-				56557EF723C8B556008CF684 /* ServerTableViewDataManager.swift */,
+				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
+				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -297,14 +314,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */,
+				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
-				56557EF823C8B556008CF684 /* ServerTableViewDataManager.swift in Sources */,
+				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
+				561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */,
 				5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */,
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
@@ -488,7 +508,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NextStats/NextStats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -496,7 +516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -511,7 +531,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = NextStats/NextStats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -519,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;

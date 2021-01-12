@@ -17,21 +17,22 @@ class InfoViewController: UITableViewController {
         // Setup Top Bar
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
-        
     }
     
     @objc func dismissController() {
         dismiss(animated: true, completion: nil)
     }
+}
 
-    // MARK: - Table view data source
-
+extension InfoViewController {
+    // TableView Overrides
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return infoModel.getNumberOfSections()
+        return infoModel.numberOfSections()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return infoModel.getNumberOfRowsInSection(section: section)
+        return infoModel.numberOfRows(in: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,18 +42,18 @@ class InfoViewController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
         }
         
-        cell.textLabel?.text = infoModel.getTitleFor(row: indexPath.row, inSection: indexPath.section)
-        cell.detailTextLabel?.text = infoModel.getDetailsFor(row: indexPath.row, inSection: indexPath.section)
+        cell.textLabel?.text = infoModel.titleLabelFor(row: indexPath.row, section: indexPath.section)
+        cell.detailTextLabel?.text = infoModel.detailLabelFor(row: indexPath.row, section: indexPath.section)
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return infoModel.getSectionTitle(for: section)
+        return infoModel.title(for: section)
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return infoModel.getSectionFooter(for: section)
+        return infoModel.footer(for: section)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
