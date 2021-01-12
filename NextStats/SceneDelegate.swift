@@ -38,7 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         
         // Set minimum windows size
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
-            windowScene.sizeRestrictions?.minimumSize = CGSize(width: 800, height: 600)
+            let size = CGSize(width: 800, height: 600)
+            
+            windowScene.sizeRestrictions?.minimumSize = size
         }
         
         // Remove titlebar
@@ -47,6 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             titlebar.toolbar = nil
         }
         #else
+        // Add full screen button for iPad
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         #endif
     }

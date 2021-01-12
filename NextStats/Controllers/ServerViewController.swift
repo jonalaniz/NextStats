@@ -38,7 +38,6 @@ class ServerViewController: UIViewController {
     }
     
     private func setupView() {
-
         
         // Setup Navigation Bar
         title = "NextStats"
