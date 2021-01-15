@@ -75,7 +75,10 @@ extension StatsViewController {
         
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
         
-        self.present(ac, animated: true)
+        // This function is typically called from network tasks in the StatisticsDataManager
+        DispatchQueue.main.async {
+            self.present(ac, animated: true)
+        }
     }
     
     private func returnToTable(action: UIAlertAction! = nil) {
