@@ -9,7 +9,6 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    var server: NextServer!
     var statisticsDataManager = StatisticsDataManager.shared
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
     var viewInitialized = false
@@ -75,7 +74,10 @@ extension StatsViewController {
         
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
         
-        self.present(ac, animated: true)
+        // This function is typically called from network tasks in the StatisticsDataManager
+        DispatchQueue.main.async {
+            self.present(ac, animated: true)
+        }
     }
     
     private func returnToTable(action: UIAlertAction! = nil) {
@@ -83,7 +85,7 @@ extension StatsViewController {
     }
     
     @objc func openInSafari() {
-        let urlString = server.friendlyURL.addIPPrefix()
+        let urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
     }
