@@ -153,11 +153,10 @@ class ServerViewController: UIViewController {
     // MARK: - Toolbar Buttons: Loads AddServerView and InfoView
     
     @objc func loadAddServerView() {
-        if let vc = storyboard?.instantiateViewController(identifier: "AddView") as? AddServerViewController {
-            vc.serverManager = self.serverManager
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.present(navigationController, animated: true, completion: nil)
-        }
+        let vc = AddServerViewController()
+        vc.serverManager = self.serverManager
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.present(navigationController, animated: true, completion: nil)
     }
     
     @objc func loadInfoView() {

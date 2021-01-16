@@ -6,12 +6,32 @@
   Copyright © 2020 Jon Alaniz. All rights reserved.
 */
 
-// Server View Controller Section
+/// MARK: Add Server View Controller Strings
+
+/* Add Server Title */
+"add_server_title" = "Add Server";
+
+/* Server Nickname Label */
+"server_nickname" = "Server Nickname (optional)";
+
+/* Server URL Label */
+"server_url" = "Server URL:";
+
+/* Info Label */
+"info_label" = "When monitoring servers externally, Nextstats requires SSL encryption (https).";
+
+/* Status Label */
+"status_label" = "please enter a valid URL";
+
+/* Connect Button */
+"connect" = "Connect";
+
+/// MARK: Server View Controller Strings
 
 /* Add Server Button */
 "Add Server" = " Add a Server";
 
-// Info Controller Sections
+/// MARK: Info Controller Strings
 
 /* Section 1 - Header */
 "Development" = "Development";

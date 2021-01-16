@@ -59,7 +59,7 @@
                                     <constraint firstAttribute="height" constant="16" id="yF0-1C-WXU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                <color key="textColor" red="1" green="0.16344945739952166" blue="0.33142424653500324" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="0.16290172929999999" blue="0.33314168449999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When monitoring servers externally, NextStats requires SSL encryption (https)." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYd-XQ-LvH">
@@ -91,9 +91,6 @@
                                 <state key="disabled">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="connectButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ozR-N5-cNz"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -126,14 +123,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Server" largeTitleDisplayMode="always" id="oF7-GQ-5M4"/>
-                    <connections>
-                        <outlet property="activityIndicatior" destination="K5S-lw-RtW" id="6CB-cA-U4i"/>
-                        <outlet property="connectButton" destination="Zr4-ck-mx8" id="SS0-iU-zrz"/>
-                        <outlet property="infoLabel" destination="eYd-XQ-LvH" id="5tD-Fh-LjN"/>
-                        <outlet property="nicknameField" destination="9f0-K0-NI9" id="sAf-Lc-dpc"/>
-                        <outlet property="serverURLField" destination="01T-XB-asV" id="EIy-SK-jLh"/>
-                        <outlet property="statusLabel" destination="Oab-Pr-I9Q" id="1U5-cT-l5m"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

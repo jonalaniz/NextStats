@@ -6,12 +6,34 @@
   Copyright © 2020 Jon Alaniz. All rights reserved.
 */
 
-// Server View Controller Section
+/// MARK: Add Server View Controller Strings
+
+/* Add Server Title */
+"add_server_title" = "Server hinzufügen";
+
+/* Server Nickname Label */
+"server_nickname" = "Servername (optional)";
+
+/* Server URL Label */
+"server_url" = "Server URL:";
+
+/* Info Label */
+"info_label" = "Bei der externen Überwachung von Servern benötigt NextStats eine SSL-Verschlüsselung (https).";
+
+/* Status Label */
+"status_label" = "Bitte geben Sie eine gültige URL ein";
+
+/* Connect Button */
+"connect" = "Verbinden";
+
+
+/// MARK: Server View Controller Section
 
 /* Add Server Button */
 "Add Server" = " Server hinzufügen";
 
-// Info Controller Sections
+
+/// MARK: Info Controller Sections
 
 /* Section 1 - Header */
 "Development" = "Entwicklung";

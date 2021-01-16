@@ -9,27 +9,139 @@
 import UIKit
 
 class AddServerViewController: UIViewController, UITextFieldDelegate {
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 12
+        
+        return stackView
+    }()
     
-    @IBOutlet var nicknameField: UITextField!
-    @IBOutlet var serverURLField: UITextField!
-    @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var connectButton: UIButton!
-    @IBOutlet var activityIndicatior: UIActivityIndicatorView!
-    @IBOutlet var infoLabel: UILabel!
-
+    let nicknameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        // Replace with NSLocalizedString
+        label.textColor = UIColor.secondaryLabel
+        label.text = "server_nickname".localized()
+        
+        return label
+    }()
+    
+    let nicknameField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocapitalizationType = .words
+        textField.returnKeyType = .done
+        textField.borderStyle = .none
+        textField.backgroundColor = .systemFill
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
+        
+        return textField
+    }()
+    
+    let serverURLLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        // Replace with NSLocalizedString
+        label.textColor = UIColor.secondaryLabel
+        label.text = "server_url".localized()
+        
+        return label
+    }()
+    
+    let serverURLField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.addTarget(self, action: #selector(checkURLValidity), for: .editingDidEnd)
+        textField.textContentType = .URL
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .URL
+        textField.returnKeyType = .done
+        textField.borderStyle = .none
+        textField.backgroundColor = .systemFill
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
+        
+        return textField
+    }()
+    
+    let infoLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        // Replace with NSLocalized String
+        label.textColor = .secondaryLabel
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
+        label.text = "info_label".localized()
+        
+        return label
+    }()
+    
+    let statusLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        // Replace with NSLocaliszedString
+        label.textColor = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textAlignment = .center
+        label.text = "status_label".localized()
+        
+        return label
+    }()
+    
+    let activityIndicatior: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.style = .medium
+        indicator.color = .white
+        indicator.isHidden = true
+        
+        return indicator
+    }()
+    
+    let paddingView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    let connectButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
+        button.backgroundColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
+        button.layer.cornerRadius = 10
+        // Replace with NSLocalized String
+        button.setTitle("connect".localized(), for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.lightGray, for: .disabled)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.isEnabled = false
+        return button
+    }()
+    
     var serverManager: ServerManager!
     var serverURL: String?
     var authAPIURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setupView()
         
         serverManager.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(authenticationCanceled), name: .authenticationCanceled, object: nil)
     }
+}
+
+extension AddServerViewController {
     
-    @IBAction func connectButtonPressed(_ sender: Any) {
+    @objc func connectButtonPressed(_ sender: Any) {
         // Check to make sure checkValidURL worked
         guard let url = authAPIURL else { return }
         let serverName = nicknameField.text ?? "Server"
@@ -92,25 +204,41 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI
     
-    func setupUI() {
+    func setupView() {
+        // Setup View
+        view.backgroundColor = .systemBackground
+        
         // Setup Top Bar
+        title = "add_server_title".localized()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
         
         // Style the UI
         styleTextField(textField: nicknameField)
-        nicknameField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
-        
         styleTextField(textField: serverURLField)
-        serverURLField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
-
-        connectButton.isEnabled = false
-        connectButton.layer.cornerRadius = 10
         
-        activityIndicatior.isHidden = true
+        // Arrange subviews
+        stackView.addArrangedSubview(nicknameLabel)
+        stackView.addArrangedSubview(nicknameField)
+        stackView.addArrangedSubview(serverURLLabel)
+        stackView.addArrangedSubview(serverURLField)
+        stackView.addArrangedSubview(statusLabel)
+        stackView.addArrangedSubview(infoLabel)
+        stackView.addArrangedSubview(activityIndicatior)
+        stackView.addArrangedSubview(paddingView)
+        stackView.addArrangedSubview(connectButton)
         
-        // Add url checker to serverURLField
-        serverURLField.addTarget(self, action: #selector(checkURLValidity), for: UIControl.Event.editingDidEnd)
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            nicknameField.heightAnchor.constraint(equalToConstant: 44),
+            serverURLField.heightAnchor.constraint(equalToConstant: 44),
+            connectButton.heightAnchor.constraint(equalToConstant: 44),
+            paddingView.heightAnchor.constraint(equalToConstant: 10),
+            stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32),
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ])
     }
     
     func styleTextField(textField: UITextField) {

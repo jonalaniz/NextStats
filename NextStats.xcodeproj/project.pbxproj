@@ -99,15 +99,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		561B989025A85C1500A8FE6D /* JSON Structs */ = {
-			isa = PBXGroup;
-			children = (
-				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
-				561B989725A85C9E00A8FE6D /* AuthResponse.swift */,
-			);
-			path = "JSON Structs";
-			sourceTree = "<group>";
-		};
 		564C8DC724D779150095D43B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,7 +134,6 @@
 				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
 				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
-				561B989025A85C1500A8FE6D /* JSON Structs */,
 				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
 				5689894E23D4CF3400D13B12 /* Controllers */,
 				564C8DC724D779150095D43B /* Helpers */,
@@ -179,11 +169,13 @@
 		5689894D23D4CF2000D13B12 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				561B989725A85C9E00A8FE6D /* AuthResponse.swift */,
 				56A56EC32563C5A3005A6D18 /* InfoModel.swift */,
+				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 				56F7F8F324D78C9E00C667E4 /* Server.swift */,
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
-				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
