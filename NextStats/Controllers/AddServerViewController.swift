@@ -22,7 +22,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     let nicknameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        // Replace with NSLocalizedString
         label.textColor = UIColor.secondaryLabel
         label.text = "server_nickname".localized()
         
@@ -71,7 +70,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     let infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        // Replace with NSLocalized String
         label.textColor = .secondaryLabel
         label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
@@ -84,7 +82,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
-        // Replace with NSLocaliszedString
         label.textColor = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
@@ -113,16 +110,15 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     let connectButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         button.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
         button.backgroundColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
         button.layer.cornerRadius = 10
-        // Replace with NSLocalized String
         button.setTitle("connect".localized(), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         button.isEnabled = false
+        
         return button
     }()
     
@@ -140,7 +136,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 }
 
 extension AddServerViewController {
-    
     @objc func connectButtonPressed(_ sender: Any) {
         // Check to make sure checkValidURL worked
         guard let url = authAPIURL else { return }
@@ -164,9 +159,7 @@ extension AddServerViewController {
         statusLabel.text = "Authentication canceled"
     }
     
-    /**
-     Detects if URLField has a proper IP Address or URL, formats the string for use with ServerManager
-     */
+    // Detects if URLField has a proper IP Address or URL, formats the string for use with ServerManager
     @objc func checkURLValidity() {
         
         // Reset the authAPIURL if for some reason they had already entered a valid URL
@@ -194,17 +187,15 @@ extension AddServerViewController {
         }
     }
     
-    func loadLoginView(with urlString: String) {
+    private func loadLoginView(with urlString: String) {
         let vc = WebViewController()
         vc.serverManager = serverManager
         vc.passedURLString = urlString
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    // MARK: - UI
-    
-    func setupView() {
+        
+    private func setupView() {
         // Setup View
         view.backgroundColor = .systemBackground
         
@@ -241,7 +232,7 @@ extension AddServerViewController {
         ])
     }
     
-    func styleTextField(textField: UITextField) {
+    private func styleTextField(textField: UITextField) {
         // Style the textFields
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
 
@@ -253,7 +244,7 @@ extension AddServerViewController {
         textField.layer.cornerRadius = 10
     }
     
-    func deactivateSpinner() {
+    private func deactivateSpinner() {
         activityIndicatior.deactivate()
         statusLabel.isHidden = false
     }
