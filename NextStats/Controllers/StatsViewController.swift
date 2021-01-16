@@ -9,7 +9,6 @@
 import UIKit
 
 class StatsViewController: UIViewController {
-    var server: NextServer!
     var statisticsDataManager = StatisticsDataManager.shared
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
     var viewInitialized = false
@@ -86,7 +85,7 @@ extension StatsViewController {
     }
     
     @objc func openInSafari() {
-        let urlString = server.friendlyURL.addIPPrefix()
+        let urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
     }

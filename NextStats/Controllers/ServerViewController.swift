@@ -178,7 +178,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ServerCell
-        
+
         cell.accessoryType = .disclosureIndicator
         cell.server = serverManager.servers[indexPath.row]
         cell.setup()
