@@ -166,17 +166,21 @@ extension StatisticsDataManager {
                     if !totalMemoryBytesDouble.isInfinite && !totalMemoryBytesDouble.isNaN {
                         // Calculate memoryUsage and totalMemory
                         let calculatedMemoryUsage = calculateMemoryUsagePercent(freeMemory: freeMemoryBytesDouble, totalMemory: totalMemoryBytesDouble)
-                        let memoryUsageInt = Int(calculatedMemoryUsage)
                         
-                        memoryUsage = String("\(memoryUsageInt)%")
-                        
-                        let memoryUsed = totalMemoryBytesDouble - freeMemoryBytesDouble
-                        let memoryUsedInGigabytes = bytesToGigabytes(bytes: memoryUsed)
-                        let totalMemoryInGigabytes = bytesToGigabytes(bytes: totalMemoryBytesDouble)
-                        let memoryUsedString = String(format: "%.2f", memoryUsedInGigabytes)
-                        let totalMemoryString = String(format: "%.2f", totalMemoryInGigabytes)
-                        
-                        memory = "\(memoryUsedString)/\(totalMemoryString) GB"
+                        // One final check, this is where the issue seems to lie
+                        if !calculatedMemoryUsage.isInfinite && !calculatedMemoryUsage.isNaN {
+                            let memoryUsageInt = Int(calculatedMemoryUsage)
+                            
+                            memoryUsage = String("\(memoryUsageInt)%")
+                            
+                            let memoryUsed = totalMemoryBytesDouble - freeMemoryBytesDouble
+                            let memoryUsedInGigabytes = bytesToGigabytes(bytes: memoryUsed)
+                            let totalMemoryInGigabytes = bytesToGigabytes(bytes: totalMemoryBytesDouble)
+                            let memoryUsedString = String(format: "%.2f", memoryUsedInGigabytes)
+                            let totalMemoryString = String(format: "%.2f", totalMemoryInGigabytes)
+                            
+                            memory = "\(memoryUsedString)/\(totalMemoryString) GB"
+                        }
                     }
                 }
                 
@@ -193,17 +197,21 @@ extension StatisticsDataManager {
                     if !totalSwapBytesDouble.isInfinite && !totalSwapBytesDouble.isNaN {
                         // Calculate swapUsage and totalSwap
                         let calculatedSwapUsage = calculateMemoryUsagePercent(freeMemory: freeSwapBytesDouble, totalMemory: totalSwapBytesDouble)
-                        let swapUsageInt = Int(calculatedSwapUsage)
                         
-                        swapUsage = String("\(swapUsageInt)%")
-                        
-                        let swapUsed = totalSwapBytesDouble - freeSwapBytesDouble
-                        let swapUsedInGigabytes = bytesToGigabytes(bytes: swapUsed)
-                        let totalSwapInGigabytes = bytesToGigabytes(bytes: totalSwapBytesDouble)
-                        let swapUsedString = String(format: "%.2f", swapUsedInGigabytes)
-                        let totalSwapString = String(format: "%.2f", totalSwapInGigabytes)
-                        
-                        swap = "\(swapUsedString)/\(totalSwapString) GB"
+                        // One final check, this is where the issue seems to lie
+                        if !calculatedSwapUsage.isInfinite && !calculatedSwapUsage.isNaN {
+                            let swapUsageInt = Int(calculatedSwapUsage)
+                            
+                            swapUsage = String("\(swapUsageInt)%")
+                            
+                            let swapUsed = totalSwapBytesDouble - freeSwapBytesDouble
+                            let swapUsedInGigabytes = bytesToGigabytes(bytes: swapUsed)
+                            let totalSwapInGigabytes = bytesToGigabytes(bytes: totalSwapBytesDouble)
+                            let swapUsedString = String(format: "%.2f", swapUsedInGigabytes)
+                            let totalSwapString = String(format: "%.2f", totalSwapInGigabytes)
+                            
+                            swap = "\(swapUsedString)/\(totalSwapString) GB"
+                        }
                     }
                 }
                 
