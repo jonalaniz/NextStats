@@ -162,10 +162,9 @@ extension ServerViewController {
     }
     
     @objc func loadInfoView() {
-        if let vc = storyboard?.instantiateViewController(identifier: "InfoView") as? InfoViewController {
-            let navigationController = UINavigationController(rootViewController: vc)
-            self.present(navigationController, animated: true, completion: nil)
-        }
+        let vc = InfoViewController()
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
 
