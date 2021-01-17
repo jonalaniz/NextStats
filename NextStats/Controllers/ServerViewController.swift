@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// MARK: `ServerSelectionDelegate` - Used to update StatsViewController with new server object
 protocol ServerSelectionDelegate: class {
     func serverSelected(_ newServer: NextServer)
 }
@@ -16,9 +17,8 @@ class ServerViewController: UIViewController {
     var tableView: UITableView!
     var noServersView: UIStackView!
     
-    weak var delegate: ServerSelectionDelegate?
-    
     var serverManager = ServerManager.shared
+    weak var delegate: ServerSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,9 @@ class ServerViewController: UIViewController {
         // Show or hide noServerView as necessary
         toggleNoServersView()
     }
-    
+}
+
+extension ServerViewController {
     private func setupView() {
         
         // Setup Navigation Bar
@@ -150,7 +152,7 @@ class ServerViewController: UIViewController {
         }
     }
     
-    // MARK: - Toolbar Buttons: Loads AddServerView and InfoView
+    // Toolbar Buttons: Loads AddServerView and InfoView
     
     @objc func loadAddServerView() {
         let vc = AddServerViewController()
@@ -167,8 +169,7 @@ class ServerViewController: UIViewController {
     }
 }
 
-// MARK: - TableView Methods
-
+/// MARK: TableView Methods
 extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
