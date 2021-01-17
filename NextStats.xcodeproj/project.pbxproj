@@ -139,7 +139,7 @@
 				564C8DC724D779150095D43B /* Helpers */,
 				567BF636258ADDF1000E64D9 /* Localization */,
 				5689894D23D4CF2000D13B12 /* Models */,
-				56ECA8CE23E4C450001A6899 /* TableViewCells */,
+				56ECA8CE23E4C450001A6899 /* Views */,
 				56557EE923C8B09A008CF684 /* Main.storyboard */,
 				56557EEE23C8B09C008CF684 /* LaunchScreen.storyboard */,
 				56557EF123C8B09C008CF684 /* Info.plist */,
@@ -192,12 +192,12 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		56ECA8CE23E4C450001A6899 /* TableViewCells */ = {
+		56ECA8CE23E4C450001A6899 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 			);
-			path = TableViewCells;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
