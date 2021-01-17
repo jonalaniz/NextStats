@@ -36,7 +36,7 @@ extension InfoViewController {
         
         // Register TableViewCell
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
+        tableView.tableHeaderView = HeaderView()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
