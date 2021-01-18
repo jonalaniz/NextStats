@@ -49,6 +49,12 @@ extension String {
     }
 }
 
+extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+}
+
 extension UIActivityIndicatorView {
     func activate() {
         self.isHidden = false

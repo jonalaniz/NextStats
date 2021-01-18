@@ -8,15 +8,45 @@
 
 import UIKit
 
-class InfoViewController: UITableViewController {
+class InfoViewController: UIViewController {
     let infoModel = InfoModel()
+    let tableView = UITableView(frame: CGRect.zero , style: .insetGrouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+}
 
-        // Setup Top Bar
-        navigationController?.navigationBar.prefersLargeTitles = true
+/// MARK: Functions
+extension InfoViewController {
+    private func setupView() {
+        // Setup Navigation Bar
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
+        
+        title = "Info"
+        
+        // Setup View
+        view.backgroundColor = .systemBackground
+        
+        // Connect the TableView to ViewController
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        // Setup TableViewCell
+        tableView.tableHeaderView = HeaderView()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+        ])
     }
     
     @objc func dismissController() {
@@ -24,19 +54,18 @@ class InfoViewController: UITableViewController {
     }
 }
 
-extension InfoViewController {
-    // TableView Overrides
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
+/// MARK: TableView Functions
+extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return infoModel.numberOfSections()
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return infoModel.numberOfRows(in: section)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
         
         if indexPath.section == 2 {
             cell.accessoryType = .disclosureIndicator
@@ -48,15 +77,15 @@ extension InfoViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return infoModel.title(for: section)
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return infoModel.footer(for: section)
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
