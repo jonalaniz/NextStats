@@ -34,8 +34,7 @@ extension InfoViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        // Register TableViewCell
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        // Setup TableViewCell
         tableView.tableHeaderView = HeaderView()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +65,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
         
         if indexPath.section == 2 {
             cell.accessoryType = .disclosureIndicator
