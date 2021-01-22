@@ -1,0 +1,64 @@
+/* 
+  Localizable.strings
+  NextStats
+
+  Created by Jon Alaniz on 12/16/20.
+  Copyright © 2020 Jon Alaniz. All rights reserved.
+*/
+
+/// MARK: Add Server View Controller Strings
+
+/* Add Server Title */
+"add_server_title" = "Ajouter un serveur";
+
+/* Server Nickname Label */
+"server_nickname" = "Surnom du serveur (optionnel)";
+
+/* Server URL Label */
+"server_url" = "URL du serveur:";
+
+/* Info Label */
+"info_label" = "Lors de la surveillance de serveurs externes, NexStats nécessite l'utilisation du SSL (https).";
+
+/* Status Label */
+"status_label" = "Veuillez entrer une URL valide";
+
+/* Connect Button */
+"connect" = "Connexion";
+
+/// MARK: Server View Controller Strings
+
+/* Add Server Button */
+"Add Server" = "Ajouter un serveur";
+
+/// MARK: Info Controller Strings
+
+/* Section 1 - Header */
+"Development" = "Développement";
+
+/* Section 1 - Cell 1*/
+"Developer" = "Développeur";
+
+/* Section 2 - Header */
+"Translators" = "Traducteurs";
+
+/* Section 2 - Languages */
+"German" = "Allemand";
+
+/* Section 3 - Header */
+"Licenses" = "Licences";
+
+/* Section 3 - Footer */
+"NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License" = "NextStats est mis à disposition sous la licence MIT. Nextcloud lui-même est fourni par Nextcloud GmbH sous la licence AGPLv3";
+
+/* Section 4 - Header */
+"Support NextStats" = "Supporter NextStats";
+
+/* Section 4 - Footer */
+"NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats est et sera toujours gratuit. Si vous trouvez l'application utile, pensez à laisser un pourboire pour aider les développements à venir.";
+
+/* IAP Thank You */
+"Thank You" = "Merci";
+
+/* IAP Message */
+"Thank you very much for supporting the further development of NextStats!" = "Merci beaucoup de soutenir le développement de NextStats !";
