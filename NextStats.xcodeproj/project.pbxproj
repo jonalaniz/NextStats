@@ -47,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B5D893E25BB3385003CB80E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		3B5D893F25BB3385003CB80E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				Base,
 				de,
 				ja,
+				fr,
 			);
 			mainGroup = 56557ED723C8B09A008CF684;
 			productRefGroup = 56557EE123C8B09A008CF684 /* Products */;
@@ -356,6 +359,7 @@
 			children = (
 				56557EEA23C8B09A008CF684 /* Base */,
 				566E48CF255A750F00E23B3A /* de */,
+				3B5D893E25BB3385003CB80E /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -373,6 +377,7 @@
 			children = (
 				567BF638258ADE5D000E64D9 /* de */,
 				567BF63C258ADE74000E64D9 /* en */,
+				3B5D893F25BB3385003CB80E /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
