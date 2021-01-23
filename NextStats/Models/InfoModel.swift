@@ -13,11 +13,11 @@ import Foundation
     InfoModel contains infomration pertaining to the development of NextStats.
  */
 struct InfoModel {
-    private let sections = [NSLocalizedString("Development", comment: ""), NSLocalizedString("Translators", comment: ""), NSLocalizedString("Licenses", comment: "")]
-    private let developerTitles = [NSLocalizedString("Developer", comment: "")]
+    private let sections = ["Development".localized(), "Translators".localized(), "Licenses".localized()]
+    private let developerTitles = ["Developer".localized()]
     private let developerNames = ["Jon Alaniz"]
-    private let translatorLanguages = [NSLocalizedString("German", comment: "")]
-    private let translatorNames = ["Carina Pfaffelhuber"]
+    private let translatorLanguages = ["French".localized(), "German".localized()]
+    private let translatorNames = ["Maxime Killinger","Carina Pfaffelhuber"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
     
     func numberOfSections() -> Int {
@@ -40,9 +40,9 @@ struct InfoModel {
     func footer(for section: Int) -> String {
         switch section {
         case 2:
-            return NSLocalizedString("NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License", comment: "")
+            return "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License".localized()
         case 3:
-            return NSLocalizedString("NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.", comment: "")
+            return "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.".localized()
         default:
             return ""
         }
