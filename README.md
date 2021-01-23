@@ -40,6 +40,7 @@ NextStats was built on Xcode 12 with Swift 5. It has no dependencies, so you sho
 
 - NextStats was designed and built by [Jon Alaniz](https://twitter.com/jonalaniz).
 - German translations provided by Carina Pfaffelhuber
+- French translations provided by [Maxime Killinger](https://github.com/maxime-killinger).
 - Icon by [VLH Art](https://twitter.com/VLHart)
 
 ## License
