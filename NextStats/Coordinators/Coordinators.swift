@@ -1,5 +1,5 @@
 //
-//  Coordinator.swift
+//  Coordinators.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 2/20/21.
