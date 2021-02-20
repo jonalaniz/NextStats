@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */; };
 		5601D7B325E0E8DB00993D31 /* Coordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7B225E0E8DB00993D31 /* Coordinators.swift */; };
+		5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */; };
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthResponse.swift */; };
@@ -53,6 +54,7 @@
 		3B5D893F25BB3385003CB80E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		5601D7B225E0E8DB00993D31 /* Coordinators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinators.swift; sourceTree = "<group>"; };
+		5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerCoordinator.swift; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
+				5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */,
 				5601D7B225E0E8DB00993D31 /* Coordinators.swift */,
 			);
 			path = Coordinators;
@@ -328,6 +331,7 @@
 			files = (
 				561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */,
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
+				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,

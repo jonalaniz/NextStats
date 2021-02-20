@@ -9,7 +9,7 @@
 import UIKit
 
 class MainCoordinator: Coordinator {
-    var childCoordinators = [SubCoordinator]()
+    var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     
     let mainViewController: ServerViewController
@@ -40,16 +40,26 @@ class MainCoordinator: Coordinator {
     }
     
     func showAddServerView() {
-        let vc = AddServerViewController()
-        vc.serverManager = mainViewController.serverManager
-        
-        let navigationController = UINavigationController(rootViewController: vc)
-        splitViewController.present(navigationController, animated: true, completion: nil)
+        let child = AddServerCoordinator(splitViewController: splitViewController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
     
     func showStatsView() {
         guard let navigationController = detailViewController.navigationController else { return }
         
         splitViewController.showDetailViewController(navigationController, sender: nil)
+    }
+    
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in
+            childCoordinators.enumerated() {
+            if coordinator === child {
+                print("bye bye")
+                childCoordinators.remove(at: index)
+                break
+            }
+        }
     }
 }

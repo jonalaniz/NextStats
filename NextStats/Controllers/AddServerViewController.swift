@@ -122,6 +122,8 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    weak var coordinator: AddServerCoordinator?
+    
     var serverManager: ServerManager!
     var serverURL: String?
     var authAPIURL: URL?
@@ -151,6 +153,7 @@ extension AddServerViewController {
     }
     
     @objc func cancelPressed() {
+        coordinator?.didFinishAdding()
         dismiss(animated: true)
     }
     
@@ -188,11 +191,7 @@ extension AddServerViewController {
     }
     
     private func loadLoginView(with urlString: String) {
-        let vc = WebViewController()
-        vc.serverManager = serverManager
-        vc.passedURLString = urlString
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        coordinator?.showLoginPage(withURlString: urlString)
     }
         
     private func setupView() {

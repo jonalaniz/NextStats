@@ -154,7 +154,6 @@ extension ServerViewController {
     }
     
     // Toolbar Buttons: Loads AddServerView and InfoView
-    
     @objc func addServerPressed() {
         coordinator?.showAddServerView()
     }

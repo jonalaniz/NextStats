@@ -17,6 +17,7 @@ import WebKit
  LoginWebViewController also notifies if user canceles authenitcaiton.
  */
 class WebViewController: UIViewController {
+    weak var coordinator: AddServerCoordinator?
     var webView: WKWebView!
     var passedURLString: String!
     var serverManager: ServerManager?
@@ -40,6 +41,8 @@ class WebViewController: UIViewController {
             if manager.shouldPoll {
                 manager.cancelAuthorization()
                 NotificationCenter.default.post(name: .authenticationCanceled, object: nil)
+            } else {
+                coordinator?.didFinishAdding()
             }
         }
     }
