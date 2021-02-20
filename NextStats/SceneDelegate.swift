@@ -9,33 +9,31 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
-
+    var coordinator: MainCoordinator?
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        window?.tintColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
-        
-        guard
-            let splitViewController = window?.rootViewController as? UISplitViewController,
-            let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
-            let masterViewController = leftNavController.viewControllers.first as? ServerViewController,
-            let detailViewController = (splitViewController.viewControllers.last as? UINavigationController)?.topViewController as? StatsViewController
-        else { fatalError() }
-        
-        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
-        splitViewController.primaryBackgroundStyle = .sidebar
-        masterViewController.delegate = detailViewController
-        detailViewController.navigationItem.leftItemsSupplementBackButton = true
-        splitViewController.delegate = self
-        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
-            
-        #if targetEnvironment(macCatalyst)
-        // Blurry sidebar
-        masterViewController.view.backgroundColor = .clear
-        
         // Grab the windowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        // Initialize a SplitViewController and Coordinator
+        let splitViewController = UISplitViewController()
+        coordinator = MainCoordinator(splitViewController: splitViewController)
+        coordinator?.start()
+        
+        // Setup our SplitViewController
+        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        splitViewController.primaryBackgroundStyle = .sidebar
+        splitViewController.delegate = self
+        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
+        
+        // Set the window to the SplitViewController
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = splitViewController
+        window.makeKeyAndVisible()
+        self.window = window
+            
+        #if targetEnvironment(macCatalyst)
         // Set minimum windows size
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
             let size = CGSize(width: 800, height: 600)
@@ -48,10 +46,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             titlebar.titleVisibility = .hidden
             titlebar.toolbar = nil
         }
-        #else
-        // Add full screen button for iPad
-        detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         #endif
+        
+        window.tintColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
