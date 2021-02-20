@@ -33,7 +33,7 @@ class MainCoordinator: Coordinator {
         mainViewController.delegate = detailViewController
     }
     
-    func showAboutView() {
+    func showInfoView() {
         let vc = InfoViewController()
         let navigationController = UINavigationController(rootViewController: vc)
         splitViewController.present(navigationController, animated: true, completion: nil)

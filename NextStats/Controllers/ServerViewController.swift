@@ -55,19 +55,19 @@ extension ServerViewController {
         
         // Set Up Toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(aboutButtonPressed))
-        let addButtonIcon = UIButton(type: .system)
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(infoButtonPressed))
+        let infoButtonItem = UIButton(type: .system)
         
-        addButtonIcon.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
-        addButtonIcon.addTarget(self, action: #selector(addServerPressed), for: .touchUpInside)
-        addButtonIcon.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
-        addButtonIcon.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        addButtonIcon.contentHorizontalAlignment = .left
-        addButtonIcon.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 10)
+        infoButtonItem.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
+        infoButtonItem.addTarget(self, action: #selector(addServerPressed), for: .touchUpInside)
+        infoButtonItem.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
+        infoButtonItem.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        infoButtonItem.contentHorizontalAlignment = .left
+        infoButtonItem.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 10)
             
-        let addButtonView = UIBarButtonItem(customView: addButtonIcon)
+        let infoButtonView = UIBarButtonItem(customView: infoButtonItem)
 
-        toolbarItems = [addButtonView, spacer, about]
+        toolbarItems = [infoButtonView, spacer, about]
         
         // Initialize noServerView
         noServersView = UIStackView()
@@ -159,8 +159,8 @@ extension ServerViewController {
         coordinator?.showAddServerView()
     }
     
-    @objc func aboutButtonPressed() {
-        coordinator?.showAboutView()
+    @objc func infoButtonPressed() {
+        coordinator?.showInfoView()
     }
 }
 
