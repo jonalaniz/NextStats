@@ -122,6 +122,7 @@ open class ServerManager {
         var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
         
+        
         // Begin our request
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) in

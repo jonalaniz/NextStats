@@ -24,7 +24,7 @@ enum FetchType {
 }
 
 class NetworkController {
-    /// Returns the singleton `StatisticsDataManager` instance
+    /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
 }
 
