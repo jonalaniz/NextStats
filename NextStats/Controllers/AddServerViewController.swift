@@ -124,8 +124,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     
     weak var coordinator: AddServerCoordinator?
     
-    //var serverManager: ServerManager!
-    var serverURL: String?
     var authAPIURL: URL?
     
     override func viewDidLoad() {
