@@ -287,7 +287,7 @@ open class ServerManager {
         servers.sort(by: { $0.name < $1.name })
         
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .serverDidChange, object: nil)
+            self.delegate?.serverCredentialsCaptured()
         }
         
     }
@@ -308,7 +308,7 @@ open class ServerManager {
      Sets shouldPoll to false and thus stopped the authorization process
      */
     func cancelAuthorization() {
-        shouldPoll = false
+        if shouldPoll { shouldPoll = false }
     }
     
     // MARK: - Server Removal Flow

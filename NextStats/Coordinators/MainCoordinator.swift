@@ -15,6 +15,8 @@ class MainCoordinator: Coordinator {
     let mainViewController: ServerViewController
     let detailViewController: StatsViewController
     
+    let serverManager = ServerManager.shared
+    
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         
@@ -40,7 +42,7 @@ class MainCoordinator: Coordinator {
     }
     
     func showAddServerView() {
-        let child = AddServerCoordinator(splitViewController: splitViewController)
+        let child = AddServerCoordinator(splitViewController: splitViewController, serverManager: serverManager)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
@@ -52,11 +54,13 @@ class MainCoordinator: Coordinator {
         splitViewController.showDetailViewController(navigationController, sender: nil)
     }
     
-    func childDidFinish(_ child: Coordinator?) {
+    /// Destroy the addServerCoordinator object and refresh the ServerViewController
+    func addServerCoordinatorDidFinish(_ child: AddServerCoordinator?) {
+        mainViewController.tableView.reloadData()
+        
         for (index, coordinator) in
             childCoordinators.enumerated() {
             if coordinator === child {
-                print("bye bye")
                 childCoordinators.remove(at: index)
                 break
             }

@@ -1,5 +1,5 @@
 //
-//  LoginWebViewController.swift
+//  WebViewController.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/11/20.
@@ -9,18 +9,11 @@
 import UIKit
 import WebKit
 
-/**
- Reusable WKWebView controller.
- 
- Passing in a ServerManager allows for capturing of server credentials:
- Sets the view to a WKWebView and loads the login page for the user.
- LoginWebViewController also notifies if user canceles authenitcaiton.
- */
+/// Simple view that has a full-screen WKWebView that displays web page title in NavigationBar
 class WebViewController: UIViewController {
     weak var coordinator: AddServerCoordinator?
     var webView: WKWebView!
     var passedURLString: String!
-    var serverManager: ServerManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,20 +24,6 @@ class WebViewController: UIViewController {
         self.webView.navigationDelegate = self
         webView.cleanAllCookies()
         webView.load(URLRequest(url: url))
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(serverAdded), name: .serverDidChange, object: nil)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        // Check if manager was passed, then check if server credentials were not captured, cancel authorization and post a notification
-        if let manager = serverManager {
-            if manager.shouldPoll {
-                manager.cancelAuthorization()
-                NotificationCenter.default.post(name: .authenticationCanceled, object: nil)
-            } else {
-                coordinator?.didFinishAdding()
-            }
-        }
     }
 }
 
