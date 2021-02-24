@@ -11,6 +11,8 @@ import UIKit
 class InfoViewController: UIViewController {
     let infoModel = InfoModel()
     let tableView = UITableView(frame: CGRect.zero , style: .insetGrouped)
+    
+    weak var coordinator: InfoCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,7 @@ extension InfoViewController {
     }
     
     @objc func dismissController() {
+        coordinator?.didFinish()
         dismiss(animated: true, completion: nil)
     }
 }
@@ -91,9 +94,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 2:
             // Show proper license information
-            let vc = WebViewController()
-            vc.passedURLString = infoModel.licenseURLFor(row: indexPath.row)
-            self.navigationController?.pushViewController(vc, animated: true)
+            coordinator?.showWebView(urlString: infoModel.licenseURLFor(row: indexPath.row))
         default:
             return
         }

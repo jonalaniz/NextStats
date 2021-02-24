@@ -24,12 +24,12 @@ enum FetchType {
 }
 
 class NetworkController {
-    /// Returns the singleton `StatisticsDataManager` instance
+    /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
 }
 
 extension NetworkController {
-    // Ping server for online status
+    /// Ping server for online status
     func ping(url: URL, completion: @escaping (Result<Void, FetchError>) -> Void) {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         components?.path = ""
@@ -59,7 +59,7 @@ extension NetworkController {
         
     }
     
-    // Fetch JSON data user server credentials
+    /// Fetch JSON data user server credentials
     func fetchData(for server: NextServer, completion: @escaping (Result<ServerStats, FetchError>) -> Void) {
         
         // Prepare the server credentials

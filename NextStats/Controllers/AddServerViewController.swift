@@ -9,7 +9,7 @@
 import UIKit
 
 class AddServerViewController: UIViewController, UITextFieldDelegate {
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -19,7 +19,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return stackView
     }()
     
-    let nicknameLabel: UILabel = {
+    private let nicknameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel
@@ -28,7 +28,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    let nicknameField: UITextField = {
+    private let nicknameField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocapitalizationType = .words
@@ -41,7 +41,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    let serverURLLabel: UILabel = {
+    private let serverURLLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         // Replace with NSLocalizedString
@@ -51,7 +51,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    let serverURLField: UITextField = {
+    private let serverURLField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.addTarget(self, action: #selector(checkURLValidity), for: .editingDidEnd)
@@ -67,7 +67,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-    let infoLabel: UILabel = {
+    private let infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
@@ -78,7 +78,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    let statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
@@ -90,7 +90,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
     
-    let activityIndicatior: UIActivityIndicatorView = {
+    private let activityIndicatior: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.style = .medium
@@ -100,14 +100,14 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return indicator
     }()
     
-    let paddingView: UIView = {
+    private let paddingView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    let connectButton: UIButton = {
+    private let connectButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
@@ -122,16 +122,13 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
-    var serverManager: ServerManager!
-    var serverURL: String?
+    weak var coordinator: AddServerCoordinator?
+    
     var authAPIURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        
-        serverManager.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(authenticationCanceled), name: .authenticationCanceled, object: nil)
     }
 }
 
@@ -142,7 +139,7 @@ extension AddServerViewController {
         let serverName = nicknameField.text ?? "Server"
         
         // Initiate the authorization request, and check for logo
-        serverManager.requestAuthorizationURL(withURL: url, withName: serverName)
+        coordinator?.requestAuthorization(withURL: url, name: serverName)
         
         activityIndicatior.activate()
         
@@ -151,12 +148,8 @@ extension AddServerViewController {
     }
     
     @objc func cancelPressed() {
+        coordinator?.didFinishAdding()
         dismiss(animated: true)
-    }
-    
-    @objc func authenticationCanceled() {
-        deactivateSpinner()
-        statusLabel.text = "Authentication canceled"
     }
     
     // Detects if URLField has a proper IP Address or URL, formats the string for use with ServerManager
@@ -187,12 +180,9 @@ extension AddServerViewController {
         }
     }
     
-    private func loadLoginView(with urlString: String) {
-        let vc = WebViewController()
-        vc.serverManager = serverManager
-        vc.passedURLString = urlString
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+    func updateStatusLabel(with text: String) {
+        statusLabel.isHidden = false
+        statusLabel.text = text
     }
         
     private func setupView() {
@@ -252,27 +242,5 @@ extension AddServerViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-}
-
-extension AddServerViewController: ServerManagerAuthenticationDelegate {
-    func serverCredentialsCaptured() {
-        // Do nothing, the LoginWebViewController now dismisses the parent NavigationView
-    }
-    
-    func authorizationDataRecieved(loginURL: String) {
-        loadLoginView(with: loginURL)
-    }
-    
-    func failedToGetAuthorizationURL(withError error: ServerManagerAuthenticationError) {
-        statusLabel.text = error.description
-        deactivateSpinner()
-    }
-    
-    func serverAdded() {
-        deactivateSpinner()
-        statusLabel.text = "success"
-        self.dismiss(animated: true)
     }
 }
