@@ -36,9 +36,10 @@ class MainCoordinator: Coordinator {
     }
     
     func showInfoView() {
-        let vc = InfoViewController()
-        let navigationController = UINavigationController(rootViewController: vc)
-        splitViewController.present(navigationController, animated: true, completion: nil)
+        let child = InfoCoordinator(splitViewController: splitViewController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
     
     func showAddServerView() {

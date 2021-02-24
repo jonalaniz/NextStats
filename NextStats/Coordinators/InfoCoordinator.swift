@@ -25,7 +25,8 @@ class InfoCoordinator: Coordinator {
         let vc = InfoViewController()
         // vc.coordinator = self
         
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.viewControllers = [vc]
+        splitViewController.present(navigationController, animated: true, completion: nil)
     }
     
     func showWebView(urlString: String) {
