@@ -179,10 +179,7 @@
 		56557EE223C8B09A008CF684 /* NextStats */ = {
 			isa = PBXGroup;
 			children = (
-				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
-				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
-				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
-				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
+				5689894E23D4CF3400D13B12 /* Controllers */,
 				5601D7AD25E0E8BC00993D31 /* Coordinators */,
 				5601D7F425E3194400993D31 /* Extensions */,
 				564C8DC724D779150095D43B /* Helpers */,
@@ -190,7 +187,10 @@
 				5689894D23D4CF2000D13B12 /* Models */,
 				5601D7E425E318AB00993D31 /* Protocols */,
 				56ECA8CE23E4C450001A6899 /* Views */,
-				5689894E23D4CF3400D13B12 /* Controllers */,
+				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
+				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
+				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
+				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
 				56557EEE23C8B09C008CF684 /* LaunchScreen.storyboard */,
 				56557EF123C8B09C008CF684 /* Info.plist */,
 			);
