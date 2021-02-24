@@ -22,10 +22,6 @@ class InfoCoordinator: Coordinator {
     }
     
     func start() {
-        // Piss
-    }
-    
-    private func showInfoView() {
         let vc = InfoViewController()
         // vc.coordinator = self
         
