@@ -15,15 +15,13 @@ class InfoCoordinator: Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
     
-    let infoModel = InfoModel()
-    
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
     }
     
     func start() {
         let vc = InfoViewController()
-        // vc.coordinator = self
+        vc.coordinator = self
         
         navigationController.viewControllers = [vc]
         splitViewController.present(navigationController, animated: true, completion: nil)
