@@ -58,6 +58,10 @@ class MainCoordinator: Coordinator {
     func addServerCoordinatorDidFinish(_ child: AddServerCoordinator?) {
         mainViewController.tableView.reloadData()
         
+        childDidFinish(child)
+    }
+    
+    func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in
             childCoordinators.enumerated() {
             if coordinator === child {

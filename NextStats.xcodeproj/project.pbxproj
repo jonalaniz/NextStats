@@ -31,6 +31,7 @@
 		565975BB25567DF70043C007 /* NextStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565975BA25567DF70043C007 /* NextStatsTests.swift */; };
 		565975C525567ECB0043C007 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C425567ECB0043C007 /* test.json */; };
 		565975C9255680130043C007 /* working.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C8255680130043C007 /* working.json */; };
+		565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565CDC0725E612C900028EA9 /* InfoCoordinator.swift */; };
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
@@ -86,6 +87,7 @@
 		565975BC25567DF70043C007 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		565975C425567ECB0043C007 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		565975C8255680130043C007 /* working.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = working.json; sourceTree = "<group>"; };
+		565CDC0725E612C900028EA9 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
 		566E48CF255A750F00E23B3A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
 				5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */,
+				565CDC0725E612C900028EA9 /* InfoCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */,
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
+				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
