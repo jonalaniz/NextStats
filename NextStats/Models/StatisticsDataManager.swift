@@ -247,7 +247,7 @@ extension StatisticsDataManager {
                 let freeSpaceGigabytes = freeSpaceDouble / 1073741824.0
                 let freeSpaceString = String(format: "%.2f", freeSpaceGigabytes)
                 
-                freeSpace = freeSpaceString
+                freeSpace = freeSpaceString + " GB"
             }
         }
         
