@@ -9,7 +9,7 @@
 import UIKit
 
 /// MARK: `ServerSelectionDelegate` - Used to update StatsViewController with new server object
-protocol ServerSelectionDelegate: class {
+protocol ServerSelectionDelegate {
     func serverSelected(_ newServer: NextServer)
 }
 
@@ -19,7 +19,7 @@ class ServerViewController: UIViewController {
     var noServersView: UIStackView!
     
     var serverManager = ServerManager.shared
-    weak var delegate: ServerSelectionDelegate?
+    var delegate: ServerSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
