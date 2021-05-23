@@ -15,6 +15,7 @@
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
 		5601D80E25E31D2000993D31 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80D25E31D2000993D31 /* Notifications.swift */; };
+		56112884265A1FE4003CC0BE /* NoServersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56112883265A1FE4003CC0BE /* NoServersView.swift */; };
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthResponse.swift */; };
@@ -65,6 +66,7 @@
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5601D80D25E31D2000993D31 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		56112883265A1FE4003CC0BE /* NoServersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoServersView.swift; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				56C9596F2655E42F00BD3B06 /* ServerFormView.swift */,
+				56112883265A1FE4003CC0BE /* NoServersView.swift */,
 				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				569EC31E25B4F7F600B955EC /* HeaderView.swift */,
 			);
@@ -375,6 +378,7 @@
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
+				56112884265A1FE4003CC0BE /* NoServersView.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */,
