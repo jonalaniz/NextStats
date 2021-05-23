@@ -16,8 +16,8 @@ protocol ServerSelectionDelegate {
 class ServerViewController: UIViewController {
     weak var coordinator: MainCoordinator?
     var tableView: UITableView!
-    var noServersView: UIStackView!
     
+    var noServersView = NoServersView()
     var serverManager = ServerManager.shared
     var delegate: ServerSelectionDelegate?
     
@@ -68,35 +68,6 @@ extension ServerViewController {
         let infoButtonView = UIBarButtonItem(customView: infoButtonItem)
 
         toolbarItems = [infoButtonView, spacer, about]
-        
-        // Initialize noServerView
-        noServersView = UIStackView()
-        
-            // Image View
-            let imageView = UIImageView()
-            imageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
-            imageView.image = UIImage(named: "Greyscale-Icon")
-            imageView.layer.cornerRadius = 38
-            imageView.clipsToBounds = true
-
-            // Text Label
-            let textLabel = UILabel()
-            textLabel.widthAnchor.constraint(equalToConstant: 180).isActive = true
-            textLabel.text = "You do not have any servers"
-            textLabel.font = .preferredFont(forTextStyle: .headline)
-            textLabel.numberOfLines = 0
-            textLabel.textAlignment = .center
-            textLabel.textColor = .tertiaryLabel
-
-            //Stack View
-            noServersView.axis = NSLayoutConstraint.Axis.vertical
-            noServersView.distribution = UIStackView.Distribution.equalSpacing
-            noServersView.alignment = UIStackView.Alignment.center
-            noServersView.spacing = 16.0
-
-            noServersView.addArrangedSubview(imageView)
-            noServersView.addArrangedSubview(textLabel)
 
         // Initialize tableView with proper style for platform
         #if targetEnvironment(macCatalyst)
@@ -105,14 +76,14 @@ extension ServerViewController {
         tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         #endif
         
-            // Connect tableView to ViewController and register Cell
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
-            
-            // Setup Pull To Refresh Controls
-            tableView.refreshControl = UIRefreshControl()
-            tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        // Connect tableView to ViewController and register Cell
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
+        
+        // Setup Pull To Refresh Controls
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
         // Constrain our views
         view.addSubview(tableView)
