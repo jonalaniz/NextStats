@@ -57,8 +57,8 @@ class MainCoordinator: Coordinator {
     
     /// Destroy the addServerCoordinator object and refresh the ServerViewController
     func addServerCoordinatorDidFinish(_ child: AddServerCoordinator?) {
-        mainViewController.tableView.reloadData()
-        
+        mainViewController.refresh()
+
         childDidFinish(child)
     }
     

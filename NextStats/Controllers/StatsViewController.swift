@@ -22,7 +22,6 @@ class StatsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         setupView()
     }
 
@@ -43,10 +42,8 @@ extension StatsViewController {
     private func setupTableView() {
         if viewInitialized { return }
         
-        // Initialize the tableView
+        // Initialize and connect the tableView
         tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
-        
-        // Connect tableView to ViewController
         tableView.delegate = self
         tableView.dataSource = self
         
