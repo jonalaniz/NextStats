@@ -105,20 +105,16 @@ extension ServerViewController {
     
     private func toggleNoServersView() {
         // Show noServerView if no ServerManager.servers is empty
-        if serverManager.servers.count == 0 {
-            noServersView.isHidden = false
-        } else {
-            noServersView.isHidden = true
-        }
+        serverManager.servers.isEmpty ? (noServersView.isHidden = false) : (noServersView.isHidden = true)
         
         // So iPad doesn't get tableView stuck in editing mode
-        setEditing(false, animated: false)
+        setEditing(false, animated: true)
     }
     
     @objc func refresh() {
         toggleNoServersView()
-        
         tableView.reloadData()
+        
         if tableView.refreshControl?.isRefreshing == true {
             tableView.refreshControl?.endRefreshing()
         }
