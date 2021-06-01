@@ -45,11 +45,9 @@ extension ServerViewController {
     private func setupView() {
         
         // Setup Navigation Bar
-        title = "NextStats"
-        
+        title = "NextStats"        
         navigationItem.rightBarButtonItem = editButtonItem
         
-        //navigationController?.isToolbarHidden = false
         navigationController?.toolbar.isTranslucent = false
         navigationController?.toolbar.barTintColor = .systemGroupedBackground
         navigationController?.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)

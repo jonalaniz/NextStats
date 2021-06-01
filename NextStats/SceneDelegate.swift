@@ -48,7 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         }
         #endif
         
-        window.tintColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
+        window.tintColor = .themeColor
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
