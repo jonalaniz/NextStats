@@ -45,8 +45,7 @@ extension ServerViewController {
     private func setupView() {
         
         // Setup Navigation Bar
-        title = "NextStats"        
-        navigationItem.rightBarButtonItem = editButtonItem
+        title = "NextStats"
         
         navigationController?.toolbar.isTranslucent = false
         navigationController?.toolbar.barTintColor = .systemGroupedBackground
@@ -105,7 +104,13 @@ extension ServerViewController {
     
     private func toggleNoServersView() {
         // Show noServerView if no ServerManager.servers is empty
-        serverManager.servers.isEmpty ? (noServersView.isHidden = false) : (noServersView.isHidden = true)
+        if serverManager.servers.isEmpty {
+            navigationItem.rightBarButtonItem = nil
+            noServersView.isHidden = false
+        } else {
+            navigationItem.rightBarButtonItem = editButtonItem
+            noServersView.isHidden = true
+        }
         
         // So iPad doesn't get tableView stuck in editing mode
         setEditing(false, animated: true)
