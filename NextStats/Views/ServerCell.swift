@@ -29,7 +29,7 @@ class ServerCell: UITableViewCell {
     var friendlyURLLabel: UILabel = {
         let friendlyURLLabel = UILabel()
         friendlyURLLabel.translatesAutoresizingMaskIntoConstraints = false
-        friendlyURLLabel.font = .preferredFont(forTextStyle: .headline)
+        friendlyURLLabel.font = .preferredFont(forTextStyle: .body)
         friendlyURLLabel.textColor = .secondaryLabel
         
         return friendlyURLLabel
@@ -38,7 +38,7 @@ class ServerCell: UITableViewCell {
     var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.font = .preferredFont(forTextStyle: .body)
+        statusLabel.font = .preferredFont(forTextStyle: .headline)
         
         return statusLabel
     }()
@@ -109,7 +109,7 @@ extension ServerCell {
                 self.statusLabel.text = "Online"
             } else {
                 self.statusLabel.textColor = .red
-                self.statusLabel.text = "Offline"
+                self.statusLabel.text = "Unreachable"
             }
             self.statusLabel.isHidden = false
         }
