@@ -29,6 +29,8 @@ class ServerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
+        
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
@@ -47,7 +49,7 @@ extension ServerViewController {
         
         navigationItem.rightBarButtonItem = editButtonItem
         
-        navigationController?.isToolbarHidden = false
+        //navigationController?.isToolbarHidden = false
         navigationController?.toolbar.isTranslucent = false
         navigationController?.toolbar.barTintColor = .systemGroupedBackground
         navigationController?.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
