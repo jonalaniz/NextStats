@@ -111,6 +111,7 @@ extension ServerCell {
                 self.statusLabel.textColor = .red
                 self.statusLabel.text = "Unreachable"
             }
+            self.statusLabel.layer.opacity = 0.8
             self.statusLabel.isHidden = false
         }
     }
