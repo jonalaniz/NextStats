@@ -37,7 +37,7 @@ extension NetworkController {
         var request = URLRequest(url: (components?.url)!)
         request.httpMethod = "HEAD"
         
-        URLSession(configuration: .default).dataTask(with: request) { (_, possibleResponse, error) in
+        URLSession(configuration: .default).dataTask(with: request) { (possibleData, possibleResponse, error) in
             guard error == nil else {
                 completion(.failure(.network(error!)))
                 return
@@ -50,6 +50,15 @@ extension NetworkController {
             
             guard (200...299).contains(response.statusCode) else {
                 completion(.failure(.unexpectedResponse(response.statusCode)))
+                return
+            }
+            
+            guard
+                let data = possibleData,
+                data.isEmpty
+            else {
+                print("is empty b")
+                completion(.failure(.missingResponse))
                 return
             }
             
