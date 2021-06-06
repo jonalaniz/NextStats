@@ -25,47 +25,6 @@ enum FetchType {
 class NetworkController {
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
-}
-
-extension NetworkController {
-    /// Ping server for online status
-    func ping(url: URL, completion: @escaping (Result<Void, FetchError>) -> Void) {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        components?.path = ""
-        
-        var request = URLRequest(url: (components?.url)!)
-        request.httpMethod = "HEAD"
-        
-        URLSession(configuration: .default).dataTask(with: request) { (possibleData, possibleResponse, error) in
-            guard error == nil else {
-                completion(.failure(.network(error!)))
-                return
-            }
-            
-            guard let response = possibleResponse as? HTTPURLResponse else {
-                completion(.failure(.missingResponse))
-                return
-            }
-            
-            guard (200...299).contains(response.statusCode) else {
-                completion(.failure(.unexpectedResponse(response.statusCode)))
-                return
-            }
-            
-            guard
-                let data = possibleData,
-                data.isEmpty
-            else {
-                print("is empty b")
-                completion(.failure(.missingResponse))
-                return
-            }
-            
-            completion(.success(()))
-        }
-        .resume()
-        
-    }
     
     /// Generic network fetch
     func fetchData(from url: URL, with config: URLSessionConfiguration, completion: @escaping (Result<Data, FetchError>) -> Void) {

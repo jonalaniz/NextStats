@@ -89,14 +89,16 @@ extension ServerCell {
     }
     
     private func pingServer() {
-        let url = URL(string: server.URLString)!
-
-        networkController.ping(url: url) { (result: Result<Void, FetchError>) in
+        let longURL = URL(string: server.URLString)!
+        var components = URLComponents(url: longURL, resolvingAgainstBaseURL: false)
+        components?.path = ""
+        
+        networkController.fetchData(from: components!.url!, with: .default) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(let error):
                 print(error)
                 self.setOnlineStatus(to: false)
-            case .success(()):
+            case .success(_):
                 self.setOnlineStatus(to: true)
             }
         }
