@@ -49,7 +49,7 @@ enum ActiveUsersIndex: Int {
 /**
  The `StatisticsDataManagerDelegate` defined methods you can implement to respond to events associated with `StatisticsDataManager`
  */
-protocol StatisticsDataManagerDelegate: class {
+protocol StatisticsDataManagerDelegate {
     func fetchingDidBegin()
     func errorFetchingData(error: FetchError)
     func dataUpdated()
@@ -111,19 +111,39 @@ extension StatisticsDataManager {
     }
     
     private func fetchData(for server: NextServer) {
-        // Notify our delegate that fetching has begun
+        // Notify our delegate
         delegate?.fetchingDidBegin()
         
+        // Prepare URL Configuration
+        let url = URL(string: server.URLString)!
+        
+        let credentials = "\(server.username):\(server.password)".data(using: .utf8)!.base64EncodedString()
+        let authenticatonString = "Basic \(credentials)"
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = ["Authorization": authenticatonString]
+        
         // Fetch data from server using networkController
-        networkController.fetchData(for: server) { (result: Result<ServerStats, FetchError>) in
+        networkController.fetchData(from: url, with: config) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(let fetchError):
                 // Notify the delegate of our error
                 self.delegate?.errorFetchingData(error: fetchError)
-            case .success(let statistics):
+            case .success(let data):
                 // Update our statistics with the fetched data
-                self.updateData(with: statistics)
+                self.parseServerStatisticsJSON(from: data)
             }
+        }
+    }
+    
+    /// Parses data into ServerStats Model
+    func parseServerStatisticsJSON(from data: Data) {
+        do {
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(ServerStats.self, from: data)
+            updateData(with: result)
+        } catch {
+            // TODO: This should show error that JSON was unable to be parsed, using generic error rn
+            delegate?.errorUpdatingData()
         }
     }
     

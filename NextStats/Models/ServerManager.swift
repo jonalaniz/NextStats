@@ -14,9 +14,7 @@ let logoEndpoint = "/index.php/apps/theming/image/logo"
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
 // Mark: - ServerManagerAuthenticationError
-/**
- String descriptions for various authentication errors.
- */
+/// String descriptions for various authentication errors.
 @objc public enum ServerManagerAuthenticationError: Int {
     
     // Error was given when trying to connect to a host.
@@ -92,15 +90,12 @@ open class ServerManager {
     }
     
     init() {
-        // Try to pull server data from keychain
-        if let data = KeychainWrapper.standard.data(forKey:"servers") {
-            if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
-                self.servers = savedServers
-                return
-            }
-        }
-        // If data is not available, create empty array
-        self.servers = []
+        guard
+            let data = KeychainWrapper.standard.data(forKey: "servers"),
+            let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data)
+        else { return }
+        
+        self.servers = savedServers
     }
 
     //MARK: - Server Authorization Flow
@@ -313,7 +308,6 @@ open class ServerManager {
     
     // MARK: - Server Removal Flow
     func removeServer(at index: Int) {
-        
         // Check for and remove image first
         let fileManager = FileManager.default
         let path = servers[index].imagePath()
