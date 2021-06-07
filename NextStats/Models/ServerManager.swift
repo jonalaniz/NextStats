@@ -40,7 +40,7 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
  The 'ServerManagerAuthenticationDelegate' protocol defines methods you can implement to respond to events associated with authenticating and adding Nextcloud server instances to the ServerManager.
  */
 
-@objc public protocol ServerManagerAuthenticationDelegate: class {
+@objc public protocol ServerManagerAuthenticationDelegate {
     
     /**
      Called when ServerManager is unable to get authorization data from server. Returns error information.
@@ -73,13 +73,11 @@ open class ServerManager {
     /// Returns the singleton 'ServerManager' instance.
     public static let shared = ServerManager()
     
-    /**
-     The delegate object for the 'ServerManager'.
-     */
+    /// The delegate object for the 'ServerManager'.
     open weak var delegate: ServerManagerAuthenticationDelegate?
+    let networkController = NetworkController.shared
     
     var shouldPoll = false
-    
     var name: String?
     
     var servers = [NextServer]() {
@@ -224,43 +222,34 @@ open class ServerManager {
         }
     }
     
-    /**
-     Setup values and test for custom logo
-     */
+    /// Setup values and test for custom logo
     private func setupServer(with credentials: ServerAuthenticationInfo) {
-        if let serverURL = credentials.server, let username = credentials.loginName, let password = credentials.appPassword {
-            let URLString = serverURL + statEndpoint
-            let friendlyURL = serverURL.makeFriendlyURL()
-            let logoURLString = serverURL + logoEndpoint
-            let logoURL = URL(string: logoURLString)!
+        guard
+            let serverURL = credentials.server,
+            let username = credentials.loginName,
+            let password = credentials.appPassword
+        else {
+            // TODO: Create an error type for this case
+            return
+        }
+        
+        let URLString = serverURL + statEndpoint
+        let friendlyURL = serverURL.makeFriendlyURL()
+        let logoURLString = serverURL + logoEndpoint
+        let logoURL = URL(string: logoURLString)!
             
-            let request = URLRequest(url: logoURL)
-            
-            URLSession(configuration: .default).dataTask(with: request) { (data, response, error) in
-                print("LOGO:\(logoURL)")
-                guard error == nil else {
-                    // The specified endpoint is unreachable
+        networkController.fetchData(from: logoURL) { (result: Result<Data, FetchError>) in
+            switch result {
+            case .failure(_):
+                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
+            case .success(let data):
+                guard let image = UIImage(data: data) else {
                     self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
                     return
                 }
                 
-                guard(response as? HTTPURLResponse)?.statusCode == 200 else {
-                    // Server does not have a logo image at the specificed endpoint
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
-                    return
-                }
-                
-                // Logo was found at endpoint, download it
-                if let data = data {
-                    print("data found")
-                    guard let image = UIImage(data: data) else { return }
-                    
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: image)
-                }
-                
-            }.resume()
-        } else {
-            print("Error with server credentials: \(credentials)")
+                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: image)
+            }
         }
     }
     
@@ -303,7 +292,7 @@ open class ServerManager {
      Sets shouldPoll to false and thus stopped the authorization process
      */
     func cancelAuthorization() {
-        if shouldPoll { shouldPoll = false }
+        shouldPoll = false
     }
     
     // MARK: - Server Removal Flow

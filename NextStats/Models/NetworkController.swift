@@ -27,7 +27,7 @@ class NetworkController {
     public static let shared = NetworkController()
     
     /// Generic network fetch
-    func fetchData(from url: URL, with config: URLSessionConfiguration, completion: @escaping (Result<Data, FetchError>) -> Void) {
+    func fetchData(from url: URL, with config: URLSessionConfiguration = .default, completion: @escaping (Result<Data, FetchError>) -> Void) {
         let request = URLRequest(url: url)
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: request) { (possibleData, possibleResponse, possibleError) in
@@ -56,5 +56,4 @@ class NetworkController {
         }
         task.resume()
     }
-    
 }
