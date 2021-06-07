@@ -237,8 +237,9 @@ open class ServerManager {
         let friendlyURL = serverURL.makeFriendlyURL()
         let logoURLString = serverURL + logoEndpoint
         let logoURL = URL(string: logoURLString)!
+        let request = URLRequest(url: logoURL)
             
-        networkController.fetchData(from: logoURL) { (result: Result<Data, FetchError>) in
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(_):
                 self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)

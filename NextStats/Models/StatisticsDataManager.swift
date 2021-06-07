@@ -121,9 +121,10 @@ extension StatisticsDataManager {
         let authenticatonString = "Basic \(credentials)"
         let config = URLSessionConfiguration.default
         config.httpAdditionalHeaders = ["Authorization": authenticatonString]
+        let request = URLRequest(url: url)
         
         // Fetch data from server using networkController
-        networkController.fetchData(from: url, with: config) { (result: Result<Data, FetchError>) in
+        networkController.fetchData(with: request, using: config) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(let fetchError):
                 // Notify the delegate of our error

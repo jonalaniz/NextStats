@@ -92,8 +92,9 @@ extension ServerCell {
         let longURL = URL(string: server.URLString)!
         var components = URLComponents(url: longURL, resolvingAgainstBaseURL: false)
         components?.path = ""
+        let request = URLRequest(url: components!.url!)
         
-        networkController.fetchData(from: components!.url!) { (result: Result<Data, FetchError>) in
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(let error):
                 print(error)
