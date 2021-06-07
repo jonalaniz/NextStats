@@ -171,33 +171,27 @@ open class ServerManager {
 
         request.httpBody = (tokenPrefix + token).data(using: .utf8)
         
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                // TODO: Error
-                return
-            } else {
-                if let response = response as? HTTPURLResponse {
-                    if response.statusCode != 200 {
-                        print("Poll Status Code: \(response.statusCode)")
-                        if self.shouldPoll {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let fetchError):
+                    switch fetchError {
+                    case .unexpectedResponse(let statusCode):
+                        print("Poll Status Code: \(statusCode)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            if self.shouldPoll {
                                 self.pollForCredentials(at: url, with: token)
                             }
                         }
-                        // TODO: Error
-                        return
+                    default:
+                        self.delegate?.failedToGetAuthorizationURL(withError: .serverNotFound)
                     }
-                    
-                }
-                if let data = data {
+                case .success(let data):
                     self.shouldPoll = false
                     self.decodeCredentialsFrom(json: data)
                 }
             }
         }
-        task.resume()
     }
     
     /**
