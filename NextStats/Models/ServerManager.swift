@@ -134,7 +134,10 @@ open class ServerManager {
                     }
                 }
                 if let data = data {
-                    self.parseJSONFrom(data: data)
+                    DispatchQueue.main.async {
+                        self.parseJSONFrom(data: data)
+                        self.shouldPoll = true
+                    }
                 }
             }
         }
@@ -148,24 +151,22 @@ open class ServerManager {
     private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
         
-        if let jsonStream = try? decoder.decode(AuthResponse.self, from: data) {
-            DispatchQueue.main.async {
-                print(jsonStream)
-                if let pollURL = URL(string: (jsonStream.poll?.endpoint)!) {
-                    if let token = jsonStream.poll?.token {
-                        if let loginURL = jsonStream.login {
-                            self.shouldPoll = true
-                            self.delegate?.authorizationDataRecieved(loginURL: loginURL)
-                            self.pollForCredentials(at: pollURL, with: token)
-                        }
-                    }
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
-            }
+        guard let jsonStream = try? decoder.decode(AuthResponse.self, from: data) else {
+            self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
+            return
         }
+        
+        guard
+            let pollURL = URL(string: (jsonStream.poll?.endpoint)!),
+            let token = jsonStream.poll?.token,
+            let loginURL = jsonStream.login
+        else {
+            self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
+            return
+        }
+        
+        self.delegate?.authorizationDataRecieved(loginURL: loginURL)
+        self.pollForCredentials(at: pollURL, with: token)
     }
     
     /**
@@ -200,7 +201,6 @@ open class ServerManager {
                     
                 }
                 if let data = data {
-                    print("whats going on here")
                     self.shouldPoll = false
                     self.decodeCredentialsFrom(json: data)
                 }
@@ -304,7 +304,6 @@ open class ServerManager {
         if fileManager.fileExists(atPath: path) {
             do {
                 try fileManager.removeItem(atPath: path)
-                print("File deleted")
             } catch {
                 print(error.localizedDescription)
             }
