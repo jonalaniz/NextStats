@@ -14,9 +14,7 @@ let logoEndpoint = "/index.php/apps/theming/image/logo"
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
 // Mark: - ServerManagerAuthenticationError
-/**
- String descriptions for various authentication errors.
- */
+/// String descriptions for various authentication errors.
 @objc public enum ServerManagerAuthenticationError: Int {
     
     // Error was given when trying to connect to a host.
@@ -42,7 +40,7 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
  The 'ServerManagerAuthenticationDelegate' protocol defines methods you can implement to respond to events associated with authenticating and adding Nextcloud server instances to the ServerManager.
  */
 
-@objc public protocol ServerManagerAuthenticationDelegate: class {
+@objc public protocol ServerManagerAuthenticationDelegate {
     
     /**
      Called when ServerManager is unable to get authorization data from server. Returns error information.
@@ -75,13 +73,11 @@ open class ServerManager {
     /// Returns the singleton 'ServerManager' instance.
     public static let shared = ServerManager()
     
-    /**
-     The delegate object for the 'ServerManager'.
-     */
+    /// The delegate object for the 'ServerManager'.
     open weak var delegate: ServerManagerAuthenticationDelegate?
+    let networkController = NetworkController.shared
     
     var shouldPoll = false
-    
     var name: String?
     
     var servers = [NextServer]() {
@@ -92,15 +88,12 @@ open class ServerManager {
     }
     
     init() {
-        // Try to pull server data from keychain
-        if let data = KeychainWrapper.standard.data(forKey:"servers") {
-            if let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data) {
-                self.servers = savedServers
-                return
-            }
-        }
-        // If data is not available, create empty array
-        self.servers = []
+        guard
+            let data = KeychainWrapper.standard.data(forKey: "servers"),
+            let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data)
+        else { return }
+        
+        self.servers = savedServers
     }
 
     //MARK: - Server Authorization Flow
@@ -115,37 +108,31 @@ open class ServerManager {
         // Set name value
         self.name = name
         
-        // Append Login flow v2 endpoint
+        // Append Login flow v2 endpoint and create request
         let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
-        
-        // Configure the request
         var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
         
-        
-        // Begin our request
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
-                }
-            } else {
-                if let response = response as? HTTPURLResponse {
-                    // If server not found, alert user and return
-                    if response.statusCode == 404 {
-                        DispatchQueue.main.async {
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let fetchError):
+                    switch fetchError {
+                    case .unexpectedResponse(let response):
+                        if response == 404 {
                             self.delegate?.failedToGetAuthorizationURL(withError: .serverNotFound)
+                        } else {
+                            self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
                         }
-                        return
+                    default:
+                        self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
                     }
-                }
-                if let data = data {
+                case .success(let data):
                     self.parseJSONFrom(data: data)
+                    self.shouldPoll = true
                 }
             }
         }
-        task.resume()
     }
     
     /**
@@ -155,24 +142,22 @@ open class ServerManager {
     private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
         
-        if let jsonStream = try? decoder.decode(AuthResponse.self, from: data) {
-            DispatchQueue.main.async {
-                print(jsonStream)
-                if let pollURL = URL(string: (jsonStream.poll?.endpoint)!) {
-                    if let token = jsonStream.poll?.token {
-                        if let loginURL = jsonStream.login {
-                            self.shouldPoll = true
-                            self.delegate?.authorizationDataRecieved(loginURL: loginURL)
-                            self.pollForCredentials(at: pollURL, with: token)
-                        }
-                    }
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
-            }
+        guard let jsonStream = try? decoder.decode(AuthResponse.self, from: data) else {
+            self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
+            return
         }
+        
+        guard
+            let pollURL = URL(string: (jsonStream.poll?.endpoint)!),
+            let token = jsonStream.poll?.token,
+            let loginURL = jsonStream.login
+        else {
+            self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
+            return
+        }
+        
+        self.delegate?.authorizationDataRecieved(loginURL: loginURL)
+        self.pollForCredentials(at: pollURL, with: token)
     }
     
     /**
@@ -186,34 +171,27 @@ open class ServerManager {
 
         request.httpBody = (tokenPrefix + token).data(using: .utf8)
         
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                // TODO: Error
-                return
-            } else {
-                if let response = response as? HTTPURLResponse {
-                    if response.statusCode != 200 {
-                        print("Poll Status Code: \(response.statusCode)")
-                        if self.shouldPoll {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let fetchError):
+                    switch fetchError {
+                    case .unexpectedResponse(let statusCode):
+                        print("Poll Status Code: \(statusCode)")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            if self.shouldPoll {
                                 self.pollForCredentials(at: url, with: token)
                             }
                         }
-                        // TODO: Error
-                        return
+                    default:
+                        self.delegate?.failedToGetAuthorizationURL(withError: .serverNotFound)
                     }
-                    
-                }
-                if let data = data {
-                    print("whats going on here")
+                case .success(let data):
                     self.shouldPoll = false
                     self.decodeCredentialsFrom(json: data)
                 }
             }
         }
-        task.resume()
     }
     
     /**
@@ -229,43 +207,35 @@ open class ServerManager {
         }
     }
     
-    /**
-     Setup values and test for custom logo
-     */
+    /// Setup values and test for custom logo
     private func setupServer(with credentials: ServerAuthenticationInfo) {
-        if let serverURL = credentials.server, let username = credentials.loginName, let password = credentials.appPassword {
-            let URLString = serverURL + statEndpoint
-            let friendlyURL = serverURL.makeFriendlyURL()
-            let logoURLString = serverURL + logoEndpoint
-            let logoURL = URL(string: logoURLString)!
+        guard
+            let serverURL = credentials.server,
+            let username = credentials.loginName,
+            let password = credentials.appPassword
+        else {
+            // TODO: Create an error type for this case
+            return
+        }
+        
+        let URLString = serverURL + statEndpoint
+        let friendlyURL = serverURL.makeFriendlyURL()
+        let logoURLString = serverURL + logoEndpoint
+        let logoURL = URL(string: logoURLString)!
+        let request = URLRequest(url: logoURL)
             
-            let request = URLRequest(url: logoURL)
-            
-            URLSession(configuration: .default).dataTask(with: request) { (data, response, error) in
-                print("LOGO:\(logoURL)")
-                guard error == nil else {
-                    // The specified endpoint is unreachable
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
+            switch result {
+            case .failure(_):
+                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
+            case .success(let data):
+                guard let image = UIImage(data: data) else {
                     self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
                     return
                 }
                 
-                guard(response as? HTTPURLResponse)?.statusCode == 200 else {
-                    // Server does not have a logo image at the specificed endpoint
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
-                    return
-                }
-                
-                // Logo was found at endpoint, download it
-                if let data = data {
-                    print("data found")
-                    guard let image = UIImage(data: data) else { return }
-                    
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: image)
-                }
-                
-            }.resume()
-        } else {
-            print("Error with server credentials: \(credentials)")
+                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: image)
+            }
         }
     }
     
@@ -308,12 +278,11 @@ open class ServerManager {
      Sets shouldPoll to false and thus stopped the authorization process
      */
     func cancelAuthorization() {
-        if shouldPoll { shouldPoll = false }
+        shouldPoll = false
     }
     
     // MARK: - Server Removal Flow
     func removeServer(at index: Int) {
-        
         // Check for and remove image first
         let fileManager = FileManager.default
         let path = servers[index].imagePath()
@@ -321,7 +290,6 @@ open class ServerManager {
         if fileManager.fileExists(atPath: path) {
             do {
                 try fileManager.removeItem(atPath: path)
-                print("File deleted")
             } catch {
                 print(error.localizedDescription)
             }
