@@ -108,40 +108,31 @@ open class ServerManager {
         // Set name value
         self.name = name
         
-        // Append Login flow v2 endpoint
+        // Append Login flow v2 endpoint and create request
         let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
-        
-        // Configure the request
         var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
         
-        
-        // Begin our request
-        let task = URLSession.shared.dataTask(with: request) {
-            (data, response, error) in
-            if error != nil {
-                DispatchQueue.main.async {
-                    self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
-                }
-            } else {
-                if let response = response as? HTTPURLResponse {
-                    // If server not found, alert user and return
-                    if response.statusCode == 404 {
-                        DispatchQueue.main.async {
+        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let fetchError):
+                    switch fetchError {
+                    case .unexpectedResponse(let response):
+                        if response == 404 {
                             self.delegate?.failedToGetAuthorizationURL(withError: .serverNotFound)
+                        } else {
+                            self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
                         }
-                        return
+                    default:
+                        self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
                     }
-                }
-                if let data = data {
-                    DispatchQueue.main.async {
-                        self.parseJSONFrom(data: data)
-                        self.shouldPoll = true
-                    }
+                case .success(let data):
+                    self.parseJSONFrom(data: data)
+                    self.shouldPoll = true
                 }
             }
         }
-        task.resume()
     }
     
     /**
