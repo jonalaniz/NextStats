@@ -152,17 +152,10 @@ extension StatisticsDataManager {
     private func updateData(with statistics: ServerStats) {
         // Split statistics into variables
         // Certain Nextcloud configurations can cause unexpected or missing data
-        guard let system = statistics.ocs?.data?.nextcloud else {
-            failedUpdatingData()
-            return
-        }
-        
-        guard let server = statistics.ocs?.data?.server else {
-            failedUpdatingData()
-            return
-        }
-        
-        guard let users = statistics.ocs?.data?.activeUsers else {
+        guard let system = statistics.ocs?.data?.nextcloud,
+              let server = statistics.ocs?.data?.server,
+              let users = statistics.ocs?.data?.activeUsers
+        else {
             failedUpdatingData()
             return
         }
