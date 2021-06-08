@@ -123,7 +123,7 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 /// MARK: ServerSelectionDelegate
-extension StatsViewController: ServerSelectionDelegate {
+extension StatsViewController {
     func serverSelected(_ newServer: NextServer) {
         // Initialize server variable with selected server
         statisticsDataManager.server = newServer
@@ -171,5 +171,4 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     func errorUpdatingData() {
         self.displayErrorAndReturn(title: "Error updating data.", description: "Statistics data missing from server response.")
     }
-    
 }

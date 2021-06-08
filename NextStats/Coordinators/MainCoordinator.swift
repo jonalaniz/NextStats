@@ -32,7 +32,6 @@ class MainCoordinator: Coordinator {
         
         splitViewController.viewControllers = [mainNavigationController, detailNavigationController]
         mainViewController.coordinator = self
-        mainViewController.delegate = detailViewController
     }
     
     func showInfoView() {
@@ -49,9 +48,9 @@ class MainCoordinator: Coordinator {
         child.start()
     }
     
-    func showStatsView() {
+    func showStatsView(for server: NextServer) {
         guard let navigationController = detailViewController.navigationController else { return }
-        
+        detailViewController.serverSelected(server)
         splitViewController.showDetailViewController(navigationController, sender: nil)
     }
     
