@@ -8,18 +8,11 @@
 
 import UIKit
 
-/// MARK: `ServerSelectionDelegate` - Used to update StatsViewController with new server object
-protocol ServerSelectionDelegate {
-    func serverSelected(_ newServer: NextServer)
-}
-
 class ServerViewController: UIViewController {
     weak var coordinator: MainCoordinator?
     var tableView: UITableView!
-    
     var noServersView = NoServersView()
     var serverManager = ServerManager.shared
-    var delegate: ServerSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,10 +146,8 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedServer = serverManager.servers[indexPath.row]
-        delegate?.serverSelected(selectedServer)
-        
-        coordinator?.showStatsView()
+        let selectedServer = serverManager.servers[indexPath.row]        
+        coordinator?.showStatsView(for: selectedServer)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
