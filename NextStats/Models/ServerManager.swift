@@ -16,14 +16,8 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 // Mark: - ServerManagerAuthenticationError
 /// String descriptions for various authentication errors.
 @objc public enum ServerManagerAuthenticationError: Int {
-    
-    // Error was given when trying to connect to a host.
     case notValidHost
-    
-    // Nextcloud server was not found at the specified endpoint.
     case serverNotFound
-    
-    // ServerManager was unable to parse the JSON object returned from the server
     case failedToSerializeResponse
     
     public var description: String {
@@ -42,31 +36,18 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
 @objc public protocol ServerManagerAuthenticationDelegate {
     
-    /**
-     Called when ServerManager is unable to get authorization data from server. Returns error information.
-     
-     - paramater: error: String
-     */
+    /// Called when ServerManager is unable to get authorization data from server. Returns error information.
     func failedToGetAuthorizationURL(withError error: ServerManagerAuthenticationError)
     
-    /**
-     Called when login url and associated authorization data is recieved.
-     
-    - paramater: loginURL: String
-     */
+    /// Called when login url and associated authorization data is recieved.
     func authorizationDataRecieved(loginURL: String)
     
-    /**
-     Called when server is successfully added to the manager
-     */
+    /// Called when server is successfully added to the manager
     func serverCredentialsCaptured()
 }
 
 // MARK: - ServerManager
-/**
- ServerManager facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
- */
-
+/// ServerManager facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
 open class ServerManager {
     // MARK: - Properties
     
@@ -138,7 +119,6 @@ open class ServerManager {
     /**
      2. Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
      */
-    
     private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
         
@@ -160,15 +140,11 @@ open class ServerManager {
         self.pollForCredentials(at: pollURL, with: token)
     }
     
-    /**
-     Begins polling the server for authorization credentials
-     */
+    /// Begins polling the server for authorization credentials
     private func pollForCredentials(at url: URL, with token: String) {
-        // attach token and setup request
         let tokenPrefix = "token="
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-
         request.httpBody = (tokenPrefix + token).data(using: .utf8)
         
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
@@ -262,9 +238,7 @@ open class ServerManager {
         
     }
     
-    /**
-     Save  custom server logo
-     */
+    /// Saves custom server logo to disk
     private func saveLogo(image: UIImage, to path: String) {
         do {
             try image.pngData()?.write(to: URL(string: "file://\(path)")!)
@@ -299,5 +273,3 @@ open class ServerManager {
         servers.remove(at: index)
     }
 }
-
-
