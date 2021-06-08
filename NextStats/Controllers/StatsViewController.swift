@@ -147,8 +147,6 @@ extension StatsViewController: StatisticsDataManagerDelegate {
         switch error {
         case .invalidData:
             self.displayErrorAndReturn(title: "Invalid Data", description: "Server response data could not be read.")
-//        case .invalidJSON(let error):
-//            self.displayErrorAndReturn(title: "Error parsing JSON", description: "JSON Parsing failed with error: \(error.localizedDescription)")
         case .missingResponse:
             self.displayErrorAndReturn(title: "Missing Response", description: "Server could be reached, but response was not given.")
         case .network(let error):
