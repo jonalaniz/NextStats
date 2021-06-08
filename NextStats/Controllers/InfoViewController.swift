@@ -9,24 +9,20 @@
 import UIKit
 
 class InfoViewController: UIViewController {
+    weak var coordinator: InfoCoordinator?
+    
     let infoModel = InfoModel()
     let tableView = UITableView(frame: CGRect.zero , style: .insetGrouped)
-    
-    weak var coordinator: InfoCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
-}
 
-/// MARK: Functions
-extension InfoViewController {
     private func setupView() {
         // Setup Navigation Bar
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
-        
         title = "Info"
         
         // Setup View
@@ -36,9 +32,8 @@ extension InfoViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        // Setup TableViewCell
+        // Setup TableViewHeader
         tableView.tableHeaderView = HeaderView()
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
