@@ -9,7 +9,6 @@
 import UIKit
 
 class ServerCell: UITableViewCell {
-    // MARK: Properties
     var logoImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,12 +123,11 @@ extension ServerCell {
         }
     }
     
-    // MARK: Check for and load custom logo
+    // TODO: Make server logo something that is checked for on each connection, then grab the image.
     private func checkForServerLogoImage() {
         if server.hasCustomLogo {
-            // Server should have custom logo
             if server.imageCached() {
-                // If cached, pull the cached image function from server api
+                // Check server cached logo
                 print("image found")
                 logoImageView.image = server.cachedImage()
             } else {
