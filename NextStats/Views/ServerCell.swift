@@ -43,6 +43,17 @@ class ServerCell: UITableViewCell {
         return statusLabel
     }()
     
+    var verticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .fill
+        stackView.spacing = 2
+        
+        return stackView
+    }()
+    
     var server: NextServer!
     let networkController = NetworkController.shared
     
@@ -51,31 +62,20 @@ class ServerCell: UITableViewCell {
 extension ServerCell {
     func setup() {
         contentView.addSubview(logoImageView)
-        contentView.addSubview(serverNameLabel)
-        contentView.addSubview(friendlyURLLabel)
-        contentView.addSubview(statusLabel)
+        contentView.addSubview(verticalStackView)
         
-        NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            logoImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            logoImageView.widthAnchor.constraint(equalToConstant: 78),
-            
-            serverNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
-            serverNameLabel.heightAnchor.constraint(equalToConstant: 22),
-            serverNameLabel.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 10),
-            serverNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            
-            friendlyURLLabel.heightAnchor.constraint(equalToConstant: 20),
-            friendlyURLLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 1),
-            friendlyURLLabel.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 10),
-            friendlyURLLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            
-            statusLabel.heightAnchor.constraint(equalToConstant: 20),
-            statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -14),
-            statusLabel.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 10),
-            statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
-        ])
+        verticalStackView.addArrangedSubview(serverNameLabel)
+        verticalStackView.addArrangedSubview(friendlyURLLabel)
+        verticalStackView.addArrangedSubview(statusLabel)
+        
+        logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: 78).isActive = true
+        logoImageView.widthAnchor.constraint(equalToConstant: 78).isActive = true
+        
+        verticalStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 10).isActive = true
+        verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        verticalStackView.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor).isActive = true
         
         if traitCollection.userInterfaceStyle == .light {
             backgroundColor = .quaternarySystemFill
@@ -114,8 +114,13 @@ extension ServerCell {
                 self.statusLabel.textColor = .red
                 self.statusLabel.text = "Unreachable"
             }
+            
             self.statusLabel.layer.opacity = 0.8
             self.statusLabel.isHidden = false
+            
+            UIView.animate(withDuration: 0.4) {
+                self.verticalStackView.layoutIfNeeded()
+            }
         }
     }
     
