@@ -199,19 +199,11 @@ open class ServerManager {
                 self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: nil)
             case .success(let data):
                 guard let image = UIImage(data: data) else {
-                    self.captureServer(serverURLString: URLString,
-                                       friendlyURL: friendlyURL,
-                                       username: username,
-                                       password: password,
-                                       logo: nil)
+                    self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: nil)
                     return
                 }
 
-                self.captureServer(serverURLString: URLString,
-                                   friendlyURL: friendlyURL,
-                                   username: username,
-                                   password: password,
-                                   logo: image)
+                self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: image)
             }
         }
     }
