@@ -87,15 +87,13 @@ extension ServerViewController {
         noServersView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 
-            noServersView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            noServersView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: 50)
-        ])
+        noServersView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+        noServersView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: 50).isActive = true
     }
 
     private func toggleNoServersView() {
