@@ -45,7 +45,7 @@ struct System: Codable {
     let cpuload: [Double]?
     let memTotal, memFree, swapTotal, swapFree: MemoryValue?
     let apps: Apps?
-    
+
     enum CodingKeys: String, CodingKey {
         case version, theme
         case enableAvatars = "enable_avatars"
@@ -61,7 +61,7 @@ struct System: Codable {
         case swapFree = "swap_free"
         case apps
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.version = try container.decode(String.self, forKey: .version)
@@ -87,25 +87,25 @@ struct System: Codable {
 enum MemoryValue: Codable {
     case string(String)
     case int(Int)
-    
+
     var stringValue: String? {
         switch self {
-        case .string(let s):
-            return s
+        case .string(let string):
+            return string
         default:
             return nil
         }
     }
-    
+
     var intValue: Int? {
         switch self {
-        case .int(let i):
-            return i
+        case .int(let int):
+            return int
         default:
             return nil
         }
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let x = try? container.decode(String.self) {
@@ -118,7 +118,7 @@ enum MemoryValue: Codable {
         }
         throw DecodingError.typeMismatch(MemoryValue.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Memory type mismatch"))
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
@@ -133,13 +133,13 @@ enum MemoryValue: Codable {
 struct Apps: Codable {
     let numInstalled, numUpdatesAvailable: Int?
     let appUpdates: AppUpdates?
-    
+
     enum CodingKeys: String, CodingKey {
         case numInstalled = "num_installed"
         case numUpdatesAvailable = "num_updates_available"
         case appUpdates = "app_updates"
     }
-    
+
     init(from decoder: Decoder) throws {
         let containter = try decoder.container(keyedBy: CodingKeys.self)
         self.numInstalled = try containter.decode(Int.self, forKey: .numInstalled)
@@ -164,7 +164,7 @@ struct Storage: Codable {
         case numStoragesHome = "num_storages_home"
         case numStoragesOther = "num_storages_other"
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.numUsers = try container.decode(Int.self, forKey: .numUsers)
@@ -189,14 +189,14 @@ struct Server: Codable {
 struct PHP: Codable {
     let version: String?
     let memoryLimit, maxExecutionTime, uploadMaxFilesize: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case version
         case memoryLimit = "memory_limit"
         case maxExecutionTime = "max_execution_time"
         case uploadMaxFilesize = "upload_max_filesize"
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.version = try container.decode(String.self, forKey: .version)
@@ -213,13 +213,13 @@ struct Database: Codable {
 
 struct ActiveUsers: Codable {
     let last5Minutes, last1Hour, last24Hours: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case last5Minutes = "last5minutes"
         case last1Hour = "last1hour"
         case last24Hours = "last24hours"
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.last5Minutes = try container.decode(Int.self, forKey: .last5Minutes)

@@ -1,0 +1,5 @@
+included:
+
+excluded: 
+ - NextStats/Helpers/KeychainWrapper.swift
+ - NextStats/Helpers/KeychainItemAccessibility.swift

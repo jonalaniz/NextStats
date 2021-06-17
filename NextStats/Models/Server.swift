@@ -20,21 +20,21 @@ struct NextServer: Codable {
     let username: String
     let password: String
     let hasCustomLogo: Bool
-    
+
     func imageURL() -> URL {
         let url = URL(string: URLString)!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.path = ""
-        
+
         return (components.url?.appendingPathComponent(logoEndpoint))!
     }
-    
+
     func imagePath() -> String {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
+
         return documentsDirectory.appendingPathComponent("\(friendlyURL).png", isDirectory: true).path
     }
-    
+
     func imageCached() -> Bool {
         let path = imagePath()
         if FileManager.default.fileExists(atPath: path) {
@@ -45,7 +45,7 @@ struct NextServer: Codable {
             return false
         }
     }
-    
+
     func cachedImage() -> UIImage {
         return UIImage(contentsOfFile: imagePath())!
     }

@@ -22,26 +22,26 @@ class NextStatsTests: XCTestCase {
     func testJSONDecodable() throws {
         // Get our bundle
         let bundle = Bundle(for: type(of: self))
-        
+
         // Get our url's for the JSON files
         guard let workingURL = bundle.url(forResource: "working", withExtension: "json") else {
             XCTFail("Missing file: default.json")
             return
         }
-        
+
         guard let testURL = bundle.url(forResource: "test", withExtension: "json") else {
             XCTFail("Missing file: test.json")
             return
         }
-        
+
         // Grab the data and create an array to loop over and parse
         let workingData = try Data(contentsOf: workingURL)
         let testData = try Data(contentsOf: testURL)
         let testDataArray = [workingData, testData]
-        
+
         // Prepare our Decoder
         let decoder = JSONDecoder()
-        
+
         // Try decoding the working and test data
         for data in testDataArray {
             if let decodedJSON = try? decoder.decode(Monitor.self, from: data) {

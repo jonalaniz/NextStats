@@ -19,7 +19,7 @@ extension String {
             return "https://" + self
         }
     }
-    
+
     func addIPPrefix() -> String {
         if self.hasPrefix("http://") {
             return self
@@ -27,7 +27,7 @@ extension String {
             return "http://" + self
         }
     }
-    
+
     /// Check's url for HTTP prefix, adds one if not present
     func addHTTPPrefix() -> String {
         if self.hasPrefix("http://") || self.hasPrefix("https://") {
@@ -36,7 +36,7 @@ extension String {
             return "http://" + self
         }
     }
-    
+
     // Remove https://
     func makeFriendlyURL() -> String {
         if self.hasPrefix("https://") {
@@ -46,5 +46,3 @@ extension String {
         }
     }
 }
-
-

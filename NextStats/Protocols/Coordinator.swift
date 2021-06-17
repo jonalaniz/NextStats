@@ -11,6 +11,6 @@ import UIKit
 protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     var splitViewController: UISplitViewController { get set }
-    
+
     func start()
 }
