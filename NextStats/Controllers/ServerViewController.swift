@@ -47,7 +47,10 @@ extension ServerViewController {
 
         // Set Up Toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"), style: .plain, target: self, action: #selector(infoButtonPressed))
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"),
+                                    style: .plain,
+                                    target: self,
+                                    action: #selector(infoButtonPressed))
         let infoButtonItem = UIButton(type: .system)
 
         infoButtonItem.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
@@ -146,7 +149,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedServer = serverManager.servers[indexPath.row]        
+        let selectedServer = serverManager.servers[indexPath.row]
         coordinator?.showStatsView(for: selectedServer)
     }
 

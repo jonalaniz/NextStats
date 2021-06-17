@@ -108,24 +108,26 @@ enum MemoryValue: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        if let x = try? container.decode(String.self) {
-            self = .string(x)
+        if let data = try? container.decode(String.self) {
+            self = .string(data)
             return
         }
-        if let x = try? container.decode(Int.self) {
-            self = .int(x)
+        if let data = try? container.decode(Int.self) {
+            self = .int(data)
             return
         }
-        throw DecodingError.typeMismatch(MemoryValue.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Memory type mismatch"))
+        throw DecodingError.typeMismatch(MemoryValue.self,
+                                         DecodingError.Context(codingPath: decoder.codingPath,
+                                                               debugDescription: "Memory type mismatch"))
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
-        case .string(let x):
-            try container.encode(x)
-        case .int(let x):
-            try container.encode(x)
+        case .string(let data):
+            try container.encode(data)
+        case .int(let data):
+            try container.encode(data)
         }
     }
 }
