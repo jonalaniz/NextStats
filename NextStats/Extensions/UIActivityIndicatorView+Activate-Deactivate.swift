@@ -14,7 +14,7 @@ extension UIActivityIndicatorView {
         self.isHidden = false
         self.startAnimating()
     }
-    
+
     /// Hides and stops animating Indicator View
     func deactivate() {
         self.isHidden = true

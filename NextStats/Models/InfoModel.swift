@@ -17,13 +17,13 @@ struct InfoModel {
     private let developerTitles = ["Developer".localized()]
     private let developerNames = ["Jon Alaniz"]
     private let translatorLanguages = ["French".localized(), "German".localized()]
-    private let translatorNames = ["Maxime Killinger","Carina Pfaffelhuber"]
+    private let translatorNames = ["Maxime Killinger", "Carina Pfaffelhuber"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
-    
+
     func numberOfSections() -> Int {
         return sections.count
     }
-    
+
     func numberOfRows(in section: Int) -> Int {
         switch section {
         case 0: return developerNames.count
@@ -32,11 +32,11 @@ struct InfoModel {
         default: return 0
         }
     }
-    
+
     func title(for section: Int) -> String {
         return sections[section]
     }
-    
+
     func footer(for section: Int) -> String {
         switch section {
         case 2:
@@ -47,7 +47,7 @@ struct InfoModel {
             return ""
         }
     }
-    
+
     func titleLabelFor(row: Int, section: Int) -> String {
         switch section {
         case 0: return developerTitles[row]
@@ -56,7 +56,7 @@ struct InfoModel {
         default: return ""
         }
     }
-    
+
     func detailLabelFor(row: Int, section: Int) -> String? {
         switch section {
         case 0: return developerNames[row]
@@ -64,7 +64,7 @@ struct InfoModel {
         default: return ""
         }
     }
-    
+
     func licenseURLFor(row: Int) -> String {
         switch row {
         case 0:

@@ -10,32 +10,32 @@ import UIKit
 
 class InfoCoordinator: Coordinator {
     weak var parentCoordinator: MainCoordinator?
-    
+
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
-    
+
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
     }
-    
+
     func start() {
         let vc = InfoViewController()
         vc.coordinator = self
-        
+
         navigationController.viewControllers = [vc]
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
-    
+
     func showWebView(urlString: String) {
         let vc = WebViewController()
         vc.passedURLString = urlString
-        
+
         navigationController.pushViewController(vc, animated: true)
     }
-    
+
     func didFinish() {
         parentCoordinator?.childDidFinish(self)
     }
-    
+
 }

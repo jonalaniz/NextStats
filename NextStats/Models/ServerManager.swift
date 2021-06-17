@@ -13,13 +13,13 @@ let loginEndpoint = "/index.php/login/v2"
 let logoEndpoint = "/index.php/apps/theming/image/logo"
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
-// Mark: - ServerManagerAuthenticationError
+// MARK: - ServerManagerAuthenticationError
 /// String descriptions for various authentication errors.
 @objc public enum ServerManagerAuthenticationError: Int {
     case notValidHost
     case serverNotFound
     case failedToSerializeResponse
-    
+
     public var description: String {
         switch self {
         case .notValidHost: return "Not a valid host, please check url."
@@ -35,13 +35,13 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
  */
 
 @objc public protocol ServerManagerAuthenticationDelegate {
-    
+
     /// Called when ServerManager is unable to get authorization data from server. Returns error information.
     func failedToGetAuthorizationURL(withError error: ServerManagerAuthenticationError)
-    
+
     /// Called when login url and associated authorization data is recieved.
     func authorizationDataRecieved(loginURL: String)
-    
+
     /// Called when server is successfully added to the manager
     func serverCredentialsCaptured()
 }
@@ -50,50 +50,50 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 /// ServerManager facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
 open class ServerManager {
     // MARK: - Properties
-    
+
     /// Returns the singleton 'ServerManager' instance.
     public static let shared = ServerManager()
-    
+
     /// The delegate object for the 'ServerManager'.
     open weak var delegate: ServerManagerAuthenticationDelegate?
     let networkController = NetworkController.shared
-    
+
     var shouldPoll = false
     var name: String?
-    
+
     var servers = [NextServer]() {
         didSet {
             // Encode new server value into keychain
-            KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey:"servers")
+            KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey: "servers")
         }
     }
-    
+
     init() {
         guard
             let data = KeychainWrapper.standard.data(forKey: "servers"),
             let savedServers = try? PropertyListDecoder().decode([NextServer].self, from: data)
         else { return }
-        
+
         self.servers = savedServers
     }
 
-    //MARK: - Server Authorization Flow
-    
+    // MARK: - Server Authorization Flow
+
     /**
      1. Request authorization from server, ServerManager uses Login flow v2 as detailed in the Nextcloud Manual.
-     
+
      - parameter: url: URL of the server we are attempting to gain authorization
      - parameter: name: String used as the name for the server
      */
     func requestAuthorizationURL(withURL url: URL, withName name: String) {
         // Set name value
         self.name = name
-        
+
         // Append Login flow v2 endpoint and create request
         let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
         var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
-        
+
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             DispatchQueue.main.async {
                 switch result {
@@ -115,18 +115,18 @@ open class ServerManager {
             }
         }
     }
-    
+
     /**
      2. Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
      */
     private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
-        
+
         guard let jsonStream = try? decoder.decode(AuthResponse.self, from: data) else {
             self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
             return
         }
-        
+
         guard
             let pollURL = URL(string: (jsonStream.poll?.endpoint)!),
             let token = jsonStream.poll?.token,
@@ -135,18 +135,18 @@ open class ServerManager {
             self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
             return
         }
-        
+
         self.delegate?.authorizationDataRecieved(loginURL: loginURL)
         self.pollForCredentials(at: pollURL, with: token)
     }
-    
+
     /// Begins polling the server for authorization credentials
     private func pollForCredentials(at url: URL, with token: String) {
         let tokenPrefix = "token="
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = (tokenPrefix + token).data(using: .utf8)
-        
+
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             DispatchQueue.main.async {
                 switch result {
@@ -169,7 +169,7 @@ open class ServerManager {
             }
         }
     }
-    
+
     /**
      Decodes the login credentials from the JSON object
      */
@@ -182,7 +182,7 @@ open class ServerManager {
             }
         }
     }
-    
+
     /// Setup values and test for custom logo
     private func setupServer(with credentials: ServerAuthenticationInfo) {
         guard
@@ -193,28 +193,28 @@ open class ServerManager {
             // TODO: Create an error type for this case
             return
         }
-        
+
         let URLString = serverURL + statEndpoint
         let friendlyURL = serverURL.makeFriendlyURL()
         let logoURLString = serverURL + logoEndpoint
         let logoURL = URL(string: logoURLString)!
         let request = URLRequest(url: logoURL)
-            
+
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(_):
-                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
+                self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: nil)
             case .success(let data):
                 guard let image = UIImage(data: data) else {
-                    self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: nil)
+                    self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: nil)
                     return
                 }
-                
-                self.captureServer(serverURLString: URLString,friendlyURL: friendlyURL, username: username, password: password, logo: image)
+
+                self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: image)
             }
         }
     }
-    
+
     /**
      Capture the new server, append it, and sort the server array.
      */
@@ -228,16 +228,16 @@ open class ServerManager {
             // Failed to open the image, initialize the server object without it.
             server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: false)
         }
-        
+
         servers.append(server)
         servers.sort(by: { $0.name < $1.name })
-        
+
         DispatchQueue.main.async {
             self.delegate?.serverCredentialsCaptured()
         }
-        
+
     }
-    
+
     /// Saves custom server logo to disk
     private func saveLogo(image: UIImage, to path: String) {
         do {
@@ -247,20 +247,20 @@ open class ServerManager {
             print(error.localizedDescription)
         }
     }
-    
+
     /**
      Sets shouldPoll to false and thus stopped the authorization process
      */
     func cancelAuthorization() {
         shouldPoll = false
     }
-    
+
     // MARK: - Server Removal Flow
     func removeServer(at index: Int) {
         // Check for and remove image first
         let fileManager = FileManager.default
         let path = servers[index].imagePath()
-        
+
         if fileManager.fileExists(atPath: path) {
             do {
                 try fileManager.removeItem(atPath: path)
@@ -268,7 +268,7 @@ open class ServerManager {
                 print(error.localizedDescription)
             }
         }
-        
+
         // Remove server from the server array
         servers.remove(at: index)
     }

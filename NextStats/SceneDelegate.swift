@@ -15,39 +15,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Grab the windowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
+
         // Initialize a SplitViewController and Coordinator
         let splitViewController = UISplitViewController()
         coordinator = MainCoordinator(splitViewController: splitViewController)
         coordinator?.start()
-        
+
         // Setup our SplitViewController
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
         splitViewController.primaryBackgroundStyle = .sidebar
         splitViewController.delegate = self
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
-        
+
         // Set the window to the SplitViewController
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = splitViewController
         window.makeKeyAndVisible()
         self.window = window
-            
+
         #if targetEnvironment(macCatalyst)
         // Set minimum windows size
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.forEach { windowScene in
             let size = CGSize(width: 800, height: 600)
-            
+
             windowScene.sizeRestrictions?.minimumSize = size
         }
-        
+
         // Remove titlebar
         if let titlebar = windowScene.titlebar {
             titlebar.titleVisibility = .hidden
             titlebar.toolbar = nil
         }
         #endif
-        
+
         window.tintColor = .themeColor
     }
 
@@ -77,13 +77,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        
+
     }
 
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
 
         return true
     }
-    
-}
 
+}

@@ -106,7 +106,7 @@ open class KeychainWrapper {
         guard status == noErr, let resultsDictionary = result as? [String:AnyObject], let accessibilityAttrValue = resultsDictionary[SecAttrAccessible] as? String else {
             return nil
         }
-    
+
         return KeychainItemAccessibility.accessibilityForAttributeValue(accessibilityAttrValue as CFString)
     }
 
@@ -152,12 +152,12 @@ open class KeychainWrapper {
         
         return numberValue.intValue
     }
-    
+
     open func float(forKey key: String, withAccessibility accessibility: KeychainItemAccessibility? = nil) -> Float? {
         guard let numberValue = object(forKey: key, withAccessibility: accessibility) as? NSNumber else {
             return nil
         }
-        
+
         return numberValue.floatValue
     }
     
@@ -165,18 +165,18 @@ open class KeychainWrapper {
         guard let numberValue = object(forKey: key, withAccessibility: accessibility) as? NSNumber else {
             return nil
         }
-        
+
         return numberValue.doubleValue
     }
-    
+
     open func bool(forKey key: String, withAccessibility accessibility: KeychainItemAccessibility? = nil) -> Bool? {
         guard let numberValue = object(forKey: key, withAccessibility: accessibility) as? NSNumber else {
             return nil
         }
-        
+
         return numberValue.boolValue
     }
-    
+
     /// Returns a string value for a specified key.
     ///
     /// - parameter forKey: The key to lookup data for.

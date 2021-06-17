@@ -16,14 +16,14 @@ extension String {
     func isValidURL() -> Bool {
         let urlTest = NSPredicate(format: "SELF MATCHES %@", urlRegEx)
         let isValid = urlTest.evaluate(with: self)
-        
+
         return isValid
     }
-    
+
     func isValidIPAddress() -> Bool {
         let urlTest = NSPredicate(format: "SELF MATCHES %@", ipRegEx)
         let isValid = urlTest.evaluate(with: self)
-        
+
         return isValid
     }
 }
