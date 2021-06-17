@@ -19,7 +19,7 @@ struct NextServer: Codable {
     let URLString: String
     let username: String
     let password: String
-    let hasCustomLogo: Bool
+    var hasCustomLogo: Bool = false
 
     func imageURL() -> URL {
         let url = URL(string: URLString)!
@@ -48,5 +48,9 @@ struct NextServer: Codable {
 
     func cachedImage() -> UIImage {
         return UIImage(contentsOfFile: imagePath())!
+    }
+
+    mutating func setCustomLogo() {
+        hasCustomLogo = true
     }
 }

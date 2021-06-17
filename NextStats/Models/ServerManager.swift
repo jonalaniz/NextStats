@@ -32,7 +32,6 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 // MARK: ServerManagerAuthenticationDelegate
 /// Functions called by ServerManager pertaining to authenitcation status
 @objc public protocol ServerManagerAuthenticationDelegate {
-
     /// Called when ServerManager is unable to get authorization data from server. Returns error information.
     func failedToGetAuthorizationURL(withError error: ServerManagerAuthenticationError)
 
@@ -41,13 +40,14 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
     /// Called when server is successfully added to the manager
     func serverCredentialsCaptured()
+
+    /// Called when missing authentication data
+    func authorizationDataMissing()
 }
 
 // MARK: ServerManager
 /// ServerManager facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
 open class ServerManager {
-    // MARK: - Properties
-
     /// Returns the singleton 'ServerManager' instance.
     public static let shared = ServerManager()
 
@@ -72,16 +72,12 @@ open class ServerManager {
         else { return }
 
         self.servers = savedServers
+        print(servers)
     }
 
     // MARK: Server Authorization Flow
 
-    /**
-     1. Request authorization from server, ServerManager uses Login flow v2 as detailed in the Nextcloud Manual.
-
-     - parameter: url: URL of the server we are attempting to gain authorization
-     - parameter: name: String used as the name for the server
-     */
+    /// Request authorization from server, ServerManager uses Login flow v2 as detailed in the Nextcloud Manual.
     func requestAuthorizationURL(withURL url: URL, withName name: String) {
         // Set name value
         self.name = name
@@ -113,7 +109,7 @@ open class ServerManager {
         }
     }
 
-    // 2. Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
+    /// Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
     private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
 
@@ -183,7 +179,8 @@ open class ServerManager {
             let username = credentials.loginName,
             let password = credentials.appPassword
         else {
-            // TODO: Create an error type for this case
+            // Found nil when unwrapping server credentials.
+            delegate?.authorizationDataMissing()
             return
         }
 
@@ -193,55 +190,36 @@ open class ServerManager {
         let logoURL = URL(string: logoURLString)!
         let request = URLRequest(url: logoURL)
 
+        var server = NextServer(name: self.name!,
+                                friendlyURL: friendlyURL,
+                                URLString: URLString,
+                                username: username,
+                                password: password)
+
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(_):
-                self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: nil)
+                return
             case .success(let data):
-                guard let image = UIImage(data: data) else {
-                    self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: nil)
-                    return
-                }
-
-                self.captureServer(serverURLString: URLString, friendlyURL: friendlyURL, username: username, password: password, logo: image)
+                guard let image = UIImage(data: data) else { return }
+                // Set custom logo and download image
+                self.saveLogo(image: image, to: server.imagePath())
+                server.setCustomLogo()
+                print(server.hasCustomLogo)
+                print("is there anyone here?")
             }
+            self.captureServer(server)
         }
     }
 
-    // Capture the new server, append it, and sort the server array.
-    private func captureServer(serverURLString: String,
-                               friendlyURL: String,
-                               username: String,
-                               password: String,
-                               logo: UIImage?) {
-
-        let server: NextServer
-        if let customLogoImage = logo {
-            // Image was found, initialize the server object and save the image
-            server = NextServer(name: self.name!,
-                                friendlyURL: friendlyURL,
-                                URLString: serverURLString,
-                                username: username,
-                                password: password,
-                                hasCustomLogo: true)
-            saveLogo(image: customLogoImage, to: server.imagePath())
-        } else {
-            // Failed to open the image, initialize the server object without it.
-            server = NextServer(name: self.name!,
-                                friendlyURL: friendlyURL,
-                                URLString: serverURLString,
-                                username: username,
-                                password: password,
-                                hasCustomLogo: false)
-        }
-
+    /// Append server to array and sort.
+    private func captureServer(_ server: NextServer) {
         servers.append(server)
         servers.sort(by: { $0.name < $1.name })
 
         DispatchQueue.main.async {
             self.delegate?.serverCredentialsCaptured()
         }
-
     }
 
     /// Saves custom server logo to disk
