@@ -9,7 +9,7 @@
 import UIKit
 
 class ServerCell: UITableViewCell {
-    var logoImageView: UIImageView = {
+    var serverImageView: UIImageView = {
         let logoImageView = UIImageView()
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.contentMode = .scaleAspectFit
@@ -25,7 +25,7 @@ class ServerCell: UITableViewCell {
         return serverNameLabel
     }()
     
-    var friendlyURLLabel: UILabel = {
+    var serverURLLabel: UILabel = {
         let friendlyURLLabel = UILabel()
         friendlyURLLabel.translatesAutoresizingMaskIntoConstraints = false
         friendlyURLLabel.font = .preferredFont(forTextStyle: .body)
@@ -60,28 +60,28 @@ class ServerCell: UITableViewCell {
 
 extension ServerCell {
     func setup() {
-        contentView.addSubview(logoImageView)
+        contentView.addSubview(serverImageView)
         contentView.addSubview(verticalStackView)
         
         verticalStackView.addArrangedSubview(serverNameLabel)
-        verticalStackView.addArrangedSubview(friendlyURLLabel)
+        verticalStackView.addArrangedSubview(serverURLLabel)
         verticalStackView.addArrangedSubview(statusLabel)
         
-        logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        logoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 78).isActive = true
-        logoImageView.widthAnchor.constraint(equalToConstant: 78).isActive = true
+        serverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        serverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        serverImageView.heightAnchor.constraint(equalToConstant: 78).isActive = true
+        serverImageView.widthAnchor.constraint(equalToConstant: 78).isActive = true
         
-        verticalStackView.leadingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 10).isActive = true
+        verticalStackView.leadingAnchor.constraint(equalTo: serverImageView.trailingAnchor, constant: 10).isActive = true
         verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        verticalStackView.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor).isActive = true
+        verticalStackView.centerYAnchor.constraint(equalTo: serverImageView.centerYAnchor).isActive = true
         
         if traitCollection.userInterfaceStyle == .light {
             backgroundColor = .quaternarySystemFill
         }
                 
         serverNameLabel.text = server?.name
-        friendlyURLLabel.text = server?.friendlyURL
+        serverURLLabel.text = server?.friendlyURL
                 
         pingServer()
         checkForServerLogoImage()
@@ -129,14 +129,14 @@ extension ServerCell {
             if server.imageCached() {
                 // Check server cached logo
                 print("image found")
-                logoImageView.image = server.cachedImage()
+                serverImageView.image = server.cachedImage()
             } else {
                 print("image not found")
-                logoImageView.image = UIImage(named: "nextcloud-server")
+                serverImageView.image = UIImage(named: "nextcloud-server")
             }
         } else {
             // No custom logo
-            logoImageView.image = UIImage(named: "nextcloud-server")
+            serverImageView.image = UIImage(named: "nextcloud-server")
             return
         }
     }
