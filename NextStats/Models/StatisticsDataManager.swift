@@ -46,14 +46,6 @@ enum ActiveUsersIndex: Int {
     case total
 }
 
-/// Calls relating to fetching and updating data in the `StatisticsDataManager````
-protocol StatisticsDataManagerDelegate: AnyObject {
-    func fetchingDidBegin()
-    func errorFetchingData(error: FetchError)
-    func dataUpdated()
-    func errorUpdatingData()
-}
-
 /// Facilitates the fetching and transormation of OCS objects
 class StatisticsDataManager {
     /// Returns the singleton `StatisticsDataManager` instance
