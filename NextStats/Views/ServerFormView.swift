@@ -152,15 +152,13 @@ class ServerFormView: UIView {
 
         self.addSubview(stackView)
 
-        NSLayoutConstraint.activate([
-            nicknameField.heightAnchor.constraint(equalToConstant: 44),
-            serverURLField.heightAnchor.constraint(equalToConstant: 44),
-            connectButton.heightAnchor.constraint(equalToConstant: 44),
-            paddingView.heightAnchor.constraint(equalToConstant: 10),
-            stackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -32),
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
-        ])
+        nicknameField.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        serverURLField.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        connectButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        paddingView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        stackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -32).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
     }
 
     private func styleTextField(textField: UITextField) {

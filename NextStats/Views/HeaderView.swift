@@ -86,14 +86,12 @@ class HeaderView: UIView {
 
         addSubview(mainStackView)
 
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 120),
-            imageView.heightAnchor.constraint(equalToConstant: 120),
+        imageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
 
-            mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-            mainStackView.rightAnchor.constraint(equalTo: rightAnchor)
-        ])
+        mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        mainStackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
 }
