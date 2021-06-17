@@ -13,7 +13,7 @@ let loginEndpoint = "/index.php/login/v2"
 let logoEndpoint = "/index.php/apps/theming/image/logo"
 let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
 
-// MARK: - ServerManagerAuthenticationError
+// MARK: ServerManagerAuthenticationError
 /// String descriptions for various authentication errors.
 @objc public enum ServerManagerAuthenticationError: Int {
     case notValidHost
@@ -29,11 +29,8 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
     }
 }
 
-// MARK: - ServerManagerAuthenticationDelegate
-/**
- The 'ServerManagerAuthenticationDelegate' protocol defines methods you can implement to respond to events associated with authenticating and adding Nextcloud server instances to the ServerManager.
- */
-
+// MARK: ServerManagerAuthenticationDelegate
+/// Functions called by ServerManager pertaining to authenitcation status
 @objc public protocol ServerManagerAuthenticationDelegate {
 
     /// Called when ServerManager is unable to get authorization data from server. Returns error information.
@@ -46,7 +43,7 @@ let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
     func serverCredentialsCaptured()
 }
 
-// MARK: - ServerManager
+// MARK: ServerManager
 /// ServerManager facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
 open class ServerManager {
     // MARK: - Properties
@@ -77,7 +74,7 @@ open class ServerManager {
         self.servers = savedServers
     }
 
-    // MARK: - Server Authorization Flow
+    // MARK: Server Authorization Flow
 
     /**
      1. Request authorization from server, ServerManager uses Login flow v2 as detailed in the Nextcloud Manual.
@@ -116,9 +113,7 @@ open class ServerManager {
         }
     }
 
-    /**
-     2. Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
-     */
+    // 2. Parse JSON from server, capture authentication URL and token for polling, and send loginURL to delegate.
     private func parseJSONFrom(data: Data) {
         let decoder = JSONDecoder()
 
@@ -170,9 +165,7 @@ open class ServerManager {
         }
     }
 
-    /**
-     Decodes the login credentials from the JSON object
-     */
+    /// Decodes the login credentials from the JSON object
     private func decodeCredentialsFrom(json: Data) {
         let decoder = JSONDecoder()
         if let credentials = try? decoder.decode(ServerAuthenticationInfo.self, from: json) {
@@ -215,18 +208,31 @@ open class ServerManager {
         }
     }
 
-    /**
-     Capture the new server, append it, and sort the server array.
-     */
-    private func captureServer(serverURLString: String, friendlyURL: String, username: String, password: String, logo: UIImage?) {
+    // Capture the new server, append it, and sort the server array.
+    private func captureServer(serverURLString: String,
+                               friendlyURL: String,
+                               username: String,
+                               password: String,
+                               logo: UIImage?) {
+
         let server: NextServer
         if let customLogoImage = logo {
             // Image was found, initialize the server object and save the image
-            server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: true)
+            server = NextServer(name: self.name!,
+                                friendlyURL: friendlyURL,
+                                URLString: serverURLString,
+                                username: username,
+                                password: password,
+                                hasCustomLogo: true)
             saveLogo(image: customLogoImage, to: server.imagePath())
         } else {
             // Failed to open the image, initialize the server object without it.
-            server = NextServer(name: self.name!, friendlyURL: friendlyURL, URLString: serverURLString, username: username, password: password, hasCustomLogo: false)
+            server = NextServer(name: self.name!,
+                                friendlyURL: friendlyURL,
+                                URLString: serverURLString,
+                                username: username,
+                                password: password,
+                                hasCustomLogo: false)
         }
 
         servers.append(server)
@@ -248,14 +254,12 @@ open class ServerManager {
         }
     }
 
-    /**
-     Sets shouldPoll to false and thus stopped the authorization process
-     */
+    // Sets shouldPoll to false and thus stopped the authorization process
     func cancelAuthorization() {
         shouldPoll = false
     }
 
-    // MARK: - Server Removal Flow
+    // MARK: Server Removal Flow
     func removeServer(at index: Int) {
         // Check for and remove image first
         let fileManager = FileManager.default

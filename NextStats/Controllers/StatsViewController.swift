@@ -32,7 +32,10 @@ extension StatsViewController {
     private func setupView() {
         // Add Activity Indicator and Open in Safari Button
         let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-        let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"), style: .plain, target: self, action: #selector(openInSafari))
+        let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(openInSafari))
 
         navigationItem.rightBarButtonItems = [openInSafariButton, activityIndicatorBarButtonItem]
 

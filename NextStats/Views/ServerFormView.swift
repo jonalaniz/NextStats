@@ -36,7 +36,8 @@ class ServerFormView: UIView {
         textField.borderStyle = .none
         textField.backgroundColor = .systemFill
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.attributedPlaceholder = NSAttributedString(string: "MyServer", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
+        textField.attributedPlaceholder = NSAttributedString(string: "MyServer",
+                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
 
         return textField
     }()
@@ -60,7 +61,8 @@ class ServerFormView: UIView {
         textField.borderStyle = .none
         textField.backgroundColor = .systemFill
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com", attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
+        textField.attributedPlaceholder = NSAttributedString(string: "https://cloud.example.com",
+                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
 
         return textField
     }()
