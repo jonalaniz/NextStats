@@ -22,6 +22,7 @@
 		561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
+		5650A6F1267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
 		56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE523C8B09A008CF684 /* SceneDelegate.swift */; };
 		56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE723C8B09A008CF684 /* AddServerViewController.swift */; };
@@ -74,6 +75,7 @@
 		561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDataManager.swift; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerAuthenticationDelegate.swift; sourceTree = SOURCE_ROOT; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56557EE323C8B09A008CF684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56557EE523C8B09A008CF684 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
+				5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 			files = (
 				561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */,
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
+				5650A6F1267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
 				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
