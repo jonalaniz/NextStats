@@ -9,7 +9,7 @@
 import UIKit
 
 extension String {
-    // Add https
+    /// Adds https:// prefix for use with a URL string
     func addDomainPrefix() -> String {
         if self.hasPrefix("http://") {
             return "https://" + self
@@ -20,6 +20,7 @@ extension String {
         }
     }
 
+    /// Adds http:// prefix for use with an IP address string
     func addIPPrefix() -> String {
         if self.hasPrefix("http://") {
             return self
@@ -37,7 +38,7 @@ extension String {
         }
     }
 
-    // Remove https://
+    /// Removes https:// from a URL string 
     func makeFriendlyURL() -> String {
         if self.hasPrefix("https://") {
             return self.replacingOccurrences(of: "https://", with: "")

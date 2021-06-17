@@ -8,9 +8,7 @@
 
 import Foundation
 
-/**
- Server Monitor API JSON Struct
- */
+/// Server Monitor API JSON Struct
 struct ServerStats: Codable {
     let ocs: Ocs?
 }

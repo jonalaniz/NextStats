@@ -8,10 +8,7 @@
 
 import Foundation
 
-/**
- Authorization Structs - For use when adding server
- */
-
+// Authorization Structs - Objects used in authorizaton flow
 struct AuthResponse: Codable {
     let poll: Poll?
     let login: String?

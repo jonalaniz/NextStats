@@ -129,7 +129,7 @@ extension ServerViewController {
     }
 }
 
-// MARK: - TableView Methods
+// MARK: TableView Methods
 extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

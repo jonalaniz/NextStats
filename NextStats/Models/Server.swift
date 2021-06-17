@@ -9,10 +9,7 @@
 import Foundation
 import UIKit
 
-// MARK: - Server
-/**
- Server object used to store Nextcloud server information and credentials
- */
+/// Server object used to store Nextcloud server information and credentials
 struct NextServer: Codable {
     let name: String
     let friendlyURL: String
