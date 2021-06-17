@@ -54,16 +54,12 @@ class NoServersView: UIView {
     }
     
     private func createSubviews() {
+        self.addSubview(stackView)
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(textLabel)
         
-        self.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
-        
+        stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 
 }
