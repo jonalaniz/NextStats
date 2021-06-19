@@ -39,7 +39,6 @@ open class ServerManager {
         else { return }
 
         self.servers = savedServers
-        print(servers)
     }
 
     // MARK: Server Authorization Flow
@@ -218,7 +217,33 @@ open class ServerManager {
             }
         }
 
+        deleteAppPassword(for: servers[index])
+
         // Remove server from the server array
         servers.remove(at: index)
+    }
+
+    /// Deletes appPassword from server
+    func deleteAppPassword(for server: NextServer) {
+        // Create the URL with server credentials and append correct path.
+        var components = URLComponents(string: server.URLString)!
+        components.path = "/ocs/v2.php/core/apppassword"
+        components.query = nil
+
+        // Configure http headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = ["Authorization": server.authenticationString(),
+                                        "OCS-APIREQUEST": "true"]
+
+        // Configure HTTP Request
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+
+        networkController.fetchData(with: request, using: config) { (result: Result<Data, FetchError>) in
+            switch result {
+            case .failure(let error): print("Error: \(error)")
+            case .success(_): return
+            }
+        }
     }
 }
