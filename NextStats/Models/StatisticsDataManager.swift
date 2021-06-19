@@ -102,11 +102,8 @@ extension StatisticsDataManager {
 
         // Prepare URL Configuration
         let url = URL(string: server.URLString)!
-
-        let credentials = "\(server.username):\(server.password)".data(using: .utf8)!.base64EncodedString()
-        let authenticatonString = "Basic \(credentials)"
         let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Authorization": authenticatonString]
+        config.httpAdditionalHeaders = ["Authorization": server.authenticationString()]
         let request = URLRequest(url: url)
 
         // Fetch data from server using networkController
