@@ -110,7 +110,7 @@ class ServerFormView: UIView {
     let connectButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
+        button.backgroundColor = UIColor.themeColor
         button.layer.cornerRadius = 10
         button.setTitle("connect".localized(), for: .normal)
         button.setTitleColor(.white, for: .normal)
