@@ -18,6 +18,17 @@ struct NextServer: Codable {
     let password: String
     var hasCustomLogo: Bool = false
 
+    func authenticationString() -> String {
+        let credentials = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
+        let authenticationString = "Basic \(credentials)"
+
+        return authenticationString
+    }
+
+    func cachedImage() -> UIImage {
+        return UIImage(contentsOfFile: imagePath())!
+    }
+
     func imageURL() -> URL {
         let url = URL(string: URLString)!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
@@ -41,10 +52,6 @@ struct NextServer: Codable {
             print(FileManager.default.fileExists(atPath: path))
             return false
         }
-    }
-
-    func cachedImage() -> UIImage {
-        return UIImage(contentsOfFile: imagePath())!
     }
 
     mutating func setCustomLogo() {
