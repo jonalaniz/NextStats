@@ -24,7 +24,11 @@ open class ServerManager {
     var servers = [NextServer]() {
         didSet {
             // Encode new server value into keychain
-            KeychainWrapper.standard.set(try! PropertyListEncoder().encode(servers), forKey: "servers")
+            do {
+                KeychainWrapper.standard.set(try PropertyListEncoder().encode(servers), forKey: "servers")
+            } catch {
+                fatalError("Could not encode server data: \(error)")
+            }
         }
     }
 
