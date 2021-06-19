@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-let loginEndpoint = "/index.php/login/v2"
-let logoEndpoint = "/index.php/apps/theming/image/logo"
-let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
-
 /// Facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
 open class ServerManager {
     /// Returns the singleton 'ServerManager' instance.
@@ -49,8 +45,10 @@ open class ServerManager {
         self.name = name
 
         // Append Login flow v2 endpoint and create request
-        let urlWithEndpoint = url.appendingPathComponent(loginEndpoint)
-        var request = URLRequest(url: urlWithEndpoint)
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.path = Paths.loginEndpoint
+
+        var request = URLRequest(url: components.url!)
         request.httpMethod = "POST"
 
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
@@ -149,9 +147,9 @@ open class ServerManager {
             return
         }
 
-        let URLString = serverURL + statEndpoint
+        let URLString = serverURL + Paths.statEndpoint
         let friendlyURL = serverURL.makeFriendlyURL()
-        let logoURLString = serverURL + logoEndpoint
+        let logoURLString = serverURL + Paths.logoEndpoint
         let logoURL = URL(string: logoURLString)!
         let request = URLRequest(url: logoURL)
 

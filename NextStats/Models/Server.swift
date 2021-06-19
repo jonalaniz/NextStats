@@ -32,9 +32,9 @@ struct NextServer: Codable {
     func imageURL() -> URL {
         let url = URL(string: URLString)!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path = ""
+        components.path = Paths.logoEndpoint
 
-        return (components.url?.appendingPathComponent(logoEndpoint))!
+        return components.url!
     }
 
     func imagePath() -> String {
