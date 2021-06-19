@@ -56,6 +56,7 @@ class ServerFormView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textContentType = .URL
         textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         textField.keyboardType = .URL
         textField.returnKeyType = .done
         textField.borderStyle = .none
