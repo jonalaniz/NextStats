@@ -132,7 +132,6 @@ open class ServerManager {
         let decoder = JSONDecoder()
         if let credentials = try? decoder.decode(ServerAuthenticationInfo.self, from: json) {
             DispatchQueue.main.async {
-                print(credentials)
                 self.setupServer(with: credentials)
             }
         }
@@ -168,11 +167,10 @@ open class ServerManager {
                 return
             case .success(let data):
                 guard let image = UIImage(data: data) else { return }
+                
                 // Set custom logo and download image
                 self.saveLogo(image: image, to: server.imagePath())
                 server.setCustomLogo()
-                print(server.hasCustomLogo)
-                print("is there anyone here?")
             }
             self.captureServer(server)
         }
