@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable line_length
 let urlRegEx = #"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$"#
 
 // swiftlint:disable line_length

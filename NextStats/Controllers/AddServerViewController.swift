@@ -17,7 +17,7 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
     override func loadView() {
         view = serverFormView
 
-        serverFormView.serverURLField.addTarget(self, action: #selector(checkURLValidity), for: .editingDidEnd)
+        serverFormView.serverURLField.addTarget(self, action: #selector(checkURLField), for: .editingChanged)
         serverFormView.connectButton.addTarget(self, action: #selector(connectButtonPressed), for: .touchUpInside)
 
         serverFormView.nicknameField.delegate = self
@@ -32,9 +32,26 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 
 extension AddServerViewController {
     @objc func connectButtonPressed(_ sender: Any) {
-        // Check to make sure checkValidURL worked
-        guard let url = authAPIURL else { return }
+        // Make sure address field is not empty
+        guard let string = serverFormView.serverURLField.text
+        else {
+            updateStatusLabel(with: "Enter an address...")
+            return
+        }
+
+        var urlString: String
+
+        if string.isValidURL() {
+            urlString = string.addDomainPrefix()
+        } else if string.isValidIPAddress() {
+            urlString = string.addIPPrefix()
+        } else {
+            updateStatusLabel(with: "Enter an address...")
+            return
+        }
+
         let serverName = serverFormView.nicknameField.text ?? "Server"
+        let url = URL(string: urlString)!
 
         // Initiate the authorization request, and check for logo
         coordinator?.requestAuthorization(withURL: url, name: serverName)
@@ -50,43 +67,41 @@ extension AddServerViewController {
         dismiss(animated: true)
     }
 
-    // Detects if URLField has a proper IP Address or URL, formats the string for use with ServerManager
-    @objc func checkURLValidity() {
-
-        // Reset the authAPIURL if for some reason they had already entered a valid URL
-        authAPIURL = nil
-
+    /// Enables the connect button when text is entered
+    @objc func checkURLField() {
         // Safely unwrap urlString
-        guard let urlString = serverFormView.serverURLField.text?.lowercased() else { return }
+        guard let urlString = serverFormView.serverURLField.text else { return }
 
-        // Check for a valid address
-        if urlString.isValidURL() {
-            serverFormView.statusLabel.isHidden = true
-            serverFormView.connectButton.isEnabled = true
-
-            // Check protocol
-            authAPIURL = URL(string: urlString.addDomainPrefix())
-        } else if urlString.isValidIPAddress() {
-            serverFormView.statusLabel.isHidden = true
-            serverFormView.connectButton.isEnabled = true
-
-            // Check protocol
-            authAPIURL = URL(string: urlString.addIPPrefix())
+        if urlString != "" {
+            hideStatusAndEnableConnectButton()
         } else {
-            serverFormView.statusLabel.isHidden = false
-            serverFormView.connectButton.isEnabled = false
+            updateStatusLabel(with: "Enter an address...")
         }
     }
 
     func updateStatusLabel(with text: String) {
         serverFormView.statusLabel.isHidden = false
         serverFormView.statusLabel.text = text
+        serverFormView.connectButton.isEnabled = false
+
+        UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded()
+        }
+    }
+
+    func hideStatusAndEnableConnectButton() {
+        serverFormView.statusLabel.isHidden = true
+        serverFormView.connectButton.isEnabled = true
+
+        UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded()
+        }
     }
 
     private func setupNavigationController() {
         title = "add_server_title".localized()
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                           target: self,
+                                                           action: #selector(cancelPressed))
     }
 
     private func deactivateSpinner() {
