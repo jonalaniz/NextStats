@@ -147,17 +147,22 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     func errorFetchingData(error: FetchError) {
         switch error {
         case .invalidData:
-            self.displayErrorAndReturn(title: "Invalid Data", description: "Server response data could not be read.")
+            self.displayErrorAndReturn(title: "Invalid Data",
+                                       description: "Server response data could not be read.")
         case .missingResponse:
-            self.displayErrorAndReturn(title: "Missing Response", description: "Server could be reached, but response was not given.")
+            self.displayErrorAndReturn(title: "Missing Response",
+                                       description: "Server could be reached, but response was not given.")
         case .network(let error):
-            self.displayErrorAndReturn(title: "Network Error", description: "\(error.localizedDescription)")
+            self.displayErrorAndReturn(title: "Network Error",
+                                       description: "\(error.localizedDescription)")
         case .unexpectedResponse(let response):
             switch response {
             case 401:
-                self.displayErrorAndReturn(title: "Unauthorized (\(response))", description: "User must have administrative privileges to fetch server statistics.")
+                self.displayErrorAndReturn(title: "Unauthorized (\(response))",
+                                           description: "You must have administrative privileges to fetch server statistics.")
             default:
-                self.displayErrorAndReturn(title: "Unexpected Response (\(response))", description: "\(response)")
+                self.displayErrorAndReturn(title: "Unexpected Response (\(response))",
+                                           description: "\(response)")
             }
         }
 
@@ -170,6 +175,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     }
 
     func errorUpdatingData() {
-        self.displayErrorAndReturn(title: "Error updating data.", description: "Statistics data missing from server response.")
+        self.displayErrorAndReturn(title: "Error updating data.",
+                                   description: "Statistics data missing from server response.")
     }
 }
