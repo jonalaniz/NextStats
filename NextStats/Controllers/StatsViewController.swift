@@ -140,11 +140,20 @@ extension StatsViewController {
 
 // MARK: StatisticsDataManagerDelegate
 extension StatsViewController: StatisticsDataManagerDelegate {
-    func fetchingDidBegin() {
+    func failedToUpdateData(error: DataManagerError) {
+        switch error {
+        case .unableToParseJSON:
+            self.displayErrorAndReturn(title: "Error", description: error.description)
+        case .missingData:
+            self.displayErrorAndReturn(title: "Error", description: error.description)
+        }
+    }
+
+    func willBeginFetchingData() {
         // this is possibly not needed
     }
 
-    func errorFetchingData(error: FetchError) {
+    func failedToFetchData(error: FetchError) {
         switch error {
         case .invalidData:
             self.displayErrorAndReturn(title: "Invalid Data",
@@ -174,7 +183,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
         tableView.reloadData()
     }
 
-    func errorUpdatingData() {
+    func failedToUpdateData() {
         self.displayErrorAndReturn(title: "Error updating data.",
                                    description: "Statistics data missing from server response.")
     }

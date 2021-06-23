@@ -8,10 +8,22 @@
 
 import Foundation
 
+enum DataManagerError {
+    case unableToParseJSON
+    case missingData
+
+    public var description: String {
+        switch self {
+        case .missingData: return "Missing statistics data."
+        case .unableToParseJSON: return "Unable to parse JSON."
+        }
+    }
+}
+
 /// Calls relating to fetching and updating data in the `StatisticsDataManager`
 protocol StatisticsDataManagerDelegate: AnyObject {
-    func fetchingDidBegin()
-    func errorFetchingData(error: FetchError)
     func dataUpdated()
-    func errorUpdatingData()
+    func failedToFetchData(error: FetchError)
+    func failedToUpdateData(error: DataManagerError)
+    func willBeginFetchingData()
 }

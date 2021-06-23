@@ -98,7 +98,7 @@ extension StatisticsDataManager {
 
     private func fetchData(for server: NextServer) {
         // Notify our delegate
-        delegate?.fetchingDidBegin()
+        delegate?.willBeginFetchingData()
 
         // Prepare URL Configuration
         let url = URL(string: server.URLString)!
@@ -111,7 +111,7 @@ extension StatisticsDataManager {
             switch result {
             case .failure(let fetchError):
                 // Notify the delegate of our error
-                self.delegate?.errorFetchingData(error: fetchError)
+                self.delegate?.failedToFetchData(error: fetchError)
             case .success(let data):
                 // Update our statistics with the fetched data
                 self.parseServerStatisticsJSON(from: data)
@@ -127,7 +127,7 @@ extension StatisticsDataManager {
             updateData(with: result)
         } catch {
             // TODO: This should show error that JSON was unable to be parsed, using generic error rn
-            delegate?.errorUpdatingData()
+            delegate?.failedToUpdateData(error: .unableToParseJSON)
         }
     }
 
@@ -139,7 +139,7 @@ extension StatisticsDataManager {
               let server = statistics.ocs?.data?.server,
               let users = statistics.ocs?.data?.activeUsers
         else {
-            failedUpdatingData()
+            delegate?.failedToUpdateData(error: .missingData)
             return
         }
 
@@ -311,10 +311,6 @@ extension StatisticsDataManager {
         let usagePercentage = (totalUsed / totalMemory) * 100
 
         return usagePercentage
-    }
-
-    private func failedUpdatingData() {
-        delegate?.errorUpdatingData()
     }
 }
 
