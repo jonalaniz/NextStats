@@ -62,12 +62,12 @@ open class ServerManager {
                     switch fetchError {
                     case .unexpectedResponse(let response):
                         if response == 404 {
-                            self.delegate?.failedToGetAuthorizationURL(withError: .serverNotFound)
+                            self.delegate?.failedToGetCredentials(withError: .serverNotFound)
                         } else {
-                            self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
+                            self.delegate?.failedToGetCredentials(withError: .notValidHost)
                         }
                     default:
-                        self.delegate?.failedToGetAuthorizationURL(withError: .notValidHost)
+                        self.delegate?.failedToGetCredentials(withError: .notValidHost)
                     }
                 case .success(let data):
                     self.parseJSONFrom(data: data)
@@ -82,7 +82,7 @@ open class ServerManager {
         let decoder = JSONDecoder()
 
         guard let jsonStream = try? decoder.decode(AuthResponse.self, from: data) else {
-            self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
+            self.delegate?.failedToGetCredentials(withError: .failedToSerializeResponse)
             return
         }
 
@@ -91,11 +91,11 @@ open class ServerManager {
             let token = jsonStream.poll?.token,
             let loginURL = jsonStream.login
         else {
-            self.delegate?.failedToGetAuthorizationURL(withError: .failedToSerializeResponse)
+            self.delegate?.failedToGetCredentials(withError: .failedToSerializeResponse)
             return
         }
 
-        self.delegate?.authorizationDataRecieved(loginURL: loginURL)
+        self.delegate?.didRecieve(loginURL: loginURL)
         self.pollForCredentials(at: pollURL, with: token)
     }
 
@@ -119,7 +119,7 @@ open class ServerManager {
                             }
                         }
                     default:
-                        self.delegate?.failedToGetAuthorizationURL(withError: .serverNotFound)
+                        self.delegate?.failedToGetCredentials(withError: .serverNotFound)
                     }
                 case .success(let data):
                     self.shouldPoll = false
@@ -146,8 +146,7 @@ open class ServerManager {
             let username = credentials.loginName,
             let password = credentials.appPassword
         else {
-            // Found nil when unwrapping server credentials.
-            delegate?.authorizationDataMissing()
+            delegate?.failedToGetCredentials(withError: .authorizationDataMissing)
             return
         }
 
@@ -169,7 +168,7 @@ open class ServerManager {
                 return
             case .success(let data):
                 guard let image = UIImage(data: data) else { return }
-                
+
                 // Set custom logo and download image
                 self.saveLogo(image: image, to: server.imagePath())
                 server.setCustomLogo()
@@ -184,7 +183,7 @@ open class ServerManager {
         servers.sort(by: { $0.name < $1.name })
 
         DispatchQueue.main.async {
-            self.delegate?.serverCredentialsCaptured()
+            self.delegate?.didCaptureCredentials()
         }
     }
 

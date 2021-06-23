@@ -60,20 +60,15 @@ class AddServerCoordinator: Coordinator {
 }
 
 extension AddServerCoordinator: ServerManagerAuthenticationDelegate {
-    func authorizationDataMissing() {
-        // TODO: Pass information as to what was wrong with the data
-        addServerViewControlller.updateStatusLabel(with: "Authorization data missing")
-    }
-
-    func failedToGetAuthorizationURL(withError error: ServerManagerAuthenticationError) {
+    func failedToGetCredentials(withError error: ServerManagerAuthenticationError) {
         addServerViewControlller.updateStatusLabel(with: error.description)
     }
 
-    func authorizationDataRecieved(loginURL: String) {
+    func didRecieve(loginURL: String) {
         showLoginPage(withURlString: loginURL)
     }
 
-    func serverCredentialsCaptured() {
+    func didCaptureCredentials() {
         navigationController.dismiss(animated: true, completion: nil)
         didFinishAdding()
     }
