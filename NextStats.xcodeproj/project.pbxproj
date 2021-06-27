@@ -44,6 +44,7 @@
 		56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A56EC32563C5A3005A6D18 /* InfoModel.swift */; };
 		56B1413F267E7236002D66D8 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Paths.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
+		56B59BEE26886EBD00A75B13 /* NextStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B59BED26886EBD00A75B13 /* NextStat.swift */; };
 		56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* ServerManager.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
 		56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA258724EE48F90034CA96 /* URLChecker.swift */; };
@@ -105,6 +106,7 @@
 		56A8EFD0256AC84100AFC20C /* NextStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NextStats.entitlements; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
+		56B59BED26886EBD00A75B13 /* NextStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStat.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
 		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 				56F7F8F324D78C9E00C667E4 /* Server.swift */,
 				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
+				56B59BED26886EBD00A75B13 /* NextStat.swift */,
 				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 				56B1413E267E7236002D66D8 /* Paths.swift */,
 				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
@@ -428,6 +431,7 @@
 				56924DD223F802A70043C9BE /* Extensions.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */,
 				5601D80625E31C4900993D31 /* String+Localized.swift in Sources */,
+				56B59BEE26886EBD00A75B13 /* NextStat.swift in Sources */,
 				5601D7F625E3199400993D31 /* UIApplication+AppVersion.swift in Sources */,
 				56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */,
 				567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */,

@@ -8,51 +8,13 @@
 
 import Foundation
 
-// Server Data Label Enums
-enum Sections: Int {
-    case system
-    case storage
-    case server
-    case activeUsers
-}
-
-enum SystemIndex: Int {
-    case version
-    case cpuLoad
-    case memoryUsage
-    case memory
-    case swapUsage
-    case swap
-    case localCache
-    case distributedCache
-}
-
-enum StorageIndex: Int {
-    case freeSpace
-    case numberOfFiles
-}
-
-enum ServerIndex: Int {
-    case webServer
-    case phpVersion
-    case database
-    case databaseVersion
-}
-
-enum ActiveUsersIndex: Int {
-    case last5Minutes
-    case lastHour
-    case lastDay
-    case total
-}
-
-/// Facilitates the fetching and transormation of OCS objects
+/// Facilitates the fetching and transormation of OCS objects into NextStat objects.
 class StatisticsDataManager {
     /// Returns the singleton `StatisticsDataManager` instance
     public static let shared = StatisticsDataManager()
 
     private let networkController = NetworkController.shared
-
+    private var nextStat = NextStat()
     weak var delegate: StatisticsDataManagerDelegate?
 
     var server: NextServer! {
@@ -62,37 +24,8 @@ class StatisticsDataManager {
         }
     }
 
-    // MARK: Labels
-    private let sectionLabels = ["System", "Storage", "Server", "Active Users"]
-    private let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory", "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
-    private let storageSectionLabels = ["Free Space", "Number of Files"]
-    private let serverSectionLabels = ["Web Server", "PHP Version", "Database", "Database Version"]
-    private let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
-
-    // MARK: Server Stats Data
-    private var systemSectionData = [String]()
-    private var storageSectionData = [String]()
-    private var serverSectionData = [String]()
-    private var activeUsersSectionData = [String]()
-
-    init() {
-        initializeSectionData()
-    }
-}
-
-/// StatisticsDataManager Functions
-extension StatisticsDataManager {
-
-    // Initializes data before fetching
-    private func initializeSectionData() {
-        systemSectionData = Array(repeating: "...", count: systemSectionLabels.count)
-        storageSectionData = Array(repeating: "...", count: storageSectionLabels.count)
-        serverSectionData = Array(repeating: "...", count: serverSectionLabels.count)
-        activeUsersSectionData = Array(repeating: "...", count: activeUsersSectionLabels.count)
-    }
-
     private func resetServerData() {
-        initializeSectionData()
+        nextStat.initializeSectionData()
         delegate?.dataUpdated()
     }
 
@@ -126,12 +59,11 @@ extension StatisticsDataManager {
             let result = try decoder.decode(ServerStats.self, from: data)
             updateData(with: result)
         } catch {
-            // TODO: This should show error that JSON was unable to be parsed, using generic error rn
             delegate?.failedToUpdateData(error: .unableToParseJSON)
         }
     }
 
-    // Updates Server Stats Data with ServerStats struct
+    /// Updates Server Stats Data with ServerStats struct
     private func updateData(with statistics: ServerStats) {
         // Split statistics into variables
         // Certain Nextcloud configurations can cause unexpected or missing data
@@ -225,14 +157,14 @@ extension StatisticsDataManager {
             }
         }
 
-        systemSectionData[SystemIndex.version.rawValue] = system.system?.version ?? "N/A"
-        systemSectionData[SystemIndex.cpuLoad.rawValue] = cpu
-        systemSectionData[SystemIndex.memoryUsage.rawValue] = memoryUsage
-        systemSectionData[SystemIndex.memory.rawValue] = memory
-        systemSectionData[SystemIndex.swapUsage.rawValue] = swapUsage
-        systemSectionData[SystemIndex.swap.rawValue] = swap
-        systemSectionData[SystemIndex.localCache.rawValue] = system.system?.memcacheLocal ?? "N/A"
-        systemSectionData[SystemIndex.distributedCache.rawValue] = system.system?.memcacheDistributed ?? "N/A"
+        nextStat.setSystemData(for: .version, to: system.system?.version ?? "N/A")
+        nextStat.setSystemData(for: .cpuLoad, to: cpu)
+        nextStat.setSystemData(for: .memoryUsage, to: memoryUsage)
+        nextStat.setSystemData(for: .memory, to: memory)
+        nextStat.setSystemData(for: .swapUsage, to: swapUsage)
+        nextStat.setSystemData(for: .swap, to: swap)
+        nextStat.setSystemData(for: .localCache, to: system.system?.memcacheLocal ?? "N/A")
+        nextStat.setSystemData(for: .distributedCache, to: system.system?.memcacheDistributed ?? "N/A")
 
         // Update Storage Section
         var freeSpace = "N/A"
@@ -254,14 +186,13 @@ extension StatisticsDataManager {
             numberOfFiles = numberOfFilesString
         }
 
-        storageSectionData[StorageIndex.freeSpace.rawValue] = freeSpace
-        storageSectionData[StorageIndex.numberOfFiles.rawValue] = numberOfFiles
+        nextStat.setStorageData(for: .freeSpace, to: freeSpace)
+        nextStat.setStorageData(for: .numberOfFiles, to: numberOfFiles)
 
-        // Update Server Section
-        serverSectionData[ServerIndex.webServer.rawValue] = server.webserver ?? "N/A"
-        serverSectionData[ServerIndex.phpVersion.rawValue] = server.php?.version ?? "N/A"
-        serverSectionData[ServerIndex.database.rawValue] = server.database?.type ?? "N/A"
-        serverSectionData[ServerIndex.databaseVersion.rawValue] = server.database?.version ?? "N/A"
+        nextStat.setServerData(for: .webServer, to: server.webserver ?? "N/A")
+        nextStat.setServerData(for: .phpVersion, to: server.php?.version ?? "N/A")
+        nextStat.setServerData(for: .database, to: server.database?.type ?? "N/A")
+        nextStat.setServerData(for: .databaseVersion, to: server.database?.version ?? "N/A")
 
         // Update Active Users Section
         var last5 = "N/A"
@@ -285,10 +216,10 @@ extension StatisticsDataManager {
             total = String(possibleTotal)
         }
 
-        activeUsersSectionData[ActiveUsersIndex.last5Minutes.rawValue] = last5
-        activeUsersSectionData[ActiveUsersIndex.lastHour.rawValue] = lastHour
-        activeUsersSectionData[ActiveUsersIndex.lastDay.rawValue] = lastDay
-        activeUsersSectionData[ActiveUsersIndex.total.rawValue] = total
+        nextStat.setActiveUserData(for: .last5Minutes, to: last5)
+        nextStat.setActiveUserData(for: .lastHour, to: lastHour)
+        nextStat.setActiveUserData(for: .lastDay, to: lastDay)
+        nextStat.setActiveUserData(for: .total, to: total)
 
         DispatchQueue.main.async {
             self.delegate?.dataUpdated()
@@ -317,45 +248,28 @@ extension StatisticsDataManager {
 /// StatisticsDataManager TableView Data Functions
 extension StatisticsDataManager {
     func sections() -> Int {
-        return sectionLabels.count
+        return Sections.allCases.count
     }
 
     func sectionLabel(for section: Int) -> String {
-        return sectionLabels[section]
+        return nextStat.section(section)
     }
 
     func rows(in section: Int) -> Int {
         switch section {
-        case 0: return systemSectionLabels.count
-        case 1: return storageSectionLabels.count
-        case 2: return serverSectionLabels.count
-        case 3: return activeUsersSectionLabels.count
+        case 0: return SystemIndex.allCases.count
+        case 1: return StorageIndex.allCases.count
+        case 2: return ServerIndex.allCases.count
+        case 3: return ActiveUsersIndex.allCases.count
         default: return 0
         }
     }
 
     func rowLabel(forRow row: Int, inSection section: Int) -> String {
-        switch section {
-        case 0: return systemSectionLabels[row]
-        case 1: return storageSectionLabels[row]
-        case 2: return serverSectionLabels[row]
-        case 3: return activeUsersSectionLabels[row]
-        default: return "N/A"
-        }
+        return nextStat.label(forRow: row, inSection: section)
     }
 
     func rowData(forRow row: Int, inSection section: Int) -> String {
-        switch section {
-        case 0:
-            return systemSectionData[row]
-        case 1:
-            return storageSectionData[row]
-        case 2:
-            return serverSectionData[row]
-        case 3:
-            return activeUsersSectionData[row]
-        default:
-            return "N/A"
-        }
+        return nextStat.data(forRow: row, inSection: section)
     }
 }
