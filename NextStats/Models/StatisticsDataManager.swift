@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/8/21.
-//  Copyright © 2021 Jon Alaniz. All rights reserved.
+//  Copyright © 2021 Jon Alaniz
 //
 
 import Foundation
@@ -112,7 +112,6 @@ class StatisticsDataManager {
                         }
                     }
                 }
-
             }
         }
 
@@ -180,10 +179,8 @@ class StatisticsDataManager {
             }
         }
 
-        if let possibleNumberOffiles = system.storage?.numFiles {
-            let numberOfFilesString = String(possibleNumberOffiles)
-
-            numberOfFiles = numberOfFilesString
+        if let possibleNumberOfFiles = system.storage?.numFiles {
+            numberOfFiles = String(possibleNumberOfFiles)
         }
 
         nextStat.setStorageData(for: .freeSpace, to: freeSpace)

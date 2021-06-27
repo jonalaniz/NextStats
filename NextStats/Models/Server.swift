@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 8/2/20.
-//  Copyright © 2020 Jon Alaniz. All rights reserved.
+//  Copyright © 2020 Jon Alaniz
 //
 
 import Foundation

@@ -3,7 +3,7 @@
 //  NextStatsTests
 //
 //  Created by Jon Alaniz on 11/7/20.
-//  Copyright © 2020 Jon Alaniz. All rights reserved.
+//  Copyright © 2020 Jon Alaniz
 //
 
 import XCTest
