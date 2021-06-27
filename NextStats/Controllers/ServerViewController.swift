@@ -17,8 +17,6 @@ class ServerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .serverDidChange, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

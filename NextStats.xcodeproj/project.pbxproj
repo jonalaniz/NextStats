@@ -14,7 +14,6 @@
 		5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */; };
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
-		5601D80E25E31D2000993D31 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80D25E31D2000993D31 /* Notifications.swift */; };
 		56112884265A1FE4003CC0BE /* NoServersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56112883265A1FE4003CC0BE /* NoServersView.swift */; };
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
@@ -70,7 +69,6 @@
 		5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Activate-Deactivate.swift"; sourceTree = "<group>"; };
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
-		5601D80D25E31D2000993D31 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		56112883265A1FE4003CC0BE /* NoServersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoServersView.swift; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				56924DD123F802A70043C9BE /* Extensions.swift */,
-				5601D80D25E31D2000993D31 /* Notifications.swift */,
 				5601D80525E31C4900993D31 /* String+Localized.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
 				5601D7F525E3199400993D31 /* UIApplication+AppVersion.swift */,
@@ -410,7 +407,6 @@
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
-				5601D80E25E31D2000993D31 /* Notifications.swift in Sources */,
 				5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */,
 				5601D7B325E0E8DB00993D31 /* Coordinator.swift in Sources */,
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
