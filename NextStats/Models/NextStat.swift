@@ -88,6 +88,10 @@ struct NextStat {
         activeUsersSectionData[section.rawValue] = string
     }
 
+    mutating func activeUserDataNotFound() {
+        activeUsersSectionData = Array(repeating: "N/A", count: activeUsersSectionLabels.count)
+    }
+
     func data(forRow row: Int, inSection section: Int) -> String {
         switch section {
         case 0: return systemSectionData[row]

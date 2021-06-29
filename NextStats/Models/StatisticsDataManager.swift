@@ -65,8 +65,7 @@ class StatisticsDataManager {
 
     /// Updates Server Stats Data with ServerStats struct
     private func updateData(with statistics: ServerStats) {
-        // Split statistics into variables
-        // Certain Nextcloud configurations can cause unexpected or missing data
+        // Split statistics into variables, if data is missing fail and return
         guard let system = statistics.ocs?.data?.nextcloud,
               let server = statistics.ocs?.data?.server,
               let users = statistics.ocs?.data?.activeUsers
@@ -75,10 +74,7 @@ class StatisticsDataManager {
             return
         }
 
-        // Update System Section
-        // Memory data is especially finicky with certain Nextcloud installations,
-        // values may be String or Int,
-        // tread with caution
+        // MARK: - System
         var memoryUsage = "N/A"
         var memory = "N/A"
         var swapUsage = "N/A"
@@ -86,74 +82,60 @@ class StatisticsDataManager {
         var cpu = "N/A"
 
         // Make sure memory values are present
-        if let freeMemoryBytes = system.system?.memFree?.intValue {
-            if let totalMemoryBytes = system.system?.memTotal?.intValue {
-                // Convert values to Doubles, then check that they are not Infinite or NaN
-                let freeMemoryBytesDouble = Double(freeMemoryBytes)
-                let totalMemoryBytesDouble = Double(totalMemoryBytes)
-                if !freeMemoryBytesDouble.isInfinite && !freeMemoryBytesDouble.isNaN {
-                    if !totalMemoryBytesDouble.isInfinite && !totalMemoryBytesDouble.isNaN {
-                        // Calculate memoryUsage and totalMemory
-                        let calculatedMemoryUsage = calculateMemoryUsagePercent(freeMemory: freeMemoryBytesDouble, totalMemory: totalMemoryBytesDouble)
+        if let freeMemoryBytes = system.system?.memFree?.intValue,
+           let totalMemoryBytes = system.system?.memTotal?.intValue {
+            // Convert values to Doubles, then check that they are not Infinite or NaN
+            let freeMemoryBytesDouble = Double(freeMemoryBytes)
+            let totalMemoryBytesDouble = Double(totalMemoryBytes)
+            if !freeMemoryBytesDouble.isInfinite && !freeMemoryBytesDouble.isNaN
+                && !totalMemoryBytesDouble.isInfinite && !totalMemoryBytesDouble.isNaN {
+                // Calculate memoryUsage and totalMemory
+                let calculatedMemoryUsage = calculateMemoryUsage(freeMemory: freeMemoryBytesDouble, totalMemory: totalMemoryBytesDouble)
 
-                        // One final check, this is where the issue seems to lie
-                        if !calculatedMemoryUsage.isInfinite && !calculatedMemoryUsage.isNaN {
-                            let memoryUsageInt = Int(calculatedMemoryUsage)
+                // One final check, this is where the issue seems to lie
+                if !calculatedMemoryUsage.isInfinite && !calculatedMemoryUsage.isNaN {
+                    memoryUsage = String(format: "%.2f", calculatedMemoryUsage).appending("%")
 
-                            memoryUsage = String("\(memoryUsageInt)%")
+                    let memoryUsedInGigabytes = Units(kilobytes: totalMemoryBytesDouble - freeMemoryBytesDouble).gigabytes
+                    let totalMemoryInGigabytes = Units(kilobytes: totalMemoryBytesDouble).gigabytes
+                    let memoryUsedString = String(format: "%.2f", memoryUsedInGigabytes)
+                    let totalMemoryString = String(format: "%.2f", totalMemoryInGigabytes)
 
-                            let memoryUsed = totalMemoryBytesDouble - freeMemoryBytesDouble
-                            let memoryUsedInGigabytes = bytesToGigabytes(bytes: memoryUsed)
-                            let totalMemoryInGigabytes = bytesToGigabytes(bytes: totalMemoryBytesDouble)
-                            let memoryUsedString = String(format: "%.2f", memoryUsedInGigabytes)
-                            let totalMemoryString = String(format: "%.2f", totalMemoryInGigabytes)
-
-                            memory = "\(memoryUsedString)/\(totalMemoryString) GB"
-                        }
-                    }
+                    memory = "\(memoryUsedString)/\(totalMemoryString) GB"
                 }
             }
         }
 
         // Make sure swap values are present
-        if let freeSwapBytes = system.system?.swapFree?.intValue {
-            if let totalSwapBytes = system.system?.swapTotal?.intValue {
-                // Convert values to Doubles, then check that they are not Infinite or NaN
-                let freeSwapBytesDouble = Double(freeSwapBytes)
-                let totalSwapBytesDouble = Double(totalSwapBytes)
-                if !freeSwapBytesDouble.isInfinite && !freeSwapBytesDouble.isNaN {
-                    if !totalSwapBytesDouble.isInfinite && !totalSwapBytesDouble.isNaN {
-                        // Calculate swapUsage and totalSwap
-                        let calculatedSwapUsage = calculateMemoryUsagePercent(freeMemory: freeSwapBytesDouble, totalMemory: totalSwapBytesDouble)
+        if let freeSwapBytes = system.system?.swapFree?.intValue,
+           let totalSwapBytes = system.system?.swapTotal?.intValue {
+            // Convert values to Doubles, then check that they are not Infinite or NaN
+            let freeSwapBytesDouble = Double(freeSwapBytes)
+            let totalSwapBytesDouble = Double(totalSwapBytes)
+            if !freeSwapBytesDouble.isInfinite && !freeSwapBytesDouble.isNaN
+                && !totalSwapBytesDouble.isInfinite && !totalSwapBytesDouble.isNaN {
+                // Calculate swapUsage and totalSwap
+                let calculatedSwapUsage = calculateMemoryUsage(freeMemory: freeSwapBytesDouble, totalMemory: totalSwapBytesDouble)
 
-                        // One final check, this is where the issue seems to lie
-                        if !calculatedSwapUsage.isInfinite && !calculatedSwapUsage.isNaN {
-                            let swapUsageInt = Int(calculatedSwapUsage)
+                // One final check, this is where the issue seems to lie
+                if !calculatedSwapUsage.isInfinite && !calculatedSwapUsage.isNaN {
+                    swapUsage = String(format: "%.2f", calculatedSwapUsage).appending("%")
 
-                            swapUsage = String("\(swapUsageInt)%")
+                    let swapUsedInGigabytes = Units(kilobytes: totalSwapBytesDouble - freeSwapBytesDouble).gigabytes
+                    let totalSwapInGigabytes = Units(kilobytes: totalSwapBytesDouble).gigabytes
+                    let swapUsedString = String(format: "%.2f", swapUsedInGigabytes)
+                    let totalSwapString = String(format: "%.2f", totalSwapInGigabytes)
 
-                            let swapUsed = totalSwapBytesDouble - freeSwapBytesDouble
-                            let swapUsedInGigabytes = bytesToGigabytes(bytes: swapUsed)
-                            let totalSwapInGigabytes = bytesToGigabytes(bytes: totalSwapBytesDouble)
-                            let swapUsedString = String(format: "%.2f", swapUsedInGigabytes)
-                            let totalSwapString = String(format: "%.2f", totalSwapInGigabytes)
-
-                            swap = "\(swapUsedString)/\(totalSwapString) GB"
-                        }
-                    }
+                    swap = "\(swapUsedString)/\(totalSwapString) GB"
                 }
-
             }
         }
 
         // Convert CPU array to string
         if let cpuUsageArray = system.system?.cpuload {
-            // CPU array SHOULD only have three values
-            if cpuUsageArray.count == 3 {
-                let cpuString = "\(cpuUsageArray[0]), \(cpuUsageArray[1]), \(cpuUsageArray[2])"
+            let cpuStringArray = cpuUsageArray.map { String($0) }
 
-                cpu = cpuString
-            }
+            cpu = cpuStringArray.joined(separator: ", ")
         }
 
         nextStat.setSystemData(for: .version, to: system.system?.version ?? "N/A")
@@ -165,17 +147,14 @@ class StatisticsDataManager {
         nextStat.setSystemData(for: .localCache, to: system.system?.memcacheLocal ?? "N/A")
         nextStat.setSystemData(for: .distributedCache, to: system.system?.memcacheDistributed ?? "N/A")
 
-        // Update Storage Section
+        // MARK: - Storage
         var freeSpace = "N/A"
         var numberOfFiles = "N/A"
 
         if let possibleFreeSpace = system.system?.freespace {
             let freeSpaceDouble = Double(possibleFreeSpace)
             if !freeSpaceDouble.isNaN && !freeSpaceDouble.isInfinite {
-                let freeSpaceGigabytes = freeSpaceDouble / 1073741824.0
-                let freeSpaceString = String(format: "%.2f", freeSpaceGigabytes)
-
-                freeSpace = freeSpaceString + " GB"
+                freeSpace = Units(bytes: freeSpaceDouble).getReadableUnit()
             }
         }
 
@@ -186,59 +165,38 @@ class StatisticsDataManager {
         nextStat.setStorageData(for: .freeSpace, to: freeSpace)
         nextStat.setStorageData(for: .numberOfFiles, to: numberOfFiles)
 
+        // MARK: - Server
         nextStat.setServerData(for: .webServer, to: server.webserver ?? "N/A")
         nextStat.setServerData(for: .phpVersion, to: server.php?.version ?? "N/A")
         nextStat.setServerData(for: .database, to: server.database?.type ?? "N/A")
         nextStat.setServerData(for: .databaseVersion, to: server.database?.version ?? "N/A")
 
-        // Update Active Users Section
-        var last5 = "N/A"
-        var lastHour = "N/A"
-        var lastDay = "N/A"
-        var total = "N/A"
-
-        if let possibleLast5 = users.last5Minutes {
-            last5 = String(possibleLast5)
+        // MARK: - Active Users
+        if let possibleLast5 = users.last5Minutes,
+           let possibleLastHour = users.last1Hour,
+           let possibleLastDay = users.last24Hours,
+           let possibleTotal = system.storage?.numUsers {
+            nextStat.setActiveUserData(for: .last5Minutes, to: String(possibleLast5))
+            nextStat.setActiveUserData(for: .lastHour, to: String(possibleLastHour))
+            nextStat.setActiveUserData(for: .lastDay, to: String(possibleLastDay))
+            nextStat.setActiveUserData(for: .total, to: String(possibleTotal))
+        } else {
+            nextStat.activeUserDataNotFound()
         }
-
-        if let possibleLastHour = users.last1Hour {
-            lastHour = String(possibleLastHour)
-        }
-
-        if let possibleLastDay = users.last24Hours {
-            lastDay = String(possibleLastDay)
-        }
-
-        if let possibleTotal = system.storage?.numUsers {
-            total = String(possibleTotal)
-        }
-
-        nextStat.setActiveUserData(for: .last5Minutes, to: last5)
-        nextStat.setActiveUserData(for: .lastHour, to: lastHour)
-        nextStat.setActiveUserData(for: .lastDay, to: lastDay)
-        nextStat.setActiveUserData(for: .total, to: total)
 
         DispatchQueue.main.async {
             self.delegate?.dataUpdated()
         }
     }
 
-    private func bytesToGigabytes(bytes: Double) -> Double {
-        return bytes / 1048576.0
-    }
-
     private func calculateMemoryUsed(freeMemory: Double, totalMemory: Double) -> Double {
-        let totalUsed = totalMemory - freeMemory
-        let totalUsedInGigabytes = totalUsed / 1048576.0
-
-        return totalUsedInGigabytes
+        return totalMemory - freeMemory
     }
 
-    private func calculateMemoryUsagePercent(freeMemory: Double, totalMemory: Double) -> Double {
+    private func calculateMemoryUsage(freeMemory: Double, totalMemory: Double) -> Double {
         let totalUsed = totalMemory - freeMemory
-        let usagePercentage = (totalUsed / totalMemory) * 100
 
-        return usagePercentage
+        return (totalUsed / totalMemory) * 100
     }
 }
 
