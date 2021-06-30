@@ -25,12 +25,9 @@ class StatsViewController: UIViewController {
         setupView()
     }
 
-}
-
-// MARK: Functions
-extension StatsViewController {
     private func setupView() {
-        // Add Activity Indicator and Open in Safari Button
+        view.backgroundColor = .systemGroupedBackground
+
         let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"),
                                                  style: .plain,
@@ -54,21 +51,29 @@ extension StatsViewController {
         view.addSubview(tableView)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 
-        navigationController?.isNavigationBarHidden = false
-
         viewInitialized = true
+        navigationController?.isNavigationBarHidden = false
+    }
+
+    func serverSelected(_ newServer: NextServer) {
+        // Initialize server variable with selected server
+        statisticsDataManager.server = newServer
+
+        // Unhide UI and set Title
+        setupTableView()
+        tableView.isHidden = false
+        title = statisticsDataManager.server.name
     }
 
     private func displayErrorAndReturn(title: String, description: String) {
         let errorAC = UIAlertController(title: title, message: description, preferredStyle: .alert)
-        self.activityIndicator.deactivate()
-        self.tableView.isHidden = true
+        activityIndicator.deactivate()
+        tableView.isHidden = true
 
         errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
 
@@ -123,21 +128,6 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-// MARK: ServerSelectionDelegate
-extension StatsViewController {
-    func serverSelected(_ newServer: NextServer) {
-        // Initialize server variable with selected server
-        statisticsDataManager.server = newServer
-
-        // Unhide UI and set Title
-        navigationController?.isNavigationBarHidden = false
-        setupTableView()
-        tableView.isHidden = false
-        title = statisticsDataManager.server.name
-        activityIndicator.activate()
-    }
-}
-
 // MARK: StatisticsDataManagerDelegate
 extension StatsViewController: StatisticsDataManagerDelegate {
     func failedToUpdateData(error: DataManagerError) {
@@ -150,7 +140,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     }
 
     func willBeginFetchingData() {
-        // this is possibly not needed
+        activityIndicator.startAnimating()
     }
 
     func failedToFetchData(error: FetchError) {
@@ -174,8 +164,6 @@ extension StatsViewController: StatisticsDataManagerDelegate {
                                            description: "\(response)")
             }
         }
-
-        print("Error fetching data \(error)")
     }
 
     func dataUpdated() {
@@ -184,7 +172,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     }
 
     func failedToUpdateData() {
-        self.displayErrorAndReturn(title: "Error updating data.",
-                                   description: "Statistics data missing from server response.")
+        self.displayErrorAndReturn(title: "Invalid Data".localized(),
+                                   description: "Invalid Data Description".localized())
     }
 }
