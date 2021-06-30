@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable all
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
     var coordinator: MainCoordinator?
     var window: UIWindow?
@@ -80,7 +81,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
 
     }
 
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController :UIViewController, onto primaryViewController:UIViewController) -> Bool {
 
         return true
     }

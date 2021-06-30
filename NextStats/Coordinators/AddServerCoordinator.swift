@@ -27,19 +27,19 @@ class AddServerCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = addServerViewControlller
-        vc.coordinator = self
+        let initialVC = addServerViewControlller
+        initialVC.coordinator = self
 
-        navigationController.viewControllers = [vc]
+        navigationController.viewControllers = [initialVC]
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
 
     private func showLoginPage(withURlString urlString: String) {
-        let vc = WebViewController()
-        vc.coordinator = self
-        vc.passedURLString = urlString
+        let webVC = WebViewController()
+        webVC.coordinator = self
+        webVC.passedURLString = urlString
 
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.pushViewController(webVC, animated: true)
     }
 
     func requestAuthorization(withURL url: URL, name: String) {

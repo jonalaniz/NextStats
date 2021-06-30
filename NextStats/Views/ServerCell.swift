@@ -67,14 +67,16 @@ extension ServerCell {
         verticalStackView.addArrangedSubview(serverURLLabel)
         verticalStackView.addArrangedSubview(statusLabel)
 
-        serverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        serverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        serverImageView.heightAnchor.constraint(equalToConstant: 78).isActive = true
-        serverImageView.widthAnchor.constraint(equalToConstant: 78).isActive = true
+        NSLayoutConstraint.activate([
+            serverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            serverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            serverImageView.heightAnchor.constraint(equalToConstant: 78),
+            serverImageView.widthAnchor.constraint(equalToConstant: 78),
 
-        verticalStackView.leadingAnchor.constraint(equalTo: serverImageView.trailingAnchor, constant: 10).isActive = true
-        verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        verticalStackView.centerYAnchor.constraint(equalTo: serverImageView.centerYAnchor).isActive = true
+            verticalStackView.leadingAnchor.constraint(equalTo: serverImageView.trailingAnchor, constant: 10),
+            verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            verticalStackView.centerYAnchor.constraint(equalTo: serverImageView.centerYAnchor)
+        ])
 
         if traitCollection.userInterfaceStyle == .light {
             backgroundColor = .quaternarySystemFill

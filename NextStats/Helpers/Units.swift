@@ -27,7 +27,7 @@ public struct Units {
     public init(bytes: Double) {
         self.bytes = bytes
     }
-    
+
     public init(kilobytes: Double) {
         self.bytes = kilobytes * 1024
     }

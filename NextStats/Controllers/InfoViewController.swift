@@ -22,7 +22,9 @@ class InfoViewController: UIViewController {
     private func setupView() {
         // Setup Navigation Bar
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissController))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                                           target: self,
+                                                           action: #selector(dismissController))
         title = "Info"
 
         // Setup View

@@ -150,7 +150,9 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         coordinator?.showStatsView(for: selectedServer)
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from serverManager and tableView
             serverManager.removeServer(at: indexPath.row)

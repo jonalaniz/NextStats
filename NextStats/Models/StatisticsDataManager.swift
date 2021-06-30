@@ -90,7 +90,8 @@ class StatisticsDataManager {
             if !freeMemoryBytesDouble.isInfinite && !freeMemoryBytesDouble.isNaN
                 && !totalMemoryBytesDouble.isInfinite && !totalMemoryBytesDouble.isNaN {
                 // Calculate memoryUsage and totalMemory
-                let calculatedMemoryUsage = calculateMemoryUsage(freeMemory: freeMemoryBytesDouble, totalMemory: totalMemoryBytesDouble)
+                let calculatedMemoryUsage = calculateMemoryUsage(freeMemory: freeMemoryBytesDouble,
+                                                                 totalMemory: totalMemoryBytesDouble)
 
                 // One final check, this is where the issue seems to lie
                 if !calculatedMemoryUsage.isInfinite && !calculatedMemoryUsage.isNaN {
@@ -115,7 +116,8 @@ class StatisticsDataManager {
             if !freeSwapBytesDouble.isInfinite && !freeSwapBytesDouble.isNaN
                 && !totalSwapBytesDouble.isInfinite && !totalSwapBytesDouble.isNaN {
                 // Calculate swapUsage and totalSwap
-                let calculatedSwapUsage = calculateMemoryUsage(freeMemory: freeSwapBytesDouble, totalMemory: totalSwapBytesDouble)
+                let calculatedSwapUsage = calculateMemoryUsage(freeMemory: freeSwapBytesDouble,
+                                                               totalMemory: totalSwapBytesDouble)
 
                 // One final check, this is where the issue seems to lie
                 if !calculatedSwapUsage.isInfinite && !calculatedSwapUsage.isNaN {

@@ -61,6 +61,4 @@ class NetworkController {
         }
         task.resume()
     }
-
-    
 }

@@ -20,18 +20,18 @@ class InfoCoordinator: Coordinator {
     }
 
     func start() {
-        let vc = InfoViewController()
-        vc.coordinator = self
+        let infoVC = InfoViewController()
+        infoVC.coordinator = self
 
-        navigationController.viewControllers = [vc]
+        navigationController.viewControllers = [infoVC]
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
 
     func showWebView(urlString: String) {
-        let vc = WebViewController()
-        vc.passedURLString = urlString
+        let webVC = WebViewController()
+        webVC.passedURLString = urlString
 
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.pushViewController(webVC, animated: true)
     }
 
     func didFinish() {
