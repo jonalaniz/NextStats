@@ -97,10 +97,10 @@ class StatisticsDataManager {
                 if !calculatedMemoryUsage.isInfinite && !calculatedMemoryUsage.isNaN {
                     memoryUsage = String(format: "%.2f", calculatedMemoryUsage).appending("%")
 
-                    let memoryUsedInGigabytes = Units(kilobytes: totalMemoryBytesDouble - freeMemoryBytesDouble).gigabytes
-                    let totalMemoryInGigabytes = Units(kilobytes: totalMemoryBytesDouble).gigabytes
-                    let memoryUsedString = String(format: "%.2f", memoryUsedInGigabytes)
-                    let totalMemoryString = String(format: "%.2f", totalMemoryInGigabytes)
+                    let memoryUsedInGB = Units(kilobytes: totalMemoryBytesDouble - freeMemoryBytesDouble).gigabytes
+                    let totalMemoryInGB = Units(kilobytes: totalMemoryBytesDouble).gigabytes
+                    let memoryUsedString = String(format: "%.2f", memoryUsedInGB)
+                    let totalMemoryString = String(format: "%.2f", totalMemoryInGB)
 
                     memory = "\(memoryUsedString)/\(totalMemoryString) GB"
                 }
@@ -123,10 +123,10 @@ class StatisticsDataManager {
                 if !calculatedSwapUsage.isInfinite && !calculatedSwapUsage.isNaN {
                     swapUsage = String(format: "%.2f", calculatedSwapUsage).appending("%")
 
-                    let swapUsedInGigabytes = Units(kilobytes: totalSwapBytesDouble - freeSwapBytesDouble).gigabytes
-                    let totalSwapInGigabytes = Units(kilobytes: totalSwapBytesDouble).gigabytes
-                    let swapUsedString = String(format: "%.2f", swapUsedInGigabytes)
-                    let totalSwapString = String(format: "%.2f", totalSwapInGigabytes)
+                    let swapUsedInGB = Units(kilobytes: totalSwapBytesDouble - freeSwapBytesDouble).gigabytes
+                    let totalSwapInGB = Units(kilobytes: totalSwapBytesDouble).gigabytes
+                    let swapUsedString = String(format: "%.2f", swapUsedInGB)
+                    let totalSwapString = String(format: "%.2f", totalSwapInGB)
 
                     swap = "\(swapUsedString)/\(totalSwapString) GB"
                 }
