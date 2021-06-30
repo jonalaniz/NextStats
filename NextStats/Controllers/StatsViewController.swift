@@ -72,13 +72,11 @@ class StatsViewController: UIViewController {
 
     private func displayErrorAndReturn(title: String, description: String) {
         let errorAC = UIAlertController(title: title, message: description, preferredStyle: .alert)
-        activityIndicator.deactivate()
-        tableView.isHidden = true
-
         errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
 
-        // This function is typically called from network tasks in the StatisticsDataManager
         DispatchQueue.main.async {
+            self.activityIndicator.deactivate()
+            self.tableView.isHidden = true
             self.present(errorAC, animated: true)
         }
     }
