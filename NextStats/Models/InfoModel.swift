@@ -40,9 +40,9 @@ struct InfoModel {
     func footer(for section: Int) -> String {
         switch section {
         case 2:
-            return "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License".localized()
+            return "NextStats is provided under the MIT License.".localized()
         case 3:
-            return "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.".localized()
+            return "NextStats is free.".localized()
         default:
             return ""
         }
