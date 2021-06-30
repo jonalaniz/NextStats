@@ -26,7 +26,6 @@
 /* Connect Button */
 "connect" = "Verbinden";
 
-
 /// MARK: Server View Controller Section
 
 /* Add Server Button */
@@ -65,4 +64,4 @@
 "Thank You" = "Dankeschön";
 
 /* IAP Message */
-"Thank you very much for supporting the further development of NextStats!" = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
+"Thank you message." = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
