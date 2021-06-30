@@ -53,13 +53,13 @@
 "Licenses" = "Lizenzen";
 
 /* Section 3 - Footer */
-"NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License" = "NextStats wird unter der MIT-Lizenz bereitgestellt. Nextcloud selbst wird von der Nextcloud GmbH unter der AGPLv3-Lizenz bereitgestellt";
+"NextStats is provided under the MIT License." = "NextStats wird unter der MIT-Lizenz bereitgestellt. Nextcloud selbst wird von der Nextcloud GmbH unter der AGPLv3-Lizenz bereitgestellt";
 
 /* Section 4 - Header */
 "Support NextStats" = "Unterstützt NextStats";
 
 /* Section 4 - Footer */
-"NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
+"NextStats is free." = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
 
 /* IAP Thank You */
 "Thank You" = "Dankeschön";

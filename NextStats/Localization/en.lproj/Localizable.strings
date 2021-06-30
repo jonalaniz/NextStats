@@ -26,7 +26,7 @@
 /* Connect Button */
 "connect" = "Connect";
 
-/// MARK: Server View Controller Strings
+// MARK: Server View Controller Strings
 
 /* Add Server Button */
 "Add Server" = " Add a Server";
@@ -51,13 +51,13 @@
 "Licenses" = "Licenses";
 
 /* Section 3 - Footer */
-"NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License" = "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License";
+"NextStats is provided under the MIT License." = "NextStats is provided under the MIT License. Nextcloud itself is provided by Nextcloud GmbH under the AGPLv3 License";
 
 /* Section 4 - Header */
 "Support NextStats" = "Support NextStats";
 
 /* Section 4 - Footer */
-"NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development." = "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.";
+"Nexstats is free" = "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.";
 
 /* IAP Thank You */
 "Thank You" = "Thank You";
