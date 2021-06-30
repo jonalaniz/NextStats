@@ -65,3 +65,23 @@
 
 /* IAP Message */
 "Thank you message." = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
+
+// MARK: - Errors
+
+/* Invalid Data */
+"Invalid Data" = "Ungültige Daten";
+"Invalid Data Description" = "Serverantwortdaten konnten nicht gelesen werden.";
+
+/* Missing Response */
+"Missing Response" = "Fehlende Antwort";
+"Missing Response Description" = "Server konnte erreicht werden, es wurde jedoch keine Antwort gegeben.";
+
+/* Network Error */
+"Network Error" = "Netzwerkfehler";
+
+/* Unauthorized */
+"Unauthorized" = "Nicht autorisiert";
+"Unauthorized Description" = "Sie müssen über Administratorrechte verfügen, um Serverstatistiken abzurufen.";
+
+/* Unexpected Response */
+"Unexpected Response" = "Unerwartete Antwort";

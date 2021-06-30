@@ -64,3 +64,23 @@
 
 /* IAP Message */
 "Thank you message." = "Merci beaucoup de soutenir le développement de NextStats !";
+
+// MARK: - Errors
+
+/* Invalid Data */
+"Invalid Data" = "Données invalides";
+"Invalid Data Description" = "Les données de réponse du serveur n'ont pas pu être lues.";
+
+/* Missing Response */
+"Missing Response" = "Réponse manquante";
+"Missing Response Description" = "Le serveur a pu être joint, mais la réponse n'a pas été donnée.";
+
+/* Network Error */
+"Network Error" = "Erreur réseau";
+
+/* Unauthorized */
+"Unauthorized" = "Non autorisé";
+"Unauthorized Description" = "Vous devez disposer de privilèges administratifs pour récupérer les statistiques du serveur.";
+
+/* Unexpected Response */
+"Unexpected Response" = "Réponse inattendue";

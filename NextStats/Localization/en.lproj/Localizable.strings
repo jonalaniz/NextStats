@@ -6,7 +6,7 @@
   Copyright © 2020 Jon Alaniz
 */
 
-/// MARK: Add Server View Controller Strings
+// MARK: - Add Server View Controller Strings
 
 /* Add Server Title */
 "add_server_title" = "Add Server";
@@ -26,12 +26,12 @@
 /* Connect Button */
 "connect" = "Connect";
 
-// MARK: Server View Controller Strings
+// MARK: - Server View Controller Strings
 
 /* Add Server Button */
 "Add Server" = " Add a Server";
 
-/// MARK: Info Controller Strings
+// MARK: - Info Controller Strings
 
 /* Section 1 - Header */
 "Development" = "Development";
@@ -64,3 +64,23 @@
 
 /* IAP Message */
 "Thank you message." = "Thank you very much for supporting the further development of NextStats!";
+
+// MARK: - Errors
+
+/* Invalid Data */
+"Invalid Data" = "Invalid Data";
+"Invalid Data Description" = "Server response data could not be read.";
+
+/* Missing Response */
+"Missing Response" = "Missing Response";
+"Missing Response Description" = "Server could be reached, but response was not given.";
+
+/* Network Error */
+"Network Error" = "Network Error";
+
+/* Unauthorized */
+"Unauthorized" = "Unauthorized";
+"Unauthorized Description" = "You must have administrative privileges to fetch server statistics.";
+
+/* Unexpected Response */
+"Unexpected Response" = "Unexpected Response";
