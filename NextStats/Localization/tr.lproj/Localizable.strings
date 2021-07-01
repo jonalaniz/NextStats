@@ -1,0 +1,88 @@
+/* 
+  Localizable.strings
+  NextStats
+
+  Created by Jon Alaniz on 12/16/20.
+  Copyright © 2020 Jon Alaniz
+*/
+
+// MARK: - Add Server View Controller Strings
+
+/* Add Server Title */
+"add_server_title" = "Sunucu Ekle";
+
+/* Server Nickname Label */
+"server_nickname" = "Sunucu Takma Ad (opsiyonel)";
+
+/* Server URL Label */
+"server_url" = "Sunucu URL:";
+
+/* Info Label */
+"info_label" = "Sunucuları dışardan izlerken, NextStats SSL şifreli (https) gereksinimi duyar.";
+
+/* Status Label */
+"status_label" = "lütfen geçerli bir URL giriniz";
+
+/* Connect Button */
+"connect" = "Bağlan";
+
+// MARK: - Server View Controller Strings
+
+/* Add Server Button */
+"Add Server" = " Bir Sunucu Ekle";
+
+// MARK: - Info Controller Strings
+
+/* Section 1 - Header */
+"Development" = "Geliştirme";
+
+/* Section 1 - Cell 1*/
+"Developer" = "Geliştirici";
+
+/* Section 2 - Header */
+"Translators" = "Çevirmenler";
+
+/* Section 2 - Languages */
+"French" = "Fransızca";
+
+"German" = "Almanca";
+
+"Turkish" = "Türkçe";
+
+/* Section 3 - Header */
+"Licenses" = "Lisanslar";
+
+/* Section 3 - Footer */
+"NextStats is provided under the MIT License." = "NexStats MIT Lisansı altında yayınlanmıştır. Nextcloud'ın kendisi ise Nextcloud GmbH tarafından ve AGPLv3 Lisansı ile sunulmuştur.";
+
+/* Section 4 - Header */
+"Support NextStats" = "NextStats'ı Destekle";
+
+/* Section 4 - Footer */
+"Nexstats is free" = "NextStats ücretsizdir ve hep öyle olacaktır. Eğer uygulamayı yararlı bulduysanız, lütfen bağış yaparak gelecekteki gelişiminde katkıda bulunun.";
+
+/* IAP Thank You */
+"Thank You" = "Teşekkürler";
+
+/* IAP Message */
+"Thank you message." = "NextStats'ın gelecekteki gelişimine destek olduğunuz için çok teşekkür ederiz!";
+
+// MARK: - Errors
+
+/* Invalid Data */
+"Invalid Data" = "Geçersiz Veri";
+"Invalid Data Description" = "Sunucu cevap verisi okunamıyor.";
+
+/* Missing Response */
+"Missing Response" = "Eksik Cevap";
+"Missing Response Description" = "Sunucuya ulaşıldı, fakat cevap verilmedi.";
+
+/* Network Error */
+"Network Error" = "Ağ Hatası";
+
+/* Unauthorized */
+"Unauthorized" = "Yetkisiz";
+"Unauthorized Description" = "Sunucu istatistiklerini çekmek için yönetici yetkilerine sahip olmanız gerekiyor.";
+
+/* Unexpected Response */
+"Unexpected Response" = "Beklenmeyen Cevap";
