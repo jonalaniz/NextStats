@@ -15,8 +15,8 @@
 NextStats is a multi-server monitoring tool for NextCloud instances. It uses the serverinfo endpoint and Login flow v2 for authentication. NextStats has been tested on servers running Nextcloud 15 and above.
 
 <p align="center">
-    <img alt="FRadioPlayer" src="http://www.jonalaniz.com/wp-content/uploads/2020/12/screen2.png" width="320">
-    <img alt="FRadioPlayer" src="http://www.jonalaniz.com/wp-content/uploads/2020/12/screen1-1.png" width="320">
+    <img alt="NextStats Server View" src="http://www.jonalaniz.com/wp-content/uploads/2021/07/nextstats_server_2.0.6.png" width="320">
+    <img alt="NextStats Detail View" src="http://www.jonalaniz.com/wp-content/uploads/2021/07/nextstats_detail_2.0.6.png" width="320">
 </p>
 
 ## Features
@@ -35,12 +35,12 @@ NextStats is a multi-server monitoring tool for NextCloud instances. It uses the
 
 NextStats was built on Xcode 12 with Swift 5. It has no dependencies, so you should be able to just clone and run.
 
-
 ## Credits
 
 - NextStats was designed and built by [Jon Alaniz](https://twitter.com/jonalaniz).
 - German translations provided by Carina Pfaffelhuber
 - French translations provided by [Maxime Killinger](https://github.com/maxime-killinger).
+- Turkish translations provided by [Hüseyin Fahri Uzun](https://github.com/fuzunspm).
 - Icon by [VLH Art](https://twitter.com/VLHart)
 
 ## License
