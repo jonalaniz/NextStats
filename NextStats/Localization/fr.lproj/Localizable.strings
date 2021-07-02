@@ -6,7 +6,7 @@
   Copyright © 2020 Jon Alaniz
 */
 
-/// MARK: Add Server View Controller Strings
+// MARK: Add Server View Controller Strings
 
 /* Add Server Title */
 "add_server_title" = "Ajouter un serveur";
@@ -26,7 +26,7 @@
 /* Connect Button */
 "connect" = "Connexion";
 
-/// MARK: Server View Controller Strings
+// MARK: Server View Controller Strings
 
 /* Add Server Button */
 "Add Server" = " Ajouter un serveur";
@@ -46,6 +46,8 @@
 "French" = "Français";
 
 "German" = "Allemand";
+
+"Turkish" = "Turque";
 
 /* Section 3 - Header */
 "Licenses" = "Licences";
