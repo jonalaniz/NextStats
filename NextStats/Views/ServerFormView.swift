@@ -23,7 +23,7 @@ class ServerFormView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel
-        label.text = "server_nickname".localized()
+        label.text = LocalizedKeys.addScreenNickname
 
         return label
     }()
@@ -45,7 +45,7 @@ class ServerFormView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel
-        label.text = "server_url".localized()
+        label.text = LocalizedKeys.addScreenUrl
 
         return label
     }()
@@ -72,7 +72,7 @@ class ServerFormView: UIView {
         label.textColor = .secondaryLabel
         label.font = UIFont.systemFont(ofSize: 12)
         label.numberOfLines = 0
-        label.text = "info_label".localized()
+        label.text = LocalizedKeys.addScreenLabel
 
         return label
     }()
@@ -84,7 +84,7 @@ class ServerFormView: UIView {
         label.textColor = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
-        label.text = "status_label".localized()
+        label.text = LocalizedKeys.addScreenStatusLabel
 
         return label
     }()
@@ -111,7 +111,7 @@ class ServerFormView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.themeColor
         button.layer.cornerRadius = 10
-        button.setTitle("connect".localized(), for: .normal)
+        button.setTitle(LocalizedKeys.addScreenConnect, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)

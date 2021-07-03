@@ -6,84 +6,93 @@
   Copyright © 2020 Jon Alaniz
 */
 
-// MARK: Add Server View Controller Strings
+// MARK: - Add Server View
 
-/* Add Server Title */
-"add_server_title" = "Server hinzufügen";
+/* Text = "Add Server" */
+"add.screen.title" = "Server hinzufügen";
 
-/* Server Nickname Label */
-"server_nickname" = "Servername (optional)";
+/* Text = "Server Nickname (optional)" */
+"add.screen.nickname" = "Servername (optional)";
 
-/* Server URL Label */
-"server_url" = "Server URL:";
+/* Text = "Server URL:" */
+"add.screen.url" = "Server URL:";
 
-/* Info Label */
-"info_label" = "Bei der externen Überwachung von Servern benötigt NextStats eine SSL-Verschlüsselung (https).";
+/* Text = "When monitoring servers externally, Nextstats requires SSL encryption (https)." */
+"add.screen.label" = "Bei der externen Überwachung von Servern benötigt NextStats eine SSL-Verschlüsselung (https).";
 
-/* Status Label */
-"status_label" = "Bitte geben Sie eine gültige URL ein";
+/* Text = "please enter a valid URL" */
+"add.screen.statuslabel" = "Bitte geben Sie eine gültige URL ein";
 
-/* Connect Button */
-"connect" = "Verbinden";
+/* Text = "Connect" */
+"add.screen.connect" = "Verbinden";
 
-// MARK: Server View Controller Section
+// MARK: - Server View
 
-/* Add Server Button */
-"Add Server" = " Server hinzufügen";
+/* Text = " Add a Server" */
+"server.screen.add" = " Server hinzufügen";
 
+// MARK: - Info View
 
-// MARK: Info Controller Sections
+/* Text = "Development" */
+"info.screen.development.header" = "Entwicklung";
 
-/* Section 1 - Header */
-"Development" = "Entwicklung";
+/* Text = "Developer" */
+"info.screen.development.developer" = "Entwickler";
 
-/* Section 1 - Cell 1*/
-"Developer" = "Entwickler";
+/* Text = "Translators */
+"info.screen.localization.header" = "Übersetzer";
 
-/* Section 2 - Header */
-"Translators" = "Übersetzer";
+/* Text = "French" */
+"info.screen.localization.french" = "Französisch";
 
-/* Section 2 - Languages */
-"French" = "Französisch";
+/* Text = "German" */
+"info.screen.localization.german" = "Deutsche";
 
-"German" = "Deutsche";
+/* Text = "Turkish" */
+"info.screen.localization.turkish" = "Türkische";
 
-"Turkish" = "Türkische";
+/* Text = "Licenses" */
+"info.screen.licenses.header" = "Lizenzen";
 
-/* Section 3 - Header */
-"Licenses" = "Lizenzen";
+/* Text = "NextStats is provided under the MIT License. Nextcloud itself is
+           provided by Nextcloud GmbH under the AGPLv3 License" */
+"info.screen.licenses.description" = "NextStats wird unter der MIT-Lizenz bereitgestellt. Nextcloud selbst wird von der Nextcloud GmbH unter der AGPLv3-Lizenz bereitgestellt";
 
-/* Section 3 - Footer */
-"NextStats is provided under the MIT License." = "NextStats wird unter der MIT-Lizenz bereitgestellt. Nextcloud selbst wird von der Nextcloud GmbH unter der AGPLv3-Lizenz bereitgestellt";
+/* Text = "Support NextStats" */
+"info.screen.support.header" = "Unterstützt NextStats";
 
-/* Section 4 - Header */
-"Support NextStats" = "Unterstützt NextStats";
+/* Text = "NextStats is and will always be free. If you find the app usefull,
+           please considering leaving a tip to help further its development." */
+"info.screen.support.description" = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
 
-/* Section 4 - Footer */
-"NextStats is free." = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
+/* Text = "Thank You" */
+"iap.thankyou" = "Dankeschön";
 
-/* IAP Thank You */
-"Thank You" = "Dankeschön";
-
-/* IAP Message */
-"Thank you message." = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
+/* Text = "Thank you very much for supporting the further development of NextStats!" */
+"iap.thankyou.description" = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
 
 // MARK: - Errors
 
-/* Invalid Data */
-"Invalid Data" = "Ungültige Daten";
-"Invalid Data Description" = "Serverantwortdaten konnten nicht gelesen werden.";
+/* Text = "Invalid Data" */
+"error.invaliddata" = "Ungültige Daten";
 
-/* Missing Response */
-"Missing Response" = "Fehlende Antwort";
-"Missing Response Description" = "Server konnte erreicht werden, es wurde jedoch keine Antwort gegeben.";
+/* Text = "Server response data could not be read." */
+"error.invaliddata.description" = "Serverantwortdaten konnten nicht gelesen werden.";
 
-/* Network Error */
-"Network Error" = "Netzwerkfehler";
+/* Text = "Missing Response" */
+"error.missingresponse" = "Fehlende Antwort";
 
-/* Unauthorized */
-"Unauthorized" = "Nicht autorisiert";
-"Unauthorized Description" = "Sie müssen über Administratorrechte verfügen, um Serverstatistiken abzurufen.";
+/* Text = "Server could be reached, but response was not given. */
+"error.missingresponse.description" = "Server konnte erreicht werden, es wurde jedoch keine Antwort gegeben.";
 
-/* Unexpected Response */
-"Unexpected Response" = "Unerwartete Antwort";
+/* Text = "Network Error" */
+"error.networkerror" = "Netzwerkfehler";
+
+/* Text = "Unauthorized" */
+"error.unauthorized" = "Nicht autorisiert";
+
+/* Text = "You must have administrative privileges to fetch server statistics." */
+"error.unauthorized.description" = "Sie müssen über Administratorrechte verfügen, um Serverstatistiken abzurufen.";
+
+/* Text = "Unexpected Response" */
+"error.unexpectedresponse" = "Unerwartete Antwort";

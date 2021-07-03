@@ -47,6 +47,7 @@
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
 		56B59BEE26886EBD00A75B13 /* NextStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B59BED26886EBD00A75B13 /* NextStat.swift */; };
 		56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* ServerManager.swift */; };
+		56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* LocalizedKeys.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
 		56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA258724EE48F90034CA96 /* URLChecker.swift */; };
 		56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* Server.swift */; };
@@ -111,6 +112,7 @@
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56B59BED26886EBD00A75B13 /* NextStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStat.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		56C3126F269109CB0077B40D /* LocalizedKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedKeys.swift; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
 		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		567BF636258ADDF1000E64D9 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
+				56C3126F269109CB0077B40D /* LocalizedKeys.swift */,
 				567BF639258ADE5D000E64D9 /* Localizable.strings */,
 			);
 			path = Localization;
@@ -412,6 +415,11 @@
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
+<<<<<<< HEAD
+=======
+				56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */,
+				56C959722655ED2F00BD3B06 /* IAP Helper.swift in Sources */,
+>>>>>>> 49737f0 (Localized Strings now use `LocalizedKeys`)
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,

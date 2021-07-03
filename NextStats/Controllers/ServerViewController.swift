@@ -53,7 +53,7 @@ extension ServerViewController {
 
         infoButtonItem.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
         infoButtonItem.addTarget(self, action: #selector(addServerPressed), for: .touchUpInside)
-        infoButtonItem.setTitle(NSLocalizedString("Add Server", comment: ""), for: .normal)
+        infoButtonItem.setTitle(LocalizedKeys.serverAddButton, for: .normal)
         infoButtonItem.titleLabel?.font = .boldSystemFont(ofSize: 16)
         infoButtonItem.contentHorizontalAlignment = .left
         infoButtonItem.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 10)

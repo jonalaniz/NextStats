@@ -2,87 +2,97 @@
   Localizable.strings
   NextStats
 
-  Created by Jon Alaniz on 12/16/20.
-  Copyright © 2020 Jon Alaniz
+  Created by Hüseyin Fahri Uzun on 7/1/21.
+ 
 */
 
-// MARK: - Add Server View Controller Strings
+// MARK: - Add Server View
 
-/* Add Server Title */
-"add_server_title" = "Sunucu Ekle";
+/* Text = "Add Server" */
+"add.screen.title" = "Sunucu Ekle";
 
-/* Server Nickname Label */
-"server_nickname" = "Sunucu Takma Ad (opsiyonel)";
+/* Text = "Server Nickname (optional)" */
+"add.screen.nickname" = "Sunucu Takma Ad (opsiyonel)";
 
-/* Server URL Label */
-"server_url" = "Sunucu URL:";
+/* Text = "Server URL:" */
+"add.screen.url" = "Sunucu URL:";
 
-/* Info Label */
-"info_label" = "Sunucuları dışardan izlerken, NextStats SSL şifreli (https) gereksinimi duyar.";
+/* Text = "When monitoring servers externally, Nextstats requires SSL encryption (https)." */
+"add.screen.label" = "Sunucuları dışardan izlerken, NextStats SSL şifreli (https) gereksinimi duyar.";
 
-/* Status Label */
-"status_label" = "lütfen geçerli bir URL giriniz";
+/* Text = "please enter a valid URL" */
+"add.screen.statuslabel" = "lütfen geçerli bir URL giriniz";
 
-/* Connect Button */
-"connect" = "Bağlan";
+/* Text = "Connect" */
+"add.screen.connect" = "Bağlan";
 
-// MARK: - Server View Controller Strings
+// MARK: - Server View
 
-/* Add Server Button */
-"Add Server" = " Bir Sunucu Ekle";
+/* Text = " Add a Server" */
+"server.screen.add" = " Bir Sunucu Ekle";
 
-// MARK: - Info Controller Strings
+// MARK: - Info View
 
-/* Section 1 - Header */
-"Development" = "Geliştirme";
+/* Text = "Development" */
+"info.screen.development.header" = "Geliştirme";
 
-/* Section 1 - Cell 1*/
-"Developer" = "Geliştirici";
+/* Text = "Developer" */
+"info.screen.development.developer" = "Geliştirici";
 
-/* Section 2 - Header */
-"Translators" = "Çevirmenler";
+/* Text = "Translators */
+"info.screen.localization.header" = "Çevirmenler";
 
-/* Section 2 - Languages */
-"French" = "Fransızca";
+/* Text = "French" */
+"info.screen.localization.french" = "Fransızca";
 
-"German" = "Almanca";
+/* Text = "German" */
+"info.screen.localization.german" = "Almanca";
 
-"Turkish" = "Türkçe";
+/* Text = "Turkish" */
+"info.screen.localization.turkish" = "Türkçe";
 
-/* Section 3 - Header */
-"Licenses" = "Lisanslar";
+/* Text = "Licenses" */
+"info.screen.licenses.header" = "Lisanslar";
 
-/* Section 3 - Footer */
-"NextStats is provided under the MIT License." = "NexStats MIT Lisansı altında yayınlanmıştır. Nextcloud'ın kendisi ise Nextcloud GmbH tarafından ve AGPLv3 Lisansı ile sunulmuştur.";
+/* Text = "NextStats is provided under the MIT License. Nextcloud itself is
+           provided by Nextcloud GmbH under the AGPLv3 License" */
+"info.screen.licenses.description" = "NexStats MIT Lisansı altında yayınlanmıştır. Nextcloud'ın kendisi ise Nextcloud GmbH tarafından ve AGPLv3 Lisansı ile sunulmuştur.";
 
-/* Section 4 - Header */
-"Support NextStats" = "NextStats'ı Destekle";
+/* Text = "Support NextStats" */
+"info.screen.support.header" = "NextStats'ı Destekle";
 
-/* Section 4 - Footer */
-"NextStats is free." = "NextStats ücretsizdir ve hep öyle olacaktır. Eğer uygulamayı yararlı bulduysanız, lütfen bağış yaparak gelecekteki gelişiminde katkıda bulunun.";
+/* Text = "NextStats is and will always be free. If you find the app usefull,
+           please considering leaving a tip to help further its development." */
+"info.screen.support.description" = "NextStats ücretsizdir ve hep öyle olacaktır. Eğer uygulamayı yararlı bulduysanız, lütfen bağış yaparak gelecekteki gelişiminde katkıda bulunun.";
 
-/* IAP Thank You */
-"Thank You" = "Teşekkürler";
+/* Text = "Thank You" */
+"iap.thankyou" = "Teşekkürler";
 
-/* IAP Message */
-"Thank you message." = "NextStats'ın gelecekteki gelişimine destek olduğunuz için çok teşekkür ederiz!";
+/* Text = "Thank you very much for supporting the further development of NextStats!" */
+"iap.thankyou.description" = "NextStats'ın gelecekteki gelişimine destek olduğunuz için çok teşekkür ederiz!";
 
 // MARK: - Errors
 
-/* Invalid Data */
-"Invalid Data" = "Geçersiz Veri";
-"Invalid Data Description" = "Sunucu cevap verisi okunamıyor.";
+/* Text = "Invalid Data" */
+"error.invaliddata" = "Geçersiz Veri";
 
-/* Missing Response */
-"Missing Response" = "Eksik Cevap";
-"Missing Response Description" = "Sunucuya ulaşıldı, fakat cevap verilmedi.";
+/* Text = "Server response data could not be read." */
+"error.invaliddata.description" = "Sunucu cevap verisi okunamıyor.";
 
-/* Network Error */
-"Network Error" = "Ağ Hatası";
+/* Text = "Missing Response" */
+"error.missingresponse" = "Eksik Cevap";
 
-/* Unauthorized */
-"Unauthorized" = "Yetkisiz";
-"Unauthorized Description" = "Sunucu istatistiklerini çekmek için yönetici yetkilerine sahip olmanız gerekiyor.";
+/* Text = "Server could be reached, but response was not given. */
+"error.missingresponse.description" = "Sunucuya ulaşıldı, fakat cevap verilmedi.";
 
-/* Unexpected Response */
-"Unexpected Response" = "Beklenmeyen Cevap";
+/* Text = "Network Error" */
+"error.networkerror" = "Ağ Hatası";
+
+/* Text = "Unauthorized" */
+"error.unauthorized" = "Yetkisiz";
+
+/* Text = "You must have administrative privileges to fetch server statistics." */
+"error.unauthorized.description" = "Sunucu istatistiklerini çekmek için yönetici yetkilerine sahip olmanız gerekiyor.";
+
+/* Text = "Unexpected Response" */
+"error.unexpectedresponse" = "Beklenmeyen Cevap";

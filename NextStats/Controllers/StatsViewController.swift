@@ -144,21 +144,21 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     func failedToFetchData(error: FetchError) {
         switch error {
         case .invalidData:
-            self.displayErrorAndReturn(title: "Invalid Data".localized(),
-                                       description: "Invalid Data Description".localized())
+            self.displayErrorAndReturn(title: LocalizedKeys.errorInvalidData,
+                                       description: LocalizedKeys.errorInvalidDataDescription)
         case .missingResponse:
-            self.displayErrorAndReturn(title: "Missing Response".localized(),
-                                       description: "Missing Response Description".localized())
+            self.displayErrorAndReturn(title: LocalizedKeys.errorMissingResponse,
+                                       description: LocalizedKeys.errorMissingResponseDescription)
         case .network(let error):
-            self.displayErrorAndReturn(title: "Network Error".localized(),
+            self.displayErrorAndReturn(title: LocalizedKeys.errorNetwork,
                                        description: "\(error.localizedDescription)")
         case .unexpectedResponse(let response):
             switch response {
             case 401:
-                self.displayErrorAndReturn(title: "Unauthorized".localized() + ": \(response)",
-                                           description: "Unauthorized Description".localized())
+                self.displayErrorAndReturn(title: LocalizedKeys.errorUnauthorized + ": \(response)",
+                                           description: LocalizedKeys.errorUnauthorizedDescription)
             default:
-                self.displayErrorAndReturn(title: "Unexpected Response".localized() + ": (\(response))",
+                self.displayErrorAndReturn(title: LocalizedKeys.errorUnexpectedResponse + ": (\(response))",
                                            description: "\(response)")
             }
         }
@@ -170,7 +170,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     }
 
     func failedToUpdateData() {
-        self.displayErrorAndReturn(title: "Invalid Data".localized(),
-                                   description: "Invalid Data Description".localized())
+        self.displayErrorAndReturn(title: LocalizedKeys.errorInvalidData,
+                                   description: LocalizedKeys.errorInvalidDataDescription)
     }
 }

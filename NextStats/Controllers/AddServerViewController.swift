@@ -97,7 +97,7 @@ extension AddServerViewController {
     }
 
     private func setupNavigationController() {
-        title = "add_server_title".localized()
+        title = LocalizedKeys.addScreenTitle
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
