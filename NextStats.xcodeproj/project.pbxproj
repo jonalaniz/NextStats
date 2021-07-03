@@ -415,11 +415,8 @@
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
-<<<<<<< HEAD
-=======
 				56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */,
 				56C959722655ED2F00BD3B06 /* IAP Helper.swift in Sources */,
->>>>>>> 49737f0 (Localized Strings now use `LocalizedKeys`)
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,

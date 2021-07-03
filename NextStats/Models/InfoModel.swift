@@ -9,14 +9,17 @@
 import Foundation
 
 // MARK: - InfoModel
-/**
-    InfoModel contains infomration pertaining to the development of NextStats.
- */
+
+/// InfoModel contains infomration pertaining to the development of NextStats.
 struct InfoModel {
-    private let sections = ["Development".localized(), "Translators".localized(), "Licenses".localized()]
-    private let developerTitles = ["Developer".localized()]
+    private let sections = [LocalizedKeys.infoScreenDevHeader,
+                            LocalizedKeys.infoScreenLocaleHeader,
+                            LocalizedKeys.infoScreenLicenseHeader]
+    private let developerTitles = [LocalizedKeys.infoScreenDevTitle]
     private let developerNames = ["Jon Alaniz"]
-    private let translatorLanguages = ["French".localized(), "German".localized(), "Turkish".localized()]
+    private let translatorLanguages = [LocalizedKeys.infoScreenLocaleFrench,
+                                       LocalizedKeys.infoScreenLocaleGerman,
+                                       LocalizedKeys.infoScreenLocaleTurkish]
     private let translatorNames = ["Maxime Killinger", "Carina Pfaffelhuber", "Hüseyin Fahri Uzun"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
 
@@ -40,9 +43,9 @@ struct InfoModel {
     func footer(for section: Int) -> String {
         switch section {
         case 2:
-            return "NextStats is provided under the MIT License.".localized()
+            return LocalizedKeys.infoScreenLicenseDescription
         case 3:
-            return "NextStats is free.".localized()
+            return LocalizedKeys.infoScreenSupportDescription
         default:
             return ""
         }

@@ -61,14 +61,9 @@
 /* Text = "Support NextStats" */
 "info.screen.support.header" = "Support NextStats";
 
-<<<<<<< HEAD
-/* Section 4 - Footer */
-"Nexstats is free" = "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.";
-=======
 /* Text = "NextStats is and will always be free. If you find the app usefull,
            please considering leaving a tip to help further its development." */
 "info.screen.support.description" = "NextStats is and will always be free. If you find the app usefull, please considering leaving a tip to help further its development.";
->>>>>>> 49737f0 (Localized Strings now use `LocalizedKeys`)
 
 /* Text = "Thank You" */
 "iap.thankyou" = "Thank You";

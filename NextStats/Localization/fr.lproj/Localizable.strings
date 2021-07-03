@@ -2,13 +2,8 @@
   Localizable.strings
   NextStats
 
-<<<<<<< HEAD
-  Created by Jon Alaniz on 12/16/20.
-  Copyright © 2020 Jon Alaniz
-=======
   Created by Maxime Killinger on 1/20/21.
 
->>>>>>> 49737f0 (Localized Strings now use `LocalizedKeys`)
 */
 
 // MARK: - Add Server View
@@ -73,13 +68,8 @@
 /* Text = "Thank You" */
 "iap.thankyou" = "Merci";
 
-<<<<<<< HEAD
-/* IAP Message */
-"Thank you message." = "Merci beaucoup de soutenir le développement de NextStats !";
-=======
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "Merci beaucoup de soutenir le développement de NextStats!";
->>>>>>> 49737f0 (Localized Strings now use `LocalizedKeys`)
 
 // MARK: - Errors
 
