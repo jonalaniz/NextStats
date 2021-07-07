@@ -47,13 +47,13 @@ class StatisticsDataManager {
                 self.delegate?.failedToFetchData(error: fetchError)
             case .success(let data):
                 // Update our statistics with the fetched data
-                self.parseServerStatisticsJSON(from: data)
+                self.decodeServerStats(from: data)
             }
         }
     }
 
-    /// Parses data into ServerStats Model
-    func parseServerStatisticsJSON(from data: Data) {
+    /// Decodes JSON data into ServerStats model
+    func decodeServerStats(from data: Data) {
         do {
             let decoder = JSONDecoder()
             let result = try decoder.decode(ServerStats.self, from: data)
