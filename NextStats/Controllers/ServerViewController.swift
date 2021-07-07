@@ -30,9 +30,7 @@ class ServerViewController: UIViewController {
         // Show or hide noServerView as necessary
         toggleNoServersView()
     }
-}
 
-extension ServerViewController {
     private func setupView() {
 
         // Setup Navigation Bar
@@ -129,7 +127,6 @@ extension ServerViewController {
 
 // MARK: TableView Methods
 extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.servers.count
     }
@@ -174,5 +171,4 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
         // Toggle table view editing.
         tableView.setEditing(editing, animated: true)
     }
-
 }
