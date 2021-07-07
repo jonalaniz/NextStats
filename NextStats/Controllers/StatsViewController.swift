@@ -33,8 +33,12 @@ class StatsViewController: UIViewController {
                                                  style: .plain,
                                                  target: self,
                                                  action: #selector(openInSafari))
+        let openSettingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(openSettingsInSafari))
 
-        navigationItem.rightBarButtonItems = [openInSafariButton, activityIndicatorBarButtonItem]
+        navigationItem.rightBarButtonItems = [openSettingsButton, openInSafariButton, activityIndicatorBarButtonItem]
 
         if !viewInitialized { navigationController?.isNavigationBarHidden = true }
     }
@@ -91,6 +95,13 @@ class StatsViewController: UIViewController {
         UIApplication.shared.open(url)
     }
 
+    @objc func openSettingsInSafari() {
+        var urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
+        urlString.append("/index.php/settings/admin/overview")
+
+        let url = URL(string: urlString)!
+        UIApplication.shared.open(url)
+    }
 }
 
 // MARK: Table View Functions
