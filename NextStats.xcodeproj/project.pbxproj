@@ -50,6 +50,7 @@
 		56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* LocalizedKeys.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
 		56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA258724EE48F90034CA96 /* URLChecker.swift */; };
+		56EF9F66269673430055386C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EF9F65269673430055386C /* LoadingView.swift */; };
 		56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* Server.swift */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +116,7 @@
 		56C3126F269109CB0077B40D /* LocalizedKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedKeys.swift; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
 		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
+		56EF9F65269673430055386C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +277,7 @@
 				56112883265A1FE4003CC0BE /* NoServersView.swift */,
 				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				569EC31E25B4F7F600B955EC /* HeaderView.swift */,
+				56EF9F65269673430055386C /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -416,8 +419,8 @@
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
 				56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */,
-				56C959722655ED2F00BD3B06 /* IAP Helper.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
+				56EF9F66269673430055386C /* LoadingView.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */,
