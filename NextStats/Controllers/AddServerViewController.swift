@@ -83,6 +83,7 @@ extension AddServerViewController {
         serverFormView.statusLabel.isHidden = false
         serverFormView.statusLabel.text = text
         serverFormView.connectButton.isEnabled = false
+        serverFormView.activityIndicatior.deactivate()
 
         UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded()
         }
