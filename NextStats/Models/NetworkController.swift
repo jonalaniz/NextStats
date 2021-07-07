@@ -26,6 +26,8 @@ class NetworkController {
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
 
+    private init() { }
+
     /// Generic network fetch
     func fetchData(with request: URLRequest,
                    using config: URLSessionConfiguration = .default,
