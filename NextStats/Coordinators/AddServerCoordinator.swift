@@ -60,6 +60,10 @@ class AddServerCoordinator: Coordinator {
 }
 
 extension AddServerCoordinator: ServerManagerAuthenticationDelegate {
+    func networkError(error: String) {
+        addServerViewControlller.updateStatusLabel(with: error)
+    }
+
     func failedToGetCredentials(withError error: ServerManagerAuthenticationError) {
         addServerViewControlller.updateStatusLabel(with: error.description)
     }

@@ -84,6 +84,7 @@ class ServerFormView: UIView {
         label.textColor = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.text = LocalizedKeys.addScreenStatusLabel
 
         return label

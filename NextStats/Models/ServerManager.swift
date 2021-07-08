@@ -60,6 +60,8 @@ open class ServerManager {
                 switch result {
                 case .failure(let fetchError):
                     switch fetchError {
+                    case .network(let error):
+                        self.delegate?.networkError(error: error.localizedDescription)
                     case .unexpectedResponse(let response):
                         if response == 404 {
                             self.delegate?.failedToGetCredentials(withError: .serverNotFound)

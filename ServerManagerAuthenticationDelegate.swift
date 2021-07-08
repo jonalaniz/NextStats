@@ -35,4 +35,7 @@ import Foundation
 
     /// Called when ServerManager is unable to get authorization data from server. Returns error information.
     func failedToGetCredentials(withError error: ServerManagerAuthenticationError)
+
+    /// Called when networkManager finds network error, passes localized description.
+    func networkError(error: String)
 }
