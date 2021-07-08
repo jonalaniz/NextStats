@@ -179,9 +179,4 @@ extension StatsViewController: StatisticsDataManagerDelegate {
         activityIndicator.deactivate()
         tableView.reloadData()
     }
-
-    func failedToUpdateData() {
-        self.displayErrorAndReturn(title: LocalizedKeys.errorInvalidData,
-                                   description: LocalizedKeys.errorInvalidDataDescription)
-    }
 }
