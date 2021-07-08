@@ -14,6 +14,7 @@ enum DataManagerError {
 
     public var description: String {
         switch self {
+            // TODO: Localize these strings
         case .missingData: return "Missing statistics data."
         case .unableToParseJSON: return "Unable to parse JSON."
         }

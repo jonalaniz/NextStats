@@ -17,6 +17,7 @@ import Foundation
 
     public var description: String {
         switch self {
+            // TODO: Localize these strings!
         case .notValidHost: return "Not a valid host, please check url."
         case .serverNotFound: return "Nextcloud server not found, please check url."
         case .failedToSerializeResponse: return "Unable to serialize server response."
