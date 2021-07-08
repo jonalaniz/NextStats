@@ -9,10 +9,28 @@
 import Foundation
 
 enum FetchError: Error {
-    case network(Error)
-    case missingResponse
-    case unexpectedResponse(Int)
     case invalidData
+    case missingResponse
+    case network(Error)
+    case unexpectedResponse(Int)
+
+    var title: String {
+        switch self {
+        case .invalidData: return LocalizedKeys.errorInvalidData
+        case .missingResponse: return LocalizedKeys.errorMissingResponse
+        case .network(_): return LocalizedKeys.errorNetwork
+        case .unexpectedResponse(_): return LocalizedKeys.errorUnauthorized
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .invalidData: return LocalizedKeys.errorInvalidDataDescription
+        case .missingResponse: return LocalizedKeys.errorMissingResponseDescription
+        case .network(_): return LocalizedKeys.errorNetwork
+        case .unexpectedResponse(_): return LocalizedKeys.errorUnexpectedResponse
+        }
+    }
 }
 
 enum FetchType {
