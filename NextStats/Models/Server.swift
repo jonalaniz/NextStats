@@ -46,10 +46,8 @@ struct NextServer: Codable {
     func imageCached() -> Bool {
         let path = imagePath()
         if FileManager.default.fileExists(atPath: path) {
-            print(FileManager.default.fileExists(atPath: path))
             return true
         } else {
-            print(FileManager.default.fileExists(atPath: path))
             return false
         }
     }

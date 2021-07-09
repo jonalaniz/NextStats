@@ -130,10 +130,8 @@ extension ServerCell {
         if server.hasCustomLogo {
             if server.imageCached() {
                 // Check server cached logo
-                print("image found")
                 serverImageView.image = server.cachedImage()
             } else {
-                print("image not found")
                 serverImageView.image = UIImage(named: "nextcloud-server")
             }
         } else {
