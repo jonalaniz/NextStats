@@ -9,26 +9,28 @@
 import UIKit
 
 class StatsViewController: UIViewController {
+    let loadingView = LoadingView()
+    let selectServerView = SelectServerView()
     var statisticsDataManager = StatisticsDataManager.shared
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
-    var viewInitialized = false
-
-    let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    var serverInitialized = false
 
     override func loadView() {
         super.loadView()
         statisticsDataManager.delegate = self
+        setupView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupView()
+        if !serverInitialized { return }
+        showLoadingView()
     }
 
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
 
-        let activityIndicatorBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        // Setup our buttons
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"),
                                                  style: .plain,
                                                  target: self,
@@ -38,40 +40,56 @@ class StatsViewController: UIViewController {
                                                  target: self,
                                                  action: #selector(openSettingsInSafari))
 
-        navigationItem.rightBarButtonItems = [openSettingsButton, openInSafariButton, activityIndicatorBarButtonItem]
+        navigationItem.rightBarButtonItems = [openSettingsButton, openInSafariButton]
 
-        if !viewInitialized { navigationController?.isNavigationBarHidden = true }
-    }
-
-    private func setupTableView() {
-        if viewInitialized { return }
-
-        // Initialize and connect the tableView
-        tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        // Constrain tableView
+        // Setup our subviews
         view.addSubview(tableView)
+        view.addSubview(loadingView)
+        view.addSubview(selectServerView)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        selectServerView.translatesAutoresizingMaskIntoConstraints = false
 
-        viewInitialized = true
-        navigationController?.isNavigationBarHidden = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            loadingView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+            selectServerView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            selectServerView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
+        ])
+
+        tableView.isHidden = true
+        loadingView.isHidden = true
+    }
+
+    private func showLoadingView() {
+        tableView.isHidden = true
+        loadingView.isHidden = false
+        selectServerView.isHidden = true
+    }
+
+    private func showTableView() {
+        if tableView.delegate == nil {
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
+
+        tableView.isHidden = false
+        loadingView.isHidden = true
+        selectServerView.isHidden = true
+
+        tableView.reloadData()
     }
 
     func serverSelected(_ newServer: NextServer) {
         // Initialize server variable with selected server
         statisticsDataManager.server = newServer
-
-        // Unhide UI and set Title
-        setupTableView()
-        tableView.isHidden = false
         title = statisticsDataManager.server.name
+        serverInitialized = true
     }
 
     private func displayErrorAndReturn(title: String, description: String) {
@@ -79,7 +97,7 @@ class StatsViewController: UIViewController {
         errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
 
         DispatchQueue.main.async {
-            self.activityIndicator.deactivate()
+            self.loadingView.isHidden = true
             self.tableView.isHidden = true
             self.present(errorAC, animated: true)
         }
@@ -139,6 +157,10 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: StatisticsDataManagerDelegate
 extension StatsViewController: StatisticsDataManagerDelegate {
+    func willBeginFetchingData() {
+        showLoadingView()
+    }
+
     func failedToUpdateData(error: DataManagerError) {
         switch error {
         case .unableToParseJSON:
@@ -146,10 +168,6 @@ extension StatsViewController: StatisticsDataManagerDelegate {
         case .missingData:
             self.displayErrorAndReturn(title: "Error", description: error.description)
         }
-    }
-
-    func willBeginFetchingData() {
-        activityIndicator.startAnimating()
     }
 
     func failedToFetchData(error: FetchError) {
@@ -172,7 +190,6 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     }
 
     func dataUpdated() {
-        activityIndicator.deactivate()
-        tableView.reloadData()
+        showTableView()
     }
 }
