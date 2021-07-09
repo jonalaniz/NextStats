@@ -208,7 +208,8 @@ struct PHP: Codable {
 
 struct Database: Codable {
     let type, version: String?
-    let size: Int?
+    // Nextcloud 22 size variables can be either int or string.
+    // let size: Int?
 }
 
 struct ActiveUsers: Codable {

@@ -35,12 +35,8 @@ class StatsViewController: UIViewController {
                                                  style: .plain,
                                                  target: self,
                                                  action: #selector(openInSafari))
-        let openSettingsButton = UIBarButtonItem(image: UIImage(systemName: "gearshape.fill"),
-                                                 style: .plain,
-                                                 target: self,
-                                                 action: #selector(openSettingsInSafari))
 
-        navigationItem.rightBarButtonItems = [openSettingsButton, openInSafariButton]
+        navigationItem.rightBarButtonItem = openInSafariButton
 
         // Setup our subviews
         view.addSubview(tableView)
@@ -109,14 +105,6 @@ class StatsViewController: UIViewController {
 
     @objc func openInSafari() {
         let urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
-        let url = URL(string: urlString)!
-        UIApplication.shared.open(url)
-    }
-
-    @objc func openSettingsInSafari() {
-        var urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
-        urlString.append("/index.php/settings/admin/overview")
-
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
     }
