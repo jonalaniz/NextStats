@@ -18,6 +18,9 @@ enum LocalizedKeys {
 
     static let serverAddButton = "server.screen.add".localized()
 
+    static let statsScreenFetchingData = "stats.screen.fetchingData".localized()
+    static let statsScreenSelectLabel = "stats.screen.selectServerLabel".localized()
+
     static let infoScreenDevHeader = "info.screen.development.header".localized()
     static let infoScreenDevTitle = "info.screen.development.developer".localized()
     static let infoScreenLocaleHeader = "info.screen.localization.header".localized()

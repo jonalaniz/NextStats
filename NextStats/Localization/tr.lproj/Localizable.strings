@@ -31,6 +31,14 @@
 /* Text = " Add a Server" */
 "server.screen.add" = " Bir Sunucu Ekle";
 
+// MARK: - Statistics View
+
+/* Text = "Loading Data" */
+"stats.screen.fetchingData" = "Veri yükleniyor";
+
+/* Text = "Select or add a server to view statistics" */
+"stats.screen.selectServerLabel" = "İstatistikleri görüntülemek için bir sunucu seçin veya ekleyin";
+
 // MARK: - Info View
 
 /* Text = "Development" */

@@ -31,7 +31,15 @@
 /* Text = " Add a Server" */
 "server.screen.add" = " Ajouter un serveur";
 
-/// MARK: - Info View
+// MARK: - Statistics View
+
+/* Text = "Loading Data" */
+"stats.screen.fetchingData" = "Chargement des données";
+
+/* Text = "Select or add a server to view statistics" */
+"stats.screen.selectServerLabel" = "Sélectionnez ou ajoutez un serveur pour afficher les statistiques";
+
+// MARK: - Info View
 
 /* Text = "Development" */
 "info.screen.development.header" = "Développement";

@@ -23,7 +23,7 @@ class SelectServerView: UIView {
     private let textLabel: UILabel = {
         let label = UILabel()
         label.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        label.text = "Select or add a server to view statistics"
+        label.text = LocalizedKeys.statsScreenSelectLabel
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
         label.textAlignment = .center
