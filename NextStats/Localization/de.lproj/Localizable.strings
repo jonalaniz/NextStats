@@ -71,7 +71,7 @@
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
 
-// MARK: - Errors
+// MARK: - Errors (Status Label)
 
 /* Text = "Invalid Data" */
 "error.invaliddata" = "Ungültige Daten";
@@ -96,3 +96,25 @@
 
 /* Text = "Unexpected Response" */
 "error.unexpectedresponse" = "Unerwartete Antwort";
+
+// MARK: - Errors (ServerManagerAuthenticationError)
+
+/* Text = "Not a valid host, please check url" */
+"error.notValidHost" = "Kein gültiger Host, bitte URL überprüfen.";
+
+/* Text = "Nextcloud server not found, please check url" */
+"error.serverNotFound" = "Nextcloud-Server nicht gefunden, bitte URL überprüfen.";
+
+/* Text = "Unable to serialize server response." */
+"error.failedToSerializeResponse" = "Serverantwort kann nicht serialisiert werden.";
+
+/* Text = "Authorization data missing." */
+"error.authorizationDataMissing" = "Autorisierungsdaten fehlen.";
+
+// MARK: - Errors (DataManagerError)
+
+/* Text = "Missing statistics data." */
+"error.missingData" = "Fehlende Statistikdaten.";
+
+/* Text = "Unable to parse JSON." */
+"error.unableToParseJSON" = "JSON kann nicht geparst werden.";

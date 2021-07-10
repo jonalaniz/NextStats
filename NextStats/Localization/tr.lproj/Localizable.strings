@@ -71,7 +71,7 @@
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "NextStats'ın gelecekteki gelişimine destek olduğunuz için çok teşekkür ederiz!";
 
-// MARK: - Errors
+// MARK: - Errors (Status Label)
 
 /* Text = "Invalid Data" */
 "error.invaliddata" = "Geçersiz Veri";
@@ -96,3 +96,25 @@
 
 /* Text = "Unexpected Response" */
 "error.unexpectedresponse" = "Beklenmeyen Cevap";
+
+// MARK: - Errors (ServerManagerAuthenticationError)
+
+/* Text = "Not a valid host, please check url" */
+"error.notValidHost" = "Geçerli bir ana bilgisayar değil, lütfen url'yi kontrol edin.";
+
+/* Text = "Nextcloud server not found, please check url" */
+"error.serverNotFound" = "Nextcloud sunucusu bulunamadı, lütfen url'yi kontrol edin.";
+
+/* Text = "Unable to serialize server response." */
+"error.failedToSerializeResponse" = "Sunucu yanıtı serileştirilemiyor.";
+
+/* Text = "Authorization data missing." */
+"error.authorizationDataMissing" = "Yetkilendirme verileri eksik.";
+
+// MARK: - Errors (DataManagerError)
+
+/* Text = "Missing statistics data." */
+"error.missingData" = "Eksik istatistik verileri.";
+
+/* Text = "Unable to parse JSON." */
+"error.unableToParseJSON" = "JSON ayrıştırılamıyor.";

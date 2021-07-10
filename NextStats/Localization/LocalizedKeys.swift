@@ -32,12 +32,20 @@ enum LocalizedKeys {
     static let iapThank = "iap.thankyou".localized()
     static let iapThankDescription = "iap.thankyou.description".localized()
 
-    static let errorInvalidData = "error.invaliddata".localized()
-    static let errorInvalidDataDescription = "error.invaliddata.description".localized()
-    static let errorMissingResponse = "error.missingresponse".localized()
-    static let errorMissingResponseDescription = "error.missingresponse.description".localized()
-    static let errorNetwork = "error.networkerror".localized()
-    static let errorUnauthorized = "error.unauthorized".localized()
-    static let errorUnauthorizedDescription = "error.unauthorized.description".localized()
-    static let errorUnexpectedResponse = "error.unexpectedresponse".localized()
+    static let invalidData = "error.invaliddata".localized()
+    static let invalidDataDescription = "error.invaliddata.description".localized()
+    static let missingResponse = "error.missingresponse".localized()
+    static let missingResponseDescription = "error.missingresponse.description".localized()
+    static let networkError = "error.networkerror".localized()
+    static let unauthorized = "error.unauthorized".localized()
+    static let unauthorizedDescription = "error.unauthorized.description".localized()
+    static let unexpectedResponse = "error.unexpectedresponse".localized()
+
+    static let notValidhost = "error.notValidHost".localized()
+    static let serverNotFound = "error.serverNotFound".localized()
+    static let failedToSerializeResponse = "error.failedToSerializeResponse".localized()
+    static let authorizationDataMissing = "error.authorizationDataMissing".localized()
+
+    static let missingData = "error.missingData".localized()
+    static let unableToParseJSON = "error.unableToParseJSON".localized()
 }

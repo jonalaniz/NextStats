@@ -17,11 +17,10 @@ import Foundation
 
     public var description: String {
         switch self {
-            // TODO: Localize these strings!
-        case .notValidHost: return "Not a valid host, please check url."
-        case .serverNotFound: return "Nextcloud server not found, please check url."
-        case .failedToSerializeResponse: return "Unable to serialize server response."
-        case .authorizationDataMissing: return "Authorization data missing."
+        case .notValidHost: return LocalizedKeys.notValidhost
+        case .serverNotFound: return LocalizedKeys.serverNotFound
+        case .failedToSerializeResponse: return LocalizedKeys.failedToSerializeResponse
+        case .authorizationDataMissing: return LocalizedKeys.authorizationDataMissing
         }
     }
 }
