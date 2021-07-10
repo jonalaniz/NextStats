@@ -88,7 +88,7 @@ class StatsViewController: UIViewController {
         serverInitialized = true
     }
 
-    private func displayErrorAndReturn(title: String, description: String) {
+    private func showErrorAndReturn(title: String, description: String) {
         let errorAC = UIAlertController(title: title, message: description, preferredStyle: .alert)
         errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
 
@@ -152,28 +152,28 @@ extension StatsViewController: StatisticsDataManagerDelegate {
     func failedToUpdateData(error: DataManagerError) {
         switch error {
         case .unableToParseJSON:
-            self.displayErrorAndReturn(title: "Error", description: error.description)
+            self.showErrorAndReturn(title: "Error", description: error.description)
         case .missingData:
-            self.displayErrorAndReturn(title: "Error", description: error.description)
+            self.showErrorAndReturn(title: "Error", description: error.description)
         }
     }
 
     func failedToFetchData(error: FetchError) {
         switch error {
         case .network(let networkError):
-            self.displayErrorAndReturn(title: error.title,
-                                       description: "\(networkError.localizedDescription)")
+            self.showErrorAndReturn(title: error.title,
+                                    description: "\(networkError.localizedDescription)")
         case .unexpectedResponse(let response):
             switch response {
             case 401:
-                self.displayErrorAndReturn(title: LocalizedKeys.errorUnauthorized + ": \(response)",
-                                           description: LocalizedKeys.errorUnauthorizedDescription)
+                self.showErrorAndReturn(title: error.title + ": \(response)",
+                                        description: LocalizedKeys.errorUnauthorizedDescription)
             default:
-                self.displayErrorAndReturn(title: error.title + ": (\(response))",
-                                           description: "\(response)")
+                self.showErrorAndReturn(title: error.title + ": (\(response))",
+                                        description: "\(response)")
             }
         default:
-            self.displayErrorAndReturn(title: error.title, description: error.description)
+            self.showErrorAndReturn(title: error.title, description: error.description)
         }
     }
 
