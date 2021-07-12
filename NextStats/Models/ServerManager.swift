@@ -167,7 +167,7 @@ open class ServerManager {
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(_):
-                return
+                break
             case .success(let data):
                 guard let image = UIImage(data: data) else { return }
 
