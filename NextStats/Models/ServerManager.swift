@@ -169,12 +169,13 @@ open class ServerManager {
             case .failure(_):
                 break
             case .success(let data):
-                guard let image = UIImage(data: data) else { return }
-
-                // Set custom logo and download image
-                self.saveLogo(image: image, to: server.imagePath())
-                server.setCustomLogo()
+                if let image = UIImage(data: data) {
+                    // Set custom logo and download image
+                    self.saveLogo(image: image, to: server.imagePath())
+                    server.setCustomLogo()
+                }
             }
+
             self.captureServer(server)
         }
     }
