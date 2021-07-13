@@ -50,7 +50,7 @@ open class ServerManager {
 
         // Append Login flow v2 endpoint and create request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path = Paths.loginEndpoint
+        components.path += Paths.loginEndpoint
 
         var request = URLRequest(url: components.url!)
         request.httpMethod = "POST"
