@@ -46,7 +46,8 @@ NextStats was built on Xcode 12 with Swift 5. It has no dependencies, so you sho
 ## Support
 
 This is currenlty all I got going in my life, so why not buy me some coffee to keep me going?
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="jonalaniz" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+<a href="https://www.buymeacoffee.com/jonalaniz" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 ## License
 
