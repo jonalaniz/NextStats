@@ -43,6 +43,12 @@ NextStats was built on Xcode 12 with Swift 5. It has no dependencies, so you sho
 - Turkish translations provided by [Hüseyin Fahri Uzun](https://github.com/fuzunspm).
 - Icon by [VLH Art](https://twitter.com/VLHart)
 
+## Support
+
+This is currenlty all I got going in my life, so why not buy me some coffee to keep me going?
+
+<a href="https://www.buymeacoffee.com/jonalaniz" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ## License
 
 NextStats is available under the MIT license. See the LICENSE file for more info.
