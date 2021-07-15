@@ -9,8 +9,10 @@
 import UIKit
 
 extension UIToolbar {
-    /// Configures toolbar to have black background
+    /// Configures toolbar to have black background for iOS platforms
     func configureAppearance() {
+        #if !targetEnvironment(macCatalyst)
+
         let appearance = UIToolbarAppearance()
 
         if #available(iOS 15.0, *) {
@@ -22,5 +24,7 @@ extension UIToolbar {
         self.isTranslucent = false
         self.barTintColor = .systemGroupedBackground
         self.setShadowImage(UIImage(), forToolbarPosition: .bottom)
+
+        #endif
     }
 }
