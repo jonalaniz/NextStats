@@ -36,9 +36,7 @@ class ServerViewController: UIViewController {
         // Setup Navigation Bar
         title = "NextStats"
 
-        navigationController?.toolbar.isTranslucent = false
-        navigationController?.toolbar.barTintColor = .systemGroupedBackground
-        navigationController?.toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+        navigationController?.toolbar.configureAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
 
         // Set Up Toolbar
