@@ -33,13 +33,6 @@ enum FetchError: Error {
     }
 }
 
-enum FetchType {
-    case statistics
-    case authResponse
-    case poll
-    case serverAuthenticationInfo
-}
-
 class NetworkController {
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
