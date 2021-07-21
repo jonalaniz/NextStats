@@ -26,7 +26,7 @@ NextStats is a multi-server monitoring tool for NextCloud instances. It uses the
 - At a glance online status indicators
 
 ## Requirements
-- macOS 10.15+
+- macOS 11+
 - iOS 13.0+
 - Xcode 12+
 - Swift 5
