@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StatisticsToolbarDelegate: NSObject {}
+class ToolbarDelegate: NSObject {}
 
 #if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {
@@ -16,7 +16,7 @@ extension NSToolbarItem.Identifier {
     static let openInSafari = NSToolbarItem.Identifier("com.jonalaniz.nextstats.openInSafari")
 }
 
-extension StatisticsToolbarDelegate: NSToolbarDelegate {
+extension ToolbarDelegate: NSToolbarDelegate {
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         let identifiers: [NSToolbarItem.Identifier] = [
             .toggleSidebar,

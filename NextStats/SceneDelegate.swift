@@ -12,7 +12,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
     var coordinator: MainCoordinator?
     var window: UIWindow?
-    var toolbarDelegate = StatisticsToolbarDelegate()
+    var toolbarDelegate = ToolbarDelegate()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Grab the windowScene
