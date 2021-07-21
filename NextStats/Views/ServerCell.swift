@@ -79,7 +79,9 @@ extension ServerCell {
         ])
 
         if traitCollection.userInterfaceStyle == .light {
+            #if !targetEnvironment(macCatalyst)
             backgroundColor = .quaternarySystemFill
+            #endif
         }
 
         serverNameLabel.text = server?.name

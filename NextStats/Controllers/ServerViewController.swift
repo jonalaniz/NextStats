@@ -29,6 +29,10 @@ class ServerViewController: UIViewController {
 
         // Show or hide noServerView as necessary
         toggleNoServersView()
+
+        #if targetEnvironment(macCatalyst)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        #endif
     }
 
     private func setupView() {
@@ -71,8 +75,10 @@ class ServerViewController: UIViewController {
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
 
         // Setup Pull To Refresh Controls
+        #if !targetEnvironment(macCatalyst)
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        #endif
 
         // Constrain our views
         view.addSubview(tableView)

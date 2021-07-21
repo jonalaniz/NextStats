@@ -12,6 +12,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDelegate {
     var coordinator: MainCoordinator?
     var window: UIWindow?
+    var toolbarDelegate = StatisticsToolbarDelegate()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Grab the windowScene
@@ -42,10 +43,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             windowScene.sizeRestrictions?.minimumSize = size
         }
 
-        // Remove titlebar
+        // Create toolbar
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+        let toolbar = NSToolbar(identifier: "main")
+        toolbar.delegate = toolbarDelegate
+        toolbar.displayMode = .iconOnly
+
+        // Remove titlebar and set toolbar
         if let titlebar = windowScene.titlebar {
-            titlebar.titleVisibility = .hidden
-            titlebar.toolbar = nil
+            titlebar.toolbar = toolbar
+            titlebar.toolbarStyle = .automatic
         }
         #endif
 
