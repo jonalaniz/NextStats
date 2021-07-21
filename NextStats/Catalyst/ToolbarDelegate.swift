@@ -23,7 +23,6 @@ extension ToolbarDelegate: NSToolbarDelegate {
             .flexibleSpace,
             .addServer,
             .primarySidebarTrackingSeparatorItemIdentifier,
-            .toggleSidebar,
             .flexibleSpace,
             .refresh,
             .openInSafari
