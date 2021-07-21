@@ -27,6 +27,14 @@ class StatsViewController: UIViewController {
         showLoadingView()
     }
 
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(reload) || action == #selector(openInSafari) {
+            return serverInitialized
+        }
+
+        return super.canPerformAction(action, withSender: sender)
+    }
+
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
 
@@ -37,6 +45,11 @@ class StatsViewController: UIViewController {
                                                  action: #selector(openInSafari))
 
         navigationItem.rightBarButtonItem = openInSafariButton
+
+        #if targetEnvironment(macCatalyst)
+        print("viewWillAppear")
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        #endif
 
         // Setup our subviews
         view.addSubview(tableView)
@@ -104,9 +117,15 @@ class StatsViewController: UIViewController {
     }
 
     @objc func openInSafari() {
+        if !serverInitialized { return }
         let urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
+    }
+
+    @objc func reload() {
+        if !serverInitialized { return }
+        statisticsDataManager.reload()
     }
 }
 

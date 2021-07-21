@@ -24,6 +24,10 @@ class StatisticsDataManager {
         }
     }
 
+    func reload() {
+        fetchData(for: server)
+    }
+
     private func resetServerData() {
         nextStat.initializeSectionData()
         delegate?.dataUpdated()

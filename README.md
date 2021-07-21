@@ -4,7 +4,7 @@
 
 <p align="center">
     <img src="https://img.shields.io/badge/iOS-13.0+-blueviolet.svg" />
-    <img src="https://img.shields.io/badge/macOS-10.15+-red.svg" />
+    <img src="https://img.shields.io/badge/macOS-11+-red.svg" />
     <img src="https://img.shields.io/badge/Swift-5.0-orange.svg" />
     <a href="https://twitter.com/jonalaniz">
         <img src="https://img.shields.io/badge/Contact-@jonalaniz-blue.svg?style=flat" alt="Twitter: @jonalaniz" />
@@ -26,7 +26,7 @@ NextStats is a multi-server monitoring tool for NextCloud instances. It uses the
 - At a glance online status indicators
 
 ## Requirements
-- macOS 10.15+
+- macOS 11+
 - iOS 13.0+
 - Xcode 12+
 - Swift 5
