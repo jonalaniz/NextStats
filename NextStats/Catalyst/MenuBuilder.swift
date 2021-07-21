@@ -19,6 +19,7 @@ extension AppDelegate {
         builder.remove(menu: .services)
         builder.remove(menu: .format)
         builder.remove(menu: .toolbar)
+        builder.remove(menu: .about)
 
         let newServerCommand = UIKeyCommand(title: "New Server",
                                             action: #selector(ServerViewController.addServerPressed),
@@ -38,7 +39,14 @@ extension AppDelegate {
                                         options: .displayInline,
                                         children: [refreshServersCommand, refreshServerCommand])
 
+        let aboutCommand = UIKeyCommand(title: "About NextStats",
+                                        action: #selector(ServerViewController.infoButtonPressed),
+                                        input: "",
+                                        modifierFlags: [])
+        let aboutMenu = UIMenu(title: "", options: .displayInline, children: [aboutCommand])
+
         builder.insertChild(refreshServersMenu, atStartOfMenu: .file)
         builder.insertChild(newServerMenu, atStartOfMenu: .file)
+        builder.insertChild(aboutMenu, atStartOfMenu: .application)
     }
 }
