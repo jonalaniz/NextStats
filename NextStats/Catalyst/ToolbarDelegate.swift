@@ -12,6 +12,7 @@ class ToolbarDelegate: NSObject {}
 
 #if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {
+    static let addServer = NSToolbarItem.Identifier("com.jonalaniz.nextstats.addServer")
     static let refresh = NSToolbarItem.Identifier("com.jonalaniz.nextstats.refresh")
     static let openInSafari = NSToolbarItem.Identifier("com.jonalaniz.nextstats.openInSafari")
 }
@@ -19,6 +20,9 @@ extension NSToolbarItem.Identifier {
 extension ToolbarDelegate: NSToolbarDelegate {
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         let identifiers: [NSToolbarItem.Identifier] = [
+            .flexibleSpace,
+            .addServer,
+            .primarySidebarTrackingSeparatorItemIdentifier,
             .toggleSidebar,
             .flexibleSpace,
             .refresh,
@@ -38,6 +42,13 @@ extension ToolbarDelegate: NSToolbarDelegate {
         var toolbarItem: NSToolbarItem?
 
         switch itemIdentifier {
+        case .addServer:
+            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
+            item.image = UIImage(systemName: "plus")
+            item.label = "Add Server"
+            item.action = #selector(ServerViewController.addServerPressed)
+            item.target = nil
+            toolbarItem = item
         case .refresh:
             let item = NSToolbarItem(itemIdentifier: itemIdentifier)
             item.image = UIImage(systemName: "arrow.clockwise")

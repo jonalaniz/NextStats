@@ -20,8 +20,6 @@ class ServerViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = false
-
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
@@ -32,6 +30,8 @@ class ServerViewController: UIViewController {
 
         #if targetEnvironment(macCatalyst)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        #else
+        navigationController?.isToolbarHidden = false
         #endif
     }
 
@@ -62,23 +62,19 @@ class ServerViewController: UIViewController {
 
         toolbarItems = [infoButtonView, spacer, about]
 
-        // Initialize tableView with proper style for platform
+        // Initialize tableView with proper style for platform and add refreshControl
         #if targetEnvironment(macCatalyst)
         tableView = UITableView(frame: CGRect.zero, style: .plain)
         #else
         tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         #endif
 
         // Connect tableView to ViewController and register Cell
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
-
-        // Setup Pull To Refresh Controls
-        #if !targetEnvironment(macCatalyst)
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        #endif
 
         // Constrain our views
         view.addSubview(tableView)
