@@ -28,7 +28,11 @@ class StatsViewController: UIViewController {
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return serverInitialized
+        if action == #selector(reload) || action == #selector(openInSafari) {
+            return serverInitialized
+        }
+
+        return super.canPerformAction(action, withSender: sender)
     }
 
     private func setupView() {
