@@ -22,7 +22,7 @@ class ServerFormView: UIView {
     private let nicknameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.secondaryLabel
+        label.textColor = .secondaryLabel
         label.text = LocalizedKeys.addScreenNickname
 
         return label
@@ -35,7 +35,7 @@ class ServerFormView: UIView {
         textField.returnKeyType = .done
         textField.borderStyle = .none
         textField.backgroundColor = .systemFill
-        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.font = .systemFont(ofSize: 16)
         textField.attributedPlaceholder = "MyServer".attributedWithQuaternaryColor()
 
         return textField
@@ -44,7 +44,7 @@ class ServerFormView: UIView {
     private let serverURLLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.secondaryLabel
+        label.textColor = .secondaryLabel
         label.text = LocalizedKeys.addScreenUrl
 
         return label
@@ -60,7 +60,7 @@ class ServerFormView: UIView {
         textField.returnKeyType = .done
         textField.borderStyle = .none
         textField.backgroundColor = .systemFill
-        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.font = .systemFont(ofSize: 16)
         textField.attributedPlaceholder = "https://cloud.example.com".attributedWithQuaternaryColor()
 
         return textField
@@ -70,7 +70,7 @@ class ServerFormView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 12)
         label.numberOfLines = 0
         label.text = LocalizedKeys.addScreenLabel
 
@@ -110,12 +110,12 @@ class ServerFormView: UIView {
     let connectButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.themeColor
+        button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
         button.setTitle(LocalizedKeys.addScreenConnect, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.titleLabel?.font = .systemFont(ofSize: 17)
         button.isEnabled = false
 
         return button
@@ -166,7 +166,7 @@ class ServerFormView: UIView {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
 
         textField.leftView = paddingView
-        textField.leftViewMode = UITextField.ViewMode.always
+        textField.leftViewMode = .always
         textField.borderStyle = .none
         textField.layoutIfNeeded()
         textField.layer.cornerRadius = 10
