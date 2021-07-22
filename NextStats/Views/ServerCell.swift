@@ -10,36 +10,36 @@ import UIKit
 
 class ServerCell: UITableViewCell {
     var serverImageView: UIImageView = {
-        let logoImageView = UIImageView()
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.contentMode = .scaleAspectFit
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
 
-        return logoImageView
+        return imageView
     }()
 
     var serverNameLabel: UILabel = {
-        let serverNameLabel = UILabel()
-        serverNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        serverNameLabel.font = .preferredFont(forTextStyle: .title2)
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .title2)
 
-        return serverNameLabel
+        return label
     }()
 
     var serverURLLabel: UILabel = {
-        let friendlyURLLabel = UILabel()
-        friendlyURLLabel.translatesAutoresizingMaskIntoConstraints = false
-        friendlyURLLabel.font = .preferredFont(forTextStyle: .body)
-        friendlyURLLabel.textColor = .secondaryLabel
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .secondaryLabel
 
-        return friendlyURLLabel
+        return label
     }()
 
     var statusLabel: UILabel = {
-        let statusLabel = UILabel()
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.font = .preferredFont(forTextStyle: .headline)
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .headline)
 
-        return statusLabel
+        return label
     }()
 
     var verticalStackView: UIStackView = {
