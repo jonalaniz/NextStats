@@ -18,23 +18,32 @@ struct NextServer: Codable {
     let password: String
     var hasCustomLogo: Bool = false
 
-    func authenticationString() -> String {
-        let credentials = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
-        let authenticationString = "Basic \(credentials)"
-
-        return authenticationString
-    }
-
-    func cachedImage() -> UIImage {
+    private func cachedImage() -> UIImage {
         return UIImage(contentsOfFile: imagePath())!
     }
 
-    func imageURL() -> URL {
+    private func imageCached() -> Bool {
+        let path = imagePath()
+        if FileManager.default.fileExists(atPath: path) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private func imageURL() -> URL {
         let url = URL(string: URLString)!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.path = Paths.logoEndpoint
 
         return components.url!
+    }
+
+    func authenticationString() -> String {
+        let credentials = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
+        let authenticationString = "Basic \(credentials)"
+
+        return authenticationString
     }
 
     func imagePath() -> String {
@@ -43,13 +52,11 @@ struct NextServer: Codable {
         return documentsDirectory.appendingPathComponent("\(friendlyURL).png", isDirectory: true).path
     }
 
-    func imageCached() -> Bool {
-        let path = imagePath()
-        if FileManager.default.fileExists(atPath: path) {
-            return true
-        } else {
-            return false
-        }
+    func serverImage() -> UIImage {
+        guard hasCustomLogo else { return  UIImage(named: "nextcloud-server")! }
+        guard imageCached() else { return UIImage(named: "nextcloud-server")! }
+
+        return cachedImage()
     }
 
     mutating func setCustomLogo() {

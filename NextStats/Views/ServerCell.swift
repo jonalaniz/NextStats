@@ -88,7 +88,7 @@ extension ServerCell {
         serverURLLabel.text = server?.friendlyURL
 
         pingServer()
-        checkForServerLogoImage()
+        serverImageView.image = server.serverImage()
     }
 
     private func pingServer() {
@@ -124,22 +124,6 @@ extension ServerCell {
             UIView.animate(withDuration: 0.4) {
                 self.verticalStackView.layoutIfNeeded()
             }
-        }
-    }
-
-    // TODO: Make server logo something that is checked for on each connection, then grab the image.
-    private func checkForServerLogoImage() {
-        if server.hasCustomLogo {
-            if server.imageCached() {
-                // Check server cached logo
-                serverImageView.image = server.cachedImage()
-            } else {
-                serverImageView.image = UIImage(named: "nextcloud-server")
-            }
-        } else {
-            // No custom logo
-            serverImageView.image = UIImage(named: "nextcloud-server")
-            return
         }
     }
 }
