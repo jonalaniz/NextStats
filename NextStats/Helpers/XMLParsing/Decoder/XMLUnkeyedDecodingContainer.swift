@@ -6,6 +6,7 @@
 //  Copyright © 2017 Shawn Moore. All rights reserved.
 //
 
+// swiftlint:disable all
 import Foundation
 
 internal struct _XMLUnkeyedDecodingContainer : UnkeyedDecodingContainer {

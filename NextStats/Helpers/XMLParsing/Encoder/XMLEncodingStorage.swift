@@ -1,4 +1,3 @@
-
 //
 //  XMLEncodingStorage.swift
 //  XMLParsing
@@ -7,10 +6,10 @@
 //  Copyright © 2017 Shawn Moore. All rights reserved.
 //
 
+// swiftlint:disable all
 import Foundation
 
 // MARK: - Encoding Storage and Containers
-
 internal struct _XMLEncodingStorage {
     // MARK: Properties
     
