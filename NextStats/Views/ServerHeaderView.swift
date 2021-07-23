@@ -83,7 +83,7 @@ class ServerHeaderView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.sfSymbolWithText(symbol: "person.fill", text: ServerHeaderViewConstants.userString)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        button.contentEdgeInsets = UIEdgeInsets(top: 8.0, left: 14.0, bottom: 8.0, right: 14.0)
+        button.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
 
         return button
     }()
