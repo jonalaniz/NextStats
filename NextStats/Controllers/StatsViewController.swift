@@ -11,6 +11,7 @@ import UIKit
 class StatsViewController: UIViewController {
     let loadingView = LoadingView()
     let selectServerView = SelectServerView()
+    let headerView = ServerHeaderView()
     var statisticsDataManager = StatisticsDataManager.shared
     var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
     var serverInitialized = false
@@ -37,6 +38,7 @@ class StatsViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
+        // tableView.tableHeaderView = headerView
 
         // Setup our buttons
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"),
@@ -45,6 +47,7 @@ class StatsViewController: UIViewController {
                                                  action: #selector(openInSafari))
 
         navigationItem.rightBarButtonItem = openInSafariButton
+        navigationItem.largeTitleDisplayMode = .never
 
         #if targetEnvironment(macCatalyst)
         print("viewWillAppear")
@@ -94,11 +97,15 @@ class StatsViewController: UIViewController {
         tableView.reloadData()
     }
 
+    /// Initializes server variable with selected server and updates UI
     func serverSelected(_ newServer: NextServer) {
-        // Initialize server variable with selected server
         statisticsDataManager.server = newServer
-        title = statisticsDataManager.server.name
         serverInitialized = true
+
+        // guard let headerView = tableView.tableHeaderView as? ServerHeaderView else { return }
+        let headerView = ServerHeaderView()
+        headerView.setupHeaderWith(name: newServer.name, address: newServer.friendlyURL, image: newServer.serverImage())
+        tableView.tableHeaderView = headerView
     }
 
     private func showErrorAndReturn(title: String, description: String) {

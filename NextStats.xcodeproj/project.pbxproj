@@ -55,6 +55,8 @@
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
 		56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA258724EE48F90034CA96 /* URLChecker.swift */; };
 		56EF9F66269673430055386C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EF9F65269673430055386C /* LoadingView.swift */; };
+		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
+		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* Server.swift */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +127,8 @@
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
 		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
 		56EF9F65269673430055386C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
+		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,13 +174,14 @@
 			isa = PBXGroup;
 			children = (
 				56924DD123F802A70043C9BE /* Extensions.swift */,
-				5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */,
 				5601D80525E31C4900993D31 /* String+Localized.swift */,
 				5677531A268C2D4A00CA6AA4 /* String+Attributed.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
 				5601D7F525E3199400993D31 /* UIApplication+AppVersion.swift */,
-				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
+				56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */,
 				569921CB2666A1DE00236019 /* UIColor+NextStats.swift */,
+				5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */,
+				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				56112883265A1FE4003CC0BE /* NoServersView.swift */,
 				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				569EC31E25B4F7F600B955EC /* HeaderView.swift */,
+				56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */,
 				56EF9F65269673430055386C /* LoadingView.swift */,
 			);
 			path = Views;
@@ -437,6 +443,7 @@
 				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
+				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
 				56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
@@ -465,6 +472,7 @@
 				56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
 				56924DD223F802A70043C9BE /* Extensions.swift in Sources */,
+				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */,
 				5601D80625E31C4900993D31 /* String+Localized.swift in Sources */,
 				560C13232697B9A500FB1973 /* SelectServerView.swift in Sources */,
