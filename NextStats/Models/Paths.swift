@@ -13,4 +13,5 @@ struct Paths {
     static let loginEndpoint = "/index.php/login/v2"
     static let logoEndpoint = "/index.php/apps/theming/image/logo"
     static let statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
+    static let usersEndpoint = "/ocs/v1.php/cloud/users"
 }
