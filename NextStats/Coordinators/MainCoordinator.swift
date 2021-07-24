@@ -49,7 +49,7 @@ class MainCoordinator: Coordinator {
         child.start()
     }
 
-    func showUsersView(for server: NextServer) {
+    func showUsersView() {
         let child = UsersCoordinator(splitViewController: splitViewController)
         child.parentCoordinator = self
         childCoordinators.append(child)

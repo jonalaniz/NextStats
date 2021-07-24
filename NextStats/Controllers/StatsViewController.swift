@@ -40,7 +40,6 @@ class StatsViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
-        // tableView.tableHeaderView = headerView
 
         // Setup our buttons
         let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"),
@@ -52,7 +51,6 @@ class StatsViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
 
         #if targetEnvironment(macCatalyst)
-        print("viewWillAppear")
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         #endif
 
@@ -141,7 +139,10 @@ class StatsViewController: UIViewController {
     }
 
     @objc func userManagementPressed() {
-        coordinator?.showUsersView(for: statisticsDataManager.server)
+        let userDataManager = UserDataManager.shared
+        userDataManager.server = statisticsDataManager.server
+
+        coordinator?.showUsersView()
     }
 }
 
