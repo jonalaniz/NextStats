@@ -57,6 +57,8 @@
 		569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2C7226AAF61A001122F2 /* XMLDecoder.swift */; };
 		569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2C7326AAF61A001122F2 /* ISO8601DateFormatter.swift */; };
 		569F2C8026AAF61A001122F2 /* XMLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2C7426AAF61A001122F2 /* XMLKey.swift */; };
+		569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2C9C26AB22B0001122F2 /* UsersViewController.swift */; };
+		569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA026AB2358001122F2 /* UsersCoordinator.swift */; };
 		56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A56EC32563C5A3005A6D18 /* InfoModel.swift */; };
 		56B1413F267E7236002D66D8 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Paths.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
@@ -140,6 +142,8 @@
 		569F2C7226AAF61A001122F2 /* XMLDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLDecoder.swift; sourceTree = "<group>"; };
 		569F2C7326AAF61A001122F2 /* ISO8601DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateFormatter.swift; sourceTree = "<group>"; };
 		569F2C7426AAF61A001122F2 /* XMLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLKey.swift; sourceTree = "<group>"; };
+		569F2C9C26AB22B0001122F2 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
+		569F2CA026AB2358001122F2 /* UsersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCoordinator.swift; sourceTree = "<group>"; };
 		56A56EC32563C5A3005A6D18 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		56A8EFD0256AC84100AFC20C /* NextStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NextStats.entitlements; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
 				5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */,
 				565CDC0725E612C900028EA9 /* InfoCoordinator.swift */,
+				569F2CA026AB2358001122F2 /* UsersCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -285,15 +290,12 @@
 		5689894D23D4CF2000D13B12 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				561B989725A85C9E00A8FE6D /* AuthResponse.swift */,
+				569F2CA426AC2D39001122F2 /* Server Models */,
+				569F2CA326AC2D22001122F2 /* Statistics Models */,
+				569F2CA226AC2D1A001122F2 /* User Managment */,
 				56A56EC32563C5A3005A6D18 /* InfoModel.swift */,
 				561B988C25A8517700A8FE6D /* NetworkController.swift */,
-				56F7F8F324D78C9E00C667E4 /* Server.swift */,
-				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
-				56B59BED26886EBD00A75B13 /* NextStat.swift */,
-				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 				56B1413E267E7236002D66D8 /* Paths.swift */,
-				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,6 +303,7 @@
 		5689894E23D4CF3400D13B12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
 				56557EF923CA6E89008CF684 /* WebViewController.swift */,
 				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
 				564EAE082558CEA80090AFBB /* InfoViewController.swift */,
@@ -343,6 +346,33 @@
 				569F2C7226AAF61A001122F2 /* XMLDecoder.swift */,
 			);
 			path = Decoder;
+			sourceTree = "<group>";
+		};
+		569F2CA226AC2D1A001122F2 /* User Managment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "User Managment";
+			sourceTree = "<group>";
+		};
+		569F2CA326AC2D22001122F2 /* Statistics Models */ = {
+			isa = PBXGroup;
+			children = (
+				56B59BED26886EBD00A75B13 /* NextStat.swift */,
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
+				561B989B25A8614600A8FE6D /* StatisticsDataManager.swift */,
+			);
+			path = "Statistics Models";
+			sourceTree = "<group>";
+		};
+		569F2CA426AC2D39001122F2 /* Server Models */ = {
+			isa = PBXGroup;
+			children = (
+				561B989725A85C9E00A8FE6D /* AuthResponse.swift */,
+				56F7F8F324D78C9E00C667E4 /* Server.swift */,
+				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
+			);
+			path = "Server Models";
 			sourceTree = "<group>";
 		};
 		56BB28E426A7997C00F0D8DC /* Catalyst */ = {
@@ -512,6 +542,7 @@
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
 				569F2C7B26AAF61A001122F2 /* XMLUnkeyedDecodingContainer.swift in Sources */,
+				569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */,
 				56C31270269109CB0077B40D /* LocalizedKeys.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56EF9F66269673430055386C /* LoadingView.swift in Sources */,
@@ -543,6 +574,7 @@
 				56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
 				56924DD223F802A70043C9BE /* Extensions.swift in Sources */,
+				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */,
 				5601D80625E31C4900993D31 /* String+Localized.swift in Sources */,
