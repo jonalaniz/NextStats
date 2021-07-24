@@ -55,7 +55,6 @@ extension AddServerViewController {
 
         // Initiate the authorization request, and check for logo
         coordinator?.requestAuthorization(withURL: url, name: serverName)
-
         serverFormView.activityIndicatior.activate()
 
         // Invalidate the url in case user returns and needs to enter again
@@ -85,16 +84,14 @@ extension AddServerViewController {
         serverFormView.connectButton.isEnabled = false
         serverFormView.activityIndicatior.deactivate()
 
-        UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded()
-        }
+        UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded() }
     }
 
-    func hideStatusAndEnableConnectButton() {
+    private func hideStatusAndEnableConnectButton() {
         serverFormView.statusLabel.isHidden = true
         serverFormView.connectButton.isEnabled = true
 
-        UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded()
-        }
+        UIView.animate(withDuration: 0.4) { self.serverFormView.stackView.layoutIfNeeded() }
     }
 
     private func setupNavigationController() {

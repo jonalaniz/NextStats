@@ -36,7 +36,6 @@ class ServerViewController: UIViewController {
     }
 
     private func setupView() {
-
         // Setup Navigation Bar
         title = "NextStats"
 
@@ -64,9 +63,9 @@ class ServerViewController: UIViewController {
 
         // Initialize tableView with proper style for platform and add refreshControl
         #if targetEnvironment(macCatalyst)
-        tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView = UITableView(frame: .zero, style: .plain)
         #else
-        tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         #endif
@@ -83,13 +82,14 @@ class ServerViewController: UIViewController {
         noServersView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-
-        noServersView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
-        noServersView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            noServersView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            noServersView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: 50)
+        ])
     }
 
     private func toggleNoServersView() {

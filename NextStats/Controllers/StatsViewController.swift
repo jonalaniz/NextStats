@@ -15,7 +15,7 @@ class StatsViewController: UIViewController {
     let selectServerView = SelectServerView()
     let headerView = ServerHeaderView()
     var statisticsDataManager = StatisticsDataManager.shared
-    var tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+    var tableView = UITableView(frame: .zero, style: .insetGrouped)
     var serverInitialized = false
 
     override func loadView() {
