@@ -11,7 +11,7 @@ import UIKit
 
 /// Facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects.
 open class ServerManager {
-    /// Returns the singleton 'ServerManager' instance.
+    /// Returns the singleton `ServerManager` instance.
     public static let shared = ServerManager()
 
     /// The delegate object for the 'ServerManager'.

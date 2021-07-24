@@ -18,8 +18,8 @@ struct Ocs: Codable {
 }
 
 struct Meta: Codable {
-    let status: String?
-    let statuscode: Int?
+    let status: String
+    let statuscode: Int
     let message: String?
 }
 
