@@ -3,7 +3,7 @@
 //  MenuBuilder
 //
 //  Created by Jon Alaniz on 7/21/21.
-//  Copyright © 2021 Jon Alaniz. All rights reserved.
+//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
 //
 
 import UIKit

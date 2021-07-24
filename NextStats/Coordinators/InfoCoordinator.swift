@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 2/23/21.
-//  Copyright © 2021 Jon Alaniz
+//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
 //
 
 import UIKit
@@ -24,7 +24,7 @@ class InfoCoordinator: Coordinator {
         infoVC.coordinator = self
 
         navigationController.viewControllers = [infoVC]
-        splitViewController.present(navigationController, animated: true, completion: nil)
+        splitViewController.present(navigationController, animated: true)
     }
 
     func showWebView(urlString: String) {

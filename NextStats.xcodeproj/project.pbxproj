@@ -59,6 +59,7 @@
 		569F2C8026AAF61A001122F2 /* XMLKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2C7426AAF61A001122F2 /* XMLKey.swift */; };
 		569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2C9C26AB22B0001122F2 /* UsersViewController.swift */; };
 		569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA026AB2358001122F2 /* UsersCoordinator.swift */; };
+		569F2CA626AC2EB5001122F2 /* UsersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA526AC2EB5001122F2 /* UsersModel.swift */; };
 		56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A56EC32563C5A3005A6D18 /* InfoModel.swift */; };
 		56B1413F267E7236002D66D8 /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Paths.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
@@ -144,6 +145,7 @@
 		569F2C7426AAF61A001122F2 /* XMLKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLKey.swift; sourceTree = "<group>"; };
 		569F2C9C26AB22B0001122F2 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		569F2CA026AB2358001122F2 /* UsersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCoordinator.swift; sourceTree = "<group>"; };
+		569F2CA526AC2EB5001122F2 /* UsersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersModel.swift; sourceTree = "<group>"; };
 		56A56EC32563C5A3005A6D18 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		56A8EFD0256AC84100AFC20C /* NextStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NextStats.entitlements; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
@@ -192,9 +194,9 @@
 		5601D7E425E318AB00993D31 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5650A6F2267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift */,
 				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
 				5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */,
+				5650A6F2267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -351,6 +353,7 @@
 		569F2CA226AC2D1A001122F2 /* User Managment */ = {
 			isa = PBXGroup;
 			children = (
+				569F2CA526AC2EB5001122F2 /* UsersModel.swift */,
 			);
 			path = "User Managment";
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Paths.swift in Sources */,
+				569F2CA626AC2EB5001122F2 /* UsersModel.swift in Sources */,
 				569F2C7C26AAF61A001122F2 /* XMLKeyedDecodingContainer.swift in Sources */,
 				5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */,
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,

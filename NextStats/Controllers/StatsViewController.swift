@@ -3,12 +3,14 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/11/20.
-//  Copyright © 2020 Jon Alaniz
+//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
 //
 
 import UIKit
 
 class StatsViewController: UIViewController {
+    weak var coordinator: MainCoordinator?
+
     let loadingView = LoadingView()
     let selectServerView = SelectServerView()
     let headerView = ServerHeaderView()
@@ -105,6 +107,9 @@ class StatsViewController: UIViewController {
         // guard let headerView = tableView.tableHeaderView as? ServerHeaderView else { return }
         let headerView = ServerHeaderView()
         headerView.setupHeaderWith(name: newServer.name, address: newServer.friendlyURL, image: newServer.serverImage())
+        headerView.userManagementButton.addTarget(self,
+                                                  action: #selector(userManagementPressed),
+                                                  for: .touchUpInside)
         tableView.tableHeaderView = headerView
     }
 
@@ -133,6 +138,10 @@ class StatsViewController: UIViewController {
     @objc func reload() {
         if !serverInitialized { return }
         statisticsDataManager.reload()
+    }
+
+    @objc func userManagementPressed() {
+        coordinator?.showUsersView(for: statisticsDataManager.server)
     }
 }
 

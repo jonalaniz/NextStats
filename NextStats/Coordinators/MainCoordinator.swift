@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 2/20/21.
-//  Copyright © 2021 Jon Alaniz
+//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
 //
 
 import UIKit
@@ -32,6 +32,14 @@ class MainCoordinator: Coordinator {
 
         splitViewController.viewControllers = [mainNavigationController, detailNavigationController]
         mainViewController.coordinator = self
+        detailViewController.coordinator = self
+    }
+
+    func showAddServerView() {
+        let child = AddServerCoordinator(splitViewController: splitViewController, serverManager: serverManager)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
 
     func showInfoView() {
@@ -41,8 +49,8 @@ class MainCoordinator: Coordinator {
         child.start()
     }
 
-    func showAddServerView() {
-        let child = AddServerCoordinator(splitViewController: splitViewController, serverManager: serverManager)
+    func showUsersView(for server: NextServer) {
+        let child = UsersCoordinator(splitViewController: splitViewController)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
