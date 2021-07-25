@@ -9,9 +9,11 @@
 import UIKit
 
 class ServerCell: UITableViewCell {
+    var server: NextServer!
+    let networkController = NetworkController.shared
+
     var serverImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
 
         return imageView
@@ -19,7 +21,6 @@ class ServerCell: UITableViewCell {
 
     var serverNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
 
         return label
@@ -27,7 +28,6 @@ class ServerCell: UITableViewCell {
 
     var serverURLLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .secondaryLabel
 
@@ -36,7 +36,6 @@ class ServerCell: UITableViewCell {
 
     var statusLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .headline)
 
         return label
@@ -44,7 +43,6 @@ class ServerCell: UITableViewCell {
 
     var verticalStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
@@ -52,14 +50,13 @@ class ServerCell: UITableViewCell {
 
         return stackView
     }()
-
-    var server: NextServer!
-    let networkController = NetworkController.shared
-
 }
 
 extension ServerCell {
     func setup() {
+        serverImageView.translatesAutoresizingMaskIntoConstraints = false
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+
         contentView.addSubview(serverImageView)
         contentView.addSubview(verticalStackView)
 
