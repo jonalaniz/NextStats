@@ -14,7 +14,6 @@
 		5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */; };
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
-		56112884265A1FE4003CC0BE /* NoServersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56112883265A1FE4003CC0BE /* NoServersView.swift */; };
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthResponse.swift */; };
@@ -74,6 +73,7 @@
 		56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */; };
 		56E0AD8126ADA4360090ACB6 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */; };
 		56E0AD8426ADABA90090ACB6 /* SelectServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */; };
+		56E0AD8626ADC0180090ACB6 /* NoServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* Server.swift */; };
@@ -99,7 +99,6 @@
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		56112883265A1FE4003CC0BE /* NoServersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoServersView.swift; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
@@ -165,6 +164,7 @@
 		56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
 		56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectServerViewController.swift; sourceTree = "<group>"; };
+		56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoServersViewController.swift; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
@@ -313,12 +313,12 @@
 		5689894E23D4CF3400D13B12 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				56E0AD8726ADC01D0090ACB6 /* ServerControllers */,
 				56E0AD8226ADAB810090ACB6 /* StatsControllers */,
 				56E0AD7D26ADA1F10090ACB6 /* Shared */,
 				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
 				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
 				564EAE082558CEA80090AFBB /* InfoViewController.swift */,
-				5646D68823CE0F750047876A /* ServerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -425,11 +425,19 @@
 			path = StatsControllers;
 			sourceTree = "<group>";
 		};
+		56E0AD8726ADC01D0090ACB6 /* ServerControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5646D68823CE0F750047876A /* ServerViewController.swift */,
+				56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */,
+			);
+			path = ServerControllers;
+			sourceTree = "<group>";
+		};
 		56ECA8CE23E4C450001A6899 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				56C9596F2655E42F00BD3B06 /* ServerFormView.swift */,
-				56112883265A1FE4003CC0BE /* NoServersView.swift */,
 				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				569EC31E25B4F7F600B955EC /* HeaderView.swift */,
 				56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */,
@@ -591,6 +599,7 @@
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				569F2C8026AAF61A001122F2 /* XMLKey.swift in Sources */,
+				56E0AD8626ADC0180090ACB6 /* NoServersViewController.swift in Sources */,
 				56E0AD7C26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift in Sources */,
 				5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */,
 				5601D7B325E0E8DB00993D31 /* Coordinator.swift in Sources */,
@@ -598,7 +607,6 @@
 				569F2C7926AAF61A001122F2 /* XMLEncodingStorage.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
-				56112884265A1FE4003CC0BE /* NoServersView.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,

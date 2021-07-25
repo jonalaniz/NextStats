@@ -1,16 +1,16 @@
 //
-//  NoServersView.swift
-//  NextStats
+//  NoServersViewController.swift
+//  NoServersViewController
 //
-//  Created by Jon Alaniz on 5/23/21.
-//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
+//  Created by Jon Alaniz on 7/25/21.
+//  Copyright © 2021 Jon Alaniz. All rights reserved.
+//
 
 import UIKit
 
-class NoServersView: UIView {
+class NoServersViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
@@ -21,8 +21,6 @@ class NoServersView: UIView {
 
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 180).isActive = true
         imageView.image = UIImage(named: "Greyscale-Icon")
         imageView.layer.cornerRadius = 38
         imageView.clipsToBounds = true
@@ -32,7 +30,6 @@ class NoServersView: UIView {
 
     private let textLabel: UILabel = {
         let label = UILabel()
-        label.widthAnchor.constraint(equalToConstant: 180).isActive = true
         label.text = "You do not have any servers"
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
@@ -42,23 +39,21 @@ class NoServersView: UIView {
         return label
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        createSubviews()
-    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        createSubviews()
-    }
-
-    private func createSubviews() {
-        self.addSubview(stackView)
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(textLabel)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
 
-        stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        view.addSubview(stackView)
+
+        NSLayoutConstraint.activate([
+            iconImageView.heightAnchor.constraint(equalToConstant: 180),
+            iconImageView.widthAnchor.constraint(equalToConstant: 180),
+            textLabel.widthAnchor.constraint(equalToConstant: 180),
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50)
+        ])
     }
-
 }

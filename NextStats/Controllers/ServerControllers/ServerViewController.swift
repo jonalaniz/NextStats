@@ -9,7 +9,8 @@
 import UIKit
 
 class ServerViewController: UIViewController {
-    let noServersView = NoServersView()
+//    let noServersView = NoServersView()
+    let noServersViewController = NoServersViewController()
     var tableView: UITableView!
     var serverManager = ServerManager.shared
     weak var coordinator: MainCoordinator?
@@ -17,6 +18,8 @@ class ServerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        toggleNoServersView()
+        print("BISS")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -24,9 +27,6 @@ class ServerViewController: UIViewController {
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
-
-        // Show or hide noServerView as necessary
-        toggleNoServersView()
 
         #if targetEnvironment(macCatalyst)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -76,19 +76,14 @@ class ServerViewController: UIViewController {
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
 
         // Constrain our views
-        view.addSubview(tableView)
-        view.addSubview(noServersView)
-
-        noServersView.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            noServersView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            noServersView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: 50)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
 
@@ -96,10 +91,10 @@ class ServerViewController: UIViewController {
         // Show noServerView if no ServerManager.servers is empty
         if serverManager.servers.isEmpty {
             navigationItem.rightBarButtonItem = nil
-            noServersView.isHidden = false
+            add(noServersViewController)
         } else {
             navigationItem.rightBarButtonItem = editButtonItem
-            noServersView.isHidden = true
+            noServersViewController.remove()
         }
 
         // So iPad doesn't get tableView stuck in editing mode
