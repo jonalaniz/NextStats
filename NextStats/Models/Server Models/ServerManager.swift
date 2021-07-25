@@ -50,7 +50,7 @@ open class ServerManager {
 
         // Append Login flow v2 endpoint and create request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path += Paths.loginEndpoint
+        components.clearQueryAndAppend(endpoint: .loginEndpoint)
 
         var request = URLRequest(url: components.url!)
         request.httpMethod = "POST"
@@ -152,9 +152,9 @@ open class ServerManager {
             return
         }
 
-        let URLString = serverURL + Paths.statEndpoint
+        let URLString = serverURL + Endpoints.statEndpoint.rawValue
         let friendlyURL = serverURL.makeFriendlyURL()
-        let logoURLString = serverURL + Paths.logoEndpoint
+        let logoURLString = serverURL + Endpoints.logoEndpoint.rawValue
         let logoURL = URL(string: logoURLString)!
         let request = URLRequest(url: logoURL)
 

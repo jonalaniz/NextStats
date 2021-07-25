@@ -25,8 +25,7 @@ class UserDataManager {
     func fetchUsers() {
         let url = URL(string: server.URLString)!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.query = nil
-        components.path = Paths.usersEndpoint
+        components.clearQueryAndAppend(endpoint: .usersEndpoint)
 
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = [
