@@ -12,7 +12,7 @@ class UsersViewController: UIViewController {
     weak var coordinator: UsersCoordinator?
 
     let usersDataManager = UserDataManager.shared
-    let loadingView = LoadingView()
+    let loadingViewController = LoadingViewController()
     let tableView = UITableView(frame: .zero, style: .plain)
 
     override func viewDidLoad() {
@@ -35,29 +35,26 @@ class UsersViewController: UIViewController {
                                                             action: nil)
 
         view.addSubview(tableView)
-        view.addSubview(loadingView)
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            loadingView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
 
+        add(loadingViewController)
         tableView.isHidden = true
     }
 
     private func showTableView() {
         tableView.reloadData()
         tableView.isHidden = false
-        loadingView.isHidden = true
+        loadingViewController.remove()
     }
 
     @objc func dismissController() {

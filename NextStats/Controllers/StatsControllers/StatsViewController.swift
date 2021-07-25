@@ -11,8 +11,7 @@ import UIKit
 class StatsViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
-    let loadingView = LoadingView()
-    let selectServerView = SelectServerView()
+    let loadingViewController = LoadingViewController()
     let headerView = ServerHeaderView()
     var statisticsDataManager = StatisticsDataManager.shared
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -26,8 +25,6 @@ class StatsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !serverInitialized { return }
-        showLoadingView()
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -56,32 +53,22 @@ class StatsViewController: UIViewController {
 
         // Setup our subviews
         view.addSubview(tableView)
-        view.addSubview(loadingView)
-        view.addSubview(selectServerView)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        selectServerView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            loadingView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
-            selectServerView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            selectServerView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-
+        add(loadingViewController)
         tableView.isHidden = true
-        loadingView.isHidden = true
     }
 
     private func showLoadingView() {
+        add(loadingViewController)
         tableView.isHidden = true
-        loadingView.isHidden = false
-        selectServerView.isHidden = true
     }
 
     private func showTableView() {
@@ -91,9 +78,7 @@ class StatsViewController: UIViewController {
         }
 
         tableView.isHidden = false
-        loadingView.isHidden = true
-        selectServerView.isHidden = true
-
+        loadingViewController.remove()
         tableView.reloadData()
     }
 
@@ -102,7 +87,6 @@ class StatsViewController: UIViewController {
         statisticsDataManager.server = newServer
         serverInitialized = true
 
-        // guard let headerView = tableView.tableHeaderView as? ServerHeaderView else { return }
         let headerView = ServerHeaderView()
         headerView.setupHeaderWith(name: newServer.name, address: newServer.friendlyURL, image: newServer.serverImage())
         headerView.userManagementButton.addTarget(self,
@@ -116,7 +100,7 @@ class StatsViewController: UIViewController {
         errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
 
         DispatchQueue.main.async {
-            self.loadingView.isHidden = true
+            self.loadingViewController.remove()
             self.tableView.isHidden = true
             self.present(errorAC, animated: true)
         }
