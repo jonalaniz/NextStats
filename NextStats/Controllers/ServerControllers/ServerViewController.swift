@@ -9,7 +9,6 @@
 import UIKit
 
 class ServerViewController: UIViewController {
-//    let noServersView = NoServersView()
     let noServersViewController = NoServersViewController()
     var tableView: UITableView!
     var serverManager = ServerManager.shared
