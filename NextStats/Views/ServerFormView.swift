@@ -10,7 +10,6 @@ import UIKit
 class ServerFormView: UIView {
      let stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.spacing = 12
@@ -20,7 +19,6 @@ class ServerFormView: UIView {
 
     private let nicknameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
         label.text = .localized(.addScreenNickname)
 
@@ -29,7 +27,6 @@ class ServerFormView: UIView {
 
     let nicknameField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.autocapitalizationType = .words
         textField.returnKeyType = .done
         textField.borderStyle = .none
@@ -42,7 +39,6 @@ class ServerFormView: UIView {
 
     private let serverURLLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
         label.text = .localized(.addScreenUrl)
 
@@ -51,7 +47,6 @@ class ServerFormView: UIView {
 
     let serverURLField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textContentType = .URL
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -67,7 +62,6 @@ class ServerFormView: UIView {
 
     private let infoLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 12)
         label.numberOfLines = 0
@@ -78,10 +72,9 @@ class ServerFormView: UIView {
 
     let statusLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
         label.textColor = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = .localized(.addScreenStatusLabel)
@@ -91,7 +84,6 @@ class ServerFormView: UIView {
 
     let activityIndicatior: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.style = .medium
         indicator.color = .white
         indicator.isHidden = true
@@ -101,14 +93,12 @@ class ServerFormView: UIView {
 
     private let paddingView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
 
         return view
     }()
 
     let connectButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
         button.setTitle(.localized(.addScreenConnect), for: .normal)
@@ -131,14 +121,12 @@ class ServerFormView: UIView {
     }
 
     private func createSubviews() {
-        // Setup View
         self.backgroundColor = .systemBackground
 
-        // Style the UI
         styleTextField(textField: nicknameField)
         styleTextField(textField: serverURLField)
 
-        // Arrange subviews
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(nicknameLabel)
         stackView.addArrangedSubview(nicknameField)
         stackView.addArrangedSubview(serverURLLabel)
@@ -151,17 +139,18 @@ class ServerFormView: UIView {
 
         self.addSubview(stackView)
 
-        nicknameField.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        serverURLField.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        connectButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        paddingView.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        stackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -32).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            nicknameField.heightAnchor.constraint(equalToConstant: 44),
+            serverURLField.heightAnchor.constraint(equalToConstant: 44),
+            connectButton.heightAnchor.constraint(equalToConstant: 44),
+            paddingView.heightAnchor.constraint(equalToConstant: 10),
+            stackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -32),
+            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor)
+        ])
     }
 
     private func styleTextField(textField: UITextField) {
-        // Style the textFields
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
 
         textField.leftView = paddingView

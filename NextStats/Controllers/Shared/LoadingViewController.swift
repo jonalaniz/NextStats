@@ -45,7 +45,7 @@ class LoadingViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-        
+
         activityIndicator.activate()
     }
 
