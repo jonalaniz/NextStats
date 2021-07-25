@@ -203,7 +203,7 @@ extension StatsViewController: StatisticsDataManagerDelegate {
             switch response {
             case 401:
                 self.showErrorAndReturn(title: error.title + ": \(response)",
-                                        description: LocalizedKeys.unauthorizedDescription)
+                                        description: .localized(.unauthorizedDescription))
             default:
                 self.showErrorAndReturn(title: error.title + ": (\(response))",
                                         description: "\(response)")

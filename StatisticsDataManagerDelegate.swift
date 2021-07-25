@@ -13,8 +13,8 @@ enum DataManagerError {
 
     public var description: String {
         switch self {
-        case .missingData: return LocalizedKeys.missingData
-        case .unableToParseJSON: return LocalizedKeys.unableToParseJSON
+        case .missingData: return .localized(.missingData)
+        case .unableToParseJSON: return .localized(.unableToParseJSON)
         }
     }
 }

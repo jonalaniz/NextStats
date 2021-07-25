@@ -15,19 +15,19 @@ enum FetchError: Error {
 
     var title: String {
         switch self {
-        case .invalidData: return LocalizedKeys.invalidData
-        case .missingResponse: return LocalizedKeys.missingResponse
-        case .network(_): return LocalizedKeys.networkError
-        case .unexpectedResponse(_): return LocalizedKeys.unauthorized
+        case .invalidData: return .localized(.invalidData)
+        case .missingResponse: return .localized(.missingResponse)
+        case .network(_): return .localized(.networkError)
+        case .unexpectedResponse(_): return .localized(.unauthorized)
         }
     }
 
     var description: String {
         switch self {
-        case .invalidData: return LocalizedKeys.invalidDataDescription
-        case .missingResponse: return LocalizedKeys.missingResponseDescription
-        case .network(_): return LocalizedKeys.networkError
-        case .unexpectedResponse(_): return LocalizedKeys.unexpectedResponse
+        case .invalidData: return .localized(.invalidDataDescription)
+        case .missingResponse: return .localized(.missingResponseDescription)
+        case .network(_): return .localized(.networkError)
+        case .unexpectedResponse(_): return .localized(.unexpectedResponse)
         }
     }
 }

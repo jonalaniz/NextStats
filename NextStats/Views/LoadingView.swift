@@ -25,7 +25,7 @@ class LoadingView: UIView {
     private let textLabel: UILabel = {
         let label = UILabel()
         label.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        label.text = LocalizedKeys.statsScreenFetchingData
+        label.text = .localized(.statsScreenFetchingData) // LocalizedKeys.statsScreenFetchingData
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
         label.textAlignment = .center

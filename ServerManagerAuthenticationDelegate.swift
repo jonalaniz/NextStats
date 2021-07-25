@@ -16,10 +16,10 @@ import Foundation
 
     public var description: String {
         switch self {
-        case .notValidHost: return LocalizedKeys.notValidhost
-        case .serverNotFound: return LocalizedKeys.serverNotFound
-        case .failedToSerializeResponse: return LocalizedKeys.failedToSerializeResponse
-        case .authorizationDataMissing: return LocalizedKeys.authorizationDataMissing
+        case .notValidHost: return .localized(.notValidhost)
+        case .serverNotFound: return .localized(.serverNotFound)
+        case .failedToSerializeResponse: return .localized(.failedToSerializeResponse)
+        case .authorizationDataMissing: return .localized(.authorizationDataMissing)
         }
     }
 }

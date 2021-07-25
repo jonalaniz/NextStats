@@ -10,7 +10,11 @@ import Foundation
 
 extension String {
     /// Returns NSLocalizedString for given String
-    func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
-        return NSLocalizedString(self, tableName: tableName, value: "**\(self)**", comment: "")
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+
+    static func localized(_ key: LocalizedKeys) -> String {
+        return key.rawValue.localized
     }
 }

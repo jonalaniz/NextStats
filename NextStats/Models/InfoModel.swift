@@ -12,14 +12,15 @@ import Foundation
 
 /// InfoModel contains infomration pertaining to the development of NextStats.
 struct InfoModel {
-    private let sections = [LocalizedKeys.infoScreenDevHeader,
-                            LocalizedKeys.infoScreenLocaleHeader,
-                            LocalizedKeys.infoScreenLicenseHeader]
-    private let developerTitles = [LocalizedKeys.infoScreenDevTitle]
+    private let sections: [String] = [.localized(.infoScreenDevHeader),
+                                      .localized(.infoScreenLocaleHeader),
+                                      .localized(.infoScreenLicenseHeader)]
+    private let developerTitles: [String] = [.localized(.infoScreenDevTitle)]
+
     private let developerNames = ["Jon Alaniz"]
-    private let translatorLanguages = [LocalizedKeys.infoScreenLocaleFrench,
-                                       LocalizedKeys.infoScreenLocaleGerman,
-                                       LocalizedKeys.infoScreenLocaleTurkish]
+    private let translatorLanguages: [String] = [.localized(.infoScreenLocaleFrench),
+                                                 .localized(.infoScreenLocaleGerman),
+                                                 .localized(.infoScreenLocaleTurkish)]
     private let translatorNames = ["Maxime Killinger", "Carina Pfaffelhuber", "Hüseyin Fahri Uzun"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
 
@@ -43,9 +44,9 @@ struct InfoModel {
     func footer(for section: Int) -> String {
         switch section {
         case 2:
-            return LocalizedKeys.infoScreenLicenseDescription
+            return .localized(.infoScreenLicenseDescription)
         case 3:
-            return LocalizedKeys.infoScreenSupportDescription
+            return .localized(.infoScreenSupportDescription)
         default:
             return ""
         }
