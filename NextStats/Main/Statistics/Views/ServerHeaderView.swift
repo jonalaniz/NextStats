@@ -49,7 +49,6 @@ class ServerHeaderView: UIView {
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
 
         return imageView
@@ -57,7 +56,6 @@ class ServerHeaderView: UIView {
 
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
         label.numberOfLines = 0
         label.text = "My Server"
@@ -67,7 +65,6 @@ class ServerHeaderView: UIView {
 
     let addressLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .secondaryLabel
         label.text = "cloud.jonalaniz.com"
@@ -77,11 +74,11 @@ class ServerHeaderView: UIView {
 
     let userManagementButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
-        button.setTitleColor(.white, for: .normal)
-        button.sfSymbolWithText(symbol: "person.fill", text: ServerHeaderViewConstants.userString)
+        button.sfSymbolWithText(symbol: "person.fill",
+                                text: ServerHeaderViewConstants.userString,
+                                color: .white)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
 
