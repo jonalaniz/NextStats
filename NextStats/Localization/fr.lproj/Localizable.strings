@@ -29,7 +29,7 @@
 // MARK: - Server View
 
 /* Text = " Add a Server" */
-"server.screen.add" = " Ajouter un serveur";
+"server.screen.add" = "Ajouter un serveur";
 
 // MARK: - Statistics View
 
