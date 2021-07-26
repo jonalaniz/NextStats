@@ -18,7 +18,6 @@ class ServerViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         toggleNoServersView()
-        print("BISS")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -127,7 +126,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
-        else { fatalError("DequeueReusableCell failed while casting")}
+        else { fatalError("DequeueReusableCell failed while casting") }
 
         cell.accessoryType = .disclosureIndicator
         cell.server = serverManager.servers[indexPath.row]
