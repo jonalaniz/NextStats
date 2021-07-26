@@ -46,14 +46,17 @@ class ServerViewController: UIViewController {
                                     style: .plain,
                                     target: self,
                                     action: #selector(infoButtonPressed))
-        let infoButtonItem = UIButton(type: .system)
-
-        infoButtonItem.setImage(UIImage(systemName: "externaldrive.fill.badge.plus"), for: .normal)
-        infoButtonItem.addTarget(self, action: #selector(addServerPressed), for: .touchUpInside)
-        infoButtonItem.setTitle(.localized(.serverAddButton), for: .normal)
+        let infoButton = UIButton()
+        infoButton.sfSymbolWithText(symbol: "externaldrive.fill.badge.plus",
+                                    text: .localized(.serverAddButton),
+                                    color: .themeColor)
+        infoButton.setTitleColor(.themeColor, for: .normal)
+        let infoButtonItem = infoButton
+        infoButtonItem.addTarget(self,
+                                 action: #selector(addServerPressed),
+                                 for: .touchUpInside)
         infoButtonItem.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        infoButtonItem.contentHorizontalAlignment = .left
-        infoButtonItem.contentEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 10)
+        infoButtonItem.contentEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
 
         let infoButtonView = UIBarButtonItem(customView: infoButtonItem)
 
