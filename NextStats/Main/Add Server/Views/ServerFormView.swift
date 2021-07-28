@@ -73,7 +73,7 @@ class ServerFormView: UIView {
     let statusLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
-        label.textColor = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)
+        label.textColor = .statusLabelRed
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
         label.numberOfLines = 0
