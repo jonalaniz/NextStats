@@ -8,11 +8,9 @@
 
 import Foundation
 
-// MARK: - InfoModel
-
 /// InfoModel contains infomration pertaining to the development of NextStats.
 struct InfoModel {
-    private let sections: [String] = [.localized(.infoScreenDevHeader),
+    private var sections: [String] = [.localized(.infoScreenDevHeader),
                                       .localized(.infoScreenLocaleHeader),
                                       .localized(.infoScreenLicenseHeader)]
     private let developerTitles: [String] = [.localized(.infoScreenDevTitle)]
@@ -23,6 +21,10 @@ struct InfoModel {
                                                  .localized(.infoScreenLocaleTurkish)]
     private let translatorNames = ["Maxime Killinger", "Carina Pfaffelhuber", "Hüseyin Fahri Uzun"]
     private let licences = ["MIT License", "GNU AGPLv3 License"]
+
+    mutating func enableIAP() {
+        sections.append(.localized(.infoScreenSupportHeader))
+    }
 
     func numberOfSections() -> Int {
         return sections.count

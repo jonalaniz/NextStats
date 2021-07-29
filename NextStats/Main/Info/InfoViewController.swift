@@ -6,17 +6,25 @@
 //  Copyright © 2021 Jon Alaniz. All Rights Reserved.
 //
 
+import StoreKit
 import UIKit
 
 class InfoViewController: UIViewController {
     weak var coordinator: InfoCoordinator?
 
-    let infoModel = InfoModel()
+    var infoModel = InfoModel()
+    var products = [SKProduct]()
     let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        checkForProducts()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(thank),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
     }
 
     private func setupView() {
@@ -52,6 +60,20 @@ class InfoViewController: UIViewController {
         coordinator?.didFinish()
         dismiss(animated: true, completion: nil)
     }
+
+    @objc func thank() {
+        let thankAC = UIAlertController(title: .localized(.iapThank),
+                                        message: .localized(.iapThankDescription),
+                                        preferredStyle: .alert)
+        thankAC.addAction((UIAlertAction(title: "Continue",
+                                         style: .default,
+                                         handler: nil)))
+        present(thankAC, animated: true)
+    }
+
+    func addSupportSection() {
+        tableView.insertSections(IndexSet(integer: infoModel.numberOfSections()), with: .fade)
+    }
 }
 
 // MARK: TableView Functions
@@ -61,16 +83,43 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 3 {
+            return products.count
+        }
+
         return infoModel.numberOfRows(in: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
 
-        if indexPath.section == 2 {
+        // Custom Cell Setup
+        switch indexPath.section {
+        case 2:
+            // License Section
             cell.accessoryType = .disclosureIndicator
+        case 3:
+            // IAP Section
+            // Get product
+            let product = products[indexPath.row]
+
+            // Setup currency
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale = product.priceLocale
+
+            let cost = formatter.string(from: product.price)
+
+            // Setup cell
+            cell.textLabel?.text = product.localizedTitle
+            cell.detailTextLabel?.text = cost
+
+            return cell
+        default:
+            cell.selectionStyle = .none
         }
 
+        // Default Cell Setup
         cell.textLabel?.text = infoModel.titleLabelFor(row: indexPath.row, section: indexPath.section)
         cell.detailTextLabel?.text = infoModel.detailLabelFor(row: indexPath.row, section: indexPath.section)
 
@@ -92,8 +141,32 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
         case 2:
             // Show proper license information
             coordinator?.showWebView(urlString: infoModel.licenseURLFor(row: indexPath.row))
+        case 3:
+            // IAP Selection
+            NextStatsProducts.store.buyProduct(products[indexPath.row])
         default:
             return
+        }
+    }
+}
+
+// MARK: IAP Functions
+extension InfoViewController {
+    func checkForProducts() {
+        // First check if user can make payments
+        if IAPHelper.canMakePayments() == false { return }
+
+        // If products can be reached, insert the IAP Section into the TableView
+        NextStatsProducts.store.requestProducts { [self] success, products in
+            if success {
+                if let unwrappedProducts = products {
+                    DispatchQueue.main.async {
+                        self.products = unwrappedProducts
+                        infoModel.enableIAP()
+                        self.tableView.insertSections(IndexSet(integer: 3), with: .fade)
+                    }
+                }
+            }
         }
     }
 }
