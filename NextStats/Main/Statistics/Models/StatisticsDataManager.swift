@@ -143,14 +143,14 @@ class StatisticsDataManager {
             cpu = cpuStringArray.joined(separator: ", ")
         }
 
-        nextStat.setSystemData(for: .version, to: system.system?.version ?? "N/A")
-        nextStat.setSystemData(for: .cpuLoad, to: cpu)
-        nextStat.setSystemData(for: .memoryUsage, to: memoryUsage)
-        nextStat.setSystemData(for: .memory, to: memory)
-        nextStat.setSystemData(for: .swapUsage, to: swapUsage)
-        nextStat.setSystemData(for: .swap, to: swap)
-        nextStat.setSystemData(for: .localCache, to: system.system?.memcacheLocal ?? "N/A")
-        nextStat.setSystemData(for: .distributedCache, to: system.system?.memcacheDistributed ?? "N/A")
+        nextStat.setSystemData(version: system.system?.version ?? "N/A",
+                               cpuLoad: cpu,
+                               memoryUsage: memoryUsage,
+                               memory: memory,
+                               swapUsage: swapUsage,
+                               swap: swap,
+                               localCache: system.system?.memcacheLocal ?? "N/A",
+                               distributedCache: system.system?.memcacheDistributed ?? "N/A")
 
         // MARK: - Storage
         var freeSpace = "N/A"
@@ -167,24 +167,23 @@ class StatisticsDataManager {
             numberOfFiles = String(possibleNumberOfFiles)
         }
 
-        nextStat.setStorageData(for: .freeSpace, to: freeSpace)
-        nextStat.setStorageData(for: .numberOfFiles, to: numberOfFiles)
+        nextStat.setStorageData(freeSpace: freeSpace, numberOfFiles: numberOfFiles)
 
         // MARK: - Server
-        nextStat.setServerData(for: .webServer, to: server.webserver ?? "N/A")
-        nextStat.setServerData(for: .phpVersion, to: server.php?.version ?? "N/A")
-        nextStat.setServerData(for: .database, to: server.database?.type ?? "N/A")
-        nextStat.setServerData(for: .databaseVersion, to: server.database?.version ?? "N/A")
+        nextStat.setServerData(webServer: server.webserver ?? "N/A",
+                               phpVersion: server.php?.version ?? "N/A",
+                               database: server.database?.type ?? "N/A",
+                               databaseVersion: server.database?.version ?? "N/A")
 
         // MARK: - Active Users
         if let possibleLast5 = users.last5Minutes,
            let possibleLastHour = users.last1Hour,
            let possibleLastDay = users.last24Hours,
            let possibleTotal = system.storage?.numUsers {
-            nextStat.setActiveUserData(for: .last5Minutes, to: String(possibleLast5))
-            nextStat.setActiveUserData(for: .lastHour, to: String(possibleLastHour))
-            nextStat.setActiveUserData(for: .lastDay, to: String(possibleLastDay))
-            nextStat.setActiveUserData(for: .total, to: String(possibleTotal))
+            nextStat.setActiveUserData(last5Minutes: String(possibleLast5),
+                                       lastHour: String(possibleLastHour),
+                                       lastDay: String(possibleLastDay),
+                                       total: String(possibleTotal))
         } else {
             nextStat.activeUserDataNotFound()
         }
@@ -208,7 +207,7 @@ class StatisticsDataManager {
 /// StatisticsDataManager TableView Data Functions
 extension StatisticsDataManager {
     func sections() -> Int {
-        return Sections.allCases.count
+        return nextStat.sectionLabels.count
     }
 
     func sectionLabel(for section: Int) -> String {
@@ -217,10 +216,10 @@ extension StatisticsDataManager {
 
     func rows(in section: Int) -> Int {
         switch section {
-        case 0: return SystemIndex.allCases.count
-        case 1: return StorageIndex.allCases.count
-        case 2: return ServerIndex.allCases.count
-        case 3: return ActiveUsersIndex.allCases.count
+        case 0: return nextStat.systemSectionLabels.count
+        case 1: return nextStat.storageSectionLabels.count
+        case 2: return nextStat.serverSectionLabels.count
+        case 3: return nextStat.activeUsersSectionLabels.count
         default: return 0
         }
     }
