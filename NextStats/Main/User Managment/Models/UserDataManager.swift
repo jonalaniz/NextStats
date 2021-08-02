@@ -94,7 +94,10 @@ class UserDataManager {
 
         return nil
     }
+}
 
+/// TableView Helper Methods
+extension UserDataManager {
     func setServer(server: NextServer) {
         self.server = server
     }
