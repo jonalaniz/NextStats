@@ -15,16 +15,27 @@ class UsersCoordinator: Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
 
+    let usersViewController: UsersViewController
+    let userViewController: UserViewController
+
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
+        usersViewController = UsersViewController()
+        userViewController = UserViewController()
     }
 
     func start() {
-        let usersVC = UsersViewController()
-        usersVC.coordinator = self
+        usersViewController.coordinator = self
 
-        navigationController.viewControllers = [usersVC]
+        navigationController.viewControllers = [usersViewController]
         splitViewController.present(navigationController, animated: true)
+    }
+
+    func showUserView(for user: String) {
+        // Ensure that we are grabbing the proper viewController
+        guard let navigationController = usersViewController.navigationController else { return }
+
+        // splitViewController.showDetailViewController(navigationController, sender: nil)
     }
 
     func didFinish() {

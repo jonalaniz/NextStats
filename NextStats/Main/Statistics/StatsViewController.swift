@@ -124,7 +124,7 @@ class StatsViewController: UIViewController {
 
     @objc func userManagementPressed() {
         let userDataManager = UserDataManager.shared
-        userDataManager.server = statisticsDataManager.server
+        userDataManager.setServer(server: statisticsDataManager.server)
 
         coordinator?.showUsersView()
     }

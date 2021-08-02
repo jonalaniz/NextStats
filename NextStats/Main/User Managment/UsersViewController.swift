@@ -64,6 +64,7 @@ class UsersViewController: UIViewController {
 }
 
 extension UsersViewController: UsersDelegate {
+    // TODO: Add `UserDataRecieved` function
     func didRecieveUsers() {
         showTableView()
     }
@@ -71,14 +72,19 @@ extension UsersViewController: UsersDelegate {
 
 extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usersDataManager.userIDs.count
+        return usersDataManager.usersCount()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        cell.textLabel?.text = usersDataManager.userIDs[indexPath.row]
+        cell.textLabel?.text = usersDataManager.userID(indexPath.row)
         cell.accessoryType = .disclosureIndicator
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // coordinator?.showUserView(for: usersDataManager.userID(indexPath.row))
+        usersDataManager.fetchUser(named: usersDataManager.userID(indexPath.row))
     }
 }
