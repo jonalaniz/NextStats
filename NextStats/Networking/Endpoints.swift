@@ -13,4 +13,5 @@ enum Endpoints: String {
     case logoEndpoint = "/index.php/apps/theming/image/logo"
     case statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json"
     case usersEndpoint = "/ocs/v1.php/cloud/users"
+    case userEndpoint = "/ocs/v1.php/cloud/users/"
 }
