@@ -45,7 +45,6 @@ class NetworkController {
 
         var request = request
         request.setValue("NextStats for iOS", forHTTPHeaderField: "User-Agent")
-        print(config.httpAdditionalHeaders)
 
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: request) { (possibleData, possibleResponse, possibleError) in
