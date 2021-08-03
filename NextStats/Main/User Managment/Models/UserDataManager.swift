@@ -31,8 +31,10 @@ class UserDataManager {
     func fetchUsers() {
         let url = URL(string: server.URLString)!
         let authorization = server.authenticationString()
-        let request = networkController.request(url: url, with: .usersEndpoint)
-        let configuration = networkController.configuration(authorizaton: authorization, ocsApiRequest: true)
+        let request = networkController.request(url: url, with:
+                                                        .usersEndpoint)
+        let configuration = networkController.configuration(authorizaton: authorization,
+                                                            ocsApiRequest: true)
 
         networkController.fetchData(with: request,
                                     using: configuration) { (result: Result<Data, FetchError>) in
@@ -52,7 +54,9 @@ class UserDataManager {
     func fetchUser(named user: String) {
         let url = URL(string: server.URLString)!
         let authorizationString = server.authenticationString()
-        let request = networkController.request(url: url, with: .userEndpoint, appending: user)
+        let request = networkController.request(url: url,
+                                                with: .userEndpoint,
+                                                appending: user)
         let configuration = networkController.configuration(authorizaton: authorizationString,
                                                             ocsApiRequest: true)
 
