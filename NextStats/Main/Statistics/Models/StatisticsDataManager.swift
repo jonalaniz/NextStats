@@ -38,9 +38,8 @@ class StatisticsDataManager {
 
         // Prepare URL Configuration
         let url = URL(string: server.URLString)!
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Authorization": server.authenticationString()]
-        let request = URLRequest(url: url)
+        let config = networkController.configuration(authorizaton: server.authenticationString())
+        let request = networkController.request(url: url, with: .statEndpoint)
 
         // Fetch data from server using networkController
         networkController.fetchData(with: request, using: config) { (result: Result<Data, FetchError>) in

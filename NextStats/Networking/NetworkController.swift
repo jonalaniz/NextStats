@@ -73,4 +73,27 @@ class NetworkController {
         }
         task.resume()
     }
+
+    func request(url: URL, with endpoint: Endpoints, appending user: String? = nil) -> URLRequest {
+        let url = url
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.clearQueryAndAppend(endpoint: endpoint)
+
+        if let username = user { components.path.append(contentsOf: username) }
+
+        return URLRequest(url: components.url!)
+    }
+
+    func configuration(authorizaton: String? = nil, ocsApiRequest: Bool = false) -> URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.default
+
+        if let authorizationString = authorizaton {
+            var headers = ["Authorization": authorizationString]
+            if ocsApiRequest == true {
+                headers.updateValue("true", forKey: "OCS-APIRequest")
+            }
+            configuration.httpAdditionalHeaders = headers
+        }
+        return configuration
+    }
 }

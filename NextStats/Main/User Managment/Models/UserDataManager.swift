@@ -29,10 +29,13 @@ class UserDataManager {
 
     /// Network request for list of users. Can be used for search.
     func fetchUsers() {
-        let request = request(with: .usersEndpoint)
+        let url = URL(string: server.URLString)!
+        let authorization = server.authenticationString()
+        let request = networkController.request(url: url, with: .usersEndpoint)
+        let configuration = networkController.configuration(authorizaton: authorization, ocsApiRequest: true)
 
         networkController.fetchData(with: request,
-                                    using: configuration()) { (result: Result<Data, FetchError>) in
+                                    using: configuration) { (result: Result<Data, FetchError>) in
             switch result {
             case .success(let data):
                 // TODO: Change this to a guard statement and add error handling
@@ -47,9 +50,13 @@ class UserDataManager {
     }
 
     func fetchUser(named user: String) {
-        let request = request(with: .userEndpoint, appending: user)
+        let url = URL(string: server.URLString)!
+        let authorizationString = server.authenticationString()
+        let request = networkController.request(url: url, with: .userEndpoint, appending: user)
+        let configuration = networkController.configuration(authorizaton: authorizationString,
+                                                            ocsApiRequest: true)
 
-        networkController.fetchData(with: request, using: configuration()) { (result: Result<Data, FetchError>) in
+        networkController.fetchData(with: request, using: configuration) { (result: Result<Data, FetchError>) in
             switch result {
             case .failure(let error):
                 print(error)
@@ -60,26 +67,6 @@ class UserDataManager {
                 }
             }
         }
-    }
-
-    private func configuration() -> URLSessionConfiguration {
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = [
-            "Authorization": server.authenticationString(),
-            "OCS-APIRequest": "true"
-        ]
-
-        return configuration
-    }
-
-    private func request(with endpoint: Endpoints, appending user: String? = nil) -> URLRequest {
-        let url = URL(string: server.URLString)!
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: endpoint)
-
-        if let username = user { components.path.append(contentsOf: username) }
-
-        return URLRequest(url: components.url!)
     }
 
     private func decode<T: Codable>(_ data: Data) -> T? {

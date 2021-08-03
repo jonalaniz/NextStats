@@ -11,6 +11,7 @@ import Foundation
 extension URLComponents {
     mutating func clearQueryAndAppend(endpoint: Endpoints) {
         self.queryItems = nil
+        self.query = endpoint.query()
         self.path = endpoint.rawValue
     }
 }
