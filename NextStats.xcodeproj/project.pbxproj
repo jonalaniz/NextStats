@@ -61,7 +61,6 @@
 		569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA026AB2358001122F2 /* UsersCoordinator.swift */; };
 		569F2CA626AC2EB5001122F2 /* UsersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA526AC2EB5001122F2 /* UsersModel.swift */; };
 		569F2CA826AC34D7001122F2 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA726AC34D7001122F2 /* UserDataManager.swift */; };
-		569F2CAA26AC4750001122F2 /* UsersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA926AC4750001122F2 /* UsersDelegate.swift */; };
 		56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A56EC32563C5A3005A6D18 /* InfoModel.swift */; };
 		56B1413F267E7236002D66D8 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Endpoints.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
@@ -155,7 +154,6 @@
 		569F2CA026AB2358001122F2 /* UsersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCoordinator.swift; sourceTree = "<group>"; };
 		569F2CA526AC2EB5001122F2 /* UsersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersModel.swift; sourceTree = "<group>"; };
 		569F2CA726AC34D7001122F2 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
-		569F2CA926AC4750001122F2 /* UsersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDelegate.swift; sourceTree = "<group>"; };
 		56A56EC32563C5A3005A6D18 /* InfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModel.swift; sourceTree = "<group>"; };
 		56A8EFD0256AC84100AFC20C /* NextStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NextStats.entitlements; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
@@ -340,7 +338,6 @@
 				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
 				562ED27926B5D8E800E4E1C5 /* UserViewController.swift */,
 				56DB682626AEECE20015CB04 /* Models */,
-				56DB682726AEECEF0015CB04 /* Protocols */,
 			);
 			path = "User Managment";
 			sourceTree = "<group>";
@@ -451,14 +448,6 @@
 				569F2CA726AC34D7001122F2 /* UserDataManager.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		56DB682726AEECEF0015CB04 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				569F2CA926AC4750001122F2 /* UsersDelegate.swift */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		56DB682826AEED120015CB04 /* Protocols */ = {
@@ -697,7 +686,6 @@
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthResponse.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoints.swift in Sources */,
-				569F2CAA26AC4750001122F2 /* UsersDelegate.swift in Sources */,
 				562ED27C26B5E9B100E4E1C5 /* UserModel.swift in Sources */,
 				56E0AD8426ADABA90090ACB6 /* SelectServerViewController.swift in Sources */,
 				569F2CA626AC2EB5001122F2 /* UsersModel.swift in Sources */,

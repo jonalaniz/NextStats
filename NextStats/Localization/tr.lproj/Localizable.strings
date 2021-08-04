@@ -125,4 +125,4 @@
 "error.missingData" = "Eksik istatistik verileri.";
 
 /* Text = "Unable to parse JSON." */
-"error.unableToParseJSON" = "JSON ayrıştırılamıyor.";
+"error.unableToParseJSON" = "Veri ayrıştırılamıyor.";
