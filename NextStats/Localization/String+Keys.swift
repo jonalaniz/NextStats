@@ -50,5 +50,5 @@ enum LocalizedKeys: String {
     case authorizationDataMissing = "error.authorizationDataMissing"
 
     case missingData = "error.missingData"
-    case unableToParseJSON = "error.unableToParseJSON"
+    case unableToParseData = "error.unableToParseData"
 }

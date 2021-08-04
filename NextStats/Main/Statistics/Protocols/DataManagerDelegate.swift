@@ -8,13 +8,13 @@
 import Foundation
 
 enum DataManagerError {
-    case unableToParseJSON
+    case unableToParseData
     case missingData
 
     public var description: String {
         switch self {
         case .missingData: return .localized(.missingData)
-        case .unableToParseJSON: return .localized(.unableToParseJSON)
+        case .unableToParseData: return .localized(.unableToParseData)
         }
     }
 }

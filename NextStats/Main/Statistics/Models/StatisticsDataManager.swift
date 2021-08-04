@@ -61,7 +61,7 @@ class StatisticsDataManager {
             let result = try decoder.decode(ServerStats.self, from: data)
             updateData(with: result)
         } catch {
-            delegate?.failedToUpdateData(error: .unableToParseJSON)
+            delegate?.failedToUpdateData(error: .unableToParseData)
         }
     }
 

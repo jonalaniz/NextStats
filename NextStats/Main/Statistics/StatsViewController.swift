@@ -171,7 +171,7 @@ extension StatsViewController: DataManagerDelegate {
 
     func failedToUpdateData(error: DataManagerError) {
         switch error {
-        case .unableToParseJSON:
+        case .unableToParseData:
             self.showErrorAndReturn(title: "Error", description: error.description)
         case .missingData:
             self.showErrorAndReturn(title: "Error", description: error.description)

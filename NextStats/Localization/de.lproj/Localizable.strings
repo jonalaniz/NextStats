@@ -125,4 +125,4 @@
 "error.missingData" = "Fehlende Statistikdaten.";
 
 /* Text = "Unable to parse JSON." */
-"error.unableToParseJSON" = "JSON kann nicht geparst werden.";
+"error.unableToParseData" = "Daten können nicht geparst werden.";
