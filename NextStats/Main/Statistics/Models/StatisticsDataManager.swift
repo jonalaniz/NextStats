@@ -14,7 +14,7 @@ class StatisticsDataManager {
 
     private let networkController = NetworkController.shared
     private var nextStat = NextStat()
-    weak var delegate: StatisticsDataManagerDelegate?
+    weak var delegate: DataManagerDelegate?
 
     var server: NextServer! {
         didSet {
@@ -34,7 +34,7 @@ class StatisticsDataManager {
 
     private func fetchData(for server: NextServer) {
         // Notify our delegate
-        delegate?.willBeginFetchingData()
+        delegate?.didBeginFetchingData()
 
         // Prepare URL Configuration
         let url = URL(string: server.URLString)!

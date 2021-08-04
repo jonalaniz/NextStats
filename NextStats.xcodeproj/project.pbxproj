@@ -24,7 +24,7 @@
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		5650A6F1267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */; };
-		5650A6F3267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift */; };
+		5650A6F3267C03E4008A1BDB /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* DataManagerDelegate.swift */; };
 		565130D9268BD7D3008FE8D4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565130D8268BD7D3008FE8D4 /* Units.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
 		56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE523C8B09A008CF684 /* SceneDelegate.swift */; };
@@ -113,7 +113,7 @@
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ServerManagerAuthenticationDelegate.swift; path = "NextStats/Main/Servers /Protocols/ServerManagerAuthenticationDelegate.swift"; sourceTree = SOURCE_ROOT; };
-		5650A6F2267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatisticsDataManagerDelegate.swift; path = NextStats/Main/Statistics/Protocols/StatisticsDataManagerDelegate.swift; sourceTree = SOURCE_ROOT; };
+		5650A6F2267C03E4008A1BDB /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataManagerDelegate.swift; path = NextStats/Main/Statistics/Protocols/DataManagerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56557EE323C8B09A008CF684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -472,7 +472,7 @@
 		56DB682926AEED2D0015CB04 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				5650A6F2267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift */,
+				5650A6F2267C03E4008A1BDB /* DataManagerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -704,7 +704,7 @@
 				569F2C7C26AAF61A001122F2 /* XMLKeyedDecodingContainer.swift in Sources */,
 				5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */,
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
-				5650A6F3267C03E4008A1BDB /* StatisticsDataManagerDelegate.swift in Sources */,
+				5650A6F3267C03E4008A1BDB /* DataManagerDelegate.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
 				565130D9268BD7D3008FE8D4 /* Units.swift in Sources */,
 				56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */,

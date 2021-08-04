@@ -164,8 +164,8 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: StatisticsDataManagerDelegate
-extension StatsViewController: StatisticsDataManagerDelegate {
-    func willBeginFetchingData() {
+extension StatsViewController: DataManagerDelegate {
+    func didBeginFetchingData() {
         showLoadingView()
     }
 

@@ -19,10 +19,10 @@ enum DataManagerError {
     }
 }
 
-/// Calls relating to fetching and updating data in the `StatisticsDataManager`
-protocol StatisticsDataManagerDelegate: AnyObject {
+/// Calls relating to fetching and updating data in Data Managers`
+protocol DataManagerDelegate: AnyObject {
     func dataUpdated()
     func failedToFetchData(error: FetchError)
     func failedToUpdateData(error: DataManagerError)
-    func willBeginFetchingData()
+    func didBeginFetchingData()
 }
