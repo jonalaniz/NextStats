@@ -18,7 +18,7 @@ class UserDataManager {
     /// Returns singleton instance of `UserDataManager`
     static let shared = UserDataManager()
 
-    weak var delegate: UsersDelegate?
+    weak var delegate: DataManagerDelegate?
     private let networkController = NetworkController.shared
     private var userIDs = [String]()
     private var server: NextServer! {
@@ -43,7 +43,7 @@ class UserDataManager {
                 // TODO: Change this to a guard statement and add error handling
                 if let decodedData: Users = self.decode(data) {
                     decodedData.data.users.element.forEach { self.userIDs.append($0) }
-                    DispatchQueue.main.async { self.delegate?.didRecieveUsers() }
+                    DispatchQueue.main.async { self.delegate?.dataUpdated() }
                 }
             case .failure(let failure):
                 print(failure)

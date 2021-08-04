@@ -63,10 +63,21 @@ class UsersViewController: UIViewController {
     }
 }
 
-extension UsersViewController: UsersDelegate {
-    // TODO: Add `UserDataRecieved` function
-    func didRecieveUsers() {
+extension UsersViewController: DataManagerDelegate {
+    func dataUpdated() {
         showTableView()
+    }
+
+    func failedToFetchData(error: FetchError) {
+        // Add error handler
+    }
+
+    func failedToUpdateData(error: DataManagerError) {
+        // Add error handler
+    }
+
+    func didBeginFetchingData() {
+        // show loading view
     }
 }
 
