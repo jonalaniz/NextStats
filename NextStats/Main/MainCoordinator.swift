@@ -16,7 +16,7 @@ class MainCoordinator: Coordinator {
     let detailNavigationController: UINavigationController
     let statsViewController: StatsViewController
 
-    let serverManager = ServerManager.shared
+    let serverManager = NewServerManager.shared
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -37,7 +37,7 @@ class MainCoordinator: Coordinator {
     }
 
     func showAddServerView() {
-        let child = AddServerCoordinator(splitViewController: splitViewController, serverManager: serverManager)
+        let child = AddServerCoordinator(splitViewController: splitViewController, serverManager: ServerManager.shared)
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()

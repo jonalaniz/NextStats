@@ -1,5 +1,5 @@
 //
-//  Server.swift
+//  NextServer.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 8/2/20.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /// Server object used to store Nextcloud server information and credentials
-struct NextServer: Codable {
+struct NextServer: Codable, Equatable {
     let name: String
     let friendlyURL: String
     let URLString: String

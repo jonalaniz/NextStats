@@ -67,6 +67,8 @@
 		56B59BEE26886EBD00A75B13 /* NextStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B59BED26886EBD00A75B13 /* NextStat.swift */; };
 		56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */; };
 		56BCF6B42487CA8D0048B991 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* ServerManager.swift */; };
+		56C1840A26C1A97100992B35 /* ServerApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840926C1A97100992B35 /* ServerApiClient.swift */; };
+		56C1840C26C1A9A100992B35 /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */; };
 		56C31270269109CB0077B40D /* String+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* String+Keys.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
 		56CA258824EE48F90034CA96 /* URLChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA258724EE48F90034CA96 /* URLChecker.swift */; };
@@ -79,7 +81,7 @@
 		56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834226B245AF00C1E17C /* NextStats Products.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
-		56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* Server.swift */; };
+		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +163,8 @@
 		56B59BED26886EBD00A75B13 /* NextStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStat.swift; sourceTree = "<group>"; };
 		56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDelegate.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		56C1840926C1A97100992B35 /* ServerApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerApiClient.swift; sourceTree = "<group>"; };
+		56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
 		56C3126F269109CB0077B40D /* String+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Keys.swift"; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
 		56CA258724EE48F90034CA96 /* URLChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLChecker.swift; sourceTree = "<group>"; };
@@ -173,7 +177,7 @@
 		56E6834226B245AF00C1E17C /* NextStats Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NextStats Products.swift"; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
-		56F7F8F324D78C9E00C667E4 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,7 +358,7 @@
 		56DB681C26AEEB2B0015CB04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56F7F8F324D78C9E00C667E4 /* Server.swift */,
+				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
 				56BCF6B32487CA8D0048B991 /* ServerManager.swift */,
 			);
 			path = Models;
@@ -453,6 +457,8 @@
 		56DB682826AEED120015CB04 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */,
+				56C1840926C1A97100992B35 /* ServerApiClient.swift */,
 				5650A6F0267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift */,
 			);
 			path = Protocols;
@@ -649,6 +655,7 @@
 				561B989C25A8614600A8FE6D /* StatisticsDataManager.swift in Sources */,
 				569F2CA826AC34D7001122F2 /* UserDataManager.swift in Sources */,
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
+				56C1840A26C1A97100992B35 /* ServerApiClient.swift in Sources */,
 				5650A6F1267C0300008A1BDB /* ServerManagerAuthenticationDelegate.swift in Sources */,
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
@@ -659,7 +666,8 @@
 				569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				569F2C7D26AAF61A001122F2 /* XMLDecodingStorage.swift in Sources */,
-				56F7F8F424D78C9E00C667E4 /* Server.swift in Sources */,
+				56C1840C26C1A9A100992B35 /* ServerManagerDelegate.swift in Sources */,
+				56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */,
 				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,

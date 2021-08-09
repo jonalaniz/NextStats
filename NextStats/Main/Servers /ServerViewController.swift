@@ -11,7 +11,7 @@ import UIKit
 class ServerViewController: UIViewController {
     let noServersViewController = NoServersViewController()
     var tableView: UITableView!
-    var serverManager = ServerManager.shared
+    var serverManager = NewServerManager.shared
     weak var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
@@ -90,7 +90,7 @@ class ServerViewController: UIViewController {
 
     private func toggleNoServersView() {
         // Show noServerView if no ServerManager.servers is empty
-        if serverManager.servers.isEmpty {
+        if serverManager.serverCount() == 0 {
             navigationItem.rightBarButtonItem = nil
             add(noServersViewController)
         } else {
@@ -124,22 +124,23 @@ class ServerViewController: UIViewController {
 // MARK: TableView Methods
 extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return serverManager.servers.count
+        return serverManager.serverCount()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
         else { fatalError("DequeueReusableCell failed while casting") }
 
+        let server = serverManager.getServer(at: indexPath.row)
         cell.accessoryType = .disclosureIndicator
-        cell.server = serverManager.servers[indexPath.row]
+        cell.server = server
         cell.setup()
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedServer = serverManager.servers[indexPath.row]
+        let selectedServer = serverManager.getServer(at: indexPath.row)
         coordinator?.showStatsView(for: selectedServer)
     }
 
@@ -148,7 +149,7 @@ extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Remove server from serverManager and tableView
-            serverManager.removeServer(at: indexPath.row)
+            serverManager.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
 
             // Show or hide noServerView as necessary
