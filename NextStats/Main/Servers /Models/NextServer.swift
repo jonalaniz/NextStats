@@ -53,13 +53,10 @@ struct NextServer: Codable, Equatable {
     }
 
     func serverImage() -> UIImage {
-        guard hasCustomLogo else { return  UIImage(named: "nextcloud-server")! }
-        guard imageCached() else { return UIImage(named: "nextcloud-server")! }
+        if imageCached() {
+            return cachedImage()
+        }
 
-        return cachedImage()
-    }
-
-    mutating func setCustomLogo() {
-        hasCustomLogo = true
+        return UIImage(named: "nextcloud-server")!
     }
 }

@@ -16,14 +16,13 @@ class AddServerCoordinator: Coordinator {
     var navigationController = UINavigationController()
     let addServerViewControlller: AddServerViewController
 
-    let serverManager: ServerManager
+    let authenticationManager = NextAuthenticationManager()
 
-    init(splitViewController: UISplitViewController, serverManager: ServerManager) {
+    init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
-        self.serverManager = serverManager
         addServerViewControlller = AddServerViewController()
 
-        serverManager.delegate = self
+        authenticationManager.delegate = self
     }
 
     func start() {
@@ -45,21 +44,31 @@ class AddServerCoordinator: Coordinator {
     func requestAuthorization(withURL url: URL, name: String) {
         // Cancel polling endpoint in case it is running from previous attempt
         // Why someone would do this or get this far I don't know?
-        serverManager.cancelAuthorization()
+        authenticationManager.cancelAuthorization()
 
         // Request authorization
-        serverManager.requestAuthorizationURL(withURL: url, withName: name)
+        authenticationManager.requestAuthenticationObject(from: url, named: name)
     }
 
-    func didFinishAdding() {
+    func cancelAuthentication() {
         // Cancel polling endpoint
-        serverManager.cancelAuthorization()
+        authenticationManager.cancelAuthorization()
+        parentCoordinator?.childDidFinish(self)
+        dismiss()
+    }
 
-        parentCoordinator?.addServerCoordinatorDidFinish(self)
+    func dismiss() {
+        navigationController.dismiss(animated: true, completion: nil)
     }
 }
 
-extension AddServerCoordinator: ServerManagerAuthenticationDelegate {
+extension AddServerCoordinator: NextAuthenticationDelegate {
+    func didCapture(server: NextServer) {
+        parentCoordinator?.addServer(server)
+        parentCoordinator?.childDidFinish(self)
+        dismiss()
+    }
+
     func networkError(error: String) {
         addServerViewControlller.updateStatusLabel(with: error)
     }
@@ -70,10 +79,5 @@ extension AddServerCoordinator: ServerManagerAuthenticationDelegate {
 
     func didRecieve(loginURL: String) {
         showLoginPage(withURlString: loginURL)
-    }
-
-    func didCaptureCredentials() {
-        navigationController.dismiss(animated: true, completion: nil)
-        didFinishAdding()
     }
 }

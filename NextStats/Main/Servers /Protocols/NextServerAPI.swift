@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ServerApiClient {
+protocol NextServerAPI {
     func add(_ server: NextServer)
     func remove(at index: Int)
     func serverCount() -> Int

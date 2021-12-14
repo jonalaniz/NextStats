@@ -96,4 +96,12 @@ class NetworkController {
         }
         return configuration
     }
+
+    func decode<T: Decodable>(modelType: T.Type, from data: Data) -> T? {
+        let decoder = JSONDecoder()
+
+        guard let object = try? decoder.decode(modelType, from: data) else { return nil }
+
+        return object
+    }
 }

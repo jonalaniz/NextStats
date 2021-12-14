@@ -1,5 +1,5 @@
 //
-//  AuthResponse.swift
+//  AuthenticationObject.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/8/21.
@@ -8,7 +8,7 @@
 import Foundation
 
 // Authorization Structs - Objects used in authorizaton flow
-struct AuthResponse: Codable {
+struct AuthenticationObject: Codable {
     let poll: Poll?
     let login: String?
 }
@@ -16,10 +16,4 @@ struct AuthResponse: Codable {
 struct Poll: Codable {
     let token: String?
     let endpoint: String?
-}
-
-struct ServerAuthenticationInfo: Codable {
-    let server: String?
-    let loginName: String?
-    let appPassword: String?
 }

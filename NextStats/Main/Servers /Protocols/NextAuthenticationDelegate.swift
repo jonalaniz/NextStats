@@ -8,7 +8,7 @@
 import Foundation
 
 /// String descriptions for various authentication errors.
-@objc public enum ServerManagerAuthenticationError: Int {
+enum ServerManagerAuthenticationError: Int {
     case notValidHost
     case serverNotFound
     case failedToSerializeResponse
@@ -25,9 +25,9 @@ import Foundation
 }
 
 /// Functions called by ServerManager pertaining to authenitcation status
-@objc public protocol ServerManagerAuthenticationDelegate {
+protocol NextAuthenticationDelegate: AnyObject {
     /// Called when server is successfully added to the manager
-    func didCaptureCredentials()
+    func didCapture(server: NextServer)
 
     /// Called when login url and associated authorization data is recieved.
     func didRecieve(loginURL: String)

@@ -62,8 +62,7 @@ extension AddServerViewController {
     }
 
     @objc func cancelPressed() {
-        coordinator?.didFinishAdding()
-        dismiss(animated: true)
+        coordinator?.cancelAuthentication()
     }
 
     /// Enables the connect button when text is entered
