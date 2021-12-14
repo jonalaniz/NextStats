@@ -1,5 +1,5 @@
 //
-//  ServerManager.swift
+//  NextServerManager.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 6/3/20.
