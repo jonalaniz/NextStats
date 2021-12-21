@@ -32,7 +32,7 @@ class ServerFormView: UIView {
         textField.borderStyle = .none
         textField.backgroundColor = .systemFill
         textField.font = .systemFont(ofSize: 16)
-        textField.attributedPlaceholder = "MyServer".attributedWithQuaternaryColor()
+        textField.attributedPlaceholder = "My Server".attributedWithQuaternaryColor()
 
         return textField
     }()
