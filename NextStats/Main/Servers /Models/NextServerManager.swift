@@ -43,9 +43,7 @@ class NextServerManager {
             fatalError("Could not encode server data \(error)")
         }
     }
-}
 
-extension NextServerManager: NextServerAPI {
     func add(_ server: NextServer) {
         servers.append(server)
         servers.sort(by: { $0.name < $1.name })

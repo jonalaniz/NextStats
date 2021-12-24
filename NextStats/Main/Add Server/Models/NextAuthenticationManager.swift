@@ -9,13 +9,13 @@
 import UIKit
 
 /// Facilitates the authentication and capturing of server objects.
-class NextAuthenticationManager: LoginAPI {
+class NextAuthenticationManager {
     weak var delegate: NextAuthenticationDelegate?
-    let networkController = NetworkController.shared
+    private let networkController = NetworkController.shared
 
-    var serverName = "My Server"
-    var serverImage: UIImage?
-    var shouldPoll = false
+    private var serverName = "My Server"
+    private var serverImage: UIImage?
+    private var shouldPoll = false
 
     func requestAuthenticationObject(from url: URL, named name: String) {
         // Append Login Flow V2 endpoint and create request
@@ -52,7 +52,7 @@ class NextAuthenticationManager: LoginAPI {
         }
     }
 
-    func setupAuthenitcationObject(with object: AuthenticationObject) {
+    private func setupAuthenitcationObject(with object: AuthenticationObject) {
         // Check for data from authenticationObject
         guard
             let pollURL = URL(string: (object.poll?.endpoint)!),
@@ -74,7 +74,7 @@ class NextAuthenticationManager: LoginAPI {
         pollForCredentials(at: pollURL, with: token)
     }
 
-    func pollForCredentials(at url: URL, with token: String) {
+    private func pollForCredentials(at url: URL, with token: String) {
         // Setup our request
         let tokenPrefix = "token="
         var request = URLRequest(url: url)
@@ -106,7 +106,7 @@ class NextAuthenticationManager: LoginAPI {
         }
     }
 
-    func checkForCustomImage(at url: URL) {
+    private func checkForCustomImage(at url: URL) {
         print("Logo URL: \(url)")
         let request = URLRequest(url: url)
 
@@ -122,7 +122,7 @@ class NextAuthenticationManager: LoginAPI {
         }
     }
 
-    func createServerFrom(object loginObject: LoginObject) {
+    private func createServerFrom(object loginObject: LoginObject) {
         let server: NextServer
 
         guard
@@ -189,14 +189,14 @@ extension NextAuthenticationManager {
         shouldPoll = false
     }
 
-    func decode<T: Decodable>(modelType: T.Type, from data: Data) -> T? {
+    private func decode<T: Decodable>(modelType: T.Type, from data: Data) -> T? {
         let decoder = JSONDecoder()
         guard let object = try? decoder.decode(modelType, from: data) else { return nil }
 
         return object
     }
 
-    func saveImage(to path: String) {
+    private func saveImage(to path: String) {
         do {
             print("Image Path: \(path)")
             try serverImage?.pngData()?.write(to: URL(string: "file://\(path)")!)
