@@ -42,6 +42,7 @@ class NetworkController {
     func fetchData(with request: URLRequest,
                    using config: URLSessionConfiguration = .default,
                    completion: @escaping (Result<Data, FetchError>) -> Void) {
+        config.timeoutIntervalForRequest = 15
 
         var request = request
         request.setValue("NextStats for iOS", forHTTPHeaderField: "User-Agent")
