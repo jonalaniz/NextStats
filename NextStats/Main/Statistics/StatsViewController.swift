@@ -13,13 +13,13 @@ class StatsViewController: UIViewController {
 
     let loadingViewController = LoadingViewController()
     let headerView = ServerHeaderView()
-    var statisticsDataManager = StatisticsDataManager.shared
+    var nextStatsDataManager = NextStatsDataManager.shared
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
     var serverInitialized = false
 
     override func loadView() {
         super.loadView()
-        statisticsDataManager.delegate = self
+        nextStatsDataManager.delegate = self
         setupView()
     }
 
@@ -73,8 +73,8 @@ class StatsViewController: UIViewController {
 
     private func showTableView() {
         if tableView.delegate == nil {
-            tableView.delegate = self
-            tableView.dataSource = self
+            tableView.delegate = nextStatsDataManager
+            tableView.dataSource = nextStatsDataManager
         }
 
         tableView.isHidden = false
@@ -84,7 +84,7 @@ class StatsViewController: UIViewController {
 
     /// Initializes server variable with selected server and updates UI
     func serverSelected(_ newServer: NextServer) {
-        statisticsDataManager.server = newServer
+        nextStatsDataManager.server = newServer
         serverInitialized = true
 
         let headerView = ServerHeaderView()
@@ -111,56 +111,25 @@ class StatsViewController: UIViewController {
     }
 
     @objc func openInSafari() {
-        if !serverInitialized { return }
-        let urlString = statisticsDataManager.server.friendlyURL.addIPPrefix()
+        guard serverInitialized != false else { return }
+
+        let urlString = nextStatsDataManager.server!.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
     }
 
     @objc func reload() {
         if !serverInitialized { return }
-        statisticsDataManager.reload()
+        nextStatsDataManager.reload()
     }
 
     @objc func userManagementPressed() {
+        guard serverInitialized != false else { return }
         let userDataManager = UserDataManager.shared
-        userDataManager.setServer(server: statisticsDataManager.server)
+        userDataManager.setServer(server: nextStatsDataManager.server!)
 
         coordinator?.showUsersView()
     }
-}
-
-// MARK: Table View Functions
-extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return statisticsDataManager.sections()
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return statisticsDataManager.rows(in: section)
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return statisticsDataManager.sectionLabel(for: section)
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
-        let section = indexPath.section
-        let row = indexPath.row
-
-        cell.textLabel?.text = statisticsDataManager.rowLabel(forRow: row, inSection: section)
-        cell.detailTextLabel?.text = statisticsDataManager.rowData(forRow: row, inSection: section)
-        cell.detailTextLabel?.textColor = .secondaryLabel
-        cell.selectionStyle = .none
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 28
-    }
-
 }
 
 // MARK: StatisticsDataManagerDelegate
@@ -199,5 +168,23 @@ extension StatsViewController: DataManagerDelegate {
 
     func dataUpdated() {
         showTableView()
+    }
+}
+
+// MARK: NextStatsDataManagerDelegate
+extension StatsViewController: NextDataManagerDelegate {
+    func stateDidChange(_ dataManagerState: NSDataManagerState) {
+        switch dataManagerState {
+        case .serverNotSet:
+            <#code#>
+        case .fetchingData:
+            <#code#>
+        case .parsingData:
+            <#code#>
+        case .failed(let nextDataManagerError):
+            <#code#>
+        case .statsCaptured:
+            <#code#>
+        }
     }
 }

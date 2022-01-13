@@ -26,3 +26,22 @@ protocol DataManagerDelegate: AnyObject {
     func failedToUpdateData(error: DataManagerError)
     func didBeginFetchingData()
 }
+
+protocol NextDataManagerDelegate: AnyObject {
+    func stateDidChange(_ dataManagerState: NSDataManagerState)
+//    func statsCaptured()
+}
+
+enum NSDataManagerState {
+    case serverNotSet
+    case fetchingData
+    case parsingData
+    case failed(NextDataManagerError)
+    case statsCaptured
+}
+
+enum NextDataManagerError {
+    case networkError(FetchError)
+    case unableToParseData
+    case missingData
+}
