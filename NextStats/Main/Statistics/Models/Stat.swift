@@ -14,12 +14,12 @@ struct Stat {
 }
 
 struct Stats {
-    let sections = [0: "System",
+    private let sections = [0: "System",
                     1: "Storage",
                     2: "Server",
                     3: "Active Users"]
 
-    var system = [0: Stat(title: "Version"),
+    private var system = [0: Stat(title: "Version"),
                   1: Stat(title: "CPU"),
                   2: Stat(title: "Memory Usage"),
                   3: Stat(title: "Memory"),
@@ -28,15 +28,15 @@ struct Stats {
                   6: Stat(title: "Local Cache"),
                   7: Stat(title: "Distributed Cache")]
 
-    var storage = [0: Stat(title: "Free Space"),
+    private var storage = [0: Stat(title: "Free Space"),
                    1: Stat(title: "Number of Files")]
 
-    var server = [0: Stat(title: "Web Server"),
+    private var server = [0: Stat(title: "Web Server"),
                   1: Stat(title: "PHP Version"),
                   2: Stat(title: "Database"),
                   3: Stat(title: "Database Version")]
 
-    var activeUsers = [0: Stat(title: "Last 5 Minutes"),
+    private var activeUsers = [0: Stat(title: "Last 5 Minutes"),
                        1: Stat(title: "Last Hour"),
                        2: Stat(title: "Last Day"),
                        3: Stat(title: "Total Users")]
