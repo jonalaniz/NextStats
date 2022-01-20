@@ -29,7 +29,6 @@ protocol DataManagerDelegate: AnyObject {
 
 protocol NextDataManagerDelegate: AnyObject {
     func stateDidChange(_ dataManagerState: NSDataManagerState)
-//    func statsCaptured()
 }
 
 enum NSDataManagerState {
