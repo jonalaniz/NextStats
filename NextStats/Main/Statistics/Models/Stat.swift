@@ -47,8 +47,32 @@ struct Stats {
         return label
     }
 
-    mutating func setValue() {
-        system[0]?.value = "piss"
+    mutating func set(systemData: [String]) {
+        for data in systemData {
+            let index = systemData.firstIndex(of: data)!
+            system[index]?.value = data
+        }
+    }
+
+    mutating func set(storageData: [String]) {
+        for data in storageData {
+            let index = storageData.firstIndex(of: data)!
+            storage[index]?.value = data
+        }
+    }
+
+    mutating func set(serverData: [String]) {
+        for data in serverData {
+            let index = serverData.firstIndex(of: data)!
+            server[index]?.value = data
+        }
+    }
+
+    mutating func set(userData: [String]) {
+        for data in userData {
+            let index = userData.firstIndex(of: data)!
+            activeUsers[index]?.value = data
+        }
     }
 
     func rows(in section: Int) -> Int {
