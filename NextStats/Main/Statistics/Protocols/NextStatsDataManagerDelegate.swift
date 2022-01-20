@@ -42,6 +42,6 @@ enum NSDataManagerState {
 
 enum NextDataManagerError {
     case networkError(FetchError)
-    case unableToParseData
+    case unableToDecode
     case missingData
 }
