@@ -14,7 +14,7 @@ class NextStatsDataManager: NSObject {
     public static let shared = NextStatsDataManager()
 
     private let networkController = NetworkController.shared
-    var nextStats = Stats()
+    var nextStats = NextStats()
     weak var delegate: NextDataManagerDelegate?
 
     var server: NextServer? {

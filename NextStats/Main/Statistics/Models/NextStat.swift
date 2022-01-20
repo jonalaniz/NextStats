@@ -1,90 +1,103 @@
 //
-//  NextStat.swift
+//  Stat.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 6/27/21.
-//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
+//  Created by Jon Alaniz on 12/28/21.
+//  Copyright © 2021 Jon Alaniz. All rights reserved.
+//
 
 import Foundation
 
 struct NextStat {
-    let sectionLabels = ["System", "Storage", "Server", "Active Users"]
-    let systemSectionLabels = ["Version", "CPU", "Memory Usage", "Memory",
-                               "Swap Usage", "Swap", "Local Cache", "Distributed Cache"]
-    let storageSectionLabels = ["Free Space", "Number of Files"]
-    let serverSectionLabels = ["Web Server", "PHP Version", "Database", "Database Version"]
-    let activeUsersSectionLabels = ["Last 5 Minutes", "Last Hour", "Last Day", "Total"]
+    let title: String
+    var value: String = "..."
+}
 
-    private var systemSectionData = [String]()
-    private var storageSectionData = [String]()
-    private var serverSectionData = [String]()
-    private var activeUsersSectionData = [String]()
+struct NextStats {
+    let sections = [0: "System",
+                    1: "Storage",
+                    2: "Server",
+                    3: "Active Users"]
 
-    init() {
-        initializeSectionData()
+    private var system = [0: NextStat(title: "Version"),
+                  1: NextStat(title: "CPU"),
+                  2: NextStat(title: "Memory Usage"),
+                  3: NextStat(title: "Memory"),
+                  4: NextStat(title: "Swap"),
+                  5: NextStat(title: "Swap Usage"),
+                  6: NextStat(title: "Local Cache"),
+                  7: NextStat(title: "Distributed Cache")]
+
+    private var storage = [0: NextStat(title: "Free Space"),
+                   1: NextStat(title: "Number of Files")]
+
+    private var server = [0: NextStat(title: "Web Server"),
+                  1: NextStat(title: "PHP Version"),
+                  2: NextStat(title: "Database"),
+                  3: NextStat(title: "Database Version")]
+
+    private var activeUsers = [0: NextStat(title: "Last 5 Minutes"),
+                       1: NextStat(title: "Last Hour"),
+                       2: NextStat(title: "Last Day"),
+                       3: NextStat(title: "Total Users")]
+
+    func label(for section: Int) -> String {
+        guard let label = sections[section] else { return "" }
+
+        return label
     }
 
-    mutating func initializeSectionData() {
-        systemSectionData = Array(repeating: "...", count: systemSectionLabels.count)
-        storageSectionData = Array(repeating: "...", count: storageSectionLabels.count)
-        serverSectionData = Array(repeating: "...", count: serverSectionLabels.count)
-        activeUsersSectionData = Array(repeating: "...", count: activeUsersSectionLabels.count)
-    }
-
-    mutating func setSystemData(version: String,
-                                cpuLoad: String,
-                                memoryUsage: String,
-                                memory: String,
-                                swapUsage: String,
-                                swap: String,
-                                localCache: String,
-                                distributedCache: String) {
-        systemSectionData = [version, cpuLoad, memoryUsage, memory, swapUsage, swap, localCache, distributedCache]
-    }
-
-    mutating func setStorageData(freeSpace: String, numberOfFiles: String) {
-        storageSectionData = [freeSpace, numberOfFiles]
-    }
-
-    mutating func setServerData(webServer: String,
-                                phpVersion: String,
-                                database: String,
-                                databaseVersion: String) {
-        serverSectionData = [webServer, phpVersion, database, databaseVersion]
-    }
-
-    mutating func setActiveUserData(last5Minutes: String,
-                                    lastHour: String,
-                                    lastDay: String,
-                                    total: String) {
-        activeUsersSectionData = [last5Minutes, lastHour, lastDay, total]
-    }
-
-    mutating func activeUserDataNotFound() {
-        activeUsersSectionData = Array(repeating: "N/A", count: activeUsersSectionLabels.count)
-    }
-
-    func data(forRow row: Int, inSection section: Int) -> String {
-        switch section {
-        case 0: return systemSectionData[row]
-        case 1: return storageSectionData[row]
-        case 2: return serverSectionData[row]
-        case 3: return activeUsersSectionData[row]
-        default: return "N/A"
+    mutating func set(systemData: [String]) {
+        for data in systemData {
+            let index = systemData.firstIndex(of: data)!
+            system[index]?.value = data
         }
     }
 
-    func label(forRow row: Int, inSection section: Int) -> String {
-        switch section {
-        case 0: return systemSectionLabels[row]
-        case 1: return storageSectionLabels[row]
-        case 2: return serverSectionLabels[row]
-        case 3: return activeUsersSectionLabels[row]
-        default: return "N/A"
+    mutating func set(storageData: [String]) {
+        for data in storageData {
+            let index = storageData.firstIndex(of: data)!
+            storage[index]?.value = data
         }
     }
 
-    func section(_ section: Int) -> String {
-        return sectionLabels[section]
+    mutating func set(serverData: [String]) {
+        for data in serverData {
+            let index = serverData.firstIndex(of: data)!
+            server[index]?.value = data
+        }
+    }
+
+    mutating func set(userData: [String]) {
+        for data in userData {
+            let index = userData.firstIndex(of: data)!
+            activeUsers[index]?.value = data
+        }
+    }
+
+    func rows(in section: Int) -> Int {
+        switch section {
+        case 0: return system.count
+        case 1: return storage.count
+        case 2: return server.count
+        case 3: return activeUsers.count
+        default: return 0
+        }
+    }
+
+    func stat(for row: Int, in section: Int) -> NextStat? {
+        switch section {
+        case 0: return system[row]
+        case 1: return storage[row]
+        case 2: return server[row]
+        case 3: return activeUsers[row]
+        default: return nil
+        }
+    }
+
+    func title(for section: Int) -> String {
+        guard let title = sections[section] else { return "" }
+
+        return title
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 class StatsViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
+    let noServerView = SelectServerViewController()
     let loadingViewController = LoadingViewController()
     let headerView = ServerHeaderView()
     var nextStatsDataManager = NextStatsDataManager.shared
@@ -62,13 +63,17 @@ class StatsViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        add(loadingViewController)
+        add(noServerView)
         tableView.isHidden = true
     }
 
     private func showLoadingView() {
-        add(loadingViewController)
+        if noServerView.isBeingPresented {
+            noServerView.remove()
+        }
+
         tableView.isHidden = true
+        add(loadingViewController)
     }
 
     private func showTableView() {
