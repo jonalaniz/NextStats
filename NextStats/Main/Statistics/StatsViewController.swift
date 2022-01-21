@@ -141,37 +141,6 @@ class StatsViewController: UIViewController {
     }
 }
 
-// MARK: StatisticsDataManagerDelegate
-extension StatsViewController {
-    func failedToUpdateData(error: DataManagerError) {
-        switch error {
-        case .unableToParseData:
-            self.showErrorAndReturn(title: "Error", description: error.description)
-        case .missingData:
-            self.showErrorAndReturn(title: "Error", description: error.description)
-        }
-    }
-
-    func failedToFetchData(error: FetchError) {
-        switch error {
-        case .network(let networkError):
-            self.showErrorAndReturn(title: error.title,
-                                    description: "\(networkError.localizedDescription)")
-        case .unexpectedResponse(let response):
-            switch response {
-            case 401:
-                self.showErrorAndReturn(title: error.title + ": \(response)",
-                                        description: .localized(.unauthorizedDescription))
-            default:
-                self.showErrorAndReturn(title: error.title + ": (\(response))",
-                                        description: "\(response)")
-            }
-        default:
-            self.showErrorAndReturn(title: error.title, description: error.description)
-        }
-    }
-}
-
 // MARK: NextStatsDataManagerDelegate
 extension StatsViewController: NextDataManagerDelegate {
     func stateDidChange(_ dataManagerState: NSDataManagerState) {
@@ -181,9 +150,36 @@ extension StatsViewController: NextDataManagerDelegate {
         case .parsingData:
             print("Parsing Data")
         case .failed(let nextDataManagerError):
-            print(nextDataManagerError)
+            switch nextDataManagerError {
+            case .networkError(let error):
+                handleNetworkError(error)
+            case .unableToDecode:
+                self.showErrorAndReturn(title: "Error", description: nextDataManagerError.description)
+            case .missingData:
+                self.showErrorAndReturn(title: "Error", description: nextDataManagerError.description)
+            }
         case .statsCaptured:
             showTableView()
+        }
+    }
+
+    func handleNetworkError(_ error: FetchError) {
+        switch error {
+        case .invalidData:
+            self.showErrorAndReturn(title: error.title, description: error.description)
+        case .missingResponse:
+            self.showErrorAndReturn(title: error.title, description: error.description)
+        case .network(let networkError):
+            self.showErrorAndReturn(title: error.title, description: networkError.localizedDescription)
+        case .unexpectedResponse(let response):
+            switch response {
+            case 401:
+                self.showErrorAndReturn(title: error.title + ": \(response)",
+                                        description: .localized(.unauthorizedDescription))
+            default:
+                self.showErrorAndReturn(title: error.title + ": (\(response))",
+                                        description: "\(response)")
+            }
         }
     }
 }

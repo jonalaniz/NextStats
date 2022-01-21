@@ -43,4 +43,12 @@ enum NextDataManagerError {
     case networkError(FetchError)
     case unableToDecode
     case missingData
+
+    public var description: String {
+        switch self {
+        case .missingData: return .localized(.missingData)
+        case .unableToDecode: return .localized(.unableToParseData)
+        default: return "Generic Error"
+        }
+    }
 }
