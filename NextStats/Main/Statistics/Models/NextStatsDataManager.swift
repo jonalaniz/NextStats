@@ -21,8 +21,6 @@ class NextStatsDataManager: NSObject {
         didSet {
             if server != nil {
                 fetchData(for: server!)
-            } else {
-                delegate?.stateDidChange(.serverNotSet)
             }
         }
     }

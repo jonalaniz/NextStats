@@ -68,7 +68,7 @@ class StatsViewController: UIViewController {
     }
 
     private func showLoadingView() {
-        if noServerView.isBeingPresented {
+        if noServerView.isViewLoaded {
             noServerView.remove()
         }
 
@@ -77,6 +77,10 @@ class StatsViewController: UIViewController {
     }
 
     private func showTableView() {
+        if noServerView.isViewLoaded {
+            noServerView.remove()
+        }
+
         if tableView.delegate == nil {
             tableView.delegate = nextStatsDataManager
             tableView.dataSource = nextStatsDataManager
@@ -138,11 +142,7 @@ class StatsViewController: UIViewController {
 }
 
 // MARK: StatisticsDataManagerDelegate
-extension StatsViewController: DataManagerDelegate {
-    func didBeginFetchingData() {
-        showLoadingView()
-    }
-
+extension StatsViewController {
     func failedToUpdateData(error: DataManagerError) {
         switch error {
         case .unableToParseData:
@@ -170,26 +170,20 @@ extension StatsViewController: DataManagerDelegate {
             self.showErrorAndReturn(title: error.title, description: error.description)
         }
     }
-
-    func dataUpdated() {
-        showTableView()
-    }
 }
 
 // MARK: NextStatsDataManagerDelegate
 extension StatsViewController: NextDataManagerDelegate {
     func stateDidChange(_ dataManagerState: NSDataManagerState) {
         switch dataManagerState {
-        case .serverNotSet:
-            <#code#>
         case .fetchingData:
-            <#code#>
+            showLoadingView()
         case .parsingData:
-            <#code#>
+            print("Parsing Data")
         case .failed(let nextDataManagerError):
-            <#code#>
+            print(nextDataManagerError)
         case .statsCaptured:
-            <#code#>
+            showTableView()
         }
     }
 }

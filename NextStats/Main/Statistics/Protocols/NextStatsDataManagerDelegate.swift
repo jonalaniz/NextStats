@@ -20,6 +20,7 @@ enum DataManagerError {
 }
 
 /// Calls relating to fetching and updating data in Data Managers`
+/// THIS NEEDS TO BE REPLACED SOON 
 protocol DataManagerDelegate: AnyObject {
     func dataUpdated()
     func failedToFetchData(error: FetchError)
@@ -32,7 +33,6 @@ protocol NextDataManagerDelegate: AnyObject {
 }
 
 enum NSDataManagerState {
-    case serverNotSet
     case fetchingData
     case parsingData
     case failed(NextDataManagerError)
