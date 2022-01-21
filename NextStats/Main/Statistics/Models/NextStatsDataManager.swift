@@ -112,7 +112,7 @@ class NextStatsDataManager: NSObject {
             systemData.append(usagePercent(free: freeSwapInBytes, total: totalSwapInBytes))
 
             // Swap
-            systemData.append(usagePercent(free: freeSwapInBytes, total: totalSwapInBytes))
+            systemData.append(usage(free: freeSwapInBytes, total: totalSwapInBytes))
 
         } else {
             systemData.append("N/A")
@@ -153,7 +153,10 @@ class NextStatsDataManager: NSObject {
     }
 
     private func parseServer(_ server: Server) {
-        let serverData = [server.webserver ?? "N/A"]
+        let serverData = [server.webserver ?? "N/A",
+                          server.php?.version ?? "N/A",
+                          server.database?.type ?? "N/A",
+                          server.database?.version ?? "N/A"]
 
         nextStats.set(serverData: serverData)
     }
