@@ -23,8 +23,8 @@ struct NextStats {
                   1: NextStat(title: "CPU"),
                   2: NextStat(title: "Memory Usage"),
                   3: NextStat(title: "Memory"),
-                  4: NextStat(title: "Swap"),
-                  5: NextStat(title: "Swap Usage"),
+                  4: NextStat(title: "Swap Usage"),
+                  5: NextStat(title: "Swap"),
                   6: NextStat(title: "Local Cache"),
                   7: NextStat(title: "Distributed Cache")]
 
@@ -48,30 +48,26 @@ struct NextStats {
     }
 
     mutating func set(systemData: [String]) {
-        for data in systemData {
-            let index = systemData.firstIndex(of: data)!
-            system[index]?.value = data
+        for index in 0..<system.count {
+            system[index]?.value = systemData[index]
         }
     }
 
     mutating func set(storageData: [String]) {
-        for data in storageData {
-            let index = storageData.firstIndex(of: data)!
-            storage[index]?.value = data
+        for index in 0..<storage.count {
+            storage[index]?.value = storageData[index]
         }
     }
 
     mutating func set(serverData: [String]) {
-        for data in serverData {
-            let index = serverData.firstIndex(of: data)!
-            server[index]?.value = data
+        for index in 0..<server.count {
+            server[index]?.value = serverData[index]
         }
     }
 
     mutating func set(userData: [String]) {
-        for data in userData {
-            let index = userData.firstIndex(of: data)!
-            activeUsers[index]?.value = data
+        for index in 0..<activeUsers.count {
+            activeUsers[index]?.value = userData[index]
         }
     }
 
