@@ -50,7 +50,7 @@ extension AddServerViewController {
             return
         }
 
-        let serverName = serverFormView.nicknameField.text ?? "Server"
+        let serverName = serverFormView.nicknameField.text ?? "My Server"
         let url = URL(string: urlString)!
 
         // Initiate the authorization request, and check for logo

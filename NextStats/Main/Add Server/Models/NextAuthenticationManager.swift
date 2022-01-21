@@ -13,11 +13,13 @@ class NextAuthenticationManager {
     weak var delegate: NextAuthenticationDelegate?
     private let networkController = NetworkController.shared
 
-    private var serverName = "My Server"
+    private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
 
     func requestAuthenticationObject(from url: URL, named name: String) {
+        serverName = name
+
         // Append Login Flow V2 endpoint and create request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: .loginEndpoint)
@@ -138,7 +140,7 @@ class NextAuthenticationManager {
         let friendlyURL = urlComponents.host!
 
         if serverImage != nil {
-            server = NextServer(name: serverName,
+            server = NextServer(name: serverName!,
                                 friendlyURL: friendlyURL,
                                 URLString: url,
                                 username: username,
@@ -148,7 +150,7 @@ class NextAuthenticationManager {
 
             delegate?.didCapture(server: server)
         } else {
-            server = NextServer(name: serverName,
+            server = NextServer(name: serverName!,
                                 friendlyURL: friendlyURL,
                                 URLString: url,
                                 username: username,
