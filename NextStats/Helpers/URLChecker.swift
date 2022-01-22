@@ -11,9 +11,6 @@ import Foundation
 // swiftlint:disable line_length
 let urlRegEx = #"^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$"#
 
-// swiftlint:disable line_length
-let ipRegEx = #"^(^192\.168\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])?\:([0-9]+)$)|(^172\.([1][6-9]|[2][0-9]|[3][0-1])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])?\:([0-9]+)$)|(^10\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])\.([0-9]|[0-9][0-9]|[0-2][0-5][0-5])?\:?([0-9]+)?$)"#
-
 extension String {
     func isValidURL() -> Bool {
         let urlTest = NSPredicate(format: "SELF MATCHES %@", urlRegEx)
@@ -23,9 +20,13 @@ extension String {
     }
 
     func isValidIPAddress() -> Bool {
-        let urlTest = NSPredicate(format: "SELF MATCHES %@", ipRegEx)
-        let isValid = urlTest.evaluate(with: self)
+        var testableString = self
+        if let index = testableString.range(of: ":") {
+          testableString.removeSubrange(index.lowerBound..<testableString.endIndex)
+        }
 
-        return isValid
+        let parts = testableString.components(separatedBy: ".")
+        let nums = parts.compactMap { Int($0) }
+        return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
     }
 }
