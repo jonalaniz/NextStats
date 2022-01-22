@@ -23,7 +23,7 @@ class MainCoordinator: Coordinator {
 
         mainViewController = ServerViewController()
         statsViewController = StatsViewController()
-        detailNavigationController = UINavigationController(rootViewController: statsViewController)
+        detailNavigationController = UINavigationController(rootViewController: SelectServerViewController())
     }
 
     // This is where we initialize the UISplitViewController

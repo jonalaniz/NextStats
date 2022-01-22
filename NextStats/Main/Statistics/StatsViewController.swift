@@ -11,8 +11,7 @@ import UIKit
 class StatsViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
-    let noServerView = SelectServerViewController()
-    let loadingViewController = LoadingViewController()
+    let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
     var nextStatsDataManager = NextStatsDataManager.shared
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -22,10 +21,6 @@ class StatsViewController: UIViewController {
         super.loadView()
         nextStatsDataManager.delegate = self
         setupView()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -63,31 +58,24 @@ class StatsViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        add(noServerView)
+
+        add(loadingView)
         tableView.isHidden = true
     }
 
     private func showLoadingView() {
-        if noServerView.isViewLoaded {
-            noServerView.remove()
-        }
-
         tableView.isHidden = true
-        add(loadingViewController)
+        add(loadingView)
     }
 
     private func showTableView() {
-        if noServerView.isViewLoaded {
-            noServerView.remove()
-        }
-
         if tableView.delegate == nil {
             tableView.delegate = nextStatsDataManager
             tableView.dataSource = nextStatsDataManager
         }
 
         tableView.isHidden = false
-        loadingViewController.remove()
+        loadingView.remove()
         tableView.reloadData()
     }
 
@@ -109,7 +97,7 @@ class StatsViewController: UIViewController {
         errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
 
         DispatchQueue.main.async {
-            self.loadingViewController.remove()
+            self.loadingView.remove()
             self.tableView.isHidden = true
             self.present(errorAC, animated: true)
         }
