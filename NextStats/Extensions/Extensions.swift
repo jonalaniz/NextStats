@@ -34,7 +34,7 @@ extension String {
         if self.hasPrefix("http://") || self.hasPrefix("https://") {
             return self
         } else {
-            return "http://" + self
+            return "https://" + self
         }
     }
 

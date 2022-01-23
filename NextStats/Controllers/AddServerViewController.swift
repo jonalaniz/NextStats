@@ -41,6 +41,8 @@ extension AddServerViewController {
 
         if string.isValidIPAddress() {
             string = string.addIPPrefix()
+        } else {
+            string = string.addHTTPPrefix()
         }
 
         if let url = URL(string: string) {
