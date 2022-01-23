@@ -107,7 +107,7 @@
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5602A2B9277B7869004A60F0 /* NextStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStat.swift; sourceTree = "<group>"; };
-		5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NextStatsDataManager+UITableViewDelegate.swift"; path = "NextStats/Main/Statistics/Models/NextStatsDataManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NextStatsDataManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
@@ -236,7 +236,6 @@
 		56557ED723C8B09A008CF684 = {
 			isa = PBXGroup;
 			children = (
-				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
 				56557EE223C8B09A008CF684 /* NextStats */,
 				565975B925567DF70043C007 /* NextStatsTests */,
 				56557EE123C8B09A008CF684 /* Products */,
@@ -503,6 +502,7 @@
 		56E0AD8226ADAB810090ACB6 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
 				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 				56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */,
 				56DB681D26AEEB620015CB04 /* Models */,
@@ -909,7 +909,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -933,7 +933,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jonalaniz.NextStats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
