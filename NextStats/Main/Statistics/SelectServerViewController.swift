@@ -23,6 +23,7 @@ class SelectServerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .systemGroupedBackground
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(textLabel)
 
