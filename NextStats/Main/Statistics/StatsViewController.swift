@@ -35,12 +35,12 @@ class StatsViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
 
         // Setup our buttons
-        let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
                                                  style: .plain,
                                                  target: self,
-                                                 action: #selector(openInSafari))
+                                                 action: #selector(menuTapped))
 
-        navigationItem.rightBarButtonItem = openInSafariButton
+        navigationItem.rightBarButtonItem = moreButton
         navigationItem.largeTitleDisplayMode = .never
 
         #if targetEnvironment(macCatalyst)
@@ -115,6 +115,16 @@ class StatsViewController: UIViewController {
         let urlString = nextStatsDataManager.server!.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
+    }
+
+    @objc func menuTapped() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Change Name", style: .default, handler: nil))
+        ac.addAction(UIAlertAction(title: "Refresh Icon", style: .default, handler: nil))
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: nil))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        present(ac, animated: true)
     }
 
     @objc func reload() {

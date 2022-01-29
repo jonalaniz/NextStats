@@ -10,7 +10,7 @@ import UIKit
 
 struct ServerHeaderViewConstants {
     static let headerHeight: Int = {
-        return 310
+        return 320
     }()
 
     static let userString: NSAttributedString = {
@@ -98,6 +98,8 @@ class ServerHeaderView: UIView {
         return button
     }()
 
+    let spacerView = UIView()
+
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 300, height: ServerHeaderViewConstants.headerHeight))
         setupView()
@@ -115,6 +117,7 @@ class ServerHeaderView: UIView {
         mainStackView.addArrangedSubview(buttonStackView)
         buttonStackView.addArrangedSubview(userManagementButton)
         buttonStackView.addArrangedSubview(openInBrowserButton)
+        mainStackView.addArrangedSubview(spacerView)
 
         addSubview(mainStackView)
 
@@ -124,7 +127,8 @@ class ServerHeaderView: UIView {
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 18),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -18),
             imageView.widthAnchor.constraint(equalToConstant: 180),
-            imageView.heightAnchor.constraint(equalToConstant: 180)
+            imageView.heightAnchor.constraint(equalToConstant: 180),
+            spacerView.heightAnchor.constraint(equalToConstant: 10)
         ])
     }
 
