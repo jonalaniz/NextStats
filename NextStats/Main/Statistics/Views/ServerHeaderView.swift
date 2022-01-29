@@ -10,26 +10,16 @@ import UIKit
 
 struct ServerHeaderViewConstants {
     static let headerHeight: Int = {
-//        if widthIsConstrained { return 132 }
-        return 300
+        return 310
     }()
 
     static let userString: NSAttributedString = {
         let string = NSMutableAttributedString()
-
-        if widthIsConstrained {
-            string.append(NSAttributedString(string: " Users "))
-        } else {
-            string.append(NSAttributedString(string: " User Management "))
-        }
-
+        string.append(NSAttributedString(string: " Users "))
         string.prefixingSFSymbol("person.fill", color: .white)
         string.suffixingSFSymbol("chevron.right", color: .white)
-        return string
-    }()
 
-    static let widthIsConstrained: Bool = {
-        UIScreen.main.bounds.width == 320
+        return string
     }()
 }
 
@@ -51,6 +41,7 @@ class ServerHeaderView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .center
+        stackView.distribution = .fillEqually
         stackView.spacing = 6
 
         return stackView
@@ -89,7 +80,7 @@ class ServerHeaderView: UIView {
         button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        button.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
+        button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
 
         return button
     }()
@@ -102,7 +93,7 @@ class ServerHeaderView: UIView {
                                 text: "Visit Server",
                                 color: .white)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        button.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
+        button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
 
         return button
     }()
@@ -132,8 +123,8 @@ class ServerHeaderView: UIView {
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 18),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -18),
-            imageView.widthAnchor.constraint(equalTo: widthAnchor, constant: -self.bounds.width / 2),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            imageView.widthAnchor.constraint(equalToConstant: 180),
+            imageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }
 
