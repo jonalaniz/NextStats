@@ -89,6 +89,8 @@ class StatsViewController: UIViewController {
         headerView.userManagementButton.addTarget(self,
                                                   action: #selector(userManagementPressed),
                                                   for: .touchUpInside)
+        headerView.openInBrowserButton.addTarget(self,
+                                                 action: #selector(openInSafari), for: .touchUpInside)
         tableView.tableHeaderView = headerView
     }
 
