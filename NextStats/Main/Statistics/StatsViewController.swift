@@ -35,7 +35,7 @@ class StatsViewController: UIViewController {
         view.backgroundColor = .systemGroupedBackground
 
         // Setup our buttons
-        let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "safari.fill"),
+        let openInSafariButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
                                                  style: .plain,
                                                  target: self,
                                                  action: #selector(openInSafari))

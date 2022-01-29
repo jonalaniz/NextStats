@@ -10,13 +10,22 @@ import UIKit
 
 struct ServerHeaderViewConstants {
     static let headerHeight: Int = {
-        if widthIsConstrained { return 132 }
-        return 140
+//        if widthIsConstrained { return 132 }
+        return 300
     }()
 
-    static let userString: String = {
-        if widthIsConstrained { return "Users" }
-        return "User Management"
+    static let userString: NSAttributedString = {
+        let string = NSMutableAttributedString()
+
+        if widthIsConstrained {
+            string.append(NSAttributedString(string: " Users "))
+        } else {
+            string.append(NSAttributedString(string: " User Management "))
+        }
+
+        string.prefixingSFSymbol("person.fill", color: .white)
+        string.suffixingSFSymbol("chevron.right", color: .white)
+        return string
     }()
 
     static let widthIsConstrained: Bool = {
@@ -29,7 +38,7 @@ class ServerHeaderView: UIView {
     let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
         stackView.spacing = 10
@@ -37,11 +46,11 @@ class ServerHeaderView: UIView {
         return stackView
     }()
 
-    let verticalStackView: UIStackView = {
+    let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
+        stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.spacing = 6
 
         return stackView
@@ -76,8 +85,21 @@ class ServerHeaderView: UIView {
         let button = UIButton()
         button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
-        button.sfSymbolWithText(symbol: "person.fill",
-                                text: ServerHeaderViewConstants.userString,
+
+        button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
+        button.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
+
+        return button
+    }()
+
+    let openInBrowserButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .themeColor
+        button.layer.cornerRadius = 10
+        button.sfSymbolWithText(symbol: "safari.fill",
+                                text: "Visit Server",
                                 color: .white)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 10.0, right: 14.0)
@@ -97,10 +119,11 @@ class ServerHeaderView: UIView {
 
     private func setupView() {
         mainStackView.addArrangedSubview(imageView)
-        mainStackView.addArrangedSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(nameLabel)
-        verticalStackView.addArrangedSubview(addressLabel)
-        verticalStackView.addArrangedSubview(userManagementButton)
+        mainStackView.addArrangedSubview(nameLabel)
+        mainStackView.addArrangedSubview(addressLabel)
+        mainStackView.addArrangedSubview(buttonStackView)
+        buttonStackView.addArrangedSubview(userManagementButton)
+        buttonStackView.addArrangedSubview(openInBrowserButton)
 
         addSubview(mainStackView)
 
@@ -109,7 +132,7 @@ class ServerHeaderView: UIView {
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 18),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -18),
-            imageView.widthAnchor.constraint(equalTo: heightAnchor, constant: -18),
+            imageView.widthAnchor.constraint(equalTo: widthAnchor, constant: -self.bounds.width / 2),
             imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
         ])
     }
