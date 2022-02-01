@@ -10,18 +10,19 @@ import Foundation
 import UIKit
 
 /// Facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects
-class NextServerManager {
+class NextServerManager: NSObject {
     /// Returns the singleton `ServerManager` instance.
     public static let shared = NextServerManager()
 
     weak var delegate: ServerManagerDelegate?
     private var servers: [NextServer] {
         didSet {
+            delegate?.serversDidChange(isEmpty: servers.isEmpty)
             saveServers()
         }
     }
 
-    private init() {
+    override init() {
         servers = NextServerManager.getServers()
     }
 
@@ -65,14 +66,6 @@ class NextServerManager {
         servers.remove(at: index)
     }
 
-    func serverCount() -> Int {
-        return servers.count
-    }
-
-    func getServer(at index: Int) -> NextServer {
-        return servers[index]
-    }
-
     func pingServer(at index: Int) {
         let url = URL(string: servers[index].URLString)!
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
@@ -104,5 +97,41 @@ class NextServerManager {
         DispatchQueue.main.async {
             self.delegate?.pingedServer(at: index, isOnline: status)
         }
+    }
+}
+
+extension NextServerManager: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return servers.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
+        else { fatalError("DequeueReusableCell failed while casting") }
+
+        cell.accessoryType = .disclosureIndicator
+        cell.server = servers[indexPath.row]
+        cell.setup()
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+}
+
+extension NextServerManager: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.selected(server: servers[indexPath.row])
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }

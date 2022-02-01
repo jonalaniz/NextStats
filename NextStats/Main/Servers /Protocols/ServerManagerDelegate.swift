@@ -8,7 +8,8 @@
 
 import Foundation
 
-@objc protocol ServerManagerDelegate {
+protocol ServerManagerDelegate: AnyObject {
+    func serversDidChange(isEmpty: Bool)
     func pingedServer(at index: Int, isOnline: Bool)
-    func serversUpdated()
+    func selected(server: NextServer)
 }

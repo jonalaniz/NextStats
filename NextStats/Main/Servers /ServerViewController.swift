@@ -16,8 +16,8 @@ class ServerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        serverManager.delegate = self
         setupView()
-        toggleNoServersView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +31,14 @@ class ServerViewController: UIViewController {
         #else
         navigationController?.isToolbarHidden = false
         #endif
+    }
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        // Takes care of toggling the button's title.
+        super.setEditing(editing, animated: true)
+
+        // Toggle table view editing.
+        tableView.setEditing(editing, animated: true)
     }
 
     private func setupView() {
@@ -72,8 +80,8 @@ class ServerViewController: UIViewController {
         #endif
 
         // Connect tableView to ViewController and register Cell
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.delegate = serverManager
+        tableView.dataSource = serverManager
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
 
         // Constrain our views
@@ -88,22 +96,7 @@ class ServerViewController: UIViewController {
         ])
     }
 
-    private func toggleNoServersView() {
-        // Show noServerView if no ServerManager.servers is empty
-        if serverManager.serverCount() == 0 {
-            navigationItem.rightBarButtonItem = nil
-            add(noServersViewController)
-        } else {
-            navigationItem.rightBarButtonItem = editButtonItem
-            noServersViewController.remove()
-        }
-
-        // So iPad doesn't get tableView stuck in editing mode
-        setEditing(false, animated: true)
-    }
-
     @objc func refresh() {
-        toggleNoServersView()
         tableView.reloadData()
 
         if tableView.refreshControl?.isRefreshing == true {
@@ -121,51 +114,25 @@ class ServerViewController: UIViewController {
     }
 }
 
-// MARK: TableView Methods
-extension ServerViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return serverManager.serverCount()
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
-        else { fatalError("DequeueReusableCell failed while casting") }
-
-        let server = serverManager.getServer(at: indexPath.row)
-        cell.accessoryType = .disclosureIndicator
-        cell.server = server
-        cell.setup()
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedServer = serverManager.getServer(at: indexPath.row)
-        coordinator?.showStatsView(for: selectedServer)
-    }
-
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Remove server from serverManager and tableView
-            serverManager.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-
-            // Show or hide noServerView as necessary
-            toggleNoServersView()
+extension ServerViewController: ServerManagerDelegate {
+    func serversDidChange(isEmpty: Bool) {
+        if isEmpty {
+            navigationItem.rightBarButtonItem = nil
+            add(noServersViewController)
+        } else {
+            navigationItem.rightBarButtonItem = editButtonItem
+            noServersViewController.remove()
         }
+
+        // So iPad doesn't get tableView stuck in editing mode
+        setEditing(false, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+    func pingedServer(at index: Int, isOnline: Bool) {
+        print("Needs to implement this next")
     }
 
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        // Takes care of toggling the button's title.
-        super.setEditing(editing, animated: true)
-
-        // Toggle table view editing.
-        tableView.setEditing(editing, animated: true)
+    func selected(server: NextServer) {
+        coordinator?.showStatsView(for: server)
     }
 }
