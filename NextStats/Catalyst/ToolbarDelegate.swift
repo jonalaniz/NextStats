@@ -14,7 +14,7 @@ class ToolbarDelegate: NSObject {}
 extension NSToolbarItem.Identifier {
     static let addServer = NSToolbarItem.Identifier("com.jonalaniz.nextstats.addServer")
     static let refresh = NSToolbarItem.Identifier("com.jonalaniz.nextstats.refresh")
-    static let openInSafari = NSToolbarItem.Identifier("com.jonalaniz.nextstats.openInSafari")
+    static let menu = NSToolbarItem.Identifier("com.jonalaniz.nextstats.menu")
 }
 
 extension ToolbarDelegate: NSToolbarDelegate {
@@ -23,7 +23,7 @@ extension ToolbarDelegate: NSToolbarDelegate {
             .flexibleSpace,
             .addServer,
             .primarySidebarTrackingSeparatorItemIdentifier,
-            .openInSafari
+            .menu
         ]
 
         return identifiers
@@ -53,11 +53,12 @@ extension ToolbarDelegate: NSToolbarDelegate {
             item.action = #selector(StatsViewController.reload)
             item.target = nil
             toolbarItem = item
-        case .openInSafari:
-            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            item.image = UIImage(systemName: "safari.fill")
-            item.label = "Open in Safari"
-            item.action = #selector(StatsViewController.openInSafari)
+        case .menu:
+            let item = NSMenuToolbarItem(itemIdentifier: itemIdentifier)
+            item.image = UIImage(systemName: "ellipsis.circle")
+            item.showsIndicator = false
+            item.label = "Server Menu"
+            item.itemMenu = buildServerMenu()
             item.target = nil
             toolbarItem = item
         default:
@@ -65,6 +66,14 @@ extension ToolbarDelegate: NSToolbarDelegate {
         }
 
         return toolbarItem
+    }
+
+    func buildServerMenu() -> UIMenu {
+        let renameServer = UICommand(title: "Rename Name", action: #selector(StatsViewController.renameServer))
+        let refreshIcon = UICommand(title: "Refresh Icon", action: #selector(StatsViewController.refreshIcon))
+        let menu = UIMenu(title: "", options: .displayInline, children: [renameServer, refreshIcon])
+
+        return menu
     }
 
 }
