@@ -85,6 +85,7 @@
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
+		56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */; };
 		56FE294127994AC600301CDA /* Double+IsReal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE294027994AC600301CDA /* Double+IsReal.swift */; };
 /* End PBXBuildFile section */
 
@@ -185,6 +186,7 @@
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
+		56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+MenuActions.swift"; sourceTree = "<group>"; };
 		56FE294027994AC600301CDA /* Double+IsReal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+IsReal.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -506,8 +508,9 @@
 			isa = PBXGroup;
 			children = (
 				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
-				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 				56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */,
+				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
+				56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */,
 				56DB681D26AEEB620015CB04 /* Models */,
 				56DB682926AEED2D0015CB04 /* Protocols */,
 				56DB682026AEEC1A0015CB04 /* Views */,
@@ -700,6 +703,7 @@
 				5601D7B325E0E8DB00993D31 /* Coordinator.swift in Sources */,
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				569F2C7926AAF61A001122F2 /* XMLEncodingStorage.swift in Sources */,
+				56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoModel.swift in Sources */,
