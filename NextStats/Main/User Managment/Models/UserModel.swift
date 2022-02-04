@@ -8,6 +8,7 @@
 
 import Foundation
 
+// swiftlint:disable identifier_name
 struct User: Codable {
     let meta: Meta
     let data: UserDataStruct

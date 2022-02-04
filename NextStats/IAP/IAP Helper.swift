@@ -8,6 +8,7 @@
 
 import StoreKit
 
+// swiftlint:disable identifier_name
 public typealias ProductIdentifier = String
 public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products: [SKProduct]?) -> Void
 

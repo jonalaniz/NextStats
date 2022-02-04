@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
 class StatsViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
@@ -119,7 +120,7 @@ class StatsViewController: UIViewController {
 
     @objc func menuTapped() {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Change Name", style: .default, handler: renameServer))
+        ac.addAction(UIAlertAction(title: "Change Name", style: .default, handler: showRenameSheet))
         ac.addAction(UIAlertAction(title: "Refresh Icon", style: .default, handler: refreshIcon))
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: delete))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))

@@ -8,9 +8,21 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
 extension StatsViewController {
-    @objc func renameServer(action: UIAlertAction) {
-        print("Rename Server")
+    @objc func showRenameSheet(action: UIAlertAction) {
+        guard let name = nextStatsDataManager.server?.name else { return }
+        let ac = UIAlertController(title: "Enter a new name for \(name)",
+                                   message: "",
+                                   preferredStyle: .alert)
+        ac.addTextField()
+
+        let renameAction = UIAlertAction(title: "Rename", style: .default) { [weak self, weak ac] _ in
+            guard let nameString = ac?.textFields?[0].text else { return }
+            self?.renameServer(nameString)
+        }
+        ac.addAction(renameAction)
+        present(ac, animated: true)
     }
 
     @objc func refreshIcon(action: UIAlertAction) {
@@ -19,5 +31,9 @@ extension StatsViewController {
 
     @objc func delete(action: UIAlertAction) {
         print("Delete Server")
+    }
+
+    func renameServer(_ name: String) {
+        headerView.nameLabel.text = name
     }
 }
