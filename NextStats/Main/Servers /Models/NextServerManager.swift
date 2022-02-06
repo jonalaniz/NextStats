@@ -66,6 +66,21 @@ class NextServerManager: NSObject {
         servers.remove(at: index)
     }
 
+    func remove(_ server: NextServer) {
+        servers.removeAll(where: { $0 == server })
+    }
+
+    func rename(server: NextServer, name: String) {
+        let newServer = NextServer(name: name,
+                                   friendlyURL: server.friendlyURL,
+                                   URLString: server.URLString,
+                                   username: server.username,
+                                   password: server.password,
+                                   hasCustomLogo: server.hasCustomLogo)
+        remove(server)
+        add(newServer)
+    }
+
     func pingServer(at index: Int) {
         let url = URL(string: servers[index].URLString)!
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)

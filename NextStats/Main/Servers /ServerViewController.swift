@@ -126,6 +126,8 @@ extension ServerViewController: ServerManagerDelegate {
 
         // So iPad doesn't get tableView stuck in editing mode
         setEditing(false, animated: true)
+
+        tableView.reloadData()
     }
 
     func pingedServer(at index: Int, isOnline: Bool) {

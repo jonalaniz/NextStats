@@ -34,6 +34,11 @@ extension StatsViewController {
     }
 
     func renameServer(_ name: String) {
+        guard let server = nextStatsDataManager.server else { return }
         headerView.nameLabel.text = name
+        tableView.tableHeaderView = headerView
+
+        let manager = NextServerManager.shared
+        manager.rename(server: server, name: name)
     }
 }

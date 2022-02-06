@@ -85,13 +85,15 @@ class StatsViewController: UIViewController {
         nextStatsDataManager.server = newServer
         serverInitialized = true
 
-        let headerView = ServerHeaderView()
-        headerView.setupHeaderWith(name: newServer.name, address: newServer.friendlyURL, image: newServer.serverImage())
-        headerView.userManagementButton.addTarget(self,
-                                                  action: #selector(userManagementPressed),
-                                                  for: .touchUpInside)
-        headerView.openInBrowserButton.addTarget(self,
-                                                 action: #selector(openInSafari), for: .touchUpInside)
+        headerView.setupHeaderWith(name: newServer.name,
+                                   address: newServer.friendlyURL,
+                                   image: newServer.serverImage())
+        headerView.users.addTarget(self,
+                                   action: #selector(userManagementPressed),
+                                   for: .touchUpInside)
+        headerView.visitServerButton.addTarget(self,
+                                               action: #selector(openInSafari),
+                                               for: .touchUpInside)
         tableView.tableHeaderView = headerView
     }
 
@@ -120,8 +122,8 @@ class StatsViewController: UIViewController {
 
     @objc func menuTapped() {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Change Name", style: .default, handler: showRenameSheet))
-        ac.addAction(UIAlertAction(title: "Refresh Icon", style: .default, handler: refreshIcon))
+        ac.addAction(UIAlertAction(title: "Rename", style: .default, handler: showRenameSheet))
+        ac.addAction(UIAlertAction(title: "Update Icon", style: .default, handler: refreshIcon))
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: delete))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
