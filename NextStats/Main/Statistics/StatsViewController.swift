@@ -14,13 +14,13 @@ class StatsViewController: UIViewController {
 
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
-    var nextStatsDataManager = NextStatsDataManager.shared
+    var dataManager = NextStatsDataManager.shared
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
     var serverInitialized = false
 
     override func loadView() {
         super.loadView()
-        nextStatsDataManager.delegate = self
+        dataManager.delegate = self
         setupView()
     }
 
@@ -71,8 +71,8 @@ class StatsViewController: UIViewController {
 
     private func showTableView() {
         if tableView.delegate == nil {
-            tableView.delegate = nextStatsDataManager
-            tableView.dataSource = nextStatsDataManager
+            tableView.delegate = dataManager
+            tableView.dataSource = dataManager
         }
 
         tableView.isHidden = false
@@ -82,7 +82,7 @@ class StatsViewController: UIViewController {
 
     /// Initializes server variable with selected server and updates UI
     func serverSelected(_ newServer: NextServer) {
-        nextStatsDataManager.server = newServer
+        dataManager.server = newServer
         serverInitialized = true
 
         headerView.setupHeaderWith(name: newServer.name,
@@ -115,7 +115,7 @@ class StatsViewController: UIViewController {
     @objc func openInSafari() {
         guard serverInitialized != false else { return }
 
-        let urlString = nextStatsDataManager.server!.friendlyURL.addIPPrefix()
+        let urlString = dataManager.server!.friendlyURL.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
     }
@@ -132,13 +132,13 @@ class StatsViewController: UIViewController {
 
     @objc func reload() {
         if !serverInitialized { return }
-        nextStatsDataManager.reload()
+        dataManager.reload()
     }
 
     @objc func userManagementPressed() {
         guard serverInitialized != false else { return }
         let userDataManager = UserDataManager.shared
-        userDataManager.setServer(server: nextStatsDataManager.server!)
+        userDataManager.setServer(server: dataManager.server!)
 
         coordinator?.showUsersView()
     }

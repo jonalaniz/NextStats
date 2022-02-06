@@ -11,7 +11,7 @@ import UIKit
 // swiftlint:disable identifier_name
 extension StatsViewController {
     @objc func showRenameSheet(action: UIAlertAction) {
-        guard let name = nextStatsDataManager.server?.name else { return }
+        guard let name = dataManager.server?.name else { return }
         let ac = UIAlertController(title: "Enter a new name for \(name)",
                                    message: "",
                                    preferredStyle: .alert)
@@ -34,7 +34,7 @@ extension StatsViewController {
     }
 
     func renameServer(_ name: String) {
-        guard let server = nextStatsDataManager.server else { return }
+        guard let server = dataManager.server else { return }
         headerView.nameLabel.text = name
         tableView.tableHeaderView = headerView
 

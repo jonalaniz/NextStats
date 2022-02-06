@@ -72,7 +72,7 @@ class ServerHeaderView: UIView {
         return label
     }()
 
-    let userManagementButton: UIButton = {
+    let users: UIButton = {
         let button = UIButton()
         button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
@@ -85,7 +85,7 @@ class ServerHeaderView: UIView {
         return button
     }()
 
-    let openInBrowserButton: UIButton = {
+    let visitServerButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
@@ -115,8 +115,8 @@ class ServerHeaderView: UIView {
         mainStackView.addArrangedSubview(nameLabel)
         mainStackView.addArrangedSubview(addressLabel)
         mainStackView.addArrangedSubview(buttonStackView)
-        buttonStackView.addArrangedSubview(userManagementButton)
-        buttonStackView.addArrangedSubview(openInBrowserButton)
+        buttonStackView.addArrangedSubview(users)
+        buttonStackView.addArrangedSubview(visitServerButton)
         mainStackView.addArrangedSubview(spacerView)
 
         addSubview(mainStackView)
