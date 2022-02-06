@@ -109,6 +109,7 @@ class StatsViewController: UIViewController {
     }
 
     func returnToTable(action: UIAlertAction! = nil) {
+        tableView.isHidden = true
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
 

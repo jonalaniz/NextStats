@@ -33,14 +33,13 @@ extension StatsViewController {
     }
 
     @objc func delete(action: UIAlertAction) {
-        guard let server = dataManager.server else { return }
-
-        let ac = UIAlertController(title: "Are you sure you want to delete \(server.name)?",
+        guard let name = dataManager.server?.name else { return }
+        let ac = UIAlertController(title: "Are you sure you want to delete \(name)?",
                                    message: "This cannot be undone.",
                                    preferredStyle: .alert)
         let delete = UIAlertAction(title: "Delete",
                                    style: .destructive) { [weak self] _ in
-            self?.delete(server: server)
+            self?.delete()
         }
         let cancel = UIAlertAction(title: "Cancel",
                                    style: .cancel)
@@ -58,7 +57,8 @@ extension StatsViewController {
         manager.rename(server: server, name: name)
     }
 
-    func delete(server: NextServer) {
+    func delete() {
+        guard let server = dataManager.server else { return }
         let manager = NextServerManager.shared
         manager.remove(server, imageCache: true)
 
