@@ -51,8 +51,23 @@ class NextServerManager: NSObject {
     }
 
     func remove(at index: Int) {
-        let fileManager = FileManager.default
         let path = servers[index].imagePath()
+
+        removeCachedImage(at: path)
+        servers.remove(at: index)
+    }
+
+    func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false) {
+        servers.removeAll(where: { $0 == server })
+
+        if deleteImageCache {
+            let path = server.imagePath()
+            removeCachedImage(at: path)
+        }
+    }
+
+    func removeCachedImage(at path: String) {
+        let fileManager = FileManager.default
 
         if fileManager.fileExists(atPath: path) {
             do {
@@ -62,12 +77,6 @@ class NextServerManager: NSObject {
                 print(error.localizedDescription)
             }
         }
-
-        servers.remove(at: index)
-    }
-
-    func remove(_ server: NextServer) {
-        servers.removeAll(where: { $0 == server })
     }
 
     func rename(server: NextServer, name: String) {

@@ -108,7 +108,7 @@ class StatsViewController: UIViewController {
         }
     }
 
-    private func returnToTable(action: UIAlertAction! = nil) {
+    func returnToTable(action: UIAlertAction! = nil) {
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
 
