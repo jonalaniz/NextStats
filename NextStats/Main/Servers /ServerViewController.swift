@@ -115,6 +115,7 @@ class ServerViewController: UIViewController {
 }
 
 extension ServerViewController: ServerManagerDelegate {
+    // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY
     func serversDidChange(isEmpty: Bool) {
         if isEmpty {
             navigationItem.rightBarButtonItem = nil
@@ -126,8 +127,6 @@ extension ServerViewController: ServerManagerDelegate {
 
         // So iPad doesn't get tableView stuck in editing mode
         setEditing(false, animated: true)
-
-        tableView.reloadData()
     }
 
     func pingedServer(at index: Int, isOnline: Bool) {
