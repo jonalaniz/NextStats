@@ -6,7 +6,6 @@
 //  Copyright © 2020 Jon Alaniz. All Rights Reserved
 //
 
-import Foundation
 import UIKit
 
 /// Facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects
@@ -53,8 +52,8 @@ class NextServerManager: NSObject {
     func remove(at index: Int) {
         let path = servers[index].imagePath()
 
-        removeCachedImage(at: path)
         servers.remove(at: index)
+        removeCachedImage(at: path)
     }
 
     func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false) {
