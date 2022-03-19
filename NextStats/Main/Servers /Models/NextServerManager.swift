@@ -92,6 +92,8 @@ class NextServerManager: NSObject {
                                    hasCustomLogo: server.hasCustomLogo)
         remove(server)
         add(newServer)
+
+        delegate?.serversDidChange()
     }
 
     func pingServer(at index: Int) {

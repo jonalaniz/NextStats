@@ -124,7 +124,7 @@ class StatsViewController: UIViewController {
     @objc func menuTapped() {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Rename", style: .default, handler: showRenameSheet))
-        ac.addAction(UIAlertAction(title: "Update Icon", style: .default, handler: refreshIcon))
+        // ac.addAction(UIAlertAction(title: "Update Icon", style: .default, handler: refreshIcon))
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: delete))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem

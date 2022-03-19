@@ -128,6 +128,8 @@ extension ServerViewController: ServerManagerDelegate {
             noServersViewController.remove()
         }
 
+        tableView.reloadData()
+
         // So iPad doesn't get tableView stuck in editing mode
         setEditing(false, animated: true)
     }

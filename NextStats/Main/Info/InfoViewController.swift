@@ -162,7 +162,7 @@ extension InfoViewController {
                 if let unwrappedProducts = products {
                     DispatchQueue.main.async {
                         self.products = unwrappedProducts
-                        infoModel.enableIAP()
+                        self.infoModel.enableIAP()
                         self.tableView.insertSections(IndexSet(integer: 3), with: .fade)
                     }
                 }
