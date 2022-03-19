@@ -14,9 +14,10 @@ class NextServerManager: NSObject {
     public static let shared = NextServerManager()
 
     weak var delegate: ServerManagerDelegate?
+
     private var servers: [NextServer] {
         didSet {
-            delegate?.serversDidChange(isEmpty: servers.isEmpty)
+            delegate?.serversDidChange()
             saveServers()
         }
     }
@@ -54,6 +55,8 @@ class NextServerManager: NSObject {
 
         servers.remove(at: index)
         removeCachedImage(at: path)
+
+        delegate?.serversDidChange()
     }
 
     func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false) {
@@ -64,6 +67,8 @@ class NextServerManager: NSObject {
             removeCachedImage(at: path)
         }
     }
+
+    func isEmpty() -> Bool { servers.isEmpty }
 
     func removeCachedImage(at path: String) {
         let fileManager = FileManager.default

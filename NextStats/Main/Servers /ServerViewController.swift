@@ -94,6 +94,9 @@ class ServerViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+
+        // Initial server checking
+        serversDidChange()
     }
 
     @objc func refresh() {
@@ -116,8 +119,8 @@ class ServerViewController: UIViewController {
 
 extension ServerViewController: ServerManagerDelegate {
     // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY
-    func serversDidChange(isEmpty: Bool) {
-        if isEmpty {
+    func serversDidChange() {
+        if serverManager.isEmpty() {
             navigationItem.rightBarButtonItem = nil
             add(noServersViewController)
         } else {
