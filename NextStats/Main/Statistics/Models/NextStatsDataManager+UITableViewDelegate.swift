@@ -24,22 +24,12 @@ extension NextStatsDataManager: UITableViewDataSource, UITableViewDelegate {
 
         guard let stat = nextStats.stat(for: row, in: section) else { return cell }
 
-        // Will configure this using UIListContentconfiguration
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-
-            content.text = stat.title
-            content.secondaryText = stat.value
-            content.secondaryTextProperties.color = .secondaryLabel
-            cell.contentConfiguration = content
-            cell.selectionStyle = .none
-        } else {
-            // Fallback on earlier versions
-            cell.textLabel?.text = stat.title
-            cell.detailTextLabel?.text = stat.value
-            cell.detailTextLabel?.textColor = .secondaryLabel
-            cell.selectionStyle = .none
-        }
+        var content = cell.defaultContentConfiguration()
+        content.text = stat.title
+        content.secondaryText = stat.value
+        content.secondaryTextProperties.color = .secondaryLabel
+        cell.contentConfiguration = content
+        cell.selectionStyle = .none
 
         return cell
     }
