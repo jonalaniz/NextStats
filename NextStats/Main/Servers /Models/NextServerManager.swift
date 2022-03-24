@@ -17,7 +17,7 @@ class NextServerManager: NSObject {
 
     private var servers: [NextServer] {
         didSet {
-            delegate?.serversDidChange()
+            delegate?.serversDidChange(refresh: false)
             saveServers()
         }
     }
@@ -56,7 +56,7 @@ class NextServerManager: NSObject {
         servers.remove(at: index)
         removeCachedImage(at: path)
 
-        delegate?.serversDidChange()
+        delegate?.serversDidChange(refresh: false)
     }
 
     func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false) {
@@ -83,7 +83,8 @@ class NextServerManager: NSObject {
         }
     }
 
-    func rename(server: NextServer, name: String) {
+    // Create a closure to return the server object ot the StatsViewController
+    func rename(server: NextServer, name: String, completion: (NextServer) -> Void) {
         let newServer = NextServer(name: name,
                                    friendlyURL: server.friendlyURL,
                                    URLString: server.URLString,
@@ -92,8 +93,8 @@ class NextServerManager: NSObject {
                                    hasCustomLogo: server.hasCustomLogo)
         remove(server)
         add(newServer)
-
-        delegate?.serversDidChange()
+        completion(newServer)
+        delegate?.serversDidChange(refresh: true)
     }
 
     func pingServer(at index: Int) {

@@ -96,7 +96,7 @@ class ServerViewController: UIViewController {
         ])
 
         // Initial server checking
-        serversDidChange()
+        serversDidChange(refresh: false)
     }
 
     @objc func refresh() {
@@ -119,7 +119,7 @@ class ServerViewController: UIViewController {
 
 extension ServerViewController: ServerManagerDelegate {
     // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY
-    func serversDidChange() {
+    func serversDidChange(refresh: Bool) {
         if serverManager.isEmpty() {
             navigationItem.rightBarButtonItem = nil
             add(noServersViewController)
@@ -128,7 +128,7 @@ extension ServerViewController: ServerManagerDelegate {
             noServersViewController.remove()
         }
 
-        tableView.reloadData()
+        if refresh { tableView.reloadData() }
 
         // So iPad doesn't get tableView stuck in editing mode
         setEditing(false, animated: true)

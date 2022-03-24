@@ -54,7 +54,10 @@ extension StatsViewController {
         tableView.tableHeaderView = headerView
 
         let manager = NextServerManager.shared
-        manager.rename(server: server, name: name)
+        // This will soon become a closure to return the new server object.
+        manager.rename(server: server, name: name) { newServer in
+            dataManager.server = newServer
+        }
     }
 
     func delete() {

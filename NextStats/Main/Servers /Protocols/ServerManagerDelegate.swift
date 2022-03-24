@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ServerManagerDelegate: AnyObject {
-    func serversDidChange()
+    func serversDidChange(refresh: Bool)
     func pingedServer(at index: Int, isOnline: Bool)
     func selected(server: NextServer)
 }
