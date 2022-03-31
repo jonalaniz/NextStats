@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/11/20.
-//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
+//  Copyright © 2021 Jon Alaniz.
 //
 
 import UIKit
@@ -98,8 +98,12 @@ class StatsViewController: UIViewController {
     }
 
     private func showErrorAndReturn(title: String, description: String) {
-        let errorAC = UIAlertController(title: title, message: description, preferredStyle: .alert)
-        errorAC.addAction(UIAlertAction(title: "Continue", style: .default, handler: self.returnToTable))
+        let errorAC = UIAlertController(title: title,
+                                        message: description,
+                                        preferredStyle: .alert)
+        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
+                                        style: .default,
+                                        handler: self.returnToTable))
 
         DispatchQueue.main.async {
             self.loadingView.remove()
@@ -123,10 +127,15 @@ class StatsViewController: UIViewController {
 
     @objc func menuTapped() {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Rename", style: .default, handler: showRenameSheet))
-        // ac.addAction(UIAlertAction(title: "Update Icon", style: .default, handler: refreshIcon))
-        ac.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: delete))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionRename),
+                                   style: .default, handler: showRenameSheet))
+//        ac.addAction(UIAlertAction(title: "Update Icon",
+//                                   style: .default,
+//                                   handler: refreshIcon))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionDelete),
+                                   style: .destructive, handler: delete))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
+                                   style: .cancel))
         ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         present(ac, animated: true)
     }
@@ -170,11 +179,14 @@ extension StatsViewController: NextDataManagerDelegate {
     func handleNetworkError(_ error: FetchError) {
         switch error {
         case .invalidData:
-            self.showErrorAndReturn(title: error.title, description: error.description)
+            self.showErrorAndReturn(title: error.title,
+                                    description: error.description)
         case .missingResponse:
-            self.showErrorAndReturn(title: error.title, description: error.description)
+            self.showErrorAndReturn(title: error.title,
+                                    description: error.description)
         case .network(let networkError):
-            self.showErrorAndReturn(title: error.title, description: networkError.localizedDescription)
+            self.showErrorAndReturn(title: error.title,
+                                    description: networkError.localizedDescription)
         case .unexpectedResponse(let response):
             switch response {
             case 401:
