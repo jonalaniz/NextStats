@@ -11,19 +11,47 @@ import UIKit
 // swiftlint:disable identifier_name
 extension StatsViewController {
     @objc func showRenameSheet(action: UIAlertAction) {
+        // Create Alert Controller
         let ac = UIAlertController(title: .localized(.statsActionRenameTitle),
                                    message: "",
                                    preferredStyle: .alert)
+
+        // Create Rename Action
         let rename = UIAlertAction(title: .localized(.statsActionRename),
                                    style: .default) { [weak self, weak ac] _ in
             guard let nameString = ac?.textFields?[0].text else { return }
             self?.renameServer(nameString)
         }
+
+        // Create Cancel Action
         let cancel = UIAlertAction(title: .localized(.statsActionCancel),
                                    style: .cancel)
-        ac.addTextField()
+
+        // Add the Actions to the Alert Controller
         ac.addAction(rename)
         ac.addAction(cancel)
+
+        // Disable the Rename Action
+        rename.isEnabled = false
+
+        // Add a text field to the alert controller
+        ac.addTextField { textField in
+
+            // Observe the UITextFieldTextDidChange notification to be notified in the below block when text is changed.
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification,
+                                                   object: textField,
+                                                   queue: OperationQueue.main) { _ in
+                // Being in this block means something fired the UITextFieldTextDidChange notificaiton.
+
+                // Access the textField object from ac.addTextfield(_:) and get character count sans whitespace
+                let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+                let textIsEmpty = textCount == 0
+
+                rename.isEnabled = !textIsEmpty
+            }
+        }
+
+        // Present the UIAlertAction
         present(ac, animated: true)
     }
 
