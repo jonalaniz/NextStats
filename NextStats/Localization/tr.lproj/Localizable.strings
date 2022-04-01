@@ -26,10 +26,28 @@
 /* Text = "Connect" */
 "add.screen.connect" = "Bağlan";
 
+// MARK: - Server Form View
+
+/* Text = "Server" */
+"server.form.server" = "Sunucu";
+
+/* Text = "My Server" */
+"server.form.myserver" = "Sunucum";
+
+/* Text = "Enter an address" */
+"server.form.enterAddress" = "Bir adres girin";
+
+/* Text = "Enter a valid address" */
+"server.form.enterValidAddress" = "Geçerli bir adres girin";
+
 // MARK: - Server View
 
 /* Text = " Add a Server" */
 "server.screen.add" = "Bir Sunucu Ekle";
+
+// MARK: - No Servers View
+/* Text = "You do not have any servers" */
+"noserver.view.label" = "Hiç sunucunuz yok";
 
 // MARK: - Statistics View
 
@@ -38,6 +56,34 @@
 
 /* Text = "Select or add a server to view statistics" */
 "stats.screen.selectServerLabel" = "İstatistikleri görüntülemek için bir sunucu seçin veya ekleyin";
+
+// MARK: - Statistics View.Actions
+
+/* Text = "Rename" */
+"stats.action.rename" = "Yeniden isimlendirmek";
+
+/* Text = "Enter a new name for the server." */
+"stats.action.rename.title" = "Sunucu için yeni bir ad girin.";
+
+/* Text = Delete */
+"stats.action.delete" = "Silmek";
+
+/* Text = "Are you sure you want to delete this server?" */
+"stats.action.delete.title" = "Bu sunucuyu silmek istediğinizden emin misiniz?";
+
+/* Text = "This cannot be undone" */
+"stats.action.delete.message" = "Bu geri alınamaz.";
+
+/* Text = "Cancel" */
+"stats.action.cancel" = "İptal";
+
+/* Text = "Continue" */
+"stats.action.continue" = "Devam et";
+
+// MARK: - ServerHeaderView
+
+/* Text = "Visit Server" */
+"server.header.visit" = "Sunucuyu ziyaret edin";
 
 // MARK: - Info View
 
@@ -79,7 +125,10 @@
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "NextStats'ın gelecekteki gelişimine destek olduğunuz için çok teşekkür ederiz!";
 
-// MARK: - Errors (Status Label)
+// MARK: - Errors.Status Label
+
+/* Text = "Error" */
+"error.title" = "Hata";
 
 /* Text = "Invalid Data" */
 "error.invaliddata" = "Geçersiz Veri";
@@ -105,7 +154,7 @@
 /* Text = "Unexpected Response" */
 "error.unexpectedresponse" = "Beklenmeyen Cevap";
 
-// MARK: - Errors (ServerManagerAuthenticationError)
+// MARK: - Errors.ServerManagerAuthenticationError
 
 /* Text = "Not a valid host, please check url" */
 "error.notValidHost" = "Geçerli bir ana bilgisayar değil, lütfen url'yi kontrol edin.";
@@ -119,7 +168,7 @@
 /* Text = "Authorization data missing." */
 "error.authorizationDataMissing" = "Yetkilendirme verileri eksik.";
 
-// MARK: - Errors (DataManagerError)
+// MARK: - Errors.DataManagerError
 
 /* Text = "Missing statistics data." */
 "error.missingData" = "Eksik istatistik verileri.";

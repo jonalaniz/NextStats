@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 2/4/22.
-//  Copyright © 2022 Jon Alaniz. All rights reserved.
+//  Copyright © 2022 Jon Alaniz.
 //
 
 import UIKit
@@ -11,16 +11,15 @@ import UIKit
 // swiftlint:disable identifier_name
 extension StatsViewController {
     @objc func showRenameSheet(action: UIAlertAction) {
-        guard let name = dataManager.server?.name else { return }
-
-        let ac = UIAlertController(title: "Enter a new name for \(name)",
+        let ac = UIAlertController(title: .localized(.statsActionRenameTitle),
                                    message: "",
                                    preferredStyle: .alert)
-        let rename = UIAlertAction(title: "Rename", style: .default) { [weak self, weak ac] _ in
+        let rename = UIAlertAction(title: .localized(.statsActionRename),
+                                   style: .default) { [weak self, weak ac] _ in
             guard let nameString = ac?.textFields?[0].text else { return }
             self?.renameServer(nameString)
         }
-        let cancel = UIAlertAction(title: "Cancel",
+        let cancel = UIAlertAction(title: .localized(.statsActionCancel),
                                    style: .cancel)
         ac.addTextField()
         ac.addAction(rename)
@@ -33,15 +32,14 @@ extension StatsViewController {
     }
 
     @objc func delete(action: UIAlertAction) {
-        guard let name = dataManager.server?.name else { return }
-        let ac = UIAlertController(title: "Are you sure you want to delete \(name)?",
-                                   message: "This cannot be undone.",
+        let ac = UIAlertController(title: .localized(.statsActionDeleteTitle),
+                                   message: .localized(.statsActionDeleteMessage),
                                    preferredStyle: .alert)
-        let delete = UIAlertAction(title: "Delete",
+        let delete = UIAlertAction(title: .localized(.statsActionDelete),
                                    style: .destructive) { [weak self] _ in
             self?.delete()
         }
-        let cancel = UIAlertAction(title: "Cancel",
+        let cancel = UIAlertAction(title: .localized(.statsActionCancel),
                                    style: .cancel)
         ac.addAction(delete)
         ac.addAction(cancel)

@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 1/10/20.
-//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
+//  Copyright © 2021 Jon Alaniz.
 //
 
 import UIKit
@@ -35,7 +35,7 @@ extension AddServerViewController {
          // Make sure address field is not empty
          guard var string = serverFormView.serverURLField.text
          else {
-             updateStatusLabel(with: "Enter an address...")
+             updateStatusLabel(with: .localized(.serverFormEnterAddress))
              return
          }
 
@@ -57,7 +57,7 @@ extension AddServerViewController {
              // Invalidate the url in case user returns and needs to enter again
              authAPIURL = nil
          } else {
-             updateStatusLabel(with: "Enter a valid address...")
+             updateStatusLabel(with: .localized(.serverFormEnterValidAddress))
              return
          }
     }
@@ -74,7 +74,7 @@ extension AddServerViewController {
         if urlString != "" {
             hideStatusAndEnableConnectButton()
         } else {
-            updateStatusLabel(with: "Enter an address...")
+            updateStatusLabel(with: .localized(.serverFormEnterAddress))
         }
     }
 

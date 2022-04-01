@@ -30,7 +30,7 @@ class NoServersViewController: UIViewController {
 
     private let textLabel: UILabel = {
         let label = UILabel()
-        label.text = "You do not have any servers"
+        label.text = .localized(.noServersLabel)
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
         label.textAlignment = .center

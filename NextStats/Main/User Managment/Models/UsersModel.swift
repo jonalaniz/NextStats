@@ -3,7 +3,7 @@
 //  UsersModel
 //
 //  Created by Jon Alaniz on 7/24/21.
-//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
+//  Copyright © 2021 Jon Alaniz.
 //
 
 import Foundation

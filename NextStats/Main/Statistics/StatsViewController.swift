@@ -167,9 +167,11 @@ extension StatsViewController: NextDataManagerDelegate {
             case .networkError(let error):
                 handleNetworkError(error)
             case .unableToDecode:
-                self.showErrorAndReturn(title: "Error", description: nextDataManagerError.description)
+                self.showErrorAndReturn(title: .localized(.errorTitle),
+                                        description: nextDataManagerError.description)
             case .missingData:
-                self.showErrorAndReturn(title: "Error", description: nextDataManagerError.description)
+                self.showErrorAndReturn(title: .localized(.errorTitle),
+                                        description: nextDataManagerError.description)
             }
         case .statsCaptured:
             showTableView()

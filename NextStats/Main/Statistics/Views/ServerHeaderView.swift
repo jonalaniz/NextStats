@@ -58,7 +58,6 @@ class ServerHeaderView: UIView {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
         label.numberOfLines = 0
-        label.text = "My Server"
 
         return label
     }()
@@ -67,7 +66,6 @@ class ServerHeaderView: UIView {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .secondaryLabel
-        label.text = "cloud.jonalaniz.com"
 
         return label
     }()
@@ -90,7 +88,7 @@ class ServerHeaderView: UIView {
         button.backgroundColor = .themeColor
         button.layer.cornerRadius = 10
         button.sfSymbolWithText(symbol: "safari.fill",
-                                text: "Visit Server",
+                                text: .localized(.serverHeaderVisit),
                                 color: .white)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)

@@ -3,7 +3,7 @@
 //  NextStats
 //
 //  Created by Jon Alaniz on 5/19/21.
-//  Copyright © 2021 Jon Alaniz. All Rights Reserved.
+//  Copyright © 2021 Jon Alaniz.
 
 import UIKit
 
@@ -32,7 +32,8 @@ class ServerFormView: UIView {
         textField.borderStyle = .none
         textField.backgroundColor = .systemFill
         textField.font = .systemFont(ofSize: 16)
-        textField.attributedPlaceholder = "My Server".attributedWithQuaternaryColor()
+        let attributedString = String.localized(.serverFromMyServer).attributedWithQuaternaryColor()
+        textField.attributedPlaceholder = attributedString
 
         return textField
     }()
