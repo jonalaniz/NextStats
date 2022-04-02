@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/iOS-13.0+-blueviolet.svg" />
+    <img src="https://img.shields.io/badge/iOS-14.0+-blueviolet.svg" />
     <img src="https://img.shields.io/badge/macOS-11+-red.svg" />
     <img src="https://img.shields.io/badge/Swift-5.0-orange.svg" />
     <a href="https://twitter.com/jonalaniz">
