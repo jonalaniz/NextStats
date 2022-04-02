@@ -122,6 +122,7 @@ extension ServerViewController: ServerManagerDelegate {
     func serversDidChange(refresh: Bool) {
         if serverManager.isEmpty() {
             navigationItem.rightBarButtonItem = nil
+            tableView.reloadData()
             add(noServersViewController)
         } else {
             navigationItem.rightBarButtonItem = editButtonItem
