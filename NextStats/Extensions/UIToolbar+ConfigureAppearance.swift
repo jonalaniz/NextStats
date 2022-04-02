@@ -3,7 +3,7 @@
 //  UIToolbar+ConfigureAppearance
 //
 //  Created by Jon Alaniz on 7/15/21.
-//  Copyright © 2021 Jon Alaniz. All rights reserved.
+//  Copyright © 2021 Jon Alaniz.
 //
 
 import UIKit
