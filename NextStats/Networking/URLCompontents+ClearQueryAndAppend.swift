@@ -12,6 +12,11 @@ extension URLComponents {
     mutating func clearQueryAndAppend(endpoint: Endpoints) {
         self.queryItems = nil
         self.query = endpoint.query()
-        self.path = endpoint.rawValue
+
+        if endpoint == .loginEndpoint {
+            self.path += endpoint.rawValue
+        } else {
+            self.path = endpoint.rawValue
+        }
     }
 }

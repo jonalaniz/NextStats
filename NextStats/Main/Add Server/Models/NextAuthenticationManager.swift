@@ -23,7 +23,6 @@ class NextAuthenticationManager {
         // Append Login Flow V2 endpoint and create request
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: .loginEndpoint)
-
         var request = URLRequest(url: components.url!)
         request.httpMethod = "POST"
 
