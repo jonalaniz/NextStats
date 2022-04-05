@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/badge/iOS-13.0+-blueviolet.svg" />
+    <img src="https://img.shields.io/badge/iOS-14.0+-blueviolet.svg" />
     <img src="https://img.shields.io/badge/macOS-11+-red.svg" />
     <img src="https://img.shields.io/badge/Swift-5.0-orange.svg" />
     <a href="https://twitter.com/jonalaniz">
@@ -15,8 +15,9 @@
 NextStats is a multi-server monitoring tool for NextCloud instances. It uses the serverinfo endpoint and Login flow v2 for authentication. NextStats has been tested on servers running Nextcloud 15 and above.
 
 <p align="center">
-    <img alt="NextStats Server View" src="http://www.jonalaniz.com/wp-content/uploads/2021/07/nextstats_server_2.0.6.png" width="320">
-    <img alt="NextStats Detail View" src="http://www.jonalaniz.com/wp-content/uploads/2021/07/nextstats_detail_2.0.6.png" width="320">
+    <img alt="NextStats Server View" src="https://static.jonalaniz.com/img/nextstats_noserver_2.1.png" width="260">
+    <img alt="NextStats Detail View" src="https://static.jonalaniz.com/img/nextstats_server_2.1.png" width="260">
+    <img alt="NextStats Detail View" src="https://static.jonalaniz.com/img/nextstats_detail_2.1.png" width="260">
 </p>
 
 ## Features
@@ -27,7 +28,7 @@ NextStats is a multi-server monitoring tool for NextCloud instances. It uses the
 
 ## Requirements
 - macOS 11+
-- iOS 13.0+
+- iOS 14.0+
 - Xcode 12+
 - Swift 5
 
