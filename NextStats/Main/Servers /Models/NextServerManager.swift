@@ -61,6 +61,7 @@ class NextServerManager: NSObject {
 
     func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false) {
         servers.removeAll(where: { $0 == server })
+        delegate?.serversDidChange(refresh: true)
 
         if deleteImageCache {
             let path = server.imagePath()
