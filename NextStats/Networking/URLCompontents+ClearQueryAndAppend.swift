@@ -13,10 +13,13 @@ extension URLComponents {
         self.queryItems = nil
         self.query = endpoint.query()
 
-        if endpoint == .loginEndpoint {
-            self.path += endpoint.rawValue
-        } else {
-            self.path = endpoint.rawValue
-        }
+        self.path += endpoint.rawValue
+    }
+
+    mutating func replacePathWith(endpoint: Endpoints) {
+        self.queryItems = nil
+        self.query = endpoint.query()
+
+        self.path = endpoint.rawValue
     }
 }
