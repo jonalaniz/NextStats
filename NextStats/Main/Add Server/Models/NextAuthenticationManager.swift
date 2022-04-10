@@ -25,6 +25,7 @@ class NextAuthenticationManager {
         components.clearQueryAndAppend(endpoint: .loginEndpoint)
         var request = URLRequest(url: components.url!)
         request.httpMethod = "POST"
+        print("Components: \(components)")
 
         networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
             DispatchQueue.main.async {
@@ -69,7 +70,7 @@ class NextAuthenticationManager {
         shouldPoll = true
 
         var logoURL = URLComponents(url: pollURL, resolvingAgainstBaseURL: false)!
-        logoURL.clearQueryAndAppend(endpoint: .logoEndpoint)
+        logoURL.replacePathWith(endpoint: .logoEndpoint)
         checkForCustomImage(at: logoURL.url!)
 
         pollForCredentials(at: pollURL, with: token)
