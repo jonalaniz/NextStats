@@ -22,7 +22,7 @@ class NextServerManager: NSObject {
         }
     }
 
-    override init() {
+    private override init() {
         servers = NextServerManager.getServers()
     }
 
@@ -50,23 +50,19 @@ class NextServerManager: NSObject {
         servers.sort(by: { $0.name < $1.name })
     }
 
-    func remove(at index: Int) {
-        let path = servers[index].imagePath()
-
-        servers.remove(at: index)
-        removeCachedImage(at: path)
-
-        delegate?.serversDidChange(refresh: false)
-    }
-
-    func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false) {
+    func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false, refresh: Bool) {
+        // Remove the server from the server array
         servers.removeAll(where: { $0 == server })
-        delegate?.serversDidChange(refresh: true)
 
-        if deleteImageCache {
-            let path = server.imagePath()
-            removeCachedImage(at: path)
-        }
+        // Alert our delegate that the server was removed
+        delegate?.serversDidChange(refresh: refresh)
+
+        // Deauthorize NextStats with the server
+        NextAuthenticationManager.deauthorize(server: server)
+
+        // Delete the imageCache
+        let path = server.imagePath()
+        removeCachedImage(at: path)
     }
 
     func isEmpty() -> Bool { servers.isEmpty }
