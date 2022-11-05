@@ -88,7 +88,7 @@ class NextServerManager: NSObject {
                                    username: server.username,
                                    password: server.password,
                                    hasCustomLogo: server.hasCustomLogo)
-        remove(server)
+        remove(server, refresh: true)
         add(newServer)
         completion(newServer)
         delegate?.serversDidChange(refresh: true)
@@ -148,7 +148,7 @@ extension NextServerManager: UITableViewDataSource {
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            remove(at: indexPath.row)
+            remove(servers[indexPath.row], refresh: false)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
