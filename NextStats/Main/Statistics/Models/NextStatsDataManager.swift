@@ -86,7 +86,7 @@ class NextStatsDataManager: NSObject {
 
         // CPU Information
         if let cpuUsageArray = system.cpuload {
-            let cpuStringArray = cpuUsageArray.map { String($0) }
+            let cpuStringArray = cpuUsageArray.map { String(format: "%.2f", $0) }
             systemData.append(cpuStringArray.joined(separator: ", "))
         } else {
             systemData.append("N/A")
