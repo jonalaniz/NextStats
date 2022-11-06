@@ -50,7 +50,9 @@ class NextServerManager: NSObject {
         servers.sort(by: { $0.name < $1.name })
     }
 
-    func remove(_ server: NextServer, imageCache deleteImageCache: Bool = false, refresh: Bool) {
+    func remove(_ server: NextServer,
+                imageCache deleteImageCache: Bool = false,
+                refresh: Bool) {
         // Remove the server from the server array
         servers.removeAll(where: { $0 == server })
 
@@ -98,7 +100,9 @@ class NextServerManager: NSObject {
         let url = URL(string: servers[index].URLString)!
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         let request = URLRequest(url: (components?.url)!)
-        let task = URLSession(configuration: .default).dataTask(with: request) { _, possibleResponse, possibleError in
+        let task = URLSession(configuration: .default).dataTask(with: request) {
+            _, possibleResponse, possibleError in
+
             guard  possibleError == nil else {
                 DispatchQueue.main.async {
                     self.delegate?.pingedServer(at: index, isOnline: false)
@@ -129,13 +133,18 @@ class NextServerManager: NSObject {
 }
 
 extension NextServerManager: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         return servers.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
-        else { fatalError("DequeueReusableCell failed while casting") }
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
+        else {
+            fatalError("DequeueReusableCell failed while casting")
+        }
 
         cell.accessoryType = .disclosureIndicator
         cell.server = servers[indexPath.row]
