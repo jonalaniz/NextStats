@@ -192,45 +192,38 @@ class NextStatsDataManager: NSObject {
 
 // Helper Functions
 extension NextStatsDataManager {
-    func usagePercent(free: Int, total: Int) -> String {
+    private func usagePercent(free: Int, total: Int) -> String {
         let freeDouble = Double(free)
         let totalDouble = Double(total)
 
-        // Make sure numbers are real
-        if freeDouble.isNormal && totalDouble.isNormal {
+        // Make suren the numbers are not .NaN or .infinite
+        guard freeDouble.isNormal, totalDouble.isNormal else { return "N/A" }
 
-            // Calculate the percentate
-            let percent = calculatePercent(freeMemory: freeDouble, totalMemory: totalDouble)
+        // Calculate the percentate
+        let percent = calculatePercent(freeMemory: freeDouble, totalMemory: totalDouble)
 
-            // Check if it is normal again
-            if percent.isNormal {
-                return String(format: "%.2f", percent).appending("%")
-            } else {
-                return "N/A"
-            }
-        } else {
-            return "N/A"
-        }
+        // Check again
+        guard percent.isNormal else { return "N/A" }
+
+        return String(format: "%.2f", percent).appending("%")
     }
 
-    func usage(free: Int, total: Int) -> String {
+    private func usage(free: Int, total: Int) -> String {
         let freeDouble = Double(free)
         let totalDouble = Double(total)
 
-        // Make sure numbers are real
-        if freeDouble.isNormal && totalDouble.isNormal {
-            // Convert them to gigabytes
-            let memoryUsedInGB = Units(kilobytes: totalDouble - freeDouble).gigabytes
-            let totalMemoryInGB = Units(kilobytes: totalDouble).gigabytes
+        // Make suren the numbers are not .NaN or .infinite
+        guard freeDouble.isNormal, totalDouble.isNormal else { return "N/A" }
 
-            // Change to Strings
-            let memoryUsedString = String(format: "%.2f", memoryUsedInGB)
-            let totalMemoryString = String(format: "%.2f", totalMemoryInGB)
+        // Convert them to gigabytes
+        let memoryUsedInGB = Units(kilobytes: totalDouble - freeDouble).gigabytes
+        let totalMemoryInGB = Units(kilobytes: totalDouble).gigabytes
 
-            return "\(memoryUsedString)/\(totalMemoryString) GB"
-        } else {
-            return "N/A"
-        }
+        // Change to Strings
+        let memoryUsedString = String(format: "%.2f", memoryUsedInGB)
+        let totalMemoryString = String(format: "%.2f", totalMemoryInGB)
+
+        return "\(memoryUsedString)/\(totalMemoryString) GB"
     }
 
     private func calculateMemoryUsed(freeMemory: Double, totalMemory: Double) -> Double {
