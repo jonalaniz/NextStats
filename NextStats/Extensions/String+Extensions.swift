@@ -38,6 +38,12 @@ extension String {
         }
     }
 
+    /// Returns the String as an NSAttributedString with foreground color of QuaternaryLabel
+    func attributedWithQuaternaryColor() -> NSAttributedString {
+        return NSAttributedString(string: self,
+                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.quaternaryLabel])
+    }
+
     /// Removes https:// from a URL string 
     func makeFriendlyURL() -> String {
         if self.hasPrefix("https://") {
