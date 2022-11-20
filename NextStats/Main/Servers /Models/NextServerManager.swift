@@ -100,8 +100,7 @@ class NextServerManager: NSObject {
         let url = URL(string: servers[index].URLString)!
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         let request = URLRequest(url: (components?.url)!)
-        let task = URLSession(configuration: .default).dataTask(with: request) {
-            _, possibleResponse, possibleError in
+        let task = URLSession(configuration: .default).dataTask(with: request) { _, possibleResponse, possibleError in
 
             guard  possibleError == nil else {
                 DispatchQueue.main.async {
