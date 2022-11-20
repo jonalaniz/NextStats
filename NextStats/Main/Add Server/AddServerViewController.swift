@@ -33,33 +33,18 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 extension AddServerViewController {
     @objc func connectButtonPressed(_ sender: Any) {
          // Make sure address field is not empty
-         guard var string = serverFormView.serverURLField.text
+         guard let urlString = serverFormView.serverURLField.text
          else {
              updateStatusLabel(with: .localized(.serverFormEnterAddress))
              return
          }
 
-         if string.isValidIPAddress() {
-             string = string.addIPPrefix()
-         } else {
-             string = string.addHTTPPrefix()
-         }
+        let name = serverFormView.nicknameField.text ?? "Server"
 
-         if let url = URL(string: string) {
-             let serverName = serverFormView.nicknameField.text ?? "Server"
-             print(string)
-
-             // Initiate the authorization request, and check for logo
-             coordinator?.requestAuthorization(withURL: url, name: serverName)
-
-             serverFormView.activityIndicatior.activate()
-
-             // Invalidate the url in case user returns and needs to enter again
-             authAPIURL = nil
-         } else {
-             updateStatusLabel(with: .localized(.serverFormEnterValidAddress))
-             return
-         }
+        // Initiate the authorization request and check for logo
+        coordinator?.requestAuthorization(with: urlString, named: name)
+        // Invalidate the url in case user returns and needs to enter again
+        authAPIURL = nil
     }
 
     @objc func cancelPressed() {

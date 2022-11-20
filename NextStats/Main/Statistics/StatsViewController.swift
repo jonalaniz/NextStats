@@ -120,7 +120,8 @@ class StatsViewController: UIViewController {
     @objc func openInSafari() {
         guard serverInitialized != false else { return }
 
-        let urlString = dataManager.server!.friendlyURL.addIPPrefix()
+        var urlString = dataManager.server!.friendlyURL
+        urlString.addIPPrefix()
         let url = URL(string: urlString)!
         UIApplication.shared.open(url)
     }

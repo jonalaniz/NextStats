@@ -8,6 +8,19 @@
 
 import Foundation
 
+protocol ErrorHandler: AnyObject {
+    func handle(error type: ErrorType)
+}
+
+enum ErrorType {
+    case invalidURL
+    // This error being sent should be Error.loaclized description
+    case error(String)
+    case missingResponse
+    case unexpectedResponse(HTTPURLResponse)
+    case invalidData
+}
+
 /// DataManager struct manages pulling json data from URLs
 class DataManager {
     /// Returns the singleton `DataManager` instance
@@ -17,7 +30,7 @@ class DataManager {
 
     /// Requests Authentication Data using Nextcloud Login Flow V2
     func getAuthenticationDataWithSuccess(urlString: String,
-                                          success: @escaping ((_ data: Data?, _ error: ErrorType?) -> Void )) {
+                                          success: @escaping ((_ data: Data?, _ error: ErrorType?) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             guard let url = URL(string: urlString) else {
                 // The URL was invalid, so pass the error to the completion handler
@@ -34,6 +47,28 @@ class DataManager {
 
             DataManager.loadDataFromURL(with: request) { data, errorType  in
                 // Pass the data from `loadDataFromURL` to completion handler
+                success(data, errorType)
+            }
+        }
+    }
+
+    /// Requests Nextcloud Server Data Object
+    func getServerStatisticsDataWithSuccess(urlString: String,
+                                            config: URLSessionConfiguration,
+                                            success: @escaping((_ data: Data?, _ error: ErrorType?) -> Void)) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard let url = URL(string: urlString) else {
+                // Thr URL was invalid
+                success(nil, .invalidURL)
+                return
+            }
+
+            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+            components.clearQueryAndAppend(endpoint: .statEndpoint)
+
+            let request = URLRequest(url: components.url!)
+
+            DataManager.loadDataFromURL(with: request, config: config) { data, errorType in
                 success(data, errorType)
             }
         }
@@ -81,16 +116,4 @@ class DataManager {
 
         loadDataTask.resume()
     }
-}
-
-protocol ErrorHandler: AnyObject {
-    func handle(error type: ErrorType)
-}
-
-enum ErrorType {
-    case invalidURL
-    case error(String)
-    case missingResponse
-    case unexpectedResponse(HTTPURLResponse)
-    case invalidData
 }

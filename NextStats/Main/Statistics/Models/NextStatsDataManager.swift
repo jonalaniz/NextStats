@@ -13,9 +13,11 @@ class NextStatsDataManager: NSObject {
     /// Returns the shared `StatisticsDataManager` instance
     public static let shared = NextStatsDataManager()
 
-    private let networkController = NetworkController.shared
+    private let dataManager = DataManager.shared
+
     var nextStats = NextStats()
     weak var delegate: NextDataManagerDelegate?
+    weak var errorHandler: ErrorHandler?
 
     var server: NextServer? {
         didSet {
@@ -29,23 +31,27 @@ class NextStatsDataManager: NSObject {
         // Notify the delegate of the class state
         delegate?.stateDidChange(.fetchingData)
 
-        // Prepare URL Config
-        let url = URL(string: server.URLString)!
-        let config = networkController.configuration(authorizaton: server.authenticationString())
-        let request = networkController.request(url: url, with: .statEndpoint)
+        // Prepare the URL Configuration
+        var urlString = server.URLString
+        let config = URLSessionConfiguration.default
+        let headers = ["Authorization": server.authenticationString()]
 
-        // Fetch data from server using networkController
-        networkController.fetchData(with: request, using: config) { (result: Result<Data, FetchError>) in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    self.decode(data)
-                }
-            case .failure(let fetchError):
-                // Notify the delate of the error
-                DispatchQueue.main.async {
-                    self.delegate?.stateDidChange(.failed(.networkError(fetchError)))
-                }
+        config.httpAdditionalHeaders = headers
+
+        dataManager.getServerStatisticsDataWithSuccess(urlString: urlString, config: config) { data, error in
+
+            guard error == nil else {
+                self.errorHandler?.handle(error: error!)
+                return
+            }
+
+            guard let capturedData = data else {
+                self.errorHandler?.handle(error: .invalidData)
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.decode(capturedData)
             }
         }
     }

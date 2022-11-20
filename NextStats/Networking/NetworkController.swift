@@ -88,13 +88,19 @@ class NetworkController {
     func configuration(authorizaton: String? = nil, ocsApiRequest: Bool = false) -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
 
-        if let authorizationString = authorizaton {
-            var headers = ["Authorization": authorizationString]
-            if ocsApiRequest == true {
-                headers.updateValue("true", forKey: "OCS-APIRequest")
-            }
-            configuration.httpAdditionalHeaders = headers
+        guard let authorizationString = authorizaton else {
+            return configuration
         }
+
+        var headers = ["Authorization": authorizationString]
+
+        if ocsApiRequest == true {
+            // OCS-APIRequest is needed for legacy (XML based) requests
+            headers.updateValue("true", forKey: "OCS-APIRequest")
+        }
+
+        configuration.httpAdditionalHeaders = headers
+
         return configuration
     }
 }

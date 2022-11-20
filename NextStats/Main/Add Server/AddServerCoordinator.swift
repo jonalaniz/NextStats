@@ -14,19 +14,19 @@ class AddServerCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
-    let addServerViewControlller: AddServerViewController
-
+    let addServerVC: AddServerViewController
     let authenticationManager = NextAuthenticationManager()
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
-        addServerViewControlller = AddServerViewController()
+        addServerVC = AddServerViewController()
 
         authenticationManager.delegate = self
+        authenticationManager.errorHandler = self
     }
 
     func start() {
-        let initialVC = addServerViewControlller
+        let initialVC = addServerVC
         initialVC.coordinator = self
 
         navigationController.viewControllers = [initialVC]
@@ -41,13 +41,18 @@ class AddServerCoordinator: Coordinator {
         navigationController.pushViewController(webVC, animated: true)
     }
 
-    func requestAuthorization(withURL url: URL, name: String) {
+    func requestAuthorization(with urlString: String, named name: String) {
         // Cancel polling endpoint in case it is running from previous attempt
         // Why someone would do this or get this far I don't know?
         authenticationManager.cancelAuthorization()
 
-        // Request authorization
-        authenticationManager.requestAuthenticationObject(from: url, named: name)
+        var urlString = urlString
+        urlString.isValidIPAddress() ? (urlString.addIPPrefix()) : (urlString.addHTTPPrefix())
+
+        authenticationManager.neoRequestAuthenticationObject(urlString: urlString, named: name)
+
+        addServerVC.serverFormView.activityIndicatior.activate()
+
     }
 
     func cancelAuthentication() {
@@ -70,14 +75,31 @@ extension AddServerCoordinator: NextAuthenticationDelegate {
     }
 
     func networkError(error: String) {
-        addServerViewControlller.updateStatusLabel(with: error)
+        addServerVC.updateStatusLabel(with: error)
     }
 
     func failedToGetCredentials(withError error: ServerManagerAuthenticationError) {
-        addServerViewControlller.updateStatusLabel(with: error.description)
+        addServerVC.updateStatusLabel(with: error.description)
     }
 
     func didRecieve(loginURL: String) {
         showLoginPage(withURlString: loginURL)
+    }
+}
+
+extension AddServerCoordinator: ErrorHandler {
+    func handle(error type: ErrorType) {
+        switch type {
+        case .invalidURL:
+            addServerVC.updateStatusLabel(with: .localized(.serverFormEnterValidAddress))
+        case .error(let error):
+            addServerVC.updateStatusLabel(with: error)
+        case .missingResponse:
+            addServerVC.updateStatusLabel(with: .localized(.missingResponse))
+        case .unexpectedResponse(let response):
+            addServerVC.updateStatusLabel(with: "\(String.localized(.unexpectedResponse)) (\(response.statusCode))")
+        case .invalidData:
+            addServerVC.updateStatusLabel(with: .localized(.invalidData))
+        }
     }
 }

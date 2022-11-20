@@ -11,45 +11,53 @@ import UIKit
 /// Facilitates the authentication and capturing of server objects.
 class NextAuthenticationManager {
     weak var delegate: NextAuthenticationDelegate?
+    weak var errorHandler: ErrorHandler?
+
+    // You will die soon...
     private let networkController = NetworkController.shared
+    private let dataManager = DataManager.shared
 
     private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
 
-    func requestAuthenticationObject(from url: URL, named name: String) {
+    func neoRequestAuthenticationObject(urlString: String, named name: String) {
         serverName = name
 
-        // Append Login Flow V2 endpoint and create request
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .loginEndpoint)
-        var request = URLRequest(url: components.url!)
-        request.httpMethod = "POST"
-        print("Components: \(components)")
+        dataManager.getAuthenticationDataWithSuccess(urlString: urlString) { data, error  in
 
-        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
+            // Check for errors and handle them appropriately
+            guard error == nil else {
+                let foundError = error!
+                self.errorHandler?.handle(error: foundError)
+//                switch foundError {
+//                case .invalidURL:
+//                    self.errorHandler?.handle(error: .invalidURL)
+//                case .error(let err):
+//                    self.errorHandler?.handle(error: .error(err))
+//                case .missingResponse:
+//                    self.errorHandler?.handle(error: .missingResponse)
+//                case .unexpectedResponse(let response):
+//                    self.errorHandler?.handle(error: .unexpectedResponse(response))
+//                case .invalidData:
+//                    self.errorHandler?.handle(error: .invalidData)
+//                }
+
+                return
+            }
+
+            guard
+                let data = data,
+                let authenticationObject = self.decode(modelType: AuthenticationObject.self, from: data)
+            else {
+                self.errorHandler?.handle(error: .invalidData)
+                return
+            }
+
+            // We made it, start authentication
+            // TODO: Work on main thread orchestration
             DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    if let authenitcationObject = self.decode(modelType: AuthenticationObject.self, from: data) {
-                        self.setupAuthenitcationObject(with: authenitcationObject)
-                    } else {
-                        self.delegate?.failedToGetCredentials(withError: .failedToSerializeResponse)
-                    }
-                case .failure(let fetchError):
-                    switch fetchError {
-                    case .network(let error):
-                        self.delegate?.networkError(error: error.localizedDescription)
-                    case .unexpectedResponse(let response):
-                        if response == 404 {
-                            self.delegate?.failedToGetCredentials(withError: .serverNotFound)
-                        } else {
-                            fallthrough
-                        }
-                    default:
-                        self.delegate?.failedToGetCredentials(withError: .notValidHost)
-                    }
-                }
+                self.setupAuthenitcationObject(with: authenticationObject)
             }
         }
     }
@@ -160,8 +168,8 @@ class NextAuthenticationManager {
         }
     }
 
-    /// Sends an HTTP DELETE request to specified server
-    /// This clears the app specific password and deauthorizes NextStats
+    /// Sends an HTTP DELETE request to specificed server, clearing app specific password
+    /// and deauthorizing NextStats
     static func deauthorize(server: NextServer) {
         // Create the URL components and append correct path
         var components = URLComponents(string: server.URLString)!
@@ -176,10 +184,17 @@ class NextAuthenticationManager {
         var request = URLRequest(url: components.url!)
         request.httpMethod = "DELETE"
 
-        NetworkController.shared.fetchData(with: request, using: config) { (result: Result<Data, FetchError>) in
-            switch result {
-            case .failure(let error): print("Error: \(error)")
-            case .success(_): return
+        DataManager.loadDataFromURL(with: request, config: config) { data, error in
+            guard error == nil else {
+                // TODO: Handle deauthorization errors in app, direct users to
+                // deautorize manaully in Nextcloud
+                print("Deauthorization error: \(error!)")
+                return
+            }
+
+            guard data != nil else {
+                print("Data is empty ☹️")
+                return
             }
         }
     }

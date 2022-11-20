@@ -9,33 +9,14 @@
 import UIKit
 
 extension String {
-    /// Adds https:// prefix for use with a URL string
-    func addDomainPrefix() -> String {
-        if self.hasPrefix("http://") {
-            return "https://" + self
-        } else if self.hasPrefix("https://") {
-            return self
-        } else {
-            return "https://" + self
-        }
-    }
-
     /// Adds http:// prefix for use with an IP address string
-    func addIPPrefix() -> String {
-        if self.hasPrefix("http://") {
-            return self
-        } else {
-            return "http://" + self
-        }
+    mutating func addIPPrefix() {
+        self.hasPrefix("http://") ? (nil) : (self = "http://" + self)
     }
 
     /// Check's url for HTTP prefix, adds one if not present
-    func addHTTPPrefix() -> String {
-        if self.hasPrefix("http://") || self.hasPrefix("https://") {
-            return self
-        } else {
-            return "https://" + self
-        }
+    mutating func addHTTPPrefix() {
+        self.hasPrefix("http://") || self.hasPrefix("https://") ? (nil) : (self = "https://" + self)
     }
 
     /// Returns the String as an NSAttributedString with foreground color of QuaternaryLabel
