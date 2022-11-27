@@ -21,7 +21,7 @@ class NXAuthenticationManager {
     private var serverImage: UIImage?
     private var shouldPoll = false
 
-    func neoRequestAuthenticationObject(urlString: String, named name: String) {
+    func requestAuthenticationObject(urlString: String, named name: String) {
         serverName = name
 
         dataManager.getAuthenticationDataWithSuccess(urlString: urlString) { data, error  in

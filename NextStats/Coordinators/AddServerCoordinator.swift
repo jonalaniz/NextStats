@@ -49,7 +49,7 @@ class AddServerCoordinator: Coordinator {
         var urlString = urlString
         urlString.isValidIPAddress() ? (urlString.addIPPrefix()) : (urlString.addHTTPPrefix())
 
-        authenticationManager.neoRequestAuthenticationObject(urlString: urlString, named: name)
+        authenticationManager.requestAuthenticationObject(urlString: urlString, named: name)
 
         addServerVC.serverFormView.activityIndicatior.activate()
 
