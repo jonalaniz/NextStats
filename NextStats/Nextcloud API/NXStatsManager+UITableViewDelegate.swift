@@ -1,5 +1,5 @@
 //
-//  NextStatsDataManager+UITableViewDelegate.swift
+//  NXStatsManager+UITableViewDelegate.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 12/29/21.

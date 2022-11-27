@@ -15,7 +15,7 @@
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
 		5602A2BA277B7869004A60F0 /* NextStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2B9277B7869004A60F0 /* NextStat.swift */; };
-		5602A2BC277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */; };
+		5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */; };
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */; };
@@ -70,7 +70,7 @@
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
 		56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */; };
 		56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* NXServerManager.swift */; };
-		56C1840C26C1A9A100992B35 /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */; };
+		56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */; };
 		56C31270269109CB0077B40D /* String+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* String+Keys.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
 		56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */; };
@@ -108,7 +108,7 @@
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5602A2B9277B7869004A60F0 /* NextStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStat.swift; sourceTree = "<group>"; };
-		5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NextStatsDataManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NXStatsManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDelegate.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* NXServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManager.swift; sourceTree = "<group>"; };
-		56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
+		56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManagerDelegate.swift; sourceTree = "<group>"; };
 		56C3126F269109CB0077B40D /* String+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Keys.swift"; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
 		56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NXAuthenticationDelegate.swift; sourceTree = "<group>"; };
@@ -209,16 +209,17 @@
 		5601D7F425E3194400993D31 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				56924DD123F802A70043C9BE /* String+Extensions.swift */,
 				56FE294027994AC600301CDA /* Double+IsReal.swift */,
+				56924DD123F802A70043C9BE /* String+Extensions.swift */,
+				562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
 				5601D7F525E3199400993D31 /* UIApplication+AppVersion.swift */,
 				56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */,
 				569921CB2666A1DE00236019 /* UIColor+NextStats.swift */,
 				5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */,
-				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
 				56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */,
-				562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */,
+				56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */,
+				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,10 +415,9 @@
 			isa = PBXGroup;
 			children = (
 				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
-				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
 				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
 				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
-				56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */,
+				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -448,8 +448,9 @@
 			isa = PBXGroup;
 			children = (
 				5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */,
-				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
+				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
+				5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */,
 			);
 			path = "Nextcloud API";
 			sourceTree = "<group>";
@@ -460,7 +461,6 @@
 				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 				56AA8FC228FEB04D00A6B4BD /* DataManager.swift */,
 				56B1413E267E7236002D66D8 /* Endpoints.swift */,
-				56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -643,7 +643,7 @@
 				569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				569F2C7D26AAF61A001122F2 /* XMLDecodingStorage.swift in Sources */,
-				56C1840C26C1A9A100992B35 /* ServerManagerDelegate.swift in Sources */,
+				56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */,
 				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
@@ -691,7 +691,7 @@
 				56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */,
 				56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */,
 				56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */,
-				5602A2BC277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift in Sources */,
+				5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
 				56924DD223F802A70043C9BE /* String+Extensions.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,

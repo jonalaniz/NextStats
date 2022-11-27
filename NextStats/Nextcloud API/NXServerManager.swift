@@ -13,7 +13,7 @@ class NXServerManager: NSObject {
     /// Returns the singleton `ServerManager` instance.
     public static let shared = NXServerManager()
 
-    weak var delegate: ServerManagerDelegate?
+    weak var delegate: NXServerManagerDelegate?
 
     private var servers: [NextServer] {
         didSet {

@@ -30,19 +30,6 @@ class NXAuthenticationManager {
             guard error == nil else {
                 let foundError = error!
                 self.errorHandler?.handle(error: foundError)
-//                switch foundError {
-//                case .invalidURL:
-//                    self.errorHandler?.handle(error: .invalidURL)
-//                case .error(let err):
-//                    self.errorHandler?.handle(error: .error(err))
-//                case .missingResponse:
-//                    self.errorHandler?.handle(error: .missingResponse)
-//                case .unexpectedResponse(let response):
-//                    self.errorHandler?.handle(error: .unexpectedResponse(response))
-//                case .invalidData:
-//                    self.errorHandler?.handle(error: .invalidData)
-//                }
-
                 return
             }
 

@@ -117,7 +117,7 @@ class ServerViewController: UIViewController {
     }
 }
 
-extension ServerViewController: ServerManagerDelegate {
+extension ServerViewController: NXServerManagerDelegate {
     // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY
     func serversDidChange(refresh: Bool) {
         if serverManager.isEmpty() {

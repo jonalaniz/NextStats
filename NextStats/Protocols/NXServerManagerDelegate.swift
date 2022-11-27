@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ServerManagerDelegate: AnyObject {
+protocol NXServerManagerDelegate: AnyObject {
     func serversDidChange(refresh: Bool)
     func pingedServer(at index: Int, isOnline: Bool)
     func selected(server: NextServer)
