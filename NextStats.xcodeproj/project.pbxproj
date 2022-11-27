@@ -25,11 +25,10 @@
 		56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56320CD226A838C10099C7EA /* MenuBuilder.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
-		5650A6F1267C0300008A1BDB /* NextAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F0267C0300008A1BDB /* NextAuthenticationDelegate.swift */; };
 		5650A6F3267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */; };
 		565130D9268BD7D3008FE8D4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565130D8268BD7D3008FE8D4 /* Units.swift */; };
 		5652A2F527647FE90050F5EB /* LoginObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F427647FE90050F5EB /* LoginObject.swift */; };
-		5652A2F7276489AE0050F5EB /* NextAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F6276489AE0050F5EB /* NextAuthenticationManager.swift */; };
+		5652A2F7276489AE0050F5EB /* NXAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
 		56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE523C8B09A008CF684 /* SceneDelegate.swift */; };
 		56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE723C8B09A008CF684 /* AddServerViewController.swift */; };
@@ -74,6 +73,7 @@
 		56C1840C26C1A9A100992B35 /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */; };
 		56C31270269109CB0077B40D /* String+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* String+Keys.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
+		56DBC1372932EFC1002A306B /* NextAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NextAuthenticationDelegate.swift */; };
 		56E0AD7C26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */; };
 		56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */; };
 		56E0AD8126ADA4360090ACB6 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */; };
@@ -119,11 +119,10 @@
 		56320CD226A838C10099C7EA /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		5650A6F0267C0300008A1BDB /* NextAuthenticationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NextAuthenticationDelegate.swift; path = "NextStats/Main/Servers /Protocols/NextAuthenticationDelegate.swift"; sourceTree = SOURCE_ROOT; };
-		5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NextStatsDataManagerDelegate.swift; path = NextStats/Main/Statistics/Protocols/NextStatsDataManagerDelegate.swift; sourceTree = SOURCE_ROOT; };
+		5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NextStatsDataManagerDelegate.swift; path = NextStats/Protocols/NextStatsDataManagerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		5652A2F427647FE90050F5EB /* LoginObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginObject.swift; sourceTree = "<group>"; };
-		5652A2F6276489AE0050F5EB /* NextAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextAuthenticationManager.swift; sourceTree = "<group>"; };
+		5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXAuthenticationManager.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56557EE323C8B09A008CF684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56557EE523C8B09A008CF684 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +173,7 @@
 		56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
 		56C3126F269109CB0077B40D /* String+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Keys.swift"; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
+		56DBC1362932EFC1002A306B /* NextAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextAuthenticationDelegate.swift; sourceTree = "<group>"; };
 		56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLCompontents+ClearQueryAndAppend.swift"; sourceTree = "<group>"; };
 		56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
@@ -256,7 +256,11 @@
 			isa = PBXGroup;
 			children = (
 				56BB28E426A7997C00F0D8DC /* Catalyst */,
-				5689894E23D4CF3400D13B12 /* Main */,
+				56DBC1332932ED90002A306B /* Coordinators */,
+				56DBC1322932ED71002A306B /* Protocols */,
+				56DBC1352932EF11002A306B /* Nextcloud API */,
+				56DBC1342932EDFD002A306B /* NextStats Objects */,
+				5689894E23D4CF3400D13B12 /* Views-Controllers */,
 				5601D7F425E3194400993D31 /* Extensions */,
 				564C8DC724D779150095D43B /* Helpers */,
 				56E6833F26B2459C00C1E17C /* IAP */,
@@ -293,11 +297,9 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		5689894E23D4CF3400D13B12 /* Main */ = {
+		5689894E23D4CF3400D13B12 /* Views-Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
-				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
 				56DB682126AEEC400015CB04 /* Add Server */,
 				56E0AD8726ADC01D0090ACB6 /* Servers  */,
 				56E0AD8226ADAB810090ACB6 /* Statistics */,
@@ -305,7 +307,7 @@
 				56DB681F26AEEBF60015CB04 /* Info */,
 				56E0AD7D26ADA1F10090ACB6 /* Shared */,
 			);
-			path = Main;
+			path = "Views-Controllers";
 			sourceTree = "<group>";
 		};
 		569F2C6626AAF61A001122F2 /* XMLParsing */ = {
@@ -346,7 +348,6 @@
 		569F2CA226AC2D1A001122F2 /* User Managment */ = {
 			isa = PBXGroup;
 			children = (
-				569F2CA026AB2358001122F2 /* UsersCoordinator.swift */,
 				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
 				562ED27926B5D8E800E4E1C5 /* UserViewController.swift */,
 				56DB682626AEECE20015CB04 /* Models */,
@@ -366,8 +367,6 @@
 		56DB681C26AEEB2B0015CB04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
-				56BCF6B32487CA8D0048B991 /* NextServerManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -375,7 +374,6 @@
 		56DB681D26AEEB620015CB04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56A3188E2772804B00EAF1F2 /* NextStatsDataManager.swift */,
 				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
 				5602A2B9277B7869004A60F0 /* NextStat.swift */,
 				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
@@ -413,30 +411,10 @@
 		56DB682126AEEC400015CB04 /* Add Server */ = {
 			isa = PBXGroup;
 			children = (
-				5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */,
 				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
-				56DB682326AEEC860015CB04 /* Models */,
-				56DB682226AEEC790015CB04 /* Views */,
-			);
-			path = "Add Server";
-			sourceTree = "<group>";
-		};
-		56DB682226AEEC790015CB04 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 				56C9596F2655E42F00BD3B06 /* ServerFormView.swift */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		56DB682326AEEC860015CB04 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
-				5652A2F427647FE90050F5EB /* LoginObject.swift */,
-				5652A2F6276489AE0050F5EB /* NextAuthenticationManager.swift */,
-			);
-			path = Models;
+			path = "Add Server";
 			sourceTree = "<group>";
 		};
 		56DB682426AEECA10015CB04 /* Views */ = {
@@ -469,17 +447,48 @@
 			isa = PBXGroup;
 			children = (
 				56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */,
-				5650A6F0267C0300008A1BDB /* NextAuthenticationDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		56DB682926AEED2D0015CB04 /* Protocols */ = {
+		56DBC1322932ED71002A306B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
+				56DBC1362932EFC1002A306B /* NextAuthenticationDelegate.swift */,
 				5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		56DBC1332932ED90002A306B /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */,
+				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
+				569F2CA026AB2358001122F2 /* UsersCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		56DBC1342932EDFD002A306B /* NextStats Objects */ = {
+			isa = PBXGroup;
+			children = (
+				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
+				5652A2F427647FE90050F5EB /* LoginObject.swift */,
+				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
+			);
+			path = "NextStats Objects";
+			sourceTree = "<group>";
+		};
+		56DBC1352932EF11002A306B /* Nextcloud API */ = {
+			isa = PBXGroup;
+			children = (
+				5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */,
+				56A3188E2772804B00EAF1F2 /* NextStatsDataManager.swift */,
+				56BCF6B32487CA8D0048B991 /* NextServerManager.swift */,
+			);
+			path = "Nextcloud API";
 			sourceTree = "<group>";
 		};
 		56E0AD7A26AD88DA0090ACB6 /* Networking */ = {
@@ -509,7 +518,6 @@
 				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 				56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */,
 				56DB681D26AEEB620015CB04 /* Models */,
-				56DB682926AEED2D0015CB04 /* Protocols */,
 				56DB682026AEEC1A0015CB04 /* Views */,
 			);
 			path = Statistics;
@@ -666,7 +674,6 @@
 				56E0AD8126ADA4360090ACB6 /* UIViewController+Child.swift in Sources */,
 				569F2CA826AC34D7001122F2 /* UserDataManager.swift in Sources */,
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
-				5650A6F1267C0300008A1BDB /* NextAuthenticationDelegate.swift in Sources */,
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
 				569F2C7726AAF61A001122F2 /* EncodingErrorExtension.swift in Sources */,
@@ -706,9 +713,10 @@
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
-				5652A2F7276489AE0050F5EB /* NextAuthenticationManager.swift in Sources */,
+				5652A2F7276489AE0050F5EB /* NXAuthenticationManager.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoints.swift in Sources */,
 				56AA8FC328FEB04D00A6B4BD /* DataManager.swift in Sources */,
+				56DBC1372932EFC1002A306B /* NextAuthenticationDelegate.swift in Sources */,
 				562ED27C26B5E9B100E4E1C5 /* UserModel.swift in Sources */,
 				56E0AD8426ADABA90090ACB6 /* SelectServerViewController.swift in Sources */,
 				562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */,

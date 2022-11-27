@@ -9,7 +9,7 @@
 import UIKit
 
 /// Facilitates the authentication and capturing of server objects.
-class NextAuthenticationManager {
+class NXAuthenticationManager {
     weak var delegate: NextAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
@@ -201,7 +201,7 @@ class NextAuthenticationManager {
 }
 
 // MARK: Helper Functions
-extension NextAuthenticationManager {
+extension NXAuthenticationManager {
     func cancelAuthorization() {
         shouldPoll = false
     }
