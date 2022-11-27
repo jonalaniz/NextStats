@@ -13,7 +13,7 @@ struct AuthenticationObject: Decodable {
     let login: String?
 }
 
-struct Poll: Codable {
+struct Poll: Decodable {
     let token: String?
     let endpoint: String?
 }
