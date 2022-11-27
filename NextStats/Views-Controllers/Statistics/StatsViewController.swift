@@ -14,7 +14,7 @@ class StatsViewController: UIViewController {
 
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
-    var dataManager = NextStatsDataManager.shared
+    var dataManager = NXStatsManager.shared
     var tableView = UITableView(frame: .zero, style: .insetGrouped)
     var serverInitialized = false
 

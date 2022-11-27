@@ -9,9 +9,9 @@
 import UIKit
 
 /// Facilitates the creation, deletion, encoding, and decoding of Nextcloud server objects
-class NextServerManager: NSObject {
+class NXServerManager: NSObject {
     /// Returns the singleton `ServerManager` instance.
-    public static let shared = NextServerManager()
+    public static let shared = NXServerManager()
 
     weak var delegate: ServerManagerDelegate?
 
@@ -23,7 +23,7 @@ class NextServerManager: NSObject {
     }
 
     private override init() {
-        servers = NextServerManager.getServers()
+        servers = NXServerManager.getServers()
     }
 
     private static func getServers() -> [NextServer] {
@@ -60,7 +60,7 @@ class NextServerManager: NSObject {
         delegate?.serversDidChange(refresh: refresh)
 
         // Deauthorize NextStats with the server
-        NextAuthenticationManager.deauthorize(server: server)
+        NXAuthenticationManager.deauthorize(server: server)
 
         // Delete the imageCache
         let path = server.imagePath()
@@ -131,7 +131,7 @@ class NextServerManager: NSObject {
     }
 }
 
-extension NextServerManager: UITableViewDataSource {
+extension NXServerManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return servers.count
@@ -162,7 +162,7 @@ extension NextServerManager: UITableViewDataSource {
     }
 }
 
-extension NextServerManager: UITableViewDelegate {
+extension NXServerManager: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.selected(server: servers[indexPath.row])
     }

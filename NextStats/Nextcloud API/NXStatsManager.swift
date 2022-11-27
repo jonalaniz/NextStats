@@ -9,9 +9,9 @@
 import Foundation
 
 /// Facilitates the fetching and parsing of OCS objects into NextStat objects
-class NextStatsDataManager: NSObject {
+class NXStatsManager: NSObject {
     /// Returns the shared `StatisticsDataManager` instance
-    public static let shared = NextStatsDataManager()
+    public static let shared = NXStatsManager()
 
     private let dataManager = DataManager.shared
 
@@ -197,7 +197,7 @@ class NextStatsDataManager: NSObject {
 }
 
 // Helper Functions
-extension NextStatsDataManager {
+extension NXStatsManager {
     private func usagePercent(free: Int, total: Int) -> String {
         let freeDouble = Double(free)
         let totalDouble = Double(total)

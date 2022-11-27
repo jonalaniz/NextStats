@@ -16,7 +16,7 @@ class MainCoordinator: Coordinator {
     let detailNavigationController: UINavigationController
     let statsViewController: StatsViewController
 
-    let serverManager = NextServerManager.shared
+    let serverManager = NXServerManager.shared
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController

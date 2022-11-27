@@ -11,7 +11,7 @@ import UIKit
 class ServerViewController: UIViewController {
     let noServersViewController = NoServersViewController()
     var tableView: UITableView!
-    var serverManager = NextServerManager.shared
+    var serverManager = NXServerManager.shared
     weak var coordinator: MainCoordinator?
 
     override func viewDidLoad() {

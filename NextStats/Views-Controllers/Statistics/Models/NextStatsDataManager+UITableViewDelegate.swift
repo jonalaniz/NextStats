@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension NextStatsDataManager: UITableViewDataSource, UITableViewDelegate {
+extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return nextStats.sections.count
     }

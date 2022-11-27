@@ -79,7 +79,7 @@ extension StatsViewController {
         headerView.nameLabel.text = name
         tableView.tableHeaderView = headerView
 
-        let manager = NextServerManager.shared
+        let manager = NXServerManager.shared
 
         manager.rename(server: server, name: name) { newServer in
             dataManager.server = newServer
@@ -88,7 +88,7 @@ extension StatsViewController {
 
     func delete() {
         guard let server = dataManager.server else { return }
-        let manager = NextServerManager.shared
+        let manager = NXServerManager.shared
         manager.remove(server, imageCache: true, refresh: true)
 
         returnToTable(action: nil)
