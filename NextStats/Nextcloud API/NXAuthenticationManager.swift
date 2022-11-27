@@ -10,7 +10,7 @@ import UIKit
 
 /// Facilitates the authentication and capturing of server objects.
 class NXAuthenticationManager {
-    weak var delegate: NextAuthenticationDelegate?
+    weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
     // You will die soon...

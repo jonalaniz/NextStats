@@ -156,8 +156,8 @@ class StatsViewController: UIViewController {
 }
 
 // MARK: NextStatsDataManagerDelegate
-extension StatsViewController: NextDataManagerDelegate {
-    func stateDidChange(_ dataManagerState: NSDataManagerState) {
+extension StatsViewController: NXDataManagerDelegate {
+    func stateDidChange(_ dataManagerState: NXDataManagerState) {
         switch dataManagerState {
         case .fetchingData:
             showLoadingView()

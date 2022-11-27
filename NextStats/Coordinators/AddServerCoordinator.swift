@@ -67,7 +67,7 @@ class AddServerCoordinator: Coordinator {
     }
 }
 
-extension AddServerCoordinator: NextAuthenticationDelegate {
+extension AddServerCoordinator: NXAuthenticationDelegate {
     func didCapture(server: NextServer) {
         parentCoordinator?.addServer(server)
         parentCoordinator?.childDidFinish(self)

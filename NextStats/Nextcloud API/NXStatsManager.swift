@@ -16,7 +16,7 @@ class NXStatsManager: NSObject {
     private let dataManager = DataManager.shared
 
     var nextStats = NextStats()
-    weak var delegate: NextDataManagerDelegate?
+    weak var delegate: NXDataManagerDelegate?
     weak var errorHandler: ErrorHandler?
 
     var server: NextServer? {

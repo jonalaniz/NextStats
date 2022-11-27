@@ -25,7 +25,7 @@
 		56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56320CD226A838C10099C7EA /* MenuBuilder.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
-		5650A6F3267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */; };
+		5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */; };
 		565130D9268BD7D3008FE8D4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565130D8268BD7D3008FE8D4 /* Units.swift */; };
 		5652A2F527647FE90050F5EB /* LoginObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F427647FE90050F5EB /* LoginObject.swift */; };
 		5652A2F7276489AE0050F5EB /* NXAuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */; };
@@ -73,7 +73,7 @@
 		56C1840C26C1A9A100992B35 /* ServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */; };
 		56C31270269109CB0077B40D /* String+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* String+Keys.swift */; };
 		56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* ServerFormView.swift */; };
-		56DBC1372932EFC1002A306B /* NextAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NextAuthenticationDelegate.swift */; };
+		56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */; };
 		56E0AD7C26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */; };
 		56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */; };
 		56E0AD8126ADA4360090ACB6 /* UIViewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */; };
@@ -119,7 +119,7 @@
 		56320CD226A838C10099C7EA /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NextStatsDataManagerDelegate.swift; path = NextStats/Protocols/NextStatsDataManagerDelegate.swift; sourceTree = SOURCE_ROOT; };
+		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = NextStats/Protocols/NXDataManagerDelegate.swift; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		5652A2F427647FE90050F5EB /* LoginObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginObject.swift; sourceTree = "<group>"; };
 		5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXAuthenticationManager.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManagerDelegate.swift; sourceTree = "<group>"; };
 		56C3126F269109CB0077B40D /* String+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Keys.swift"; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* ServerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFormView.swift; sourceTree = "<group>"; };
-		56DBC1362932EFC1002A306B /* NextAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextAuthenticationDelegate.swift; sourceTree = "<group>"; };
+		56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NXAuthenticationDelegate.swift; sourceTree = "<group>"; };
 		56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLCompontents+ClearQueryAndAppend.swift"; sourceTree = "<group>"; };
 		56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Child.swift"; sourceTree = "<group>"; };
@@ -364,31 +364,6 @@
 			path = Catalyst;
 			sourceTree = "<group>";
 		};
-		56DB681C26AEEB2B0015CB04 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		56DB681D26AEEB620015CB04 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
-				5602A2B9277B7869004A60F0 /* NextStat.swift */,
-				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		56DB681E26AEEB7F0015CB04 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		56DB681F26AEEBF60015CB04 /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,14 +373,6 @@
 				56DB682426AEECA10015CB04 /* Views */,
 			);
 			path = Info;
-			sourceTree = "<group>";
-		};
-		56DB682026AEEC1A0015CB04 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		56DB682126AEEC400015CB04 /* Add Server */ = {
@@ -443,20 +410,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		56DB682826AEED120015CB04 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		56DBC1322932ED71002A306B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
-				56DBC1362932EFC1002A306B /* NextAuthenticationDelegate.swift */,
-				5650A6F2267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift */,
+				5602A2BB277CCAB8004A60F0 /* NextStatsDataManager+UITableViewDelegate.swift */,
+				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
+				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
+				56C1840B26C1A9A100992B35 /* ServerManagerDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -477,6 +438,8 @@
 				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
 				5652A2F427647FE90050F5EB /* LoginObject.swift */,
 				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
+				5602A2B9277B7869004A60F0 /* NextStat.swift */,
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 			);
 			path = "NextStats Objects";
 			sourceTree = "<group>";
@@ -517,8 +480,7 @@
 				56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */,
 				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 				56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */,
-				56DB681D26AEEB620015CB04 /* Models */,
-				56DB682026AEEC1A0015CB04 /* Views */,
+				56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -526,9 +488,7 @@
 		56E0AD8726ADC01D0090ACB6 /* Servers  */ = {
 			isa = PBXGroup;
 			children = (
-				56DB681C26AEEB2B0015CB04 /* Models */,
-				56DB682826AEED120015CB04 /* Protocols */,
-				56DB681E26AEEB7F0015CB04 /* Views */,
+				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */,
 			);
@@ -716,7 +676,7 @@
 				5652A2F7276489AE0050F5EB /* NXAuthenticationManager.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoints.swift in Sources */,
 				56AA8FC328FEB04D00A6B4BD /* DataManager.swift in Sources */,
-				56DBC1372932EFC1002A306B /* NextAuthenticationDelegate.swift in Sources */,
+				56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */,
 				562ED27C26B5E9B100E4E1C5 /* UserModel.swift in Sources */,
 				56E0AD8426ADABA90090ACB6 /* SelectServerViewController.swift in Sources */,
 				562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */,
@@ -724,7 +684,7 @@
 				569F2C7C26AAF61A001122F2 /* XMLKeyedDecodingContainer.swift in Sources */,
 				5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */,
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
-				5650A6F3267C03E4008A1BDB /* NextStatsDataManagerDelegate.swift in Sources */,
+				5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
 				565130D9268BD7D3008FE8D4 /* Units.swift in Sources */,
 				56C959702655E42F00BD3B06 /* ServerFormView.swift in Sources */,

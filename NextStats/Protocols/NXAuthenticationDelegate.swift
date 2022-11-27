@@ -25,7 +25,7 @@ enum ServerManagerAuthenticationError: Int {
 }
 
 /// Functions called by ServerManager pertaining to authenitcation status
-protocol NextAuthenticationDelegate: AnyObject {
+protocol NXAuthenticationDelegate: AnyObject {
     /// Called when server is successfully added to the manager
     func didCapture(server: NextServer)
 

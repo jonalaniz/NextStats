@@ -1,5 +1,5 @@
 //
-//  StatisticsDataManagerDelegate.swift
+//  NXDataManagerDelegate.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 6/17/21.
@@ -28,18 +28,18 @@ protocol DataManagerDelegate: AnyObject {
     func didBeginFetchingData()
 }
 
-protocol NextDataManagerDelegate: AnyObject {
-    func stateDidChange(_ dataManagerState: NSDataManagerState)
+protocol NXDataManagerDelegate: AnyObject {
+    func stateDidChange(_ dataManagerState: NXDataManagerState)
 }
 
-enum NSDataManagerState {
+enum NXDataManagerState {
     case fetchingData
     case parsingData
-    case failed(NextDataManagerError)
+    case failed(NXDataManagerError)
     case statsCaptured
 }
 
-enum NextDataManagerError {
+enum NXDataManagerError {
     case networkError(FetchError)
     case unableToDecode
     case missingData
