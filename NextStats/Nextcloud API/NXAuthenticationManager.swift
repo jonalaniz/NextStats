@@ -25,7 +25,6 @@ class NXAuthenticationManager {
         serverName = name
 
         dataManager.getAuthenticationDataWithSuccess(urlString: urlString) { data, error  in
-
             // Check for errors and handle them appropriately
             guard error == nil else {
                 let foundError = error!
@@ -72,33 +71,36 @@ class NXAuthenticationManager {
     }
 
     private func pollForCredentials(at url: URL, with token: String) {
-        // Setup our request
         let tokenPrefix = "token="
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = (tokenPrefix + token).data(using: .utf8)
 
-        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let data):
-                    self.shouldPoll = false
-                    if let loginObject = self.decode(modelType: LoginObject.self, from: data) {
-                        self.createServerFrom(object: loginObject)
+        DataManager.loadDataFromURL(with: request) { data, error in
+            guard error == nil else {
+                let foundError = error!
+                switch foundError {
+                case .unexpectedResponse(let response):
+                    print("Poll Status Code: \(response.statusCode)")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.shouldPoll ? (self.pollForCredentials(at: url, with: token)) : (nil)
                     }
-                case .failure(let fetchError):
-                    switch fetchError {
-                    case .unexpectedResponse(let statusCode):
-                        print("Poll Status Code: \(statusCode)")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            if self.shouldPoll {
-                                self.pollForCredentials(at: url, with: token)
-                            }
-                        }
-                    default:
-                        self.delegate?.failedToGetCredentials(withError: .serverNotFound)
-                    }
+                default:
+                    self.delegate?.failedToGetCredentials(withError: .serverNotFound)
                 }
+                return
+            }
+
+            guard
+                let loginData = data,
+                let loginObject = self.decode(modelType: LoginObject.self, from: loginData)
+            else {
+                self.errorHandler?.handle(error: .invalidData)
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.createServerFrom(object: loginObject)
             }
         }
     }
