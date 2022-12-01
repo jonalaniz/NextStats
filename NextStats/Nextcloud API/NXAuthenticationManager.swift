@@ -28,7 +28,7 @@ class NXAuthenticationManager {
             // Check for errors and handle them appropriately
             guard error == nil else {
                 let foundError = error!
-                self.errorHandler?.handle(error: foundError)
+                self.handle(error: foundError)
                 return
             }
 
@@ -36,12 +36,11 @@ class NXAuthenticationManager {
                 let data = data,
                 let authenticationObject = self.decode(modelType: AuthenticationObject.self, from: data)
             else {
-                self.errorHandler?.handle(error: .invalidData)
+                self.handle(error: .invalidData)
                 return
             }
 
             // We made it, start authentication
-            // TODO: Work on main thread orchestration
             DispatchQueue.main.async {
                 self.setupAuthenitcationObject(with: authenticationObject)
             }
@@ -95,7 +94,7 @@ class NXAuthenticationManager {
                 let loginData = data,
                 let loginObject = self.decode(modelType: LoginObject.self, from: loginData)
             else {
-                self.errorHandler?.handle(error: .invalidData)
+                self.handle(error: .invalidData)
                 return
             }
 
@@ -200,6 +199,12 @@ extension NXAuthenticationManager {
         guard let object = try? decoder.decode(modelType, from: data) else { return nil }
 
         return object
+    }
+
+    private func handle(error: ErrorType) {
+        DispatchQueue.main.async {
+            self.errorHandler?.handle(error: error)
+        }
     }
 
     private func saveImage(to path: String) {
