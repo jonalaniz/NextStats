@@ -13,7 +13,7 @@ struct Statistic {
     var value: String = "..."
 }
 
-struct NextStats {
+struct StatisticsContainer {
     let sections = [0: "System",
                     1: "Storage",
                     2: "Server",

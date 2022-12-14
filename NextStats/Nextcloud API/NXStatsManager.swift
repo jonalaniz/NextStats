@@ -15,7 +15,7 @@ class NXStatsManager: NSObject {
 
     private let dataManager = DataManager.shared
 
-    var nextStats = NextStats()
+    var container = StatisticsContainer()
     weak var delegate: NXDataManagerDelegate?
     weak var errorHandler: ErrorHandler?
 
@@ -132,7 +132,7 @@ class NXStatsManager: NSObject {
         systemData.append(system.memcacheDistributed ?? "N/A")
 
         // Set Our Data
-        nextStats.set(systemData: systemData)
+        container.set(systemData: systemData)
 
     }
 
@@ -140,7 +140,7 @@ class NXStatsManager: NSObject {
         guard let freeSpace = system.freespace,
               let numberOfFiles = storage.numFiles
         else {
-            nextStats.set(storageData: ["N/A", "N/A"])
+            container.set(storageData: ["N/A", "N/A"])
             return
         }
 
@@ -155,7 +155,7 @@ class NXStatsManager: NSObject {
 
         storageData.append(String(numberOfFiles))
 
-        nextStats.set(storageData: storageData)
+        container.set(storageData: storageData)
     }
 
     private func parseServer(_ server: Server) {
@@ -164,7 +164,7 @@ class NXStatsManager: NSObject {
                           server.database?.type ?? "N/A",
                           server.database?.version ?? "N/A"]
 
-        nextStats.set(serverData: serverData)
+        container.set(serverData: serverData)
     }
 
     private func parseUsers(_ users: ActiveUsers, storage: Storage) {
@@ -173,7 +173,7 @@ class NXStatsManager: NSObject {
               let last24 = users.last24Hours,
               let total = storage.numUsers
         else {
-            nextStats.set(userData: Array(repeating: "N/A", count: nextStats.rows(in: 3)))
+            container.set(userData: Array(repeating: "N/A", count: container.rows(in: 3)))
             return
         }
 
@@ -182,7 +182,7 @@ class NXStatsManager: NSObject {
                            String(last24),
                            String(total)]
 
-        nextStats.set(userData: activeUsers)
+        container.set(userData: activeUsers)
     }
 
     func reload() {
