@@ -14,7 +14,7 @@
 		5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */; };
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
-		5602A2BA277B7869004A60F0 /* NextStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2B9277B7869004A60F0 /* NextStat.swift */; };
+		5602A2BA277B7869004A60F0 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2B9277B7869004A60F0 /* Statistic.swift */; };
 		5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */; };
 		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
@@ -107,7 +107,7 @@
 		5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Activate-Deactivate.swift"; sourceTree = "<group>"; };
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
-		5602A2B9277B7869004A60F0 /* NextStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStat.swift; sourceTree = "<group>"; };
+		5602A2B9277B7869004A60F0 /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
 		5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NXStatsManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
@@ -438,7 +438,7 @@
 				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
 				5652A2F427647FE90050F5EB /* LoginObject.swift */,
 				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
-				5602A2B9277B7869004A60F0 /* NextStat.swift */,
+				5602A2B9277B7869004A60F0 /* Statistic.swift */,
 				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 			);
 			path = "NextStats Objects";
@@ -637,7 +637,7 @@
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
 				569F2C7726AAF61A001122F2 /* EncodingErrorExtension.swift in Sources */,
-				5602A2BA277B7869004A60F0 /* NextStat.swift in Sources */,
+				5602A2BA277B7869004A60F0 /* Statistic.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
 				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */,

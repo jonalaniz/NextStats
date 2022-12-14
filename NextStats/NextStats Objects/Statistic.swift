@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NextStat {
+struct Statistic {
     let title: String
     var value: String = "..."
 }
@@ -19,27 +19,27 @@ struct NextStats {
                     2: "Server",
                     3: "Active Users"]
 
-    private var system = [0: NextStat(title: "Version"),
-                  1: NextStat(title: "CPU"),
-                  2: NextStat(title: "Memory Usage"),
-                  3: NextStat(title: "Memory"),
-                  4: NextStat(title: "Swap Usage"),
-                  5: NextStat(title: "Swap"),
-                  6: NextStat(title: "Local Cache"),
-                  7: NextStat(title: "Distributed Cache")]
+    private var system = [0: Statistic(title: "Version"),
+                  1: Statistic(title: "CPU"),
+                  2: Statistic(title: "Memory Usage"),
+                  3: Statistic(title: "Memory"),
+                  4: Statistic(title: "Swap Usage"),
+                  5: Statistic(title: "Swap"),
+                  6: Statistic(title: "Local Cache"),
+                  7: Statistic(title: "Distributed Cache")]
 
-    private var storage = [0: NextStat(title: "Free Space"),
-                   1: NextStat(title: "Number of Files")]
+    private var storage = [0: Statistic(title: "Free Space"),
+                   1: Statistic(title: "Number of Files")]
 
-    private var server = [0: NextStat(title: "Web Server"),
-                  1: NextStat(title: "PHP Version"),
-                  2: NextStat(title: "Database"),
-                  3: NextStat(title: "Database Version")]
+    private var server = [0: Statistic(title: "Web Server"),
+                  1: Statistic(title: "PHP Version"),
+                  2: Statistic(title: "Database"),
+                  3: Statistic(title: "Database Version")]
 
-    private var activeUsers = [0: NextStat(title: "Last 5 Minutes"),
-                       1: NextStat(title: "Last Hour"),
-                       2: NextStat(title: "Last Day"),
-                       3: NextStat(title: "Total Users")]
+    private var activeUsers = [0: Statistic(title: "Last 5 Minutes"),
+                       1: Statistic(title: "Last Hour"),
+                       2: Statistic(title: "Last Day"),
+                       3: Statistic(title: "Total Users")]
 
     func label(for section: Int) -> String {
         guard let label = sections[section] else { return "" }
@@ -81,7 +81,7 @@ struct NextStats {
         }
     }
 
-    func stat(for row: Int, in section: Int) -> NextStat? {
+    func stat(for row: Int, in section: Int) -> Statistic? {
         switch section {
         case 0: return system[row]
         case 1: return storage[row]
