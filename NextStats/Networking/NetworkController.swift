@@ -45,7 +45,8 @@ class NetworkController {
         config.timeoutIntervalForRequest = 15
 
         var request = request
-        request.setValue("NextStats for iOS", forHTTPHeaderField: "User-Agent")
+        request.setValue("NextStats for iOS",
+                         forHTTPHeaderField: "User-Agent")
 
         let session = URLSession(configuration: config)
         let task = session.dataTask(with: request) { (possibleData, possibleResponse, possibleError) in
@@ -75,7 +76,9 @@ class NetworkController {
         task.resume()
     }
 
-    func request(url: URL, with endpoint: Endpoints, appending user: String? = nil) -> URLRequest {
+    func request(url: URL,
+                 with endpoint: Endpoints,
+                 appending user: String? = nil) -> URLRequest {
         let url = url
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: endpoint)
@@ -85,7 +88,8 @@ class NetworkController {
         return URLRequest(url: components.url!)
     }
 
-    func configuration(authorizaton: String? = nil, ocsApiRequest: Bool = false) -> URLSessionConfiguration {
+    func configuration(authorizaton: String? = nil,
+                       ocsApiRequest: Bool = false) -> URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
 
         guard let authorizationString = authorizaton else {
@@ -96,7 +100,8 @@ class NetworkController {
 
         if ocsApiRequest == true {
             // OCS-APIRequest is needed for legacy (XML based) requests
-            headers.updateValue("true", forKey: "OCS-APIRequest")
+            headers.updateValue("true",
+                                forKey: "OCS-APIRequest")
         }
 
         configuration.httpAdditionalHeaders = headers

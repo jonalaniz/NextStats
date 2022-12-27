@@ -158,6 +158,9 @@ class NXAuthenticationManager {
 
     /// Sends an HTTP DELETE request to specificed server, clearing app specific password
     /// and deauthorizing NextStats
+    // TODO: Add completion handler to return an error if one is found,
+    // Error should be generic and handler will just ask user to check
+    // their server to remove the app password manually.
     static func deauthorize(server: NextServer) {
         // Create the URL components and append correct path
         var components = URLComponents(string: server.URLString)!
@@ -174,8 +177,6 @@ class NXAuthenticationManager {
 
         DataManager.loadDataFromURL(with: request, config: config) { data, error in
             guard error == nil else {
-                // TODO: Handle deauthorization errors in app, direct users to
-                // deautorize manaully in Nextcloud
                 print("Deauthorization error: \(error!)")
                 return
             }

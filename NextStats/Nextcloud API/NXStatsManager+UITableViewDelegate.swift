@@ -10,11 +10,11 @@ import UIKit
 
 extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return nextStats.sections.count
+        return container.sections.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nextStats.rows(in: section)
+        return container.rows(in: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -22,7 +22,7 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         let section = indexPath.section
         let row = indexPath.row
 
-        guard let stat = nextStats.stat(for: row, in: section) else { return cell }
+        guard let stat = container.stat(for: row, in: section) else { return cell }
 
         var content = cell.defaultContentConfiguration()
         content.text = stat.title
@@ -35,7 +35,7 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return nextStats.title(for: section)
+        return container.title(for: section)
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
