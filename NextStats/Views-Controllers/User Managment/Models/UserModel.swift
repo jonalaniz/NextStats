@@ -44,7 +44,7 @@ struct Quota: Codable {
 }
 
 struct Groups: Codable {
-    let element: String?
+    let element: [String?]
 }
 
 struct BackendCapabilities: Codable {
