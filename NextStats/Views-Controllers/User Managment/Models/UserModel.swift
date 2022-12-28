@@ -44,7 +44,39 @@ struct Quota: Codable {
 }
 
 struct Groups: Codable {
-    let element: [String?]
+    let element: GroupElement
+}
+
+enum GroupElement: Codable {
+    case string(String)
+    case stringArray([String])
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let data = try? container.decode(String.self) {
+            self = .string(data)
+            return
+        }
+
+        if let data = try? container.decode([String].self) {
+            self = .stringArray(data)
+            return
+        }
+
+        throw DecodingError.typeMismatch(Groups.self,
+                                         DecodingError.Context(codingPath: decoder.codingPath,
+                                                               debugDescription: "Group not String nor [String]"))
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .stringArray(let data):
+            try container.encode(data)
+        case.string(let data):
+            try container.encode(data)
+        }
+    }
 }
 
 struct BackendCapabilities: Codable {
