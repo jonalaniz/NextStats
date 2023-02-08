@@ -55,7 +55,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
         splitViewController.primaryBackgroundStyle = .sidebar
         splitViewController.delegate = self
-        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
 
         // Set the window to the SplitViewController
         window.rootViewController = splitViewController
