@@ -65,7 +65,7 @@ enum GroupElement: Codable {
 
         throw DecodingError.typeMismatch(Groups.self,
                                          DecodingError.Context(codingPath: decoder.codingPath,
-                                                               debugDescription: "Group not String nor [String]"))
+                                                               debugDescription: "Group type mismatch"))
     }
 
     func encode(to encoder: Encoder) throws {

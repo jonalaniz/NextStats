@@ -14,11 +14,4 @@ enum Endpoints: String {
     case statEndpoint = "/ocs/v2.php/apps/serverinfo/api/v1/info"
     case usersEndpoint = "/ocs/v1.php/cloud/users"
     case userEndpoint = "/ocs/v1.php/cloud/users/"
-
-    func query() -> String? {
-        switch self {
-        case .statEndpoint: return "format=json"
-        default: return nil
-        }
-    }
 }

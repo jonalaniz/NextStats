@@ -28,10 +28,6 @@ class WebViewController: UIViewController {
 }
 
 extension WebViewController: WKNavigationDelegate {
-    @objc func serverAdded() {
-        navigationController?.dismiss(animated: true)
-    }
-
     override func loadView() {
         webView = WKWebView()
         view = webView

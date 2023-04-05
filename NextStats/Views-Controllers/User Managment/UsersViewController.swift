@@ -13,7 +13,7 @@ class UsersViewController: UIViewController {
 
     let usersDataManager = UserDataManager.shared
     let loadingViewController = LoadingViewController()
-    let tableView = UITableView(frame: .zero, style: .plain)
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +27,9 @@ class UsersViewController: UIViewController {
         usersDataManager.delegate = self
 
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                           target: self,
-                                                           action: #selector(dismissController))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+//                                                           target: self,
+//                                                           action: #selector(dismissController))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: nil)

@@ -28,7 +28,7 @@ class UsersCoordinator: Coordinator {
         usersViewController.coordinator = self
 
         navigationController.viewControllers = [usersViewController]
-        splitViewController.present(navigationController, animated: true)
+        splitViewController.showDetailViewController(navigationController, sender: nil)
     }
 
     func showUserView(for user: String) {

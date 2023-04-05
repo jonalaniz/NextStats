@@ -34,7 +34,10 @@ class NXStatsManager: NSObject {
         // Prepare the URL Configuration
         var urlString = server.URLString
         let config = URLSessionConfiguration.default
-        let headers = ["Authorization": server.authenticationString()]
+        let headers = [
+            "Authorization": server.authenticationString(),
+            "Accept": "application/json"
+        ]
 
         config.httpAdditionalHeaders = headers
 

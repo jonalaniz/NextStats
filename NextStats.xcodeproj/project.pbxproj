@@ -260,7 +260,6 @@
 				56DBC1332932ED90002A306B /* Coordinators */,
 				56DBC1322932ED71002A306B /* Protocols */,
 				56DBC1352932EF11002A306B /* Nextcloud API */,
-				56DBC1342932EDFD002A306B /* NextStats Objects */,
 				5689894E23D4CF3400D13B12 /* Views-Controllers */,
 				5601D7F425E3194400993D31 /* Extensions */,
 				564C8DC724D779150095D43B /* Helpers */,
@@ -432,7 +431,7 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		56DBC1342932EDFD002A306B /* NextStats Objects */ = {
+		56DBC1342932EDFD002A306B /* Objects */ = {
 			isa = PBXGroup;
 			children = (
 				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
@@ -441,12 +440,13 @@
 				5602A2B9277B7869004A60F0 /* Statistic.swift */,
 				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 			);
-			path = "NextStats Objects";
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
+				56DBC1342932EDFD002A306B /* Objects */,
 				5652A2F6276489AE0050F5EB /* NXAuthenticationManager.swift */,
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
 				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,

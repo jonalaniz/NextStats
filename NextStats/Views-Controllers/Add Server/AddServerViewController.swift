@@ -12,7 +12,6 @@ class AddServerViewController: UIViewController, UITextFieldDelegate {
 
     weak var coordinator: AddServerCoordinator?
     var serverFormView = ServerFormView()
-    var authAPIURL: URL?
 
     override func loadView() {
         view = serverFormView
@@ -43,8 +42,6 @@ extension AddServerViewController {
 
         // Initiate the authorization request and check for logo
         coordinator?.requestAuthorization(with: urlString, named: name)
-        // Invalidate the url in case user returns and needs to enter again
-        authAPIURL = nil
     }
 
     @objc func cancelPressed() {

@@ -66,8 +66,11 @@ class UserDataManager {
                 print(error)
             case .success(let data):
                 // TODO: Change this to a guard statement and add error handling
+                let string = String(data: data, encoding: .utf8)
+                print(string)
                 if let usersData: User = self.decode(data) {
                     print(usersData)
+                    print(self.dateString(from: usersData.data.lastLogin))
                 }
             }
         }
@@ -84,6 +87,18 @@ class UserDataManager {
         }
 
         return nil
+    }
+
+    private func dateString(from milliseconds: Int?) -> String {
+        guard milliseconds != nil else { return "N/A" }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd,yyyy"
+
+        let seconds = milliseconds! / 1000
+        let date = Date(timeIntervalSince1970: TimeInterval(seconds))
+
+        return dateFormatter.string(from: date)
     }
 }
 
