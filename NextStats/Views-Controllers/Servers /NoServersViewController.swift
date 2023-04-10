@@ -53,7 +53,7 @@ class NoServersViewController: UIViewController {
             iconImageView.widthAnchor.constraint(equalToConstant: 180),
             textLabel.widthAnchor.constraint(equalToConstant: 180),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50)
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 60)
         ])
     }
 }
