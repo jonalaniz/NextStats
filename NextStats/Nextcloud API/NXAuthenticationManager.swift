@@ -13,8 +13,6 @@ class NXAuthenticationManager {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
-    // You will die soon...
-    private let networkController = NetworkController.shared
     private let dataManager = DataManager.shared
 
     private var serverName: String?
@@ -108,15 +106,15 @@ class NXAuthenticationManager {
         print("Logo URL: \(url)")
         let request = URLRequest(url: url)
 
-        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
-            switch result {
-            case .failure(_):
-                break
-            case .success(let data):
-                if let image = UIImage(data: data) {
-                    self.serverImage = image
-                }
-            }
+        DataManager.loadDataFromURL(with: request) { data, error in
+
+            guard error == nil else { return }
+
+            guard let capturedData = data else { return }
+
+            guard let image = UIImage(data: capturedData) else { return }
+
+            self.serverImage = image
         }
     }
 
