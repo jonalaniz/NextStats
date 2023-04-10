@@ -10,7 +10,6 @@ import UIKit
 
 class ServerCell: UITableViewCell {
     var server: NextServer!
-    let networkController = NetworkController.shared
 
     var serverImageView: UIImageView = {
         let imageView = UIImageView()
@@ -94,14 +93,18 @@ extension ServerCell {
         components?.path = ""
         let request = URLRequest(url: components!.url!)
 
-        networkController.fetchData(with: request) { (result: Result<Data, FetchError>) in
-            switch result {
-            case .failure(let error):
-                print(error)
+        DataManager.loadDataFromURL(with: request) { data, error in
+            guard error == nil else {
                 self.setOnlineStatus(to: false)
-            case .success(_):
-                self.setOnlineStatus(to: true)
+                return
             }
+
+            guard data != nil else {
+                self.setOnlineStatus(to: false)
+                return
+            }
+
+            self.setOnlineStatus(to: true)
         }
     }
 
