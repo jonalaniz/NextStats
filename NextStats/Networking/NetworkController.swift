@@ -32,6 +32,7 @@ enum FetchError: Error {
     }
 }
 
+@available (*, deprecated, message: "Move to DataManager")
 class NetworkController {
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
