@@ -60,7 +60,7 @@ class NXServerManager: NSObject {
         delegate?.serversDidChange(refresh: refresh)
 
         // Deauthorize NextStats with the server
-        NXAuthenticationManager.deauthorize(server: server)
+        deauthorize(server: server)
 
         // Delete the imageCache
         let path = server.imagePath()
@@ -122,6 +122,36 @@ class NXServerManager: NSObject {
             self.setOnlineStatus(at: index, to: true)
         }
         task.resume()
+    }
+
+    /// Sends HTTP DELETE request ot specified server, clearing app password and
+    /// deauthorizing NextStats.
+    // TODO: Add error handling
+    func deauthorize(server: NextServer) {
+        // Create the URL components and append correct path
+        var components = URLComponents(string: server.URLString)!
+        components.clearQueryAndAppend(endpoint: .appPassword)
+
+        // Configure headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = ["Authorization": server.authenticationString(),
+                                        "OCS-APIREQUEST": "true"]
+
+        // Configure HTTP Request
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+
+        DataManager.loadDataFromURL(with: request, config: config) { data, error in
+            guard error == nil else {
+                print("Deauthorization error: \(error!)")
+                return
+            }
+
+            guard data != nil else {
+                print("Data is empty ☹️")
+                return
+            }
+        }
     }
 
     private func setOnlineStatus(at index: Int, to status: Bool) {

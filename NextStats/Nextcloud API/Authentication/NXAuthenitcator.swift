@@ -9,7 +9,7 @@
 import UIKit
 
 /// Facilitates the authentication and capturing of server objects.
-class NXAuthenticationManager {
+class NXAuthenitcator {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
@@ -153,42 +153,10 @@ class NXAuthenticationManager {
             delegate?.didCapture(server: server)
         }
     }
-
-    /// Sends an HTTP DELETE request to specificed server, clearing app specific password
-    /// and deauthorizing NextStats
-    // TODO: Add completion handler to return an error if one is found,
-    // Error should be generic and handler will just ask user to check
-    // their server to remove the app password manually.
-    static func deauthorize(server: NextServer) {
-        // Create the URL components and append correct path
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .appPassword)
-
-        // Configure headers
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Authorization": server.authenticationString(),
-                                        "OCS-APIREQUEST": "true"]
-
-        // Configure HTTP Request
-        var request = URLRequest(url: components.url!)
-        request.httpMethod = "DELETE"
-
-        DataManager.loadDataFromURL(with: request, config: config) { data, error in
-            guard error == nil else {
-                print("Deauthorization error: \(error!)")
-                return
-            }
-
-            guard data != nil else {
-                print("Data is empty ☹️")
-                return
-            }
-        }
-    }
 }
 
 // MARK: Helper Functions
-extension NXAuthenticationManager {
+extension NXAuthenitcator {
     func cancelAuthorization() {
         shouldPoll = false
     }

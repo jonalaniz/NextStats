@@ -15,7 +15,7 @@ class AddServerCoordinator: Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
     let addServerVC: AddServerViewController
-    let authenticationManager = NXAuthenticationManager()
+    let authenticationManager = NXAuthenitcator()
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
