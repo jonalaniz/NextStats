@@ -14,9 +14,9 @@ enum UserDataTypes {
 }
 
 /// Facilitates the fetching, creation, deletion, and editing of Nextcloud Users
-class UserDataManager {
+class NXUsersManager {
     /// Returns singleton instance of `UserDataManager`
-    static let shared = UserDataManager()
+    static let shared = NXUsersManager()
 
     weak var delegate: DataManagerDelegate?
     private let networkController = NetworkController.shared
@@ -103,7 +103,7 @@ class UserDataManager {
 }
 
 /// TableView Helper Methods
-extension UserDataManager {
+extension NXUsersManager {
     func setServer(server: NextServer) {
         self.server = server
     }

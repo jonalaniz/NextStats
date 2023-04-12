@@ -148,7 +148,7 @@ class StatsViewController: UIViewController {
 
     @objc func userManagementPressed() {
         guard serverInitialized != false else { return }
-        let userDataManager = UserDataManager.shared
+        let userDataManager = NXUsersManager.shared
         userDataManager.setServer(server: dataManager.server!)
 
         coordinator?.showUsersView()

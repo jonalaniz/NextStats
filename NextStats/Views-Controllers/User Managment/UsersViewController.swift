@@ -11,7 +11,7 @@ import UIKit
 class UsersViewController: UIViewController {
     weak var coordinator: UsersCoordinator?
 
-    let usersDataManager = UserDataManager.shared
+    let usersDataManager = NXUsersManager.shared
     let loadingViewController = LoadingViewController()
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
