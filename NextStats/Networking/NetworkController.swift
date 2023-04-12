@@ -32,7 +32,6 @@ enum FetchError: Error {
     }
 }
 
-@available (*, deprecated, message: "Move to DataManager")
 class NetworkController {
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
@@ -108,5 +107,23 @@ class NetworkController {
         configuration.httpAdditionalHeaders = headers
 
         return configuration
+    }
+    
+    func config() -> URLSessionConfiguration {
+        let config = URLSessionConfiguration.default
+        
+        config.allowsCellularAccess = true
+        config.timeoutIntervalForRequest = 15
+        config.timeoutIntervalForResource = 30
+        config.httpMaximumConnectionsPerHost = 1
+        
+        return config
+    }
+}
+
+extension URLRequest {
+    mutating func setUserAgent() {
+        // TODO: Set value to global variable that changes depending on OS
+        self.setValue("NextStats for iOS", forHTTPHeaderField: "User-Agent")
     }
 }

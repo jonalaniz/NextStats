@@ -22,6 +22,7 @@ enum ErrorType {
 }
 
 /// DataManager struct manages pulling json data from URLs
+@available (*, deprecated, message: "Move to `NetworkController` using async/await")
 class DataManager {
     /// Returns the singleton `DataManager` instance
     public static let shared = DataManager()
