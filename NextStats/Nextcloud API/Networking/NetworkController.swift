@@ -7,36 +7,99 @@
 
 import Foundation
 
-enum FetchError: Error {
-    case invalidData
-    case missingResponse
-    case network(Error)
-    case unexpectedResponse(Int)
-
-    var title: String {
-        switch self {
-        case .invalidData: return .localized(.invalidData)
-        case .missingResponse: return .localized(.missingResponse)
-        case .network(_): return .localized(.networkError)
-        case .unexpectedResponse(_): return .localized(.unauthorized)
-        }
-    }
-
-    var description: String {
-        switch self {
-        case .invalidData: return .localized(.invalidDataDescription)
-        case .missingResponse: return .localized(.missingResponseDescription)
-        case .network(_): return .localized(.networkError)
-        case .unexpectedResponse(_): return .localized(.unexpectedResponse)
-        }
-    }
-}
-
 class NetworkController {
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
 
     private init() { }
+
+    // MARK: - New Networking Methods (async/await)
+
+    func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.path += Endpoints.loginEndpoint.rawValue
+
+        var request  = URLRequest(url: components.url!)
+        request.httpMethod = "POST"
+        request.setUserAgent()
+
+        let config = config()
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
+        }
+
+        guard let object = try? JSONDecoder().decode(AuthenticationObject.self,
+                                                     from: data) else {
+            throw FetchError.invalidData
+        }
+
+        return object
+    }
+
+    func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.clearQueryAndAppend(endpoint: .statEndpoint)
+
+        var request = URLRequest(url: components.url!)
+        request.setUserAgent()
+
+        let config = config(authString: authentication)
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
+        }
+
+        guard let object = try? JSONDecoder().decode(ServerStats.self,
+                                                     from: data) else {
+            throw FetchError.invalidData
+        }
+
+        return object
+    }
+
+    func fetchData(url: URL, authentication: String) async throws -> Data {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.clearQueryAndAppend(endpoint: .usersEndpoint)
+
+        var request = URLRequest(url: components.url!)
+        request.setUserAgent()
+
+        let config = config(authString: authentication, ocsApiRequest: true)
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
+        }
+
+        guard data != nil else {
+            throw FetchError.invalidData
+        }
+
+        return data
+    }
+
+    // MARK: - Old Networking Methods (closures)
 
     /// Generic network fetch
     func fetchData(with request: URLRequest,
@@ -52,7 +115,7 @@ class NetworkController {
         let task = session.dataTask(with: request) { (possibleData, possibleResponse, possibleError) in
 
             guard possibleError == nil else {
-                completion(.failure(.network(possibleError!)))
+                completion(.failure(.error(possibleError!.localizedDescription)))
                 return
             }
 
@@ -62,7 +125,7 @@ class NetworkController {
             }
 
             guard (200...299).contains(response.statusCode) else {
-                completion(.failure(.unexpectedResponse(response.statusCode)))
+                completion(.failure(.unexpectedResponse(response)))
                 return
             }
 
@@ -88,11 +151,11 @@ class NetworkController {
         return URLRequest(url: components.url!)
     }
 
-    func configuration(authorizaton: String? = nil,
-                       ocsApiRequest: Bool = false) -> URLSessionConfiguration {
-        let configuration = URLSessionConfiguration.default
+    func config(authString: String? = nil,
+                ocsApiRequest: Bool = false) -> URLSessionConfiguration {
+        let configuration = config()
 
-        guard let authorizationString = authorizaton else {
+        guard let authorizationString = authString else {
             return configuration
         }
 
@@ -102,21 +165,24 @@ class NetworkController {
             // OCS-APIRequest is needed for legacy (XML based) requests
             headers.updateValue("true",
                                 forKey: "OCS-APIRequest")
+        } else {
+            headers.updateValue("application/json",
+                                forKey: "Accept")
         }
 
         configuration.httpAdditionalHeaders = headers
 
         return configuration
     }
-    
+
     func config() -> URLSessionConfiguration {
         let config = URLSessionConfiguration.default
-        
+
         config.allowsCellularAccess = true
         config.timeoutIntervalForRequest = 15
         config.timeoutIntervalForResource = 30
         config.httpMaximumConnectionsPerHost = 1
-        
+
         return config
     }
 }

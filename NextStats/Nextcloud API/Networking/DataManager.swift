@@ -9,16 +9,35 @@
 import Foundation
 
 protocol ErrorHandler: AnyObject {
-    func handle(error type: ErrorType)
+    func handle(error type: FetchError)
 }
 
-enum ErrorType {
+enum FetchError: Error {
+    case error(String) // Sends error.localizedDescription
+    case invalidData
     case invalidURL
-    // This error being sent should be Error.loaclized description
-    case error(String)
     case missingResponse
     case unexpectedResponse(HTTPURLResponse)
-    case invalidData
+
+    var title: String {
+        switch self {
+        case .error(_): return .localized(.errorTitle)
+        case .invalidData: return .localized(.invalidData)
+        case .invalidURL: return .localized(.networkError)
+        case .missingResponse: return .localized(.missingResponse)
+        case .unexpectedResponse(_): return .localized(.unauthorized)
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .error(let description): return description
+        case .invalidData: return .localized(.invalidDataDescription)
+        case .invalidURL: return .localized(.networkError)
+        case .missingResponse: return .localized(.missingResponseDescription)
+        case .unexpectedResponse(_): return .localized(.unexpectedResponse)
+        }
+    }
 }
 
 /// DataManager struct manages pulling json data from URLs
@@ -29,56 +48,10 @@ class DataManager {
 
     private init() { }
 
-    /// Requests Authentication Data using Nextcloud Login Flow V2
-    func getAuthenticationDataWithSuccess(urlString: String,
-                                          success: @escaping ((_ data: Data?, _ error: ErrorType?) -> Void)) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let url = URL(string: urlString) else {
-                // The URL was invalid, so pass the error to the completion handler
-                success(nil, .invalidURL)
-                return
-            }
-
-            // Append Login Flow V2 endpoint and create request
-            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-            components.clearQueryAndAppend(endpoint: .loginEndpoint)
-
-            var request = URLRequest(url: components.url!)
-            request.httpMethod = "POST"
-
-            DataManager.loadDataFromURL(with: request) { data, errorType  in
-                // Pass the data from `loadDataFromURL` to completion handler
-                success(data, errorType)
-            }
-        }
-    }
-
-    /// Requests Nextcloud Server Data Object
-    func getServerStatisticsDataWithSuccess(urlString: String,
-                                            config: URLSessionConfiguration,
-                                            success: @escaping((_ data: Data?, _ error: ErrorType?) -> Void)) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let url = URL(string: urlString) else {
-                // Thr URL was invalid
-                success(nil, .invalidURL)
-                return
-            }
-
-            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-            components.clearQueryAndAppend(endpoint: .statEndpoint)
-
-            let request = URLRequest(url: components.url!)
-
-            DataManager.loadDataFromURL(with: request, config: config) { data, errorType in
-                success(data, errorType)
-            }
-        }
-    }
-
     /// Reusable data call method
     static func loadDataFromURL(with request: URLRequest,
                                 config: URLSessionConfiguration = .default,
-                                completion: @escaping (_ data: Data?, _ error: ErrorType?) -> Void) {
+                                completion: @escaping (_ data: Data?, _ error: FetchError?) -> Void) {
         let config = config
         var request = request
 

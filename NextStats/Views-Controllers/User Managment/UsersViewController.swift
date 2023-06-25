@@ -18,7 +18,7 @@ class UsersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        usersDataManager.fetchUsers()
+        usersDataManager.fetchUsersData()
     }
 
     private func setupView() {

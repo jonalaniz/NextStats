@@ -181,23 +181,24 @@ extension StatsViewController: NXDataManagerDelegate {
 
     func handleNetworkError(_ error: FetchError) {
         switch error {
+        case .error(let err):
+            showErrorAndReturn(title: .localized(.errorTitle), description: err)
         case .invalidData:
             self.showErrorAndReturn(title: error.title,
                                     description: error.description)
+        case .invalidURL:
+            showErrorAndReturn(title: .localized(.errorTitle), description: .localized(.notValidhost))
         case .missingResponse:
-            self.showErrorAndReturn(title: error.title,
-                                    description: error.description)
-        case .network(let networkError):
-            self.showErrorAndReturn(title: error.title,
-                                    description: networkError.localizedDescription)
+            showErrorAndReturn(title: .localized(.missingResponse),
+                               description: .localized(.missingResponseDescription))
         case .unexpectedResponse(let response):
-            switch response {
+            switch response.statusCode {
             case 401:
-                self.showErrorAndReturn(title: error.title + ": \(response)",
-                                        description: .localized(.unauthorizedDescription))
+                showErrorAndReturn(title: error.title + ": \(response.statusCode)",
+                                   description: .localized(.unauthorizedDescription))
             default:
-                self.showErrorAndReturn(title: error.title + ": (\(response))",
-                                        description: "\(response)")
+                showErrorAndReturn(title: error.title + ": \(response.statusCode)",
+                                   description: response.description)
             }
         }
     }

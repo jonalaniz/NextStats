@@ -15,14 +15,14 @@ class AddServerCoordinator: Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
     let addServerVC: AddServerViewController
-    let authenticationManager = NXAuthenitcator()
+    let authenticator = NXAuthenitcator()
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         addServerVC = AddServerViewController()
 
-        authenticationManager.delegate = self
-        authenticationManager.errorHandler = self
+        authenticator.delegate = self
+        authenticator.errorHandler = self
     }
 
     func start() {
@@ -44,12 +44,13 @@ class AddServerCoordinator: Coordinator {
     func requestAuthorization(with urlString: String, named name: String) {
         // Cancel polling endpoint in case it is running from previous attempt
         // Why someone would do this or get this far I don't know?
-        authenticationManager.cancelAuthorization()
+        authenticator.cancelAuthorization()
 
         var urlString = urlString
         urlString.isValidIPAddress() ? (urlString.addIPPrefix()) : (urlString.addHTTPPrefix())
 
-        authenticationManager.requestAuthenticationObject(urlString: urlString, named: name)
+        let url = URL(string: urlString)!
+        authenticator.requestAuthenitcationObject(at: url, named: name)
 
         addServerVC.serverFormView.activityIndicatior.activate()
 
@@ -57,7 +58,7 @@ class AddServerCoordinator: Coordinator {
 
     func cancelAuthentication() {
         // Cancel polling endpoint
-        authenticationManager.cancelAuthorization()
+        authenticator.cancelAuthorization()
         parentCoordinator?.childDidFinish(self)
         dismiss()
     }
@@ -88,7 +89,7 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
 }
 
 extension AddServerCoordinator: ErrorHandler {
-    func handle(error type: ErrorType) {
+    func handle(error type: FetchError) {
         switch type {
         case .invalidURL:
             addServerVC.updateStatusLabel(with: .localized(.serverFormEnterValidAddress))

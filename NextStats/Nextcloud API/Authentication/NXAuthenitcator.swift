@@ -13,39 +13,35 @@ class NXAuthenitcator {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
-    private let dataManager = DataManager.shared
+//    private let dataManager = DataManager.shared
+    private let networking = NetworkController.shared
 
     private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
 
-    func requestAuthenticationObject(urlString: String, named name: String) {
+    // MARK: - New Functions (async/await)
+    func requestAuthenitcationObject(at url: URL, named name: String) {
         serverName = name
 
-        dataManager.getAuthenticationDataWithSuccess(urlString: urlString) { data, error  in
-            // Check for errors and handle them appropriately
-            guard error == nil else {
-                let foundError = error!
-                self.handle(error: foundError)
-                return
-            }
+        Task {
+            do {
+                let object = try await networking.fetchAuthenticationData(url: url)
+                await setupAuthenitcationObject(with: object)
+            } catch {
+                guard let errorType = error as? FetchError else {
+                    handle(error: .error(error.localizedDescription))
+                    return
+                }
 
-            guard
-                let data = data,
-                let authenticationObject = self.decode(modelType: AuthenticationObject.self, from: data)
-            else {
-                self.handle(error: .invalidData)
-                return
-            }
-
-            // We made it, start authentication
-            DispatchQueue.main.async {
-                self.setupAuthenitcationObject(with: authenticationObject)
+                handle(error: errorType)
             }
         }
     }
 
-    private func setupAuthenitcationObject(with object: AuthenticationObject) {
+    // MARK: - Old Methods (closure based)
+
+    @MainActor private func setupAuthenitcationObject(with object: AuthenticationObject) {
         // Check for data from authenticationObject
         guard
             let pollURL = URL(string: (object.poll?.endpoint)!),
@@ -168,7 +164,7 @@ extension NXAuthenitcator {
         return object
     }
 
-    private func handle(error: ErrorType) {
+    private func handle(error: FetchError) {
         DispatchQueue.main.async {
             self.errorHandler?.handle(error: error)
         }

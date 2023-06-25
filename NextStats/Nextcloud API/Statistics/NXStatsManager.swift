@@ -13,7 +13,7 @@ class NXStatsManager: NSObject {
     /// Returns the shared `StatisticsDataManager` instance
     public static let shared = NXStatsManager()
 
-    private let dataManager = DataManager.shared
+    private let networking = NetworkController.shared
 
     var container = StatisticsContainer()
     weak var delegate: NXDataManagerDelegate?
@@ -22,54 +22,46 @@ class NXStatsManager: NSObject {
     var server: NextServer? {
         didSet {
             if server != nil {
-                fetchData(for: server!)
+                requestStatistics(for: server!)
             }
         }
     }
 
-    private func fetchData(for server: NextServer) {
-        // Notify the delegate of the class state
+    private func requestStatistics(for server: NextServer) {
         delegate?.stateDidChange(.fetchingData)
 
-        // Prepare the URL Configuration
-        var urlString = server.URLString
-        let config = URLSessionConfiguration.default
-        let headers = [
-            "Authorization": server.authenticationString(),
-            "Accept": "application/json"
-        ]
+        let url = URL(string: server.URLString)!
+        let authString = server.authenticationString()
 
-        config.httpAdditionalHeaders = headers
+        Task {
+            do {
+                let object = try await networking.fetchServerStatisticsData(url: url,
+                                                                            authentication: authString)
+                await format(statistics: object)
+            } catch {
+                guard let errorType = error as? FetchError else {
+                    print("Timeout ERROR")
+                    errorHandler?.handle(error: .error(error.localizedDescription))
+                    return
+                }
 
-        dataManager.getServerStatisticsDataWithSuccess(urlString: urlString, config: config) { data, error in
-
-            guard error == nil else {
-                self.errorHandler?.handle(error: error!)
-                return
-            }
-
-            guard let capturedData = data else {
-                self.errorHandler?.handle(error: .invalidData)
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.decode(capturedData)
+                switch errorType {
+                case .error(let description):
+                    errorHandler?.handle(error: .error(description))
+                case .invalidData:
+                    errorHandler?.handle(error: .invalidData)
+                case .invalidURL:
+                    errorHandler?.handle(error: .invalidURL)
+                case .missingResponse:
+                    errorHandler?.handle(error: .missingResponse)
+                case .unexpectedResponse(let response):
+                    errorHandler?.handle(error: .unexpectedResponse(response))
+                }
             }
         }
     }
 
-    private func decode(_ data: Data) {
-        do {
-            let decoder = JSONDecoder()
-            let result = try decoder.decode(ServerStats.self, from: data)
-            format(statistics: result)
-        } catch {
-            delegate?.stateDidChange(.failed(.unableToDecode))
-        }
-    }
-
-    private func format(statistics: ServerStats) {
+    @MainActor private func format(statistics: ServerStats) {
         guard let system = statistics.ocs?.data?.nextcloud?.system,
               let storage = statistics.ocs?.data?.nextcloud?.storage,
               let server = statistics.ocs?.data?.server,
@@ -190,7 +182,7 @@ class NXStatsManager: NSObject {
 
     func reload() {
         guard let server = server else { return }
-        fetchData(for: server)
+        requestStatistics(for: server)
     }
 
     /// Set the server value
