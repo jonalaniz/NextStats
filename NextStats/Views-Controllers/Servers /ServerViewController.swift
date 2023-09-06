@@ -118,6 +118,31 @@ class ServerViewController: UIViewController {
 }
 
 extension ServerViewController: NXServerManagerDelegate {
+    func deauthorize(server: NextServer) {
+        // Create the URL components and append correct path
+        var components = URLComponents(string: server.URLString)!
+        components.clearQueryAndAppend(endpoint: .appPassword)
+
+        // Configure headers
+        let config = URLSessionConfiguration.default
+        config.httpAdditionalHeaders = ["Authorization": server.authenticationString(),
+                                        "OCS-APIREQUEST": "true"]
+
+        // Configure HTTP Request
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+
+        Task {
+            do {
+                let object = try await NetworkController.deauthorize(request: request, config: config)
+            } catch {
+                guard let errorType = error as? FetchError else {
+                    return
+                }
+            }
+        }
+    }
+
     // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY
     func serversDidChange(refresh: Bool) {
         if serverManager.isEmpty() {
@@ -135,7 +160,11 @@ extension ServerViewController: NXServerManagerDelegate {
     }
 
     func pingedServer(at index: Int, isOnline: Bool) {
-        print("Needs to implement this next")
+        guard
+            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ServerCell
+        else { return }
+
+        cell.setOnlineStatus(to: isOnline)
     }
 
     func selected(server: NextServer) {
