@@ -86,8 +86,6 @@ extension ServerCell {
         serverImageView.image = server.serverImage()
     }
 
-
-
     func setOnlineStatus(to online: Bool) {
         if online {
             self.statusLabel.textColor = .systemGreen
