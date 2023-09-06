@@ -83,47 +83,25 @@ extension ServerCell {
         serverNameLabel.text = server?.name
         serverURLLabel.text = server?.friendlyURL
 
-        pingServer()
         serverImageView.image = server.serverImage()
     }
 
-    private func pingServer() {
-        let longURL = URL(string: server.URLString)!
-        var components = URLComponents(url: longURL, resolvingAgainstBaseURL: false)
-        components?.path = ""
-        let request = URLRequest(url: components!.url!)
 
-        DataManager.loadDataFromURL(with: request) { data, error in
-            guard error == nil else {
-                self.setOnlineStatus(to: false)
-                return
-            }
 
-            guard data != nil else {
-                self.setOnlineStatus(to: false)
-                return
-            }
-
-            self.setOnlineStatus(to: true)
+    func setOnlineStatus(to online: Bool) {
+        if online {
+            self.statusLabel.textColor = .systemGreen
+            self.statusLabel.text = "Online"
+        } else {
+            self.statusLabel.textColor = .red
+            self.statusLabel.text = "Unreachable"
         }
-    }
 
-    private func setOnlineStatus(to online: Bool) {
-        DispatchQueue.main.async {
-            if online {
-                self.statusLabel.textColor = .systemGreen
-                self.statusLabel.text = "Online"
-            } else {
-                self.statusLabel.textColor = .red
-                self.statusLabel.text = "Unreachable"
-            }
+        self.statusLabel.layer.opacity = 0.8
+        self.statusLabel.isHidden = false
 
-            self.statusLabel.layer.opacity = 0.8
-            self.statusLabel.isHidden = false
-
-            UIView.animate(withDuration: 0.4) {
-                self.verticalStackView.layoutIfNeeded()
-            }
+        UIView.animate(withDuration: 0.4) {
+            self.verticalStackView.layoutIfNeeded()
         }
     }
 }
