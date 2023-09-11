@@ -13,14 +13,12 @@ class NXAuthenitcator {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
-//    private let dataManager = DataManager.shared
     private let networking = NetworkController.shared
 
     private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
 
-    // MARK: - New Functions (async/await)
     func requestAuthenitcationObject(at url: URL, named name: String) {
         serverName = name
 
@@ -38,8 +36,6 @@ class NXAuthenitcator {
             }
         }
     }
-
-    // MARK: - Old Methods (closure based)
 
     @MainActor private func setupAuthenitcationObject(with object: AuthenticationObject) {
         // Check for data from authenticationObject
@@ -64,58 +60,58 @@ class NXAuthenitcator {
     }
 
     private func pollForCredentials(at url: URL, with token: String) {
-        let tokenPrefix = "token="
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = (tokenPrefix + token).data(using: .utf8)
+        let request = pollRequest(url: url, with: token)
 
-        DataManager.loadDataFromURL(with: request) { data, error in
-            guard error == nil else {
-                let foundError = error!
-                switch foundError {
-                case .unexpectedResponse(let response):
-                    print("Poll Status Code: \(response.statusCode)")
+        Task {
+            do {
+                let data = try await networking.fetchData(with: request)
+                await createServerFrom(data: data)
+            } catch {
+                // Check if expected type of error else
+                guard let error = error as? FetchError else {
+                    handle(error: .error(error.localizedDescription))
+                    return
+                }
+                // Switch over the error and handle all responses other than 404 (expected until authenticated).
+                switch error {
+                case .unexpectedResponse(let hTTPURLResponse):
+                    guard hTTPURLResponse.statusCode == 404 else {
+                        handle(error: .unexpectedResponse(hTTPURLResponse))
+                        return
+                    }
+
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         self.shouldPoll ? (self.pollForCredentials(at: url, with: token)) : (nil)
                     }
                 default:
                     self.delegate?.failedToGetCredentials(withError: .serverNotFound)
                 }
-                return
-            }
-
-            guard
-                let loginData = data,
-                let loginObject = self.decode(modelType: LoginObject.self, from: loginData)
-            else {
-                self.handle(error: .invalidData)
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.createServerFrom(object: loginObject)
             }
         }
     }
 
     private func checkForCustomImage(at url: URL) {
         print("Logo URL: \(url)")
-        let request = URLRequest(url: url)
 
-        DataManager.loadDataFromURL(with: request) { data, error in
-
-            guard error == nil else { return }
-
-            guard let capturedData = data else { return }
-
-            guard let image = UIImage(data: capturedData) else { return }
-
-            self.serverImage = image
+        Task {
+            do {
+                let image = try await UIImage(data: networking.fetchData(from: url))
+                self.serverImage = image
+            } catch {
+                return
+            }
         }
     }
 
-    private func createServerFrom(object loginObject: LoginObject) {
+    @MainActor private func createServerFrom(data: Data) {
         let server: NextServer
+
+        guard
+            let loginObject = self.decode(modelType: LoginObject.self, from: data)
+        else {
+            self.handle(error: .invalidData)
+            return
+        }
 
         guard
             let url = loginObject.server,
@@ -148,6 +144,16 @@ class NXAuthenitcator {
 
             delegate?.didCapture(server: server)
         }
+    }
+
+    private func pollRequest(url: URL, with token: String) -> URLRequest {
+        let tokenPrefix = "token="
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = (tokenPrefix + token).data(using: .utf8)
+        print("Token: \(token)")
+
+        return request
     }
 }
 

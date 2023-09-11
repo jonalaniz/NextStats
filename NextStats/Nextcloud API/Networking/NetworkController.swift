@@ -72,6 +72,40 @@ class NetworkController {
         return object
     }
 
+    /// Generic fetch request that takes only a URL.
+    func fetchData(from url: URL) async throws -> Data {
+        let session = URLSession(configuration: config())
+        let request = URLRequest(url: url)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
+        }
+
+        return data
+    }
+
+    func fetchData(with request: URLRequest) async throws -> Data {
+        let session = URLSession(configuration: config())
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
+        }
+
+        return data
+    }
+
     func fetchData(url: URL, authentication: String) async throws -> Data {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: .usersEndpoint)
@@ -92,8 +126,20 @@ class NetworkController {
             throw FetchError.unexpectedResponse(urlResponse)
         }
 
-        guard data != nil else {
-            throw FetchError.invalidData
+        return data
+    }
+
+    static func deauthorize(request: URLRequest, config: URLSessionConfiguration) async throws -> Data {
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
         }
 
         return data
@@ -138,6 +184,8 @@ class NetworkController {
         }
         task.resume()
     }
+
+    // MARK: - Helper Methods
 
     func request(url: URL,
                  with endpoint: Endpoints,
