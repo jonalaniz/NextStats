@@ -18,7 +18,7 @@ class NXUsersManager {
     /// Returns singleton instance of `UserDataManager`
     static let shared = NXUsersManager()
 
-    weak var delegate: DataManagerDelegate?
+//    weak var delegate: DataManagerDelegate?
     private let networkController = NetworkController.shared
     private var userIDs = [String]()
     private var server: NextServer! {
@@ -29,7 +29,7 @@ class NXUsersManager {
 
     func fetchUsersData() {
         // Notify delagate
-        delegate?.didBeginFetchingData()
+//        delegate?.didBeginFetchingData()
 
         let url = URL(string: server.URLString)!
         let authString = server.authenticationString()
@@ -43,7 +43,7 @@ class NXUsersManager {
                 }
 
                 decodedData.data.users.element.forEach { self.userIDs.append($0) }
-                DispatchQueue.main.async { self.delegate?.dataUpdated() }
+//                DispatchQueue.main.async { self.delegate?.dataUpdated() }
             } catch {
                 print(error)
             }

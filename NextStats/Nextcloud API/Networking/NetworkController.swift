@@ -13,8 +13,6 @@ class NetworkController {
 
     private init() { }
 
-    // MARK: - New Networking Methods (async/await)
-
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.path += Endpoints.loginEndpoint.rawValue

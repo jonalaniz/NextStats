@@ -24,7 +24,7 @@ class UsersViewController: UIViewController {
     private func setupView() {
         title = "User Management"
         view.backgroundColor = .systemBackground
-        usersDataManager.delegate = self
+//        usersDataManager.delegate = self
 
         navigationController?.navigationBar.prefersLargeTitles = true
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
@@ -60,24 +60,6 @@ class UsersViewController: UIViewController {
     @objc func dismissController() {
         coordinator?.didFinish()
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension UsersViewController: DataManagerDelegate {
-    func dataUpdated() {
-        showTableView()
-    }
-
-    func failedToFetchData(error: FetchError) {
-        // Add error handler
-    }
-
-    func failedToUpdateData(error: DataManagerError) {
-        // Add error handler
-    }
-
-    func didBeginFetchingData() {
-        // show loading view
     }
 }
 
