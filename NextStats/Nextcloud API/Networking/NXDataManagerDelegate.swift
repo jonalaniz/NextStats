@@ -15,13 +15,13 @@ enum NXDataManagerState {
     case fetchingData
     case parsingData
     case failed(NXDataManagerError)
-    case statsCaptured
+    case dataCaptured
 }
 
 enum NXDataManagerError {
     case networkError(FetchError)
-    case unableToDecode
-    case missingData
+    case unableToDecode // Will this catch `missindData` and `invalidData`?
+    case missingData // Possibly redundant?
 
     public var description: String {
         switch self {

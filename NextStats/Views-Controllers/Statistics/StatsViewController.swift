@@ -174,7 +174,7 @@ extension StatsViewController: NXDataManagerDelegate {
                 self.showErrorAndReturn(title: .localized(.errorTitle),
                                         description: nextDataManagerError.description)
             }
-        case .statsCaptured:
+        case .dataCaptured:
             showTableView()
         }
     }

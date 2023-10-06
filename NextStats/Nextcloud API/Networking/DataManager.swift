@@ -1,12 +1,12 @@
 //
-//  DataManager.swift
+//  ErrorHandler.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 10/18/22.
 //  Copyright © 2022 Jon Alaniz. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol ErrorHandler: AnyObject {
     func handle(error type: FetchError)
@@ -14,7 +14,7 @@ protocol ErrorHandler: AnyObject {
 
 enum FetchError: Error {
     case error(String) // Sends error.localizedDescription
-    case invalidData
+    case invalidData // Is this redundant?
     case invalidURL
     case missingResponse
     case unexpectedResponse(HTTPURLResponse)

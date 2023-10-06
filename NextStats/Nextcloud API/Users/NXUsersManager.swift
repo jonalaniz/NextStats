@@ -18,8 +18,8 @@ class NXUsersManager {
     /// Returns singleton instance of `UserDataManager`
     static let shared = NXUsersManager()
 
-//    weak var delegate: DataManagerDelegate?
-    private let networkController = NetworkController.shared
+    weak var delegate: NXDataManagerDelegate?
+    private let networking = NetworkController.shared
     private var userIDs = [String]()
     private var server: NextServer! {
         didSet { userIDs.removeAll() }
@@ -28,73 +28,40 @@ class NXUsersManager {
     private init() {}
 
     func fetchUsersData() {
-        // Notify delagate
-//        delegate?.didBeginFetchingData()
+        delegate?.stateDidChange(.fetchingData)
 
         let url = URL(string: server.URLString)!
         let authString = server.authenticationString()
 
         Task {
             do {
-                let data = try await networkController.fetchData(url: url, authentication: authString)
+                let data = try await networking.fetchData(url: url, authentication: authString)
                 // Here we work with our captured data object
                 guard let decodedData: Users = self.decode(data) else {
                     throw FetchError.invalidData
                 }
 
                 decodedData.data.users.element.forEach { self.userIDs.append($0) }
-//                DispatchQueue.main.async { self.delegate?.dataUpdated() }
+                DispatchQueue.main.async { self.delegate?.stateDidChange(.dataCaptured) }
             } catch {
                 print(error)
             }
         }
 
     }
-    /// Network request for list of users. Can be used for search.
-//    func fetchUsers() {
-//        let url = URL(string: server.URLString)!
-//        let authorization = server.authenticationString()
-//        let request = networkController.request(url: url, with:
-//                                                        .usersEndpoint)
-//        let configuration = networkController.configuration(authorizaton: authorization,
-//                                                            ocsApiRequest: true)
-//
-//        networkController.fetchData(with: request,
-//                                    using: configuration) { (result: Result<Data, FetchError>) in
-//            switch result {
-//            case .success(let data):
-//                // TODO: Change this to a guard statement and add error handling
-//                if let decodedData: Users = self.decode(data) {
-//                    decodedData.data.users.element.forEach { self.userIDs.append($0) }
-//                    DispatchQueue.main.async { self.delegate?.dataUpdated() }
-//                }
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        }
-//    }
 
-    func fetchUser(named user: String) {
+    func fetch(user: String) {
         let url = URL(string: server.URLString)!
-        let authorizationString = server.authenticationString()
-        let request = networkController.request(url: url,
-                                                with: .userEndpoint,
-                                                appending: user)
-        let configuration = networkController.config(authString: authorizationString,
-                                                     ocsApiRequest: true)
+        let authString = server.authenticationString()
+        let request = networking.request(url: url, with: .userEndpoint, appending: user)
+        let configuration = networking.config(authString: authString, ocsApiRequest: true)
 
-        networkController.fetchData(with: request, using: configuration) { (result: Result<Data, FetchError>) in
-            switch result {
-            case .failure(let error):
+        Task {
+            do {
+                let data = try await networking.fetchData(with: request, config: configuration)
+                await print(String(data: data, encoding: .utf8))
+            } catch {
                 print(error)
-            case .success(let data):
-                // TODO: Change this to a guard statement and add error handling
-                let string = String(data: data, encoding: .utf8)
-                print(string)
-                if let usersData: User = self.decode(data) {
-                    print(usersData)
-                    print(self.dateString(from: usersData.data.lastLogin))
-                }
             }
         }
     }

@@ -24,12 +24,8 @@ class UsersViewController: UIViewController {
     private func setupView() {
         title = "User Management"
         view.backgroundColor = .systemBackground
-//        usersDataManager.delegate = self
 
         navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-//                                                           target: self,
-//                                                           action: #selector(dismissController))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: nil)
@@ -51,7 +47,7 @@ class UsersViewController: UIViewController {
         tableView.isHidden = true
     }
 
-    private func showTableView() {
+    func showTableView() {
         tableView.reloadData()
         tableView.isHidden = false
         loadingViewController.remove()
@@ -78,6 +74,25 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // coordinator?.showUserView(for: usersDataManager.userID(indexPath.row))
-        usersDataManager.fetchUser(named: usersDataManager.userID(indexPath.row))
+        usersDataManager.fetch(user: usersDataManager.userID(indexPath.row))
+    }
+}
+
+extension UsersViewController: NXDataManagerDelegate {
+    // TODO: Implement error handling
+    func stateDidChange(_ dataManagerState: NXDataManagerState) {
+        switch dataManagerState {
+        case .fetchingData:
+            // Fetch Data
+            return
+        case .parsingData:
+            // Parse Data
+            return
+        case .failed(let error):
+            // Error
+            return
+        case .dataCaptured:
+            showTableView()
+        }
     }
 }

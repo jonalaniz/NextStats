@@ -17,7 +17,6 @@ class NXStatsManager: NSObject {
 
     var container = StatisticsContainer()
     weak var delegate: NXDataManagerDelegate?
-    weak var errorHandler: ErrorHandler?
 
     var server: NextServer? {
         didSet {
@@ -41,21 +40,21 @@ class NXStatsManager: NSObject {
             } catch {
                 guard let errorType = error as? FetchError else {
                     print("Timeout ERROR")
-                    errorHandler?.handle(error: .error(error.localizedDescription))
+                    delegate?.stateDidChange(.failed(.networkError(.error(error.localizedDescription))))
                     return
                 }
 
                 switch errorType {
                 case .error(let description):
-                    errorHandler?.handle(error: .error(description))
+                    delegate?.stateDidChange(.failed(.networkError(.error(description))))
                 case .invalidData:
-                    errorHandler?.handle(error: .invalidData)
+                    delegate?.stateDidChange(.failed(.networkError(.invalidData)))
                 case .invalidURL:
-                    errorHandler?.handle(error: .invalidURL)
+                    delegate?.stateDidChange(.failed(.networkError(.invalidURL)))
                 case .missingResponse:
-                    errorHandler?.handle(error: .missingResponse)
+                    delegate?.stateDidChange(.failed(.networkError(.missingResponse)))
                 case .unexpectedResponse(let response):
-                    errorHandler?.handle(error: .unexpectedResponse(response))
+                    delegate?.stateDidChange(.failed(.networkError(.unexpectedResponse(response))))
                 }
             }
         }
@@ -76,7 +75,7 @@ class NXStatsManager: NSObject {
         parseServer(server)
         parseUsers(users, storage: storage)
 
-        delegate?.stateDidChange(.statsCaptured)
+        delegate?.stateDidChange(.dataCaptured)
     }
 
     private func parseSystem(_ system: System) {

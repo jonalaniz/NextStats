@@ -22,6 +22,8 @@ class UsersCoordinator: Coordinator {
         self.splitViewController = splitViewController
         usersViewController = UsersViewController()
         userViewController = UserViewController()
+
+        usersViewController.usersDataManager.delegate = usersViewController
     }
 
     func start() {
@@ -35,7 +37,7 @@ class UsersCoordinator: Coordinator {
         // Ensure that we are grabbing the proper viewController
         guard let navigationController = usersViewController.navigationController else { return }
 
-        // splitViewController.showDetailViewController(navigationController, sender: nil)
+        splitViewController.showDetailViewController(navigationController, sender: nil)
     }
 
     func didFinish() {

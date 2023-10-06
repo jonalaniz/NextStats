@@ -8,6 +8,17 @@
 import Foundation
 
 class NetworkController {
+    static let baseConfig: URLSessionConfiguration = {
+        let config = URLSessionConfiguration.default
+
+        config.allowsCellularAccess = true
+        config.timeoutIntervalForRequest = 15
+        config.timeoutIntervalForResource = 30
+        config.httpMaximumConnectionsPerHost = 1
+
+        return config
+    }()
+
     /// Returns the singleton `NetworkController` instance
     public static let shared = NetworkController()
 
@@ -88,8 +99,9 @@ class NetworkController {
         return data
     }
 
-    func fetchData(with request: URLRequest) async throws -> Data {
-        let session = URLSession(configuration: config())
+    func fetchData(with request: URLRequest,
+                   config: URLSessionConfiguration = NetworkController.baseConfig) async throws -> Data {
+        let session = URLSession(configuration: config)
 
         let (data, response) = try await session.data(for: request)
 
@@ -143,46 +155,6 @@ class NetworkController {
         return data
     }
 
-    // MARK: - Old Networking Methods (closures)
-
-    /// Generic network fetch
-    func fetchData(with request: URLRequest,
-                   using config: URLSessionConfiguration = .default,
-                   completion: @escaping (Result<Data, FetchError>) -> Void) {
-        config.timeoutIntervalForRequest = 15
-
-        var request = request
-        request.setValue("NextStats for iOS",
-                         forHTTPHeaderField: "User-Agent")
-
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request) { (possibleData, possibleResponse, possibleError) in
-
-            guard possibleError == nil else {
-                completion(.failure(.error(possibleError!.localizedDescription)))
-                return
-            }
-
-            guard let response = possibleResponse as? HTTPURLResponse else {
-                completion(.failure(.missingResponse))
-                return
-            }
-
-            guard (200...299).contains(response.statusCode) else {
-                completion(.failure(.unexpectedResponse(response)))
-                return
-            }
-
-            guard let receivedData = possibleData else {
-                completion(.failure(.invalidData))
-                return
-            }
-
-            completion(.success(receivedData))
-        }
-        task.resume()
-    }
-
     // MARK: - Helper Methods
 
     func request(url: URL,
@@ -199,7 +171,7 @@ class NetworkController {
 
     func config(authString: String? = nil,
                 ocsApiRequest: Bool = false) -> URLSessionConfiguration {
-        let configuration = config()
+        let configuration = NetworkController.baseConfig
 
         guard let authorizationString = authString else {
             return configuration
@@ -219,17 +191,6 @@ class NetworkController {
         configuration.httpAdditionalHeaders = headers
 
         return configuration
-    }
-
-    func config() -> URLSessionConfiguration {
-        let config = URLSessionConfiguration.default
-
-        config.allowsCellularAccess = true
-        config.timeoutIntervalForRequest = 15
-        config.timeoutIntervalForResource = 30
-        config.httpMaximumConnectionsPerHost = 1
-
-        return config
     }
 }
 
