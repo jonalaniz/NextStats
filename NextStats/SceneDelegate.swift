@@ -47,7 +47,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         guard let window = window else { fatalError() }
 
         // Initialize a SplitViewController and Coordinator
-        let splitViewController = UISplitViewController()
+        let splitViewController: UISplitViewController
+        
+        #if targetEnvironment(macCatalyst)
+        splitViewController = UISplitViewController(style: .doubleColumn)
+        #else
+        splitViewController = UISplitViewController()
+        #endif
+        
         coordinator = MainCoordinator(splitViewController: splitViewController)
         coordinator?.start()
 
