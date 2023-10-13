@@ -9,13 +9,14 @@
 import UIKit
 
 // swiftlint:disable identifier_name
+// MARK: - Lifecycle
 class StatsViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
-    var dataManager = NXStatsManager.shared
-    var tableView = UITableView(frame: .zero, style: .insetGrouped)
+    let dataManager = NXStatsManager.shared
     var serverInitialized = false
 
     override func loadView() {
@@ -31,7 +32,47 @@ class StatsViewController: UIViewController {
 
         return super.canPerformAction(action, withSender: sender)
     }
+}
 
+// MARK: - UI Functions
+extension StatsViewController {
+    @objc func openInSafari() {
+        guard serverInitialized != false else { return }
+
+        var urlString = dataManager.server!.friendlyURL
+        urlString.addIPPrefix()
+        let url = URL(string: urlString)!
+        UIApplication.shared.open(url)
+    }
+
+    @objc func menuTapped() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: .localized(.statsActionRename),
+                                   style: .default, handler: showRenameSheet))
+//        ac.addAction(UIAlertAction(title: "Update Icon",
+//                                   style: .default,
+//                                   handler: refreshIcon))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionDelete),
+                                   style: .destructive, handler: delete))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
+                                   style: .cancel))
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        present(ac, animated: true)
+    }
+
+    @objc func reload() {
+        if !serverInitialized { return }
+        dataManager.reload()
+    }
+
+    @objc func userManagementPressed() {
+        guard serverInitialized != false else { return }
+        let userDataManager = NXUsersManager.shared
+        userDataManager.setServer(server: dataManager.server!)
+
+        coordinator?.showUsersView()
+    }
+    
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
 
@@ -116,46 +157,9 @@ class StatsViewController: UIViewController {
         tableView.isHidden = true
         self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
-
-    @objc func openInSafari() {
-        guard serverInitialized != false else { return }
-
-        var urlString = dataManager.server!.friendlyURL
-        urlString.addIPPrefix()
-        let url = URL(string: urlString)!
-        UIApplication.shared.open(url)
-    }
-
-    @objc func menuTapped() {
-        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: .localized(.statsActionRename),
-                                   style: .default, handler: showRenameSheet))
-//        ac.addAction(UIAlertAction(title: "Update Icon",
-//                                   style: .default,
-//                                   handler: refreshIcon))
-        ac.addAction(UIAlertAction(title: .localized(.statsActionDelete),
-                                   style: .destructive, handler: delete))
-        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
-                                   style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-        present(ac, animated: true)
-    }
-
-    @objc func reload() {
-        if !serverInitialized { return }
-        dataManager.reload()
-    }
-
-    @objc func userManagementPressed() {
-        guard serverInitialized != false else { return }
-        let userDataManager = NXUsersManager.shared
-        userDataManager.setServer(server: dataManager.server!)
-
-        coordinator?.showUsersView()
-    }
 }
 
-// MARK: NextStatsDataManagerDelegate
+// MARK: - NextStatsDataManagerDelegate
 extension StatsViewController: NXDataManagerDelegate {
     func stateDidChange(_ dataManagerState: NXDataManagerState) {
         switch dataManagerState {

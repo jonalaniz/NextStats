@@ -8,22 +8,21 @@
 
 import UIKit
 
-class AddServerViewController: UIViewController, UITextFieldDelegate {
+// MARK: - Lifecycle
+class AddServerViewController: UIViewController {
     weak var coordinator: AddServerCoordinator?
+
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let headerView = AddServerHeaderView()
 
     override func loadView() {
         super.loadView()
         setupNavigationController()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
         setupView()
     }
 }
 
+// MARK: - UI Functions
 extension AddServerViewController {
     @objc func nextButtonPressed(_ sender: Any) {
         guard let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
@@ -118,14 +117,17 @@ extension AddServerViewController {
         headerView.activityIndicatior.deactivate()
         headerView.statusLabel.isHidden = false
     }
+}
 
+// MARK: - UITextFieldDelegate
+extension AddServerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
 
-// MARK: TableViewDelegate
+// MARK: - TableViewDelegate
 extension AddServerViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
