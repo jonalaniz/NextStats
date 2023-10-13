@@ -8,11 +8,13 @@
 
 import UIKit
 
+// MARK: - Lifecycle
 class ServerViewController: UIViewController {
     weak var coordinator: MainCoordinator?
+
     let noServersViewController = NoServersViewController()
+    let serverManager = NXServerManager.shared
     var tableView: UITableView!
-    var serverManager = NXServerManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,26 @@ class ServerViewController: UIViewController {
 
         // Toggle table view editing.
         tableView.setEditing(editing, animated: true)
+    }
+}
+
+// MARK: - UI Functions
+extension ServerViewController {
+    @objc func refresh() {
+        tableView.reloadData()
+
+        if tableView.refreshControl?.isRefreshing == true {
+            tableView.refreshControl?.endRefreshing()
+        }
+    }
+
+    // Toolbar Buttons: Loads AddServerView and InfoView
+    @objc func addServerPressed() {
+        coordinator?.showAddServerView()
+    }
+
+    @objc func infoButtonPressed() {
+        coordinator?.showInfoView()
     }
 
     private func setupView() {
@@ -98,25 +120,9 @@ class ServerViewController: UIViewController {
         // Initial server checking
         serversDidChange(refresh: false)
     }
-
-    @objc func refresh() {
-        tableView.reloadData()
-
-        if tableView.refreshControl?.isRefreshing == true {
-            tableView.refreshControl?.endRefreshing()
-        }
-    }
-
-    // Toolbar Buttons: Loads AddServerView and InfoView
-    @objc func addServerPressed() {
-        coordinator?.showAddServerView()
-    }
-
-    @objc func infoButtonPressed() {
-        coordinator?.showInfoView()
-    }
 }
 
+// MARK: - NXServerManagerDelegate
 extension ServerViewController: NXServerManagerDelegate {
     func deauthorize(server: NextServer) {
         // Create the URL components and append correct path
@@ -134,7 +140,7 @@ extension ServerViewController: NXServerManagerDelegate {
 
         Task {
             do {
-                let object = try await NetworkController.deauthorize(request: request, config: config)
+                _ = try await NetworkController.deauthorize(request: request, config: config)
             } catch {
                 guard let errorType = error as? FetchError else {
                     return
