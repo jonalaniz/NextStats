@@ -65,8 +65,9 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         cell.textLabel?.text = usersDataManager.userID(indexPath.row)
+        cell.detailTextLabel?.text = usersDataManager.userEmail(indexPath.row)
         cell.accessoryType = .disclosureIndicator
 
         return cell
@@ -74,7 +75,6 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // coordinator?.showUserView(for: usersDataManager.userID(indexPath.row))
-        usersDataManager.fetch(user: usersDataManager.userID(indexPath.row))
     }
 }
 

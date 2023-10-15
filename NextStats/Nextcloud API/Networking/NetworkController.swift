@@ -116,7 +116,7 @@ class NetworkController {
         return data
     }
 
-    func fetchData(url: URL, authentication: String) async throws -> Data {
+    func fetchUsers(url: URL, authentication: String) async throws -> Data {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: .usersEndpoint)
 

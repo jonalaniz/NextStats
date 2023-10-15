@@ -96,7 +96,13 @@ class NXServerManager: NSObject {
         delegate?.serversDidChange(refresh: true)
     }
 
-    func pingServer(at index: Int) {
+    func pingServers() {
+        for index in 0..<servers.count {
+            pingServer(at: index)
+        }
+    }
+
+    private func pingServer(at index: Int) {
         let url = URL(string: servers[index].URLString)!
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         let request = URLRequest(url: (components?.url)!)
