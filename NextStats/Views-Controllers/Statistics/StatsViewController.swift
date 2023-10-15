@@ -72,7 +72,7 @@ extension StatsViewController {
 
         coordinator?.showUsersView()
     }
-    
+
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
 

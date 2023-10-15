@@ -20,6 +20,7 @@ class ServerViewController: UIViewController {
         super.viewDidLoad()
         serverManager.delegate = self
         setupView()
+        serverManager.pingServers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +49,7 @@ class ServerViewController: UIViewController {
 extension ServerViewController {
     @objc func refresh() {
         tableView.reloadData()
+        serverManager.pingServers()
 
         if tableView.refreshControl?.isRefreshing == true {
             tableView.refreshControl?.endRefreshing()
