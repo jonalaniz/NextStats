@@ -16,8 +16,8 @@ struct ServerHeaderViewConstants {
     static let userString: NSAttributedString = {
         let string = NSMutableAttributedString()
         string.append(NSAttributedString(string: " Users "))
-        string.prefixingSFSymbol("person.fill", color: .white)
-        string.suffixingSFSymbol("chevron.right", color: .white)
+        string.prefixingSFSymbol("person.fill", color: .themeColor)
+        string.suffixingSFSymbol("chevron.right", color: .themeColor)
 
         return string
     }()
@@ -72,11 +72,11 @@ class ServerHeaderView: UIView {
 
     let users: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .themeColor
+        button.backgroundColor = .secondarySystemFill
         button.layer.cornerRadius = 10
 
         button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.themeColor, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
 
@@ -85,11 +85,11 @@ class ServerHeaderView: UIView {
 
     let visitServerButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .themeColor
+        button.backgroundColor = .secondarySystemFill
         button.layer.cornerRadius = 10
         button.sfSymbolWithText(symbol: "safari.fill",
                                 text: .localized(.serverHeaderVisit),
-                                color: .white)
+                                color: .themeColor)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
 
