@@ -19,7 +19,6 @@ class AddServerHeaderView: UIView {
     let activityIndicatior: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.style = .medium
-        indicator.color = .white
 
         return indicator
     }()
