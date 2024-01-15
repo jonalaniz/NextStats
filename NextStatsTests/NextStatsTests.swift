@@ -43,13 +43,16 @@ class NextStatsTests: XCTestCase {
         let decoder = JSONDecoder()
 
         // Try decoding the working and test data
-        for data in testDataArray {
-            if let decodedJSON = try? decoder.decode(Monitor.self, from: data) {
-                print(decodedJSON)
-            } else {
-                XCTFail("Could not parse JSON file \(testDataArray.firstIndex(of: data)!)")
-            }
+        print("Preparing to loop")
+
+        do {
+            let json = try decoder.decode(ServerStats.self, from: testData)
+            print(json)
+        } catch {
+            print(error)
+            XCTFail("Could not parse JSON file")
         }
+
     }
 
     func testPerformanceExample() throws {
