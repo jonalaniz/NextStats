@@ -76,7 +76,7 @@ struct System: Codable {
         self.memFree = try container.decode(MemoryValue.self, forKey: .memFree)
         self.swapTotal = try container.decode(MemoryValue.self, forKey: .swapTotal)
         self.swapFree = try container.decode(MemoryValue.self, forKey: .swapFree)
-        self.apps = try container.decode(Apps.self, forKey: .apps)
+        self.apps = nil // try container.decode(Apps.self, forKey: .apps) 
     }
 }
 
