@@ -21,8 +21,12 @@ class NXUsersManager {
     weak var delegate: NXDataManagerDelegate?
     private let networking = NetworkController.shared
     private var userIDs = [String]()
+    private var users = [User]()
     private var server: NextServer! {
-        didSet { userIDs.removeAll() }
+        didSet {
+            userIDs.removeAll()
+            users.removeAll()
+        }
     }
 
     private init() {}
@@ -35,36 +39,38 @@ class NXUsersManager {
 
         Task {
             do {
-                let data = try await networking.fetchData(url: url, authentication: authString)
+                let data = try await networking.fetchUsers(url: url, authentication: authString)
+
                 // Here we work with our captured data object
                 guard let decodedData: Users = self.decode(data) else {
                     throw FetchError.invalidData
                 }
 
                 decodedData.data.users.element.forEach { self.userIDs.append($0) }
-                DispatchQueue.main.async { self.delegate?.stateDidChange(.dataCaptured) }
+
+                let configuration = networking.config(authString: authString, ocsApiRequest: true)
+
+                for userID in userIDs {
+                    let request = networking.request(url: url, with: .userEndpoint, appending: userID)
+                    let data = try await networking.fetchData(with: request, config: configuration)
+
+                    guard let decodedUser: User = self.decode(data) else {
+                        throw FetchError.invalidData
+                    }
+
+                    users.append(decodedUser)
+                }
+
+                DispatchQueue.main.async {
+                    self.delegate?.stateDidChange(.dataCaptured)
+                }
             } catch {
                 print(error)
             }
         }
-
     }
 
-    func fetch(user: String) {
-        let url = URL(string: server.URLString)!
-        let authString = server.authenticationString()
-        let request = networking.request(url: url, with: .userEndpoint, appending: user)
-        let configuration = networking.config(authString: authString, ocsApiRequest: true)
-
-        Task {
-            do {
-                let data = try await networking.fetchData(with: request, config: configuration)
-                await print(String(data: data, encoding: .utf8))
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    private func getUserImage(userID: String) 
 
     private func decode<T: Codable>(_ data: Data) -> T? {
         let decoder = XMLDecoder()
@@ -98,11 +104,23 @@ extension NXUsersManager {
         self.server = server
     }
 
+    func user(id: String) -> User {
+        return users.first(where: { $0.data.id == id })!
+    }
+
     func userID(_ index: Int) -> String {
         return userIDs[index]
     }
 
     func usersCount() -> Int {
         return userIDs.count
+    }
+
+    func userCellModel(_ index: Int) -> UserCellModel {
+        let userData = users[index].data
+
+        return UserCellModel(userID: userData.id,
+                             displayName: userData.displayname ?? "N/A",
+                             email: userData.email ?? "N/A")
     }
 }
