@@ -57,6 +57,7 @@ class ServerHeaderView: UIView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
+        label.textColor = .themeColor
         label.numberOfLines = 0
 
         return label
