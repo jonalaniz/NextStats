@@ -33,11 +33,13 @@ class UsersCoordinator: Coordinator {
         splitViewController.showDetailViewController(navigationController, sender: nil)
     }
 
-    func showUserView(for user: String) {
+    func showUserView(for user: User) {
         // Ensure that we are grabbing the proper viewController
         guard let navigationController = usersViewController.navigationController else { return }
 
-        splitViewController.showDetailViewController(navigationController, sender: nil)
+        userViewController.user = user
+        userViewController.setupView()
+        splitViewController.showDetailViewController(userViewController, sender: nil)
     }
 
     func didFinish() {
