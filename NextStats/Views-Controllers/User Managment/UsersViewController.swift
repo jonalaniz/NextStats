@@ -21,10 +21,20 @@ class UsersViewController: UIViewController {
         usersDataManager.fetchUsersData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // Deselect row when returning to view
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRow, animated: true)
+        }
+    }
+
     private func setupView() {
         title = "User Management"
         view.backgroundColor = .systemBackground
 
+        navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
@@ -35,6 +45,7 @@ class UsersViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UserCell.self, forCellReuseIdentifier: "Cell")
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -65,16 +76,20 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        cell.textLabel?.text = usersDataManager.userID(indexPath.row)
-        cell.detailTextLabel?.text = usersDataManager.userEmail(indexPath.row)
+        let cell = UserCell(style: .subtitle, reuseIdentifier: "Cell")
+        cell.user = usersDataManager.userCellModel(indexPath.row)
+        cell.setup()
+
         cell.accessoryType = .disclosureIndicator
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // coordinator?.showUserView(for: usersDataManager.userID(indexPath.row))
+        let userCellModel = usersDataManager.userCellModel(indexPath.row)
+        let user = usersDataManager.user(id: userCellModel.userID)
+
+        coordinator?.showUserView(for: user)
     }
 }
 
@@ -90,8 +105,10 @@ extension UsersViewController: NXDataManagerDelegate {
             return
         case .failed(let error):
             // Error
+            print(error.description)
             return
         case .dataCaptured:
+            tableView.reloadData()
             showTableView()
         }
     }
