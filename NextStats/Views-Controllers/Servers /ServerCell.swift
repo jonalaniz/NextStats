@@ -21,6 +21,7 @@ class ServerCell: UITableViewCell {
     var serverNameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
+        label.textColor = .themeColor
 
         return label
     }()
