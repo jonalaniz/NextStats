@@ -68,6 +68,7 @@ extension StatsViewController {
     @objc func userManagementPressed() {
         guard serverInitialized != false else { return }
         let userDataManager = NXUsersManager.shared
+        print("Server: \(dataManager.server)")
         userDataManager.setServer(server: dataManager.server!)
 
         coordinator?.showUsersView()
