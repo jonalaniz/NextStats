@@ -24,6 +24,7 @@ class ServerViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
