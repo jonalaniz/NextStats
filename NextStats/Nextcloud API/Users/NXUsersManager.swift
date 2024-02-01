@@ -121,6 +121,7 @@ extension NXUsersManager {
 
         return UserCellModel(userID: userData.id,
                              displayName: userData.displayname ?? "N/A",
-                             email: userData.email ?? "N/A")
+                             email: userData.email ?? "N/A",
+                             enabled: userData.enabled)
     }
 }

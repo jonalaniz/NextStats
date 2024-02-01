@@ -12,4 +12,5 @@ struct UserCellModel {
     let userID: String
     let displayName: String
     let email: String
+    let enabled: Bool
 }

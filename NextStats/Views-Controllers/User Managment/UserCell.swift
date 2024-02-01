@@ -12,7 +12,13 @@ class UserCell: UITableViewCell {
     var user: UserCellModel!
 
     func setup() {
-        textLabel?.textColor = .themeColor
         textLabel?.text = "\(user.displayName) (\(user.userID))"
+        detailTextLabel?.text = enabled()
+
+        user.enabled ? (detailTextLabel?.textColor = .themeColor) : (detailTextLabel?.textColor = .secondaryLabel)
+    }
+
+    func enabled() -> String {
+        return user.enabled ? "enabled" : "disabled"
     }
 }
