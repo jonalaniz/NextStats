@@ -10,7 +10,7 @@ import UIKit
 
 class UserViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    var user: User!
+    let userDataManager = UserDataManager.shared
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -18,16 +18,18 @@ class UserViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        // Here we will setup the new userDataManager
         setupView()
     }
 
     func setupView() {
         view.backgroundColor = .systemBackground
-        title = user.data.displayname
+        title = userDataManager.title()
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = userDataManager
 
         // Register our cells
         tableView.register(QuotaCell.self, forCellReuseIdentifier: "QuotaCell")
@@ -43,84 +45,119 @@ class UserViewController: UIViewController {
     }
 }
 
-extension UserViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: return "Email"
-        case 1:
-            guard user.data.quota.quota! > 0 else {
-                return "Quota (Unlimited)"
-            }
-
-            return "Quota"
-        default: return nil
-        }
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            guard let additionalMail = user.data.additionalMail
-            else {
-                return 1
-            }
-            print(additionalMail)
-
-            // figure out if additionalMail is String or [String]
-            // Then either return 2 or array.count + 1
-            switch additionalMail.element {
-            case .string(let _):
-                return 2
-            case .stringArray(let array):
-                return array.count + 1
-            default:
-                return 1
-            }
-        case 1: return 1
-        case 2: return 8
-        default: return 0
-        }
-    }
-
+extension UserViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 1: return 66
         default: return 44
         }
     }
+}
+
+class UserDataManager: NSObject, UITableViewDataSource {
+    /// Returns the shared `UserDataManager` instance
+    public static let shared = UserDataManager()
+
+    var user: User?
+
+    func set(_ user: User) {
+        self.user = user
+    }
+
+    func title() -> String {
+        guard let user else { return "" }
+        return user.data.displayname ?? ""
+    }
+
+    func additionalMailArray() -> [String]? {
+        guard
+            let user = user,
+            let additionalMail = user.data.additionalMail
+        else {
+            return nil
+        }
+
+        switch additionalMail.element {
+        case .stringArray(let array):
+            return array
+        default:
+            return nil
+        }
+    }
+
+    func mailCell(type: MailCellType, email: String?) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+
+        switch type {
+        case .primary:
+            cell.textLabel?.textColor = .themeColor
+        case .additional:
+            break
+        }
+
+        cell.textLabel?.text = email ?? ""
+        cell.isUserInteractionEnabled = false
+
+        return cell
+    }
+
+    func email(from element: ElementContainer?) -> String? {
+        switch element {
+        case .string(let string):
+            return string
+        case .stringArray(let array):
+            return array.first
+        default:
+            return nil
+        }
+    }
+
+    func email(from element: ElementContainer?, at index: Int) -> String? {
+        switch element {
+        case .stringArray(let array):
+            return array[index]
+        default:
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let user = user else { return 0 }
+
+        switch section {
+        case 0:
+            // Check if additionalMail element is present
+            guard let additionalMail = user.data.additionalMail else { return 1 }
+
+            // Check if additionaMail is a String or [String]
+            guard let array = additionalMailArray() else { return 2 }
+
+            // If there is an array, return the count plus 1 for the main email row.
+            return array.count + 1
+
+        case 1: return 1
+        case 2: return 2
+        default: return 0
+        }
+    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let user else { return UITableViewCell() }
 
         switch indexPath.section {
+        // This is the email section
         case 0:
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
             switch indexPath.row {
             case 0:
-                cell.detailTextLabel?.text = "Primary"
-                cell.textLabel?.text = user.data.email
+                return mailCell(type: .primary, email: user.data.email)
             case 1:
-                switch user.data.additionalMail?.element {
-                case .string(let string):
-                    cell.textLabel?.text = string
-                case .stringArray(let array):
-                    cell.textLabel?.text = array.first
-                case nil:
-                    break
-                }
+                let email = email(from: user.data.additionalMail?.element)
+                return mailCell(type: .additional, email: email)
             default:
-                switch user.data.additionalMail?.element {
-                case .stringArray(let array):
-                    cell.textLabel?.text = array[indexPath.row - 1]
-                default:
-                    break
-                }
+                let email = email(from: user.data.additionalMail?.element, at: indexPath.row - 1)
+                return mailCell(type: .additional, email: email)
             }
-
-            return cell
+        // This can either be additional mail or something else
         case 1:
             let cell = QuotaCell(style: .default, reuseIdentifier: "QuotaCell")
             cell.setProgress(with: user.data.quota)
@@ -134,4 +171,28 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let user = user else { return "" }
+
+        switch section {
+        case 0: return "Email"
+        case 1:
+            guard user.data.quota.quota! > 0 else {
+                return "Quota Unlimited"
+            }
+            return "Quota"
+        default: return nil
+        }
+    }
+    // This manager will parse all the data and ensrue all data works in the tableView
+}
+
+enum MailCellType {
+    case primary
+    case additional
 }

@@ -37,7 +37,7 @@ class UsersCoordinator: Coordinator {
         // Ensure that we are grabbing the proper viewController
         guard let navigationController = usersViewController.navigationController else { return }
 
-        userViewController.user = user
+        userViewController.userDataManager.set(user)
         userViewController.setupView()
         splitViewController.showDetailViewController(userViewController, sender: nil)
     }
