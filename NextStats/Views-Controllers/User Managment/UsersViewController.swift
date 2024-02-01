@@ -31,7 +31,7 @@ class UsersViewController: UIViewController {
     }
 
     private func setupView() {
-        title = "User Management"
+        title = "Users"
         view.backgroundColor = .systemBackground
 
         navigationItem.largeTitleDisplayMode = .always
