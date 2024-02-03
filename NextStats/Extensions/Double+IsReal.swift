@@ -13,7 +13,6 @@ extension Double {
         if self.isNaN || self.isInfinite {
             return true
         }
-
         return false
     }
 }

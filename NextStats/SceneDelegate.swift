@@ -47,7 +47,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         guard let window = window else { fatalError() }
 
         // Initialize a SplitViewController and Coordinator
-        let splitViewController = UISplitViewController()
+        let splitViewController: UISplitViewController
+        
+        #if targetEnvironment(macCatalyst)
+        splitViewController = UISplitViewController(style: .doubleColumn)
+        #else
+        splitViewController = UISplitViewController()
+        #endif
+        
         coordinator = MainCoordinator(splitViewController: splitViewController)
         coordinator?.start()
 
@@ -55,7 +62,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
         splitViewController.primaryBackgroundStyle = .sidebar
         splitViewController.delegate = self
-        splitViewController.preferredDisplayMode = UISplitViewController.DisplayMode.oneBesideSecondary
 
         // Set the window to the SplitViewController
         window.rootViewController = splitViewController

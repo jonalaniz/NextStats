@@ -8,77 +8,183 @@
     "data": {
       "nextcloud": {
         "system": {
-          "version": "19.0.3.1",
+          "version": "28.0.1.1",
           "theme": "",
           "enable_avatars": "yes",
           "enable_previews": "yes",
           "memcache.local": "\\OC\\Memcache\\APCu",
           "memcache.distributed": "none",
           "filelocking.enabled": "yes",
-          "memcache.locking": "\\OC\\Memcache\\Redis",
+          "memcache.locking": "none",
           "debug": "no",
-          "freespace": 346379628544,
+          "freespace": 1005365764096,
           "cpuload": [
-            0.54638671875,
-            0.60595703125,
-            0.60107421875
+            0.38330078125,
+            0.18017578125,
+            0.06640625
           ],
-          "mem_total": 24665604,
-          "mem_free": 4246872,
-          "swap_total": 0,
-          "swap_free": 0,
-          "apps": {
-            "num_installed": 79,
-            "num_updates_available": 0,
-            "app_updates": []
-          }
+          "mem_total": 8121344,
+          "mem_free": 6933504,
+          "swap_total": 4193280,
+          "swap_free": 4193280
         },
         "storage": {
-          "num_users": 11,
-          "num_files": 642526,
-          "num_storages": 25,
+          "num_users": 4,
+          "num_files": 55227,
+          "num_storages": 10,
           "num_storages_local": 1,
-          "num_storages_home": 12,
-          "num_storages_other": 12
+          "num_storages_home": 4,
+          "num_storages_other": 5
         },
         "shares": {
-          "num_shares": 17,
-          "num_shares_user": 8,
-          "num_shares_groups": 5,
-          "num_shares_link": 1,
+          "num_shares": 16,
+          "num_shares_user": 0,
+          "num_shares_groups": 0,
+          "num_shares_link": 16,
           "num_shares_mail": 0,
           "num_shares_room": 0,
-          "num_shares_link_no_password": 1,
+          "num_shares_link_no_password": 16,
           "num_fed_shares_sent": 0,
           "num_fed_shares_received": 0,
-          "permissions_2_0": "1",
-          "permissions_1_1": "1",
-          "permissions_3_1": "1",
-          "permissions_0_17": "2",
-          "permissions_0_21": "2",
-          "permissions_0_31": "4",
-          "permissions_1_31": "4",
-          "permissions_2_31": "2"
+          "permissions_3_17": 16
         }
       },
       "server": {
-        "webserver": "nginx/1.18.0",
+        "webserver": "Apache/2.4.52 (Ubuntu)",
         "php": {
-          "version": "7.3.22",
-          "memory_limit": 536870912,
+          "version": "8.1.2",
+          "memory_limit": 4294967296,
           "max_execution_time": 3600,
-          "upload_max_filesize": 1073741824
+          "upload_max_filesize": 33554432,
+          "opcache_revalidate_freq": 2,
+          "opcache": {
+            "opcache_enabled": true,
+            "cache_full": false,
+            "restart_pending": false,
+            "restart_in_progress": false,
+            "memory_usage": {
+              "used_memory": 314794312,
+              "free_memory": 222074392,
+              "wasted_memory": 2208,
+              "current_wasted_percentage": 0.0004112720489501953
+            },
+            "interned_strings_usage": {
+              "buffer_size": 201326128,
+              "used_memory": 6613368,
+              "free_memory": 194712760,
+              "number_of_strings": 105287
+            },
+            "opcache_statistics": {
+              "num_cached_scripts": 2566,
+              "num_cached_keys": 4910,
+              "max_cached_keys": 16229,
+              "hits": 169016,
+              "start_time": 1705190402,
+              "last_restart_time": 1705259284,
+              "oom_restarts": 0,
+              "hash_restarts": 0,
+              "manual_restarts": 2,
+              "misses": 2642,
+              "blacklist_misses": 0,
+              "blacklist_miss_ratio": 0,
+              "opcache_hit_rate": 98.46089317130574
+            },
+            "jit": {
+              "enabled": false,
+              "on": false,
+              "kind": 5,
+              "opt_level": 4,
+              "opt_flags": 6,
+              "buffer_size": 0,
+              "buffer_free": 0
+            }
+          },
+          "apcu": {
+            "cache": {
+              "num_slots": 4099,
+              "ttl": 0,
+              "num_hits": 237505,
+              "num_misses": 14967,
+              "num_inserts": 12390,
+              "num_entries": 728,
+              "expunges": 0,
+              "start_time": 1705190401,
+              "mem_size": 543632,
+              "memory_type": "mmap"
+            },
+            "sma": {
+              "num_seg": 1,
+              "seg_size": 33554312,
+              "avail_mem": 32952744
+            }
+          },
+          "extensions": [
+            "Core",
+            "date",
+            "libxml",
+            "openssl",
+            "pcre",
+            "zlib",
+            "filter",
+            "hash",
+            "json",
+            "Reflection",
+            "SPL",
+            "session",
+            "standard",
+            "sodium",
+            "apache2handler",
+            "mysqlnd",
+            "PDO",
+            "xml",
+            "apcu",
+            "bcmath",
+            "calendar",
+            "ctype",
+            "curl",
+            "dom",
+            "mbstring",
+            "FFI",
+            "fileinfo",
+            "ftp",
+            "gd",
+            "gettext",
+            "gmp",
+            "iconv",
+            "imagick",
+            "intl",
+            "exif",
+            "mysqli",
+            "pdo_mysql",
+            "Phar",
+            "posix",
+            "readline",
+            "shmop",
+            "SimpleXML",
+            "smbclient",
+            "sockets",
+            "sysvmsg",
+            "sysvsem",
+            "sysvshm",
+            "tokenizer",
+            "xmlreader",
+            "xmlwriter",
+            "xsl",
+            "zip",
+            "libsmbclient",
+            "Zend OPcache"
+          ]
         },
         "database": {
           "type": "mysql",
-          "version": "10.4.14",
-          "size": 266772480
+          "version": "10.6.12",
+          "size": "76414976"
         }
       },
       "activeUsers": {
-        "last5minutes": 2,
-        "last1hour": 2,
-        "last24hours": 2
+        "last5minutes": 1,
+        "last1hour": 1,
+        "last24hours": 1
       }
     }
   }

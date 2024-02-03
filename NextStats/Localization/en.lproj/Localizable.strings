@@ -20,8 +20,8 @@
 /* Text = "When monitoring servers externally, Nextstats requires SSL encryption (https)." */
 "add.screen.label" = "When monitoring servers externally, Nextstats requires SSL encryption (https).";
 
-/* Text = "please enter a valid URL" */
-"add.screen.statuslabel" = "please enter a valid URL";
+/* Text = "Please enter a valid URL" */
+"add.screen.statuslabel" = "Please enter a valid URL";
 
 /* Text = "Connect" */
 "add.screen.connect" = "Connect";

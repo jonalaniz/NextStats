@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "nextcloud-drive-shiny-light.png",
+      "filename" : "nextcloud-drive-connect-light.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "nextcloud-drive-shiny.png",
+      "filename" : "nextcloud-drive-connect.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
