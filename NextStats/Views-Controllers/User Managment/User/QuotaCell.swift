@@ -23,6 +23,7 @@ class QuotaCell: UITableViewCell {
     }
 
     private func setupView() {
+        isUserInteractionEnabled = false
         quotaProgressView.tintColor = .themeColor
         quotaLabel.translatesAutoresizingMaskIntoConstraints = false
         quotaProgressView.translatesAutoresizingMaskIntoConstraints = false
