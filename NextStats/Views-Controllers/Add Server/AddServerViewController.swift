@@ -37,10 +37,16 @@ extension AddServerViewController {
             return
         }
 
-        let name = nicknameCell.textField.text ?? "Server"
+        guard
+            let name = nicknameCell.textField.text,
+            name != ""
+        else {
+            coordinator?.requestAuthorization(with: urlString, named: "Server")
+            return
+        }
 
-        // Initiate the authorization request and check for logo
         coordinator?.requestAuthorization(with: urlString, named: name)
+
     }
 
     @objc func cancelPressed() {
