@@ -31,13 +31,6 @@ class MainCoordinator: Coordinator {
         // Initialize our SplitView
         let mainNavigationController = UINavigationController(rootViewController: mainViewController)
 
-        // Here is the fun
-//        let testViewController = UserViewController()
-//        let testUser = Test()
-//        testViewController.user = testUser.jon
-
-//        let mainNavigationController = UINavigationController(rootViewController: testViewController)
-
         splitViewController.viewControllers = [mainNavigationController, detailNavigationController]
         mainViewController.coordinator = self
         statsViewController.coordinator = self
