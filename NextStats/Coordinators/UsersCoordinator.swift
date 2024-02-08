@@ -29,21 +29,30 @@ class UsersCoordinator: Coordinator {
     func start() {
         usersViewController.coordinator = self
 
-        navigationController.viewControllers = [usersViewController]
-        splitViewController.showDetailViewController(navigationController, sender: nil)
+        guard let detailNavigationController = parentCoordinator?.detailNavigationController else { return }
+
+        detailNavigationController.pushViewController(usersViewController, animated: true)
     }
 
     func showUserView(for user: User) {
         // Ensure that we are grabbing the proper viewController
-        guard let navigationController = usersViewController.navigationController else { return }
+        guard let detailNavigationController = parentCoordinator?.detailNavigationController else { return }
 
         userViewController.userDataManager.set(user)
         userViewController.setupView()
-        splitViewController.showDetailViewController(userViewController, sender: nil)
+        detailNavigationController.pushViewController(userViewController, animated: true)
     }
 
     func didFinish() {
+        guard
+            let detailNavigationController = parentCoordinator?.detailNavigationController
+        else { return }
+
+        for (index, viewController) in detailNavigationController.viewControllers.enumerated()
+        where viewController === userViewController || viewController === usersViewController {
+            detailNavigationController.viewControllers.remove(at: index)
+        }
+
         parentCoordinator?.childDidFinish(self)
     }
-
 }
