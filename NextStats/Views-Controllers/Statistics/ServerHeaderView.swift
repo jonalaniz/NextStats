@@ -80,7 +80,6 @@ class ServerHeaderView: UIView {
         button.setTitleColor(.themeColor, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
-        button.isHidden = true
 
         return button
     }()
