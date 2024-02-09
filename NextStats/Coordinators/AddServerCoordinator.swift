@@ -21,15 +21,13 @@ class AddServerCoordinator: Coordinator {
         self.splitViewController = splitViewController
         addServerVC = AddServerViewController()
 
+        addServerVC.coordinator = self
         authenticator.delegate = self
         authenticator.errorHandler = self
     }
 
     func start() {
-        let initialVC = addServerVC
-        initialVC.coordinator = self
-
-        navigationController.viewControllers = [initialVC]
+        navigationController.viewControllers = [addServerVC]
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
 
