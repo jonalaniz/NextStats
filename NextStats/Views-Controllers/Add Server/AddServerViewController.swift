@@ -8,7 +8,6 @@
 
 import UIKit
 
-// MARK: - Lifecycle
 class AddServerViewController: UIViewController {
     weak var coordinator: AddServerCoordinator?
 
@@ -20,10 +19,60 @@ class AddServerViewController: UIViewController {
         setupNavigationController()
         setupView()
     }
-}
 
-// MARK: - UI Functions
-extension AddServerViewController {
+    private func setupNavigationController() {
+        title = .localized(.addScreenTitle)
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        let nextButton = UIBarButtonItem(title: "Next",
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(nextButtonPressed))
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                           target: self,
+                                                           action: #selector(cancelPressed))
+        navigationItem.rightBarButtonItem = nextButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
+
+    }
+
+    private func setupView() {
+        tableView.tableHeaderView = headerView
+        tableView.register(InputCell.self, forCellReuseIdentifier: "Cell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.alwaysBounceVertical = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.backgroundColor = .systemBackground
+        view.addSubview(tableView)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+    }
+
+    func updateStatusLabel(with text: String) {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        headerView.statusLabel.isHidden = false
+        headerView.statusLabel.text = text
+        headerView.activityIndicatior.deactivate()
+    }
+
+    private func hideStatusAndEnableNextButton() {
+        headerView.statusLabel.isHidden = true
+        navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+
+    private func deactivateSpinner() {
+        headerView.activityIndicatior.deactivate()
+        headerView.statusLabel.isHidden = false
+    }
+
     @objc func nextButtonPressed(_ sender: Any) {
         guard let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
               let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell
@@ -68,60 +117,6 @@ extension AddServerViewController {
         } else {
             updateStatusLabel(with: .localized(.serverFormEnterAddress))
         }
-    }
-
-    func updateStatusLabel(with text: String) {
-        navigationItem.rightBarButtonItem?.isEnabled = false
-        headerView.statusLabel.isHidden = false
-        headerView.statusLabel.text = text
-        headerView.activityIndicatior.deactivate()
-    }
-
-    private func hideStatusAndEnableNextButton() {
-        headerView.statusLabel.isHidden = true
-        navigationItem.rightBarButtonItem?.isEnabled = true
-    }
-
-    private func setupNavigationController() {
-        title = .localized(.addScreenTitle)
-        navigationController?.navigationBar.prefersLargeTitles = true
-
-        let nextButton = UIBarButtonItem(title: "Next",
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(nextButtonPressed))
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                                           target: self,
-                                                           action: #selector(cancelPressed))
-        navigationItem.rightBarButtonItem = nextButton
-        navigationItem.rightBarButtonItem?.isEnabled = false
-
-    }
-
-    private func setupView() {
-        // Setup Header
-        tableView.tableHeaderView = headerView
-        tableView.register(InputCell.self, forCellReuseIdentifier: "Cell")
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        view.backgroundColor = .systemBackground
-        tableView.alwaysBounceVertical = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-    }
-
-    private func deactivateSpinner() {
-        headerView.activityIndicatior.deactivate()
-        headerView.statusLabel.isHidden = false
     }
 }
 

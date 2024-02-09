@@ -17,6 +17,7 @@ class UsersViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationController()
         setupView()
         usersDataManager.fetchUsersData()
     }
@@ -30,22 +31,26 @@ class UsersViewController: UIViewController {
         }
     }
 
-    private func setupView() {
+    private func setupNavigationController() {
         title = "Users"
-        view.backgroundColor = .systemBackground
-
-        navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                                           target: self,
+                                                           action: #selector(dismissController))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: nil)
 
-        view.addSubview(tableView)
+    }
 
+    private func setupView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UserCell.self, forCellReuseIdentifier: "Cell")
+
+        view.backgroundColor = .systemBackground
+        view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
