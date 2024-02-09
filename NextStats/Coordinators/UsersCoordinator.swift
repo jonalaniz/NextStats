@@ -23,24 +23,20 @@ class UsersCoordinator: Coordinator {
         usersViewController = UsersViewController()
         userViewController = UserViewController()
 
+        usersViewController.coordinator = self
         usersViewController.usersDataManager.delegate = usersViewController
     }
 
     func start() {
-        usersViewController.coordinator = self
+        navigationController.viewControllers = [usersViewController]
 
-        guard let detailNavigationController = parentCoordinator?.detailNavigationController else { return }
-
-        detailNavigationController.pushViewController(usersViewController, animated: true)
+        splitViewController.present(navigationController, animated: true)
     }
 
     func showUserView(for user: User) {
-        // Ensure that we are grabbing the proper viewController
-        guard let detailNavigationController = parentCoordinator?.detailNavigationController else { return }
-
         userViewController.userDataManager.set(user)
         userViewController.setupView()
-        detailNavigationController.pushViewController(userViewController, animated: true)
+        navigationController.pushViewController(userViewController, animated: true)
     }
 
     func didFinish() {
