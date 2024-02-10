@@ -37,9 +37,9 @@ class UsersViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(dismissController))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                            target: self,
-                                                            action: nil)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+//                                                            target: self,
+//                                                            action: nil)
 
     }
 
