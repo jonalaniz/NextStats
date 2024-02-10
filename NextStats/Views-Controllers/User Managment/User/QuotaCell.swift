@@ -66,7 +66,7 @@ class QuotaCell: UITableViewCell {
             quotaString = "\(usedString) of \(totalString) Used"
         } else {
             let quotaUnit = Units(bytes: Double(quota))
-            quotaString = "\(used) of \(quotaUnit.getReadableUnit())"
+            quotaString = "\(usedString) of \(quotaUnit.getReadableUnit())"
         }
 
         quotaLabel.text = quotaString
