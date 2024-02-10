@@ -21,7 +21,12 @@ class ServerCell: UITableViewCell {
     var serverNameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
+
+        #if targetEnvironment(macCatalyst)
+        label.textColor = .label
+        #else
         label.textColor = .themeColor
+        #endif
 
         return label
     }()
