@@ -70,8 +70,8 @@ extension ToolbarDelegate: NSToolbarDelegate {
 
     func buildServerMenu() -> UIMenu {
         let renameServer = UICommand(title: "Rename", action: #selector(StatsViewController.showRenameSheet))
-        let refreshIcon = UICommand(title: "Update Icon", action: #selector(StatsViewController.refreshIcon))
-        let menu = UIMenu(title: "", options: .displayInline, children: [renameServer, refreshIcon])
+        let delete = UICommand(title: "Delete", action: #selector(StatsViewController.delete(action:)))
+        let menu = UIMenu(title: "", options: .displayInline, children: [renameServer, delete])
 
         return menu
     }
