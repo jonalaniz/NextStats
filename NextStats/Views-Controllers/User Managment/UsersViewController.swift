@@ -63,7 +63,7 @@ class UsersViewController: UIViewController {
         tableView.isHidden = true
     }
 
-    func showTableView() {
+    private func showTableView() {
         tableView.reloadData()
         tableView.isHidden = false
         loadingViewController.remove()
@@ -98,8 +98,8 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - NXDataManagerDelegate
 extension UsersViewController: NXDataManagerDelegate {
-    // TODO: Implement error handling
     func stateDidChange(_ dataManagerState: NXDataManagerState) {
         switch dataManagerState {
         case .fetchingData:
@@ -109,12 +109,38 @@ extension UsersViewController: NXDataManagerDelegate {
             // Parse Data
             return
         case .failed(let error):
-            // Error
-            print(error.description)
+            handle(error: error)
             return
         case .dataCaptured:
             tableView.reloadData()
             showTableView()
         }
+    }
+
+    private func handle(error: NXDataManagerError) {
+        switch error {
+        case .networkError(let fetchError):
+            showError(title: .localized(.networkError),
+                      description: fetchError.localizedDescription)
+        case .unableToDecode:
+            showError(title: .localized(.unableToParseData),
+                      description: .localized(.invalidDataDescription))
+        case .missingData:
+            showError(title: .localized(.missingData),
+                      description: .localized(.missingResponseDescription))
+        }
+    }
+
+    private func showError(title: String, description: String) {
+        let errorAC = UIAlertController(title: title,
+                                        message: description,
+                                        preferredStyle: .alert)
+        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
+                                        style: .default,
+                                        handler: dismissView))
+    }
+
+    private func dismissView(action: UIAlertAction! = nil) {
+        dismissController()
     }
 }
