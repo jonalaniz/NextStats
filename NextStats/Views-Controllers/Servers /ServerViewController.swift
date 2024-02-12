@@ -8,7 +8,6 @@
 
 import UIKit
 
-// MARK: - Lifecycle
 class ServerViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
@@ -146,6 +145,8 @@ extension ServerViewController: NXServerManagerDelegate {
                 _ = try await NetworkController.deauthorize(request: request, config: config)
             } catch {
                 guard let errorType = error as? FetchError else {
+                    // TODO: Notify the ServerViewController that they
+                    // Will need to deautorize on their server
                     return
                 }
             }

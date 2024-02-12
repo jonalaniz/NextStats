@@ -9,7 +9,6 @@
 import UIKit
 
 // swiftlint:disable identifier_name
-// MARK: - Lifecycle
 class StatsViewController: UIViewController {
     weak var coordinator: MainCoordinator?
 
@@ -31,46 +30,6 @@ class StatsViewController: UIViewController {
         }
 
         return super.canPerformAction(action, withSender: sender)
-    }
-}
-
-// MARK: - UI Functions
-extension StatsViewController {
-    @objc func openInSafari() {
-        guard serverInitialized != false else { return }
-
-        var urlString = dataManager.server!.friendlyURL
-        urlString.addIPPrefix()
-        let url = URL(string: urlString)!
-        UIApplication.shared.open(url)
-    }
-
-    @objc func menuTapped() {
-        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: .localized(.statsActionRename),
-                                   style: .default, handler: showRenameSheet))
-//        ac.addAction(UIAlertAction(title: "Update Icon",
-//                                   style: .default,
-//                                   handler: refreshIcon))
-        ac.addAction(UIAlertAction(title: .localized(.statsActionDelete),
-                                   style: .destructive, handler: delete))
-        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
-                                   style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-        present(ac, animated: true)
-    }
-
-    @objc func reload() {
-        if !serverInitialized { return }
-        dataManager.reload()
-    }
-
-    @objc func userManagementPressed() {
-        guard serverInitialized != false else { return }
-        let userDataManager = NXUsersManager.shared
-        userDataManager.setServer(server: dataManager.server!)
-
-        coordinator?.showUsersView()
     }
 
     private func setupView() {
@@ -138,24 +97,41 @@ extension StatsViewController {
         tableView.tableHeaderView = headerView
     }
 
-    private func showErrorAndReturn(title: String, description: String) {
-        let errorAC = UIAlertController(title: title,
-                                        message: description,
-                                        preferredStyle: .alert)
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default,
-                                        handler: self.returnToTable))
+    @objc func openInSafari() {
+        guard serverInitialized != false else { return }
 
-        DispatchQueue.main.async {
-            self.loadingView.remove()
-            self.tableView.isHidden = true
-            self.present(errorAC, animated: true)
-        }
+        var urlString = dataManager.server!.friendlyURL
+        urlString.addIPPrefix()
+        let url = URL(string: urlString)!
+        UIApplication.shared.open(url)
     }
 
-    func returnToTable(action: UIAlertAction! = nil) {
-        tableView.isHidden = true
-        self.navigationController?.navigationController?.popToRootViewController(animated: true)
+    @objc func menuTapped() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: .localized(.statsActionRename),
+                                   style: .default, handler: showRenameSheet))
+//        ac.addAction(UIAlertAction(title: "Update Icon",
+//                                   style: .default,
+//                                   handler: refreshIcon))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionDelete),
+                                   style: .destructive, handler: delete))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
+                                   style: .cancel))
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        present(ac, animated: true)
+    }
+
+    @objc func reload() {
+        if !serverInitialized { return }
+        dataManager.reload()
+    }
+
+    @objc func userManagementPressed() {
+        guard serverInitialized != false else { return }
+        let userDataManager = NXUsersManager.shared
+        userDataManager.setServer(server: dataManager.server!)
+
+        coordinator?.showUsersView()
     }
 }
 
@@ -183,7 +159,7 @@ extension StatsViewController: NXDataManagerDelegate {
         }
     }
 
-    func handleNetworkError(_ error: FetchError) {
+    private func handleNetworkError(_ error: FetchError) {
         switch error {
         case .error(let err):
             showErrorAndReturn(title: .localized(.errorTitle), description: err)
@@ -205,5 +181,25 @@ extension StatsViewController: NXDataManagerDelegate {
                                    description: response.description)
             }
         }
+    }
+
+    private func showErrorAndReturn(title: String, description: String) {
+        let errorAC = UIAlertController(title: title,
+                                        message: description,
+                                        preferredStyle: .alert)
+        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
+                                        style: .default,
+                                        handler: self.dismissView))
+
+        DispatchQueue.main.async {
+            self.loadingView.remove()
+            self.tableView.isHidden = true
+            self.present(errorAC, animated: true)
+        }
+    }
+
+    func dismissView(action: UIAlertAction! = nil) {
+        tableView.isHidden = true
+        self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
 }

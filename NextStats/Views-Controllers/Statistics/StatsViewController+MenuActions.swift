@@ -91,6 +91,6 @@ extension StatsViewController {
         let manager = NXServerManager.shared
         manager.remove(server, imageCache: true, refresh: true)
 
-        returnToTable(action: nil)
+        dismissView(action: nil)
     }
 }
