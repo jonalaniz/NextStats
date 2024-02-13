@@ -66,7 +66,7 @@ class AddServerHeaderView: UIView {
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             activityIndicatior.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicatior.centerYAnchor.constraint(equalTo: bottomAnchor, constant: -30),
+            activityIndicatior.centerYAnchor.constraint(equalTo: bottomAnchor, constant: -26),
             statusLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             statusLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
