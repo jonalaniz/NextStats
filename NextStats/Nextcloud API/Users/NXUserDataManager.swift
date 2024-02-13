@@ -68,6 +68,10 @@ class NXUserDataManager: NSObject {
         return user?.data.backend ?? "N/A"
     }
 
+    func language() -> String {
+        return user?.data.language ?? "N/A"
+    }
+
     func location() -> String {
         return user?.data.storageLocation ?? "N/A"
     }
@@ -88,5 +92,13 @@ class NXUserDataManager: NSObject {
         (quota > 0) ? (string = "Quota (Unlimited)") : (string = "Quota")
 
         return string
+    }
+
+    func canSetDisplayName() -> Bool {
+        return user?.data.backendCapabilities.setDisplayName ?? false
+    }
+
+    func canSetPassword() -> Bool {
+        return user?.data.backendCapabilities.setPassword ?? false
     }
 }
