@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum MailCellType {
+    case primary
+    case additional
+}
+
 extension NXUserDataManager: UITableViewDataSource {
     // MARK: - UITableViewDataSource Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

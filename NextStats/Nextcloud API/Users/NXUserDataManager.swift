@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum MailCellType {
-    case primary
-    case additional
-}
-
 class NXUserDataManager: NSObject {
     /// Returns the shared `UserDataManager` instance
     public static let shared = NXUserDataManager()
