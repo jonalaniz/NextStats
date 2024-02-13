@@ -62,6 +62,26 @@ enum LocalizedKeys: String {
     case iapThank = "iap.thankyou"
     case iapThankDescription = "iap.thankyou.description"
 
+    // MARK: - UserCell
+    case enabled = "usercell.enabled"
+    case disabled = "usercell.disabled"
+
+    // MARK: - Users
+    case users = "users"
+    case usersEmail = "users.email"
+    case usersNoEmail = "users.noemail"
+    case quota = "users.quota"
+    case quotaUnlimited = "users.quotaunlimited"
+    case status = "users.status"
+    case capabilities = "users.capabilities"
+    case language = "users.language"
+    case lastLogin = "users.lastLogin"
+    case location = "users.location"
+    case backend = "users.backend"
+    case setDisplayName = "users.setDisplayName"
+    case setPassword = "users.setPassword"
+    case no = "users.no"
+
     // MARK: - Errors.StatusLabel
     case errorTitle = "error.title"
     case invalidData = "error.invaliddata"
