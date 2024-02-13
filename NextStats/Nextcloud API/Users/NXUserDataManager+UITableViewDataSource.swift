@@ -20,7 +20,7 @@ extension NXUserDataManager: UITableViewDataSource {
         case 0:
             return emailAddresses()?.count ?? 0
         case 1: return 1
-        case 2: return 3
+        case 2: return 4
         case 3: return 2
         default: return 0
         }
@@ -37,6 +37,8 @@ extension NXUserDataManager: UITableViewDataSource {
                              quota: user.data.quota)
         case 2:
             return statusCell(indexPath.row)
+        case 3:
+            return capabilitiesCell(indexPath.row)
         default:
             let cell = UITableViewCell()
             cell.textLabel?.backgroundColor = .red
@@ -47,7 +49,7 @@ extension NXUserDataManager: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -55,6 +57,7 @@ extension NXUserDataManager: UITableViewDataSource {
         case 0: return emailTitle()
         case 1: return quotaTitle()
         case 2: return "Status"
+        case 3: return "Capabilities"
         default: return nil
         }
     }
@@ -97,14 +100,37 @@ extension NXUserDataManager: UITableViewDataSource {
 
         switch row {
         case 0:
+            cell.textLabel?.text = "Language"
+            cell.detailTextLabel?.text = language()
+        case 1:
             cell.textLabel?.text = "Last Login"
             cell.detailTextLabel?.text = lastLogonString()
-        case 1:
-            cell.textLabel?.text = "Location"
-            cell.detailTextLabel?.text = backend()
         case 2:
+            cell.textLabel?.text = "Location"
+            cell.detailTextLabel?.text = location()
+        case 3:
             cell.textLabel?.text = "Backend"
             cell.detailTextLabel?.text = backend()
+        default:
+            break
+        }
+
+        return cell
+    }
+
+    // Capabilities
+    func capabilitiesCell(_ row: Int) -> UITableViewCell {
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
+        cell.textLabel?.textColor = .label
+        cell.isUserInteractionEnabled = false
+
+        switch row {
+        case 0:
+            cell.textLabel?.text = "Set Display Name"
+            canSetDisplayName() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = "No")
+        case 1:
+            cell.textLabel?.text = "Set Password"
+            canSetPassword() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = "No")
         default:
             break
         }
