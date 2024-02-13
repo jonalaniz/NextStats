@@ -125,6 +125,58 @@
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "Merci beaucoup de soutenir le développement de NextStats!";
 
+// MARK: - User Cell
+
+/* Text = "enabled" */
+"usercell.enabled" = "Aktiviert";
+
+/* Text = "Disabled" */
+"usercell.disabled" = "Deaktiviert";
+
+// MARK: - Users
+
+/* Text = "Users" */
+"users" = "Utilisateurs";
+
+/* Text = "Email" */
+"users.email" = "E-mail";
+
+/* Text = "No Email on file*/
+"users.noemail" = "Aucun e-mail au dossier";
+
+/* Text = "Quota" */
+"users.quota" = "Quota";
+
+/* Text = "Quota (Unlimited)" */
+"users.quotaunlimited" = "Quotas (illimités)";
+
+/* Text = "Status" */
+"users.status" = "Statut";
+
+/* Text = "Capabilities"*/
+"users.capabilities" = "Capacités";
+
+/* Text = "Language"*/
+"users.language" = "Langue";
+
+/* Text = "Last Login"*/
+"users.lastLogin" = "Dernière connexion";
+
+/* Text = "Location"*/
+"users.location" = "Emplacement";
+
+/* Text = "Backend"*/
+"users.backend" = "Back-end";
+
+/* Text = "Set Display Name"*/
+"users.setDisplayName" = "Définir le nom d'affichage";
+
+/* Text = "Set Password"*/
+"users.setPassword" = "Définir le mot de passe";
+
+/* Text = "No" */
+"users.no" = "Non";
+
 // MARK: - Errors.Status Label
 
 /* Text = "Error" */

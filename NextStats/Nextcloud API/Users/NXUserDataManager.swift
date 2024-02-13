@@ -77,8 +77,8 @@ class NXUserDataManager: NSObject {
     }
 
     func emailTitle() -> String? {
-        guard emailAddresses() != nil else { return "No Email on File"}
-        return "Email"
+        guard emailAddresses() != nil else { return .localized(.usersNoEmail)}
+        return .localized(.usersEmail)
     }
 
     func quotaTitle() -> String? {
@@ -89,7 +89,7 @@ class NXUserDataManager: NSObject {
 
         var string = ""
 
-        (quota > 0) ? (string = "Quota (Unlimited)") : (string = "Quota")
+        (quota > 0) ? (string = .localized(.quota)) : (string = .localized(.quotaUnlimited))
 
         return string
     }

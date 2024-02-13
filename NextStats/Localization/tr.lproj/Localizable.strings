@@ -125,6 +125,58 @@
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "NextStats'ın gelecekteki gelişimine destek olduğunuz için çok teşekkür ederiz!";
 
+// MARK: - User Cell
+
+/* Text = "enabled" */
+"usercell.enabled" = "Etkinleştirilmiş";
+
+/* Text = "Disabled" */
+"usercell.disabled" = "Engelli";
+
+// MARK: - Users
+
+/* Text = "Users" */
+"users" = "Kullanıcılar";
+
+/* Text = "Email" */
+"users.email" = "E-posta";
+
+/* Text = "No Email on file*/
+"users.noemail" = "Dosyada e-posta yok";
+
+/* Text = "Quota" */
+"users.quota" = "Kota";
+
+/* Text = "Quota (Unlimited)" */
+"users.quotaunlimited" = "Kota (Sınırsız)";
+
+/* Text = "Status" */
+"users.status" = "Durum";
+
+/* Text = "Capabilities"*/
+"users.capabilities" = "Yetenekler";
+
+/* Text = "Language"*/
+"users.language" = "Dil";
+
+/* Text = "Last Login"*/
+"users.lastLogin" = "Son giriş";
+
+/* Text = "Location"*/
+"users.location" = "Konum";
+
+/* Text = "Backend"*/
+"users.backend" = "Arka uç";
+
+/* Text = "Set Display Name"*/
+"users.setDisplayName" = "Görünen Adı Ayarla";
+
+/* Text = "Set Password"*/
+"users.setPassword" = "Şifreyi belirle";
+
+/* Text = "No" */
+"users.no" = "Nayır,";
+
 // MARK: - Errors.Status Label
 
 /* Text = "Error" */

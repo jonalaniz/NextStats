@@ -125,6 +125,58 @@
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "Thank you very much for supporting the further development of NextStats!";
 
+// MARK: - User Cell
+
+/* Text = "Enabled" */
+"usercell.enabled" = "Enabled";
+
+/* Text = "Disabled" */
+"usercell.disabled" = "Disabled";
+
+// MARK: - Users
+
+/* Text = "Users" */
+"users" = "Users";
+
+/* Text = "Email" */
+"users.email" = "Email";
+
+/* Text = "No Email on file*/
+"users.noemail" = "No Email on file";
+
+/* Text = "Quota" */
+"users.quota" = "Quota";
+
+/* Text = "Quota (Unlimited)" */
+"users.quotaunlimited" = "Quota (Unlimited)";
+
+/* Text = "Status" */
+"users.status" = "Status";
+
+/* Text = "Capabilities"*/
+"users.capabilities" = "Capabilities";
+
+/* Text = "Language"*/
+"users.language" = "Language";
+
+/* Text = "Last Login"*/
+"users.lastLogin" = "Last Login";
+
+/* Text = "Location"*/
+"users.location" = "Location";
+
+/* Text = "Backend"*/
+"users.backend" = "Backend";
+
+/* Text = "Set Display Name"*/
+"users.setDisplayName" = "Set Display Name";
+
+/* Text = "Set Password"*/
+"users.setPassword" = "Set Password";
+
+/* Text = "No" */
+"users.no" = "No";
+
 // MARK: - Errors.Status Label
 
 /* Text = "Error" */

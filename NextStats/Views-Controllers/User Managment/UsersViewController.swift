@@ -32,7 +32,7 @@ class UsersViewController: UIViewController {
     }
 
     private func setupNavigationController() {
-        title = "Users"
+        title = .localized(.users)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,

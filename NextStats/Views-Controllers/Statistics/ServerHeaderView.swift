@@ -15,7 +15,7 @@ struct ServerHeaderViewConstants {
 
     static let userString: NSAttributedString = {
         let string = NSMutableAttributedString()
-        string.append(NSAttributedString(string: " Users "))
+        string.append(NSAttributedString(string: " " + .localized(.users) + " "))
         string.prefixingSFSymbol("person.fill", color: .themeColor)
         string.suffixingSFSymbol("chevron.right", color: .themeColor)
 

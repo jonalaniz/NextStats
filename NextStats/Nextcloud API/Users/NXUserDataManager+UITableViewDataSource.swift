@@ -56,8 +56,8 @@ extension NXUserDataManager: UITableViewDataSource {
         switch section {
         case 0: return emailTitle()
         case 1: return quotaTitle()
-        case 2: return "Status"
-        case 3: return "Capabilities"
+        case 2: return .localized(.status)
+        case 3: return .localized(.status)
         default: return nil
         }
     }
@@ -100,16 +100,16 @@ extension NXUserDataManager: UITableViewDataSource {
 
         switch row {
         case 0:
-            cell.textLabel?.text = "Language"
+            cell.textLabel?.text = .localized(.language)
             cell.detailTextLabel?.text = language()
         case 1:
-            cell.textLabel?.text = "Last Login"
+            cell.textLabel?.text = .localized(.lastLogin)
             cell.detailTextLabel?.text = lastLogonString()
         case 2:
-            cell.textLabel?.text = "Location"
+            cell.textLabel?.text = .localized(.location)
             cell.detailTextLabel?.text = location()
         case 3:
-            cell.textLabel?.text = "Backend"
+            cell.textLabel?.text = .localized(.backend)
             cell.detailTextLabel?.text = backend()
         default:
             break
@@ -126,11 +126,11 @@ extension NXUserDataManager: UITableViewDataSource {
 
         switch row {
         case 0:
-            cell.textLabel?.text = "Set Display Name"
-            canSetDisplayName() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = "No")
+            cell.textLabel?.text = .localized(.setDisplayName)
+            canSetDisplayName() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = .localized(.no))
         case 1:
-            cell.textLabel?.text = "Set Password"
-            canSetPassword() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = "No")
+            cell.textLabel?.text = .localized(.setPassword)
+            canSetPassword() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = .localized(.no))
         default:
             break
         }

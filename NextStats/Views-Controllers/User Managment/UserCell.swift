@@ -19,6 +19,6 @@ class UserCell: UITableViewCell {
     }
 
     func enabled() -> String {
-        return user.enabled ? "enabled" : "disabled"
+        return user.enabled ? .localized(.enabled) : .localized(.disabled)
     }
 }
