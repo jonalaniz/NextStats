@@ -13,7 +13,7 @@ enum MailCellType {
     case additional
 }
 
-class NXUserDataManager: NSObject, UITableViewDataSource {
+class NXUserDataManager: NSObject {
     /// Returns the shared `UserDataManager` instance
     public static let shared = NXUserDataManager()
 
@@ -28,170 +28,70 @@ class NXUserDataManager: NSObject, UITableViewDataSource {
         return user.data.displayname ?? ""
     }
 
-    func additionalMailArray() -> [String]? {
+    func emailAddresses() -> [String]? {
         guard
             let user = user,
-            let additionalMail = user.data.additionalMail
+            let mainAddress = user.data.email
         else {
             return nil
         }
 
+        var emails = [mainAddress]
+
+        guard
+            let additionalMail = user.data.additionalMail
+        else {
+            return emails
+        }
+
         switch additionalMail.element {
+        case .string(let address):
+            emails.append(address)
         case .stringArray(let array):
-            return array
-        default:
-            return nil
-        }
-    }
-
-    func email(from element: ElementContainer?) -> String? {
-        switch element {
-        case .string(let string):
-            return string
-        case .stringArray(let array):
-            return array.first
-        default:
-            return nil
-        }
-    }
-
-    func email(from element: ElementContainer?, at index: Int) -> String? {
-        switch element {
-        case .stringArray(let array):
-            return array[index]
-        default:
-            return nil
-        }
-    }
-
-    // MARK: - Functions for returning Cell Models for different sections
-    func mailCell(type: MailCellType, email: String?) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-
-        switch type {
-        case .primary:
-            cell.textLabel?.textColor = .themeColor
-        case .additional:
-            break
+            emails.append(contentsOf: array)
+        case .none:
+            return emails
         }
 
-        cell.textLabel?.text = email ?? ""
-        cell.isUserInteractionEnabled = false
-
-        return cell
+        return emails
     }
 
-    func statusCell(_ row: Int, model: UserStatusModel) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
-        cell.textLabel?.textColor = .label
-        cell.isUserInteractionEnabled = false
-
-        switch row {
-        case 0:
-            let fixedTimeInt = model.lastlogin / 1000
-            let date = Date(timeIntervalSince1970: TimeInterval(fixedTimeInt))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .short
-
-            cell.textLabel?.text = "Last Login"
-            cell.detailTextLabel?.text = dateFormatter.string(from: date)
-        case 1:
-            cell.textLabel?.text = "Location"
-            cell.detailTextLabel?.text = model.storageLocation
-        case 2:
-            cell.textLabel?.text = "Backend"
-            cell.detailTextLabel?.text = model.backend
-        default:
-            break
+    func lastLogonString() -> String {
+        guard let dateInt = user?.data.lastLogin else {
+            return "N/A"
         }
 
-        return cell
+        let correctedDateInt = dateInt / 1000
+        let date = Date(timeIntervalSince1970: TimeInterval(correctedDateInt))
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+
+        return dateFormatter.string(from: date)
     }
 
-    func userStatusCellModel(_ data: UserDataStruct) -> UserStatusModel {
-
-        return UserStatusModel(backend: user?.data.backend ?? "",
-                               lastlogin: user?.data.lastLogin ?? 0,
-                               storageLocation: user?.data.storageLocation ?? "")
+    func backend() -> String {
+        return user?.data.backend ?? "N/A"
     }
 
-    // MARK: - TableViewDataSource Functions
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let user = user else { return 0 }
-
-        switch section {
-        case 0: return 3
-        case 1:
-            // Check if additionalMail element is present
-            guard let additionalMail = user.data.additionalMail else { return 1 }
-
-            // Check if additionaMail is a String or [String]
-            guard let array = additionalMailArray() else { return 2 }
-
-            // If there is an array, return the count plus 1 for the main email row.
-            return array.count + 1
-
-        case 2: return 1
-        case 3: return 2
-        default: return 0
-        }
+    func location() -> String {
+        return user?.data.storageLocation ?? "N/A"
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let user else { return UITableViewCell() }
-
-        switch indexPath.section {
-        case 0:
-            let statusModel = userStatusCellModel(user.data)
-            return statusCell(indexPath.row, model: statusModel)
-        // Email
-        case 1:
-            switch indexPath.row {
-            case 0:
-                return mailCell(type: .primary, email: user.data.email)
-            case 1:
-                let email = email(from: user.data.additionalMail?.element)
-                return mailCell(type: .additional, email: email)
-            default:
-                let email = email(from: user.data.additionalMail?.element, at: indexPath.row - 1)
-                return mailCell(type: .additional, email: email)
-            }
-        // This can either be additional mail or something else
-        case 2:
-            let cell = QuotaCell(style: .default, reuseIdentifier: "QuotaCell")
-            cell.setProgress(with: user.data.quota)
-            return cell
-        default:
-            let cell = UITableViewCell()
-            cell.textLabel?.backgroundColor = .red
-            cell.textLabel?.text = "Test"
-            cell.isUserInteractionEnabled = false
-            return cell
-        }
+    func emailTitle() -> String? {
+        guard emailAddresses() != nil else { return "No Email on File"}
+        return "Email"
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+    func quotaTitle() -> String? {
+        guard
+            let user = user,
+            let quota = user.data.quota.quota
+        else { return nil }
+
+        var string = ""
+
+        (quota > 0) ? (string = "Quota (Unlimited)") : (string = "Quota")
+
+        return string
     }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let user = user else { return "" }
-
-        switch section {
-        case 0: return "Status"
-        case 1: return "Email"
-        case 2:
-            guard user.data.quota.quota! > 0 else {
-                return "Quota (Unlimited)"
-            }
-            return "Quota"
-        default: return nil
-        }
-    }
-}
-
-struct UserStatusModel {
-    let backend: String
-    let lastlogin: Int
-    let storageLocation: String
 }

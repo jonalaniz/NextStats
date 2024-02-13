@@ -47,7 +47,7 @@ class UserViewController: UIViewController {
 extension UserViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 2: return 66
+        case 1: return 66
         default: return 44
         }
     }

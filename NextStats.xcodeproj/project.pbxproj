@@ -20,6 +20,7 @@
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */; };
 		562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */; };
+		562D473E2B7C06E600FA9FDD /* NXUserDataManager+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562D473D2B7C06E600FA9FDD /* NXUserDataManager+UITableViewDataSource.swift */; };
 		562ED27A26B5D8E800E4E1C5 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562ED27926B5D8E800E4E1C5 /* UserViewController.swift */; };
 		562ED27C26B5E9B100E4E1C5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562ED27B26B5E9B100E4E1C5 /* UserModel.swift */; };
 		56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56320CD226A838C10099C7EA /* MenuBuilder.swift */; };
@@ -120,6 +121,7 @@
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationObject.swift; sourceTree = "<group>"; };
 		562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+SFSymbols.swift"; sourceTree = "<group>"; };
+		562D473D2B7C06E600FA9FDD /* NXUserDataManager+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NXUserDataManager+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		562ED27926B5D8E800E4E1C5 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		562ED27B26B5E9B100E4E1C5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		56320CD226A838C10099C7EA /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			children = (
 				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
 				5634EC3A2B6C4D8D00468AC0 /* NXUserDataManager.swift */,
+				562D473D2B7C06E600FA9FDD /* NXUserDataManager+UITableViewDataSource.swift */,
 				562ED27B26B5E9B100E4E1C5 /* UserModel.swift */,
 				569F2CA526AC2EB5001122F2 /* UsersModel.swift */,
 				569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */,
@@ -698,6 +701,7 @@
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */,
 				5695048426A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift in Sources */,
+				562D473E2B7C06E600FA9FDD /* NXUserDataManager+UITableViewDataSource.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				562ED27A26B5D8E800E4E1C5 /* UserViewController.swift in Sources */,
