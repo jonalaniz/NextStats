@@ -12,10 +12,10 @@ class QuotaCell: UITableViewCell {
     var quotaLabel = UILabel()
     var quotaProgressView = UIProgressView()
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+    init(reuseIdentifier: String?, quota: Quota) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setupView()
+        setProgress(with: quota)
     }
 
     required init?(coder: NSCoder) {
