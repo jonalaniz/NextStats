@@ -144,13 +144,24 @@ extension ServerViewController: NXServerManagerDelegate {
             do {
                 _ = try await NetworkController.deauthorize(request: request, config: config)
             } catch {
-                guard let errorType = error as? FetchError else {
-                    // TODO: Notify the ServerViewController that they
-                    // Will need to deautorize on their server
-                    return
+                DispatchQueue.main.async {
+                    self.showError()
                 }
             }
         }
+    }
+
+    func showError() {
+        // TODO: Localize this!
+        let message = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions"
+
+        let errorAC = UIAlertController(title: "Unable to remove NextStats",
+                                        message: message,
+                                        preferredStyle: .alert)
+
+        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
+                                        style: .default))
+        present(errorAC, animated: true)
     }
 
     // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY

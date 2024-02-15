@@ -162,6 +162,7 @@ extension NXServerManager: UITableViewDataSource {
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            delegate?.deauthorize(server: servers[indexPath.row])
             remove(servers[indexPath.row], refresh: false)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
