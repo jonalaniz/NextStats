@@ -40,11 +40,7 @@ extension NXUserDataManager: UITableViewDataSource {
         case 3:
             return capabilitiesCell(indexPath.row)
         default:
-            let cell = UITableViewCell()
-            cell.textLabel?.backgroundColor = .red
-            cell.textLabel?.text = "Test"
-            cell.isUserInteractionEnabled = false
-            return cell
+            return UITableViewCell()
         }
     }
 
@@ -78,16 +74,19 @@ extension NXUserDataManager: UITableViewDataSource {
 
     func mailCell(type: MailCellType, email: String?) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        cell.isUserInteractionEnabled = false
+
+        var content = cell.defaultContentConfiguration()
 
         switch type {
         case .primary:
-            cell.textLabel?.textColor = .themeColor
+            content.textProperties.color = .themeColor
         case .additional:
-            break
+            content.textProperties.color = .label
         }
 
-        cell.textLabel?.text = email ?? ""
-        cell.isUserInteractionEnabled = false
+        content.text = email ?? ""
+        cell.contentConfiguration = content
 
         return cell
     }
@@ -95,46 +94,52 @@ extension NXUserDataManager: UITableViewDataSource {
     // Status
     func statusCell(_ row: Int) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
-        cell.textLabel?.textColor = .label
         cell.isUserInteractionEnabled = false
+
+        var content = cell.defaultContentConfiguration()
+        content.textProperties.color = .label
 
         switch row {
         case 0:
-            cell.textLabel?.text = .localized(.language)
-            cell.detailTextLabel?.text = language()
+            content.text = .localized(.language)
+            content.secondaryText = language()
         case 1:
-            cell.textLabel?.text = .localized(.lastLogin)
-            cell.detailTextLabel?.text = lastLogonString()
+            content.text = .localized(.lastLogin)
+            content.secondaryText = lastLogonString()
         case 2:
-            cell.textLabel?.text = .localized(.location)
-            cell.detailTextLabel?.text = location()
+            content.text = .localized(.location)
+            content.secondaryText = location()
         case 3:
-            cell.textLabel?.text = .localized(.backend)
-            cell.detailTextLabel?.text = backend()
+            content.text = .localized(.backend)
+            content.secondaryText = backend()
         default:
             break
         }
 
+        cell.contentConfiguration = content
         return cell
     }
 
     // Capabilities
     func capabilitiesCell(_ row: Int) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
-        cell.textLabel?.textColor = .label
         cell.isUserInteractionEnabled = false
+
+        var content = cell.defaultContentConfiguration()
+        content.textProperties.color = .label
 
         switch row {
         case 0:
-            cell.textLabel?.text = .localized(.setDisplayName)
-            canSetDisplayName() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = .localized(.no))
+            content.text = .localized(.setDisplayName)
+            canSetDisplayName() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
         case 1:
-            cell.textLabel?.text = .localized(.setPassword)
-            canSetPassword() ? (cell.accessoryType = .checkmark) : (cell.detailTextLabel?.text = .localized(.no))
+            content.text = .localized(.setPassword)
+            canSetPassword() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
         default:
             break
         }
 
+        cell.contentConfiguration = content
         return cell
     }
 }

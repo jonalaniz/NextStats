@@ -96,6 +96,10 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
 
         coordinator?.showUserView(for: user)
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 48
+    }
 }
 
 // MARK: - NXDataManagerDelegate
