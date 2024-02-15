@@ -5,7 +5,7 @@
 //  Created by Jon Alaniz on 1/8/21.
 //  Copyright © 2021 Jon Alaniz.
 
-import Foundation
+import UIKit
 
 class NetworkController {
     static let baseConfig: URLSessionConfiguration = {
@@ -196,7 +196,18 @@ class NetworkController {
 
 extension URLRequest {
     mutating func setUserAgent() {
-        // TODO: Set value to global variable that changes depending on OS
-        self.setValue("NextStats for iOS", forHTTPHeaderField: "User-Agent")
+        let osName: String
+
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone: osName = "iOS"
+        case .pad: osName = "iPadOS"
+        case .tv: osName = "tvOS"
+        case .carPlay: osName = "carPlay"
+        case .mac: osName = "macOS"
+        case .vision: osName = "visionOS"
+        default: osName = "¯\\_(ツ)_/¯"
+        }
+
+        self.setValue("NextStats for \(osName)", forHTTPHeaderField: "User-Agent")
     }
 }
