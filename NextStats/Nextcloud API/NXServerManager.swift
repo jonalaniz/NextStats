@@ -51,7 +51,7 @@ class NXServerManager: NSObject {
     }
 
     func remove(_ server: NextServer,
-                imageCache deleteImageCache: Bool = false,
+                renaming: Bool = false,
                 refresh: Bool) {
         // Remove the server from the server array
         servers.removeAll(where: { $0 == server })
@@ -59,12 +59,14 @@ class NXServerManager: NSObject {
         // Alert our delegate that the server was removed
         delegate?.serversDidChange(refresh: refresh)
 
-        // Deauthorize NextStats with the server
-        delegate?.deauthorize(server: server)
-
         // Delete the imageCache
-        let path = server.imagePath()
-        removeCachedImage(at: path)
+        if !renaming {
+            let path = server.imagePath()
+            removeCachedImage(at: path)
+
+            // Deauthorize NextStats with the server
+            delegate?.deauthorize(server: server)
+        }
     }
 
     func isEmpty() -> Bool { servers.isEmpty }
@@ -90,7 +92,7 @@ class NXServerManager: NSObject {
                                    username: server.username,
                                    password: server.password,
                                    hasCustomLogo: server.hasCustomLogo)
-        remove(server, refresh: true)
+        remove(server, renaming: true, refresh: true)
         add(newServer)
         completion(newServer)
         delegate?.serversDidChange(refresh: true)

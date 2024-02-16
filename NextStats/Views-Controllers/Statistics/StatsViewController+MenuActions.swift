@@ -89,7 +89,7 @@ extension StatsViewController {
     func delete() {
         guard let server = dataManager.server else { return }
         let manager = NXServerManager.shared
-        manager.remove(server, imageCache: true, refresh: true)
+        manager.remove(server, renaming: false, refresh: true)
 
         dismissView(action: nil)
     }
