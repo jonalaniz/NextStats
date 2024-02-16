@@ -116,7 +116,12 @@ extension NXUsersManager {
         return userIDs.count
     }
 
-    func userCellModel(_ index: Int) -> UserCellModel {
+    func userCellModel(_ index: Int) -> UserCellModel? {
+        guard !users.isEmpty else {
+            delegate?.stateDidChange(.failed(.missingData))
+            return nil
+        }
+
         let userData = users[index].data
 
         return UserCellModel(userID: userData.id,

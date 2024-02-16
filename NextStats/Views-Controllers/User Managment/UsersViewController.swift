@@ -81,8 +81,12 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let userModel = usersDataManager.userCellModel(indexPath.row) else {
+            return UITableViewCell()
+        }
+
         let cell = UserCell(style: .subtitle, reuseIdentifier: "Cell")
-        cell.user = usersDataManager.userCellModel(indexPath.row)
+        cell.user = userModel
         cell.setup()
 
         cell.accessoryType = .disclosureIndicator
@@ -91,8 +95,11 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let userCellModel = usersDataManager.userCellModel(indexPath.row)
-        let user = usersDataManager.user(id: userCellModel.userID)
+        guard let userModel = usersDataManager.userCellModel(indexPath.row) else {
+            return
+        }
+
+        let user = usersDataManager.user(id: userModel.userID)
 
         coordinator?.showUserView(for: user)
     }
