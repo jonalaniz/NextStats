@@ -13,7 +13,7 @@ enum MailCellType {
     case additional
 }
 
-extension NXUserDataManager: UITableViewDataSource {
+extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDataSource Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -58,7 +58,26 @@ extension NXUserDataManager: UITableViewDataSource {
         }
     }
 
+    // MARK: - UITableViewDelegate Functions
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return shouldHide(section: section) ? CGFloat.leastNonzeroMagnitude : 20
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 1: return 66
+        default: return 44
+        }
+    }
+
     // MARK: - Helper Functions
+
+    func shouldHide(section: Int) -> Bool {
+        switch section {
+        case 0: return emailAddresses() == nil
+        default: return false
+        }
+    }
 
     // Email
     func mailSection(in row: Int, for user: User) -> UITableViewCell {

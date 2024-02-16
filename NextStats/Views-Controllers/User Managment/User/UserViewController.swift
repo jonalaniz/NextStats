@@ -27,7 +27,7 @@ class UserViewController: UIViewController {
         title = userDataManager.title()
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
+        tableView.delegate = userDataManager
         tableView.dataSource = userDataManager
 
         // Register our cells
@@ -41,14 +41,5 @@ class UserViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-    }
-}
-
-extension UserViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 1: return 66
-        default: return 44
-        }
     }
 }
