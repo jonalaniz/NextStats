@@ -8,9 +8,9 @@
 
 import UIKit
 
-class QuotaCell: UITableViewCell {
-    var quotaLabel = UILabel()
-    var quotaProgressView = UIProgressView()
+class StorageCell: UITableViewCell {
+    var spaceLabel = UILabel()
+    var spaceProgressView = UIProgressView()
 
     init(reuseIdentifier: String?, quota: Quota) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
@@ -24,24 +24,24 @@ class QuotaCell: UITableViewCell {
 
     private func setupView() {
         isUserInteractionEnabled = false
-        quotaProgressView.tintColor = .themeColor
-        quotaLabel.translatesAutoresizingMaskIntoConstraints = false
-        quotaProgressView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(quotaLabel)
-        contentView.addSubview(quotaProgressView)
+        spaceProgressView.tintColor = .themeColor
+        spaceLabel.translatesAutoresizingMaskIntoConstraints = false
+        spaceProgressView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(spaceLabel)
+        contentView.addSubview(spaceProgressView)
 
         NSLayoutConstraint.activate([
             // Constrain the quotaLabel
-            quotaLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            quotaLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            quotaLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            quotaLabel.bottomAnchor.constraint(equalTo: quotaProgressView.topAnchor),
+            spaceLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            spaceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            spaceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            spaceLabel.bottomAnchor.constraint(equalTo: spaceProgressView.topAnchor),
 
             // Constrain our storageView
-            quotaProgressView.heightAnchor.constraint(equalToConstant: 4),
-            quotaProgressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            quotaProgressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            quotaProgressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            spaceProgressView.heightAnchor.constraint(equalToConstant: 4),
+            spaceProgressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            spaceProgressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            spaceProgressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 
@@ -69,11 +69,11 @@ class QuotaCell: UITableViewCell {
             quotaString = "\(usedString) of \(quotaUnit.getReadableUnit())"
         }
 
-        quotaLabel.text = quotaString
+        spaceLabel.text = quotaString
 
         // Nextcloud gives a literal representation of the percentage
         // 0.3 = 0.3% in this case
         let correctedProgress = Float(progressFloat / 100)
-        quotaProgressView.progress = correctedProgress
+        spaceProgressView.progress = correctedProgress
     }
 }

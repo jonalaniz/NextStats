@@ -31,7 +31,7 @@ class UserViewController: UIViewController {
         tableView.dataSource = userDataManager
 
         // Register our cells
-        tableView.register(QuotaCell.self, forCellReuseIdentifier: "QuotaCell")
+        tableView.register(StorageCell.self, forCellReuseIdentifier: "QuotaCell")
 
         view.addSubview(tableView)
 

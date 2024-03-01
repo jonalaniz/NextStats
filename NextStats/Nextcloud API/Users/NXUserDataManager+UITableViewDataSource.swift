@@ -33,7 +33,7 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
         case 0:
             return mailSection(in: indexPath.row, for: user)
         case 1:
-            return QuotaCell(reuseIdentifier: "QuotaCell",
+            return StorageCell(reuseIdentifier: "QuotaCell",
                              quota: user.data.quota)
         case 2:
             return statusCell(indexPath.row)
