@@ -13,48 +13,59 @@ enum MailCellType {
     case additional
 }
 
+enum UserDataSection: Int, CaseIterable {
+    case mail = 0, quota, status, capabilities
+
+    func height() -> CGFloat {
+        switch self {
+        case .quota: return 66
+        default: return 44
+        }
+    }
+}
+
 extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDataSource Functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return emailAddresses()?.count ?? 0
-        case 1: return 1
-        case 2: return 4
-        case 3: return 2
-        default: return 0
+        guard let tableSection = UserDataSection(rawValue: section)
+        else { return 0 }
+
+        switch tableSection {
+        case .mail: return emailAddresses()?.count ?? 0
+        case .quota: return 1
+        case .status: return 4
+        case .capabilities: return 2
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let user else { return UITableViewCell() }
+        guard
+            let user,
+            let tableSection = UserDataSection(rawValue: indexPath.section)
+        else { return UITableViewCell() }
 
-        switch indexPath.section {
-        case 0:
-            return mailSection(in: indexPath.row, for: user)
-        case 1:
-            return StorageCell(reuseIdentifier: "QuotaCell",
-                             quota: user.data.quota)
-        case 2:
-            return statusCell(indexPath.row)
-        case 3:
-            return capabilitiesCell(indexPath.row)
-        default:
-            return UITableViewCell()
+        switch tableSection {
+        case .mail: return mailSection(in: indexPath.row, for: user)
+        case .quota: return StorageCell(reuseIdentifier: "QuotaCell",
+                                        quota: user.data.quota)
+        case .status: return statusCell(indexPath.row)
+        case .capabilities: return capabilitiesCell(indexPath.row)
         }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return UserDataSection.allCases.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0: return emailTitle()
-        case 1: return quotaTitle()
-        case 2: return .localized(.status)
-        case 3: return .localized(.status)
-        default: return nil
+        guard let tableSection = UserDataSection(rawValue: section)
+        else { return nil }
+
+        switch tableSection {
+        case .mail: return emailTitle()
+        case .quota: return quotaTitle()
+        case .status: return .localized(.status)
+        case .capabilities: return .localized(.capabilities)
         }
     }
 
@@ -64,17 +75,20 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 1: return 66
-        default: return 44
-        }
+        guard let tableSection = UserDataSection(rawValue: indexPath.section)
+        else { return 44 }
+
+        return tableSection.height()
     }
 
     // MARK: - Helper Functions
 
     func shouldHide(section: Int) -> Bool {
-        switch section {
-        case 0: return emailAddresses() == nil
+        guard let tableSection = UserDataSection(rawValue: section)
+        else { return false }
+
+        switch tableSection {
+        case .mail: return emailAddresses() == nil
         default: return false
         }
     }
