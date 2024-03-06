@@ -8,9 +8,34 @@
 
 import UIKit
 
+enum ProgressCellIcon {
+    case storage, memory, swap
+}
+
 class ProgressCell: UITableViewCell {
-    var spaceLabel = UILabel()
-    var spaceProgressView = UIProgressView()
+    var iconLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.tintColor = .themeColor
+
+        return label
+    }()
+
+    var detailLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .right
+
+        return label
+    }()
+
+    var progressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressTintColor = .themeColor
+
+        return progressView
+    }()
 
     init(reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
@@ -20,10 +45,12 @@ class ProgressCell: UITableViewCell {
     convenience init(quota: Quota) {
         self.init(reuseIdentifier: "QuotaCell")
         setProgress(with: quota)
+        set(icon: .storage)
     }
 
-    convenience init(free: Int, total: Int) {
+    convenience init(free: Int, total: Int, type: ProgressCellIcon) {
         self.init(reuseIdentifier: "MemoryCell")
+        set(icon: type)
         setProgress(free: free, total: total)
     }
 
@@ -33,28 +60,29 @@ class ProgressCell: UITableViewCell {
 
     private func setupView() {
         isUserInteractionEnabled = false
-        spaceProgressView.tintColor = .themeColor
-        spaceLabel.translatesAutoresizingMaskIntoConstraints = false
-        spaceProgressView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(spaceLabel)
-        contentView.addSubview(spaceProgressView)
+        contentView.addSubview(iconLabel)
+        contentView.addSubview(detailLabel)
+        contentView.addSubview(progressView)
 
         NSLayoutConstraint.activate([
-            // Constrain the quotaLabel
-            spaceLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            spaceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            spaceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            spaceLabel.bottomAnchor.constraint(equalTo: spaceProgressView.topAnchor),
+            iconLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            iconLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            iconLabel.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 100),
+            iconLabel.bottomAnchor.constraint(equalTo: progressView.topAnchor),
 
-            // Constrain our storageView
-            spaceProgressView.heightAnchor.constraint(equalToConstant: 4),
-            spaceProgressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            spaceProgressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            spaceProgressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            detailLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            detailLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            detailLabel.bottomAnchor.constraint(equalTo: progressView.topAnchor),
+
+            progressView.heightAnchor.constraint(equalToConstant: 4),
+            progressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            progressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            progressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 
-    func setProgress(with quota: Quota) {
+    private func setProgress(with quota: Quota) {
         guard
             let progressFloat = quota.relative,
             let free = quota.free,
@@ -78,24 +106,51 @@ class ProgressCell: UITableViewCell {
             quotaString = "\(usedString) of \(quotaUnit.getReadableUnit())"
         }
 
-        spaceLabel.text = quotaString
+        detailLabel.text = quotaString
 
         // Nextcloud gives a literal representation of the percentage
         // 0.3 = 0.3% in this case
         let correctedProgress = Float(progressFloat / 100)
-        spaceProgressView.progress = correctedProgress
+        progressView.progress = correctedProgress
     }
 
-    func setProgress(free: Int, total: Int) {
+    private func set(icon: ProgressCellIcon) {
+        let iconString: String
+        let label: String
+
+        switch icon {
+        case .storage: 
+            iconString = "internaldrive"
+            label = ""
+        case .memory:
+            iconString = "memorychip"
+            label = " RAM"
+        case .swap:
+            iconString = "memorychip.fill"
+            label = " Swap"
+        }
+
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(systemName: iconString)
+
+        let imageString = NSMutableAttributedString(attachment: attachment)
+        let textString = NSAttributedString(string: label)
+        imageString.append(textString)
+
+        iconLabel.attributedText = imageString
+        iconLabel.sizeToFit()
+    }
+
+    private func setProgress(free: Int, total: Int) {
         let used = total - free
         let usedString = Units(kilobytes: Double(used)).getReadableUnit()
         let totalString = Units(kilobytes: Double(total)).getReadableUnit()
         let label = "\(usedString) of \(totalString) Used"
 
-        spaceLabel.text = label
+        detailLabel.text = label
 
         let progress = Float(used) / Float(total)
         print(progress)
-        spaceProgressView.progress = progress
+        progressView.progress = progress
     }
 }
