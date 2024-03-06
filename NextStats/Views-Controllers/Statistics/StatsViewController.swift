@@ -52,6 +52,7 @@ class StatsViewController: UIViewController {
         view.addSubview(tableView)
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ProgressCell.self, forCellReuseIdentifier: "MemoryCell")
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
