@@ -23,6 +23,10 @@ enum SystemRow: Int, CaseIterable {
     case cpu = 0, webServer, PHPVersion, databaseVersion, localCache, distributedCache
 }
 
+enum MemoryRow: Int, CaseIterable {
+    case ram = 0, swap
+}
+
 enum StorageRow: Int, CaseIterable {
     case space = 0, files
 }
@@ -48,10 +52,10 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         else { return 0 }
 
         switch tableSection {
-        case .system: return 5
-        case .memory: return 2
-        case .storage: return 2
-        case .activity: return 4
+        case .system: return SystemRow.allCases.count
+        case .memory: return MemoryRow.allCases.count
+        case .storage: return StorageRow.allCases.count
+        case .activity: return ActivityRow.allCases.count
         }
     }
 
@@ -144,11 +148,13 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         let cell: ProgressCell
         let memory: (Int?, Int?)
         let type: ProgressCellIcon
+        let cellRow = MemoryRow(rawValue: row)!
 
-        if row == 0 {
+        switch cellRow {
+        case .ram:
             memory = ram()
             type = .memory
-        } else {
+        case .swap:
             memory = swap()
             type = .swap
         }
