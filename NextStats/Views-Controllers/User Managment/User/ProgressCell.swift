@@ -8,14 +8,23 @@
 
 import UIKit
 
-class StorageCell: UITableViewCell {
+class ProgressCell: UITableViewCell {
     var spaceLabel = UILabel()
     var spaceProgressView = UIProgressView()
 
-    init(reuseIdentifier: String?, quota: Quota) {
+    init(reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         setupView()
+    }
+
+    convenience init(quota: Quota) {
+        self.init(reuseIdentifier: "QuotaCell")
         setProgress(with: quota)
+    }
+
+    convenience init(free: Int, total: Int) {
+        self.init(reuseIdentifier: "MemoryCell")
+        setProgress(free: free, total: total)
     }
 
     required init?(coder: NSCoder) {
@@ -75,5 +84,18 @@ class StorageCell: UITableViewCell {
         // 0.3 = 0.3% in this case
         let correctedProgress = Float(progressFloat / 100)
         spaceProgressView.progress = correctedProgress
+    }
+
+    func setProgress(free: Int, total: Int) {
+        let used = total - free
+        let usedString = Units(kilobytes: Double(used)).getReadableUnit()
+        let totalString = Units(kilobytes: Double(total)).getReadableUnit()
+        let label = "\(usedString) of \(totalString) Used"
+
+        spaceLabel.text = label
+
+        let progress = Float(used) / Float(total)
+        print(progress)
+        spaceProgressView.progress = progress
     }
 }

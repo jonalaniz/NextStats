@@ -46,8 +46,7 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
 
         switch tableSection {
         case .mail: return mailSection(in: indexPath.row, for: user)
-        case .quota: return StorageCell(reuseIdentifier: "QuotaCell",
-                                        quota: user.data.quota)
+        case .quota: return ProgressCell(quota: user.data.quota)
         case .status: return statusCell(indexPath.row)
         case .capabilities: return capabilitiesCell(indexPath.row)
         }
