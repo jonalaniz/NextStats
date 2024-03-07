@@ -84,18 +84,6 @@ class NXUsersManager {
 
         return nil
     }
-
-    private func dateString(from milliseconds: Int?) -> String {
-        guard milliseconds != nil else { return "N/A" }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd,yyyy"
-
-        let seconds = milliseconds! / 1000
-        let date = Date(timeIntervalSince1970: TimeInterval(seconds))
-
-        return dateFormatter.string(from: date)
-    }
 }
 
 /// TableView Helper Methods

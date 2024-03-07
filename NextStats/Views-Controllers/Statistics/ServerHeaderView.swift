@@ -131,10 +131,6 @@ class ServerHeaderView: UIView {
         ])
     }
 
-    private func isWidthConstrained() -> Bool {
-        return UIScreen.main.bounds.width == 321
-    }
-
     func setupHeaderWith(name: String, address: String, image: UIImage) {
         nameLabel.text = name
         addressLabel.text = address

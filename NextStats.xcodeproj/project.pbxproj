@@ -91,7 +91,6 @@
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 		56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */; };
-		56FE294127994AC600301CDA /* Double+IsReal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE294027994AC600301CDA /* Double+IsReal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,7 +196,6 @@
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 		56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+MenuActions.swift"; sourceTree = "<group>"; };
-		56FE294027994AC600301CDA /* Double+IsReal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+IsReal.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,7 +219,6 @@
 		5601D7F425E3194400993D31 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				56FE294027994AC600301CDA /* Double+IsReal.swift */,
 				56924DD123F802A70043C9BE /* String+Extensions.swift */,
 				562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
@@ -689,7 +686,6 @@
 				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
-				56FE294127994AC600301CDA /* Double+IsReal.swift in Sources */,
 				569F2C7B26AAF61A001122F2 /* XMLUnkeyedDecodingContainer.swift in Sources */,
 				569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */,
 				569EBB0F2ADBC15900BE5985 /* UserCell.swift in Sources */,

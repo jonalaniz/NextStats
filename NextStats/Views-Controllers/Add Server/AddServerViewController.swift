@@ -68,11 +68,6 @@ class AddServerViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
 
-    private func deactivateSpinner() {
-        headerView.activityIndicatior.deactivate()
-        headerView.statusLabel.isHidden = false
-    }
-
     @objc func nextButtonPressed(_ sender: Any) {
         guard let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
               let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell

@@ -70,10 +70,6 @@ class InfoViewController: UIViewController {
                                          handler: nil)))
         present(thankAC, animated: true)
     }
-
-    func addSupportSection() {
-        tableView.insertSections(IndexSet(integer: infoModel.numberOfSections()), with: .fade)
-    }
 }
 
 // MARK: TableView Functions
