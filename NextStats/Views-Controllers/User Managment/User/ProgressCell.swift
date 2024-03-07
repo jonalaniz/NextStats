@@ -25,6 +25,7 @@ class ProgressCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
+        label.textColor = .secondaryLabel
 
         return label
     }()
@@ -91,7 +92,6 @@ class ProgressCell: UITableViewCell {
             let quota = quota.quota
         else { return }
 
-        let freeString = Units(bytes: Double(free)).getReadableUnit()
         let usedString = Units(bytes: Double(used)).getReadableUnit()
         let totalString = Units(bytes: Double(total)).getReadableUnit()
 
@@ -115,30 +115,20 @@ class ProgressCell: UITableViewCell {
     }
 
     private func set(icon: ProgressCellIcon) {
-        let iconString: String
-        let label: String
+        let string = NSMutableAttributedString()
 
         switch icon {
-        case .storage: 
-            iconString = "internaldrive"
-            label = ""
+        case .storage:
+            string.prefixingSFSymbol("internaldrive", color: .label)
         case .memory:
-            iconString = "memorychip"
-            label = " RAM"
+            string.prefixingSFSymbol("memorychip", color: .label)
+            string.append(NSAttributedString(string: " RAM"))
         case .swap:
-            iconString = "memorychip.fill"
-            label = " Swap"
+            string.prefixingSFSymbol("memorychip.fill", color: .label)
+            string.append(NSAttributedString(string: " Swap"))
         }
 
-        let attachment = NSTextAttachment()
-        attachment.image = UIImage(systemName: iconString)
-
-        let imageString = NSMutableAttributedString(attachment: attachment)
-        let textString = NSAttributedString(string: label)
-        imageString.append(textString)
-
-        iconLabel.attributedText = imageString
-        iconLabel.sizeToFit()
+        iconLabel.attributedText = string
     }
 
     private func setProgress(free: Int, total: Int) {
