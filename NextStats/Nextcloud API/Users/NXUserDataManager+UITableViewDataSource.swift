@@ -160,6 +160,7 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
 
         var content = cell.defaultContentConfiguration()
         content.textProperties.color = .label
+        content.secondaryTextProperties.color = .secondaryLabel
 
         switch row {
         case 0:
