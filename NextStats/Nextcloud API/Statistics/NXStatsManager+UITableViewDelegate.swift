@@ -20,7 +20,7 @@ enum StatsSection: Int, CaseIterable {
 }
 
 enum SystemRow: Int, CaseIterable {
-    case cpu = 0, webServer, PHPVersion, databaseVersion, localCache, distributedCache
+    case cpu = 0, webServer, PHPVersion, databaseVersion, databaseSize, localCache, distributedCache
 }
 
 enum MemoryRow: Int, CaseIterable {
@@ -112,6 +112,9 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         case .databaseVersion:
             content.text = "Database"
             content.secondaryText = databaseVersion()
+        case .databaseSize:
+            content.text = "Database Size"
+            content.secondaryText = databaseSize()
         case .localCache:
             content.text = "Local Cache"
             content.secondaryText = stats.nextcloud?.system?.memcacheLocal ?? "N/A"
@@ -142,6 +145,21 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         else { return "N/A" }
 
         return "\(database) \(dbVersion)"
+    }
+
+    private func databaseSize() -> String {
+        guard let size = stats.server?.database?.size
+        else { return "N/A" }
+
+        switch size {
+        case .string(let string):
+            guard let intValue = Int(string)
+            else { return "N/A" }
+
+            return Units(bytes: Double(intValue)).getReadableUnit()
+        case .int(let int):
+            return Units(bytes: Double(int)).getReadableUnit()
+        }
     }
 
     private func memoryCell(row: Int) -> ProgressCell {
