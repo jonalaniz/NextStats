@@ -51,7 +51,7 @@ class NXUsersManager {
                 let configuration = networking.config(authString: authString, ocsApiRequest: true)
 
                 for userID in userIDs {
-                    let request = networking.request(url: url, with: .userEndpoint, appending: userID)
+                    let request = networking.request(url: url, with: .user, appending: userID)
                     let data = try await networking.fetchData(with: request, config: configuration)
 
                     guard let decodedUser: User = self.decode(data) else {

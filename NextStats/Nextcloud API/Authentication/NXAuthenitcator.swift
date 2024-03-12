@@ -53,7 +53,7 @@ class NXAuthenitcator {
         shouldPoll = true
 
         var logoURL = URLComponents(url: pollURL, resolvingAgainstBaseURL: false)!
-        logoURL.replacePathWith(endpoint: .logoEndpoint)
+        logoURL.replacePathWith(endpoint: .logo)
         checkForCustomImage(at: logoURL.url!)
 
         pollForCredentials(at: pollURL, with: token)

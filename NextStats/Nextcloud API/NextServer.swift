@@ -34,7 +34,7 @@ struct NextServer: Codable, Equatable {
     private func imageURL() -> URL {
         let url = URL(string: URLString)!
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .logoEndpoint)
+        components.clearQueryAndAppend(endpoint: .logo)
 
         return components.url!
     }

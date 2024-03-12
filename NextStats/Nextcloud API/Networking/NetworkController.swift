@@ -26,7 +26,7 @@ class NetworkController {
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path += Endpoints.loginEndpoint.rawValue
+        components.path += Endpoints.login.rawValue
 
         var request  = URLRequest(url: components.url!)
         request.httpMethod = "POST"
@@ -55,7 +55,7 @@ class NetworkController {
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .statEndpoint)
+        components.clearQueryAndAppend(endpoint: .into)
 
         var request = URLRequest(url: components.url!)
         request.setUserAgent()
@@ -118,7 +118,7 @@ class NetworkController {
 
     func fetchUsers(url: URL, authentication: String) async throws -> Data {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .usersEndpoint)
+        components.clearQueryAndAppend(endpoint: .users)
 
         var request = URLRequest(url: components.url!)
         request.setUserAgent()
