@@ -1,6 +1,6 @@
 //
-//  UserModel.swift
-//  UserModel
+//  User.swift
+//  User
 //
 //  Created by Jon Alaniz on 7/31/21.
 //  Copyright © 2021 Jon Alaniz.

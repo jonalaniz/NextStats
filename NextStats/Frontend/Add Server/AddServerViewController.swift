@@ -28,10 +28,11 @@ class AddServerViewController: UIViewController {
                                          style: .plain,
                                          target: self,
                                          action: #selector(nextButtonPressed))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                           target: self,
+                                           action: #selector(cancelPressed))
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                                           target: self,
-                                                           action: #selector(cancelPressed))
+        navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = nextButton
         navigationItem.rightBarButtonItem?.isEnabled = false
 
@@ -69,8 +70,9 @@ class AddServerViewController: UIViewController {
     }
 
     @objc func nextButtonPressed(_ sender: Any) {
-        guard let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
-              let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell
+        guard 
+            let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
+            let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell
         else {
             fatalError("Cannot cast cell as ServerInputCell")
         }

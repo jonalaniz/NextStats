@@ -33,6 +33,10 @@ class UsersCoordinator: Coordinator {
         splitViewController.present(navigationController, animated: true)
     }
 
+    func showAddUserView() {
+        
+    }
+
     func showUserView(for user: User) {
         userViewController.userDataManager.set(user)
         userViewController.setupView()

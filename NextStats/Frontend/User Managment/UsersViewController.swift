@@ -34,13 +34,15 @@ class UsersViewController: UIViewController {
     private func setupNavigationController() {
         title = .localized(.users)
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                                           target: self,
-                                                           action: #selector(dismissController))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-//                                                            target: self,
-//                                                            action: nil)
 
+        let dismissButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                            target: self,
+                                            action: #selector(dismissController))
+        let newUserButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                            target: self,
+                                            action: #selector(showNewUserController))
+        navigationItem.leftBarButtonItem = dismissButton
+        navigationItem.rightBarButtonItem = newUserButton
     }
 
     private func setupView() {
@@ -72,6 +74,10 @@ class UsersViewController: UIViewController {
     @objc func dismissController() {
         coordinator?.didFinish()
         dismiss(animated: true, completion: nil)
+    }
+
+    @objc func showNewUserController() {
+        coordinator?.showAddUserView()
     }
 }
 

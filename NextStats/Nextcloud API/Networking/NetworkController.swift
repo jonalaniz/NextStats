@@ -139,6 +139,18 @@ class NetworkController {
         return data
     }
 
+//    func postUser(url: URL, authenticaiton: String) async throws -> Data {
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+//        components.clearQueryAndAppend(endpoint: .users)
+//
+//        var request = URLRequest(url: components.url!)
+//        request.httpMethod = "POST"
+//        request.setUserAgent()
+//
+//        let config = config(authString: authenticaiton, ocsApiRequest: true)
+//        let session = URLSession(configuration: config)
+//    }
+
     static func deauthorize(request: URLRequest, config: URLSessionConfiguration) async throws -> Data {
         let session = URLSession(configuration: config)
 

@@ -92,5 +92,18 @@ class MainCoordinator: Coordinator {
         } catch {
             print(error.localizedDescription)
         }
+
+        let lan = NSLocale.current
+        var num = 0
+        var languages = NSLocale.isoLanguageCodes
+        languages.sort()
+        for languageCode in languages {
+            if let language = lan.localizedString(forLanguageCode: languageCode) {
+                num += 1
+                print("Language #\(num): \(language) (\(languageCode))")
+            }
+        }
+        print("Done")
+
     }
 }
