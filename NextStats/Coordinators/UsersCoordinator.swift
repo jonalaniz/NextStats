@@ -34,7 +34,8 @@ class UsersCoordinator: Coordinator {
     }
 
     func showAddUserView() {
-        
+        let newUserController = NewUserController()
+        navigationController.pushViewController(newUserController, animated: true)
     }
 
     func showUserView(for user: User) {
