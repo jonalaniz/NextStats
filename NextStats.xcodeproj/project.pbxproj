@@ -28,6 +28,7 @@
 		5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6402BA3FE77000D51F7 /* NewUser.swift */; };
 		5647A6442BA4023A000D51F7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6432BA4023A000D51F7 /* Groups.swift */; };
 		5647A6462BA4CD4B000D51F7 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6452BA4CD4B000D51F7 /* NewUserController.swift */; };
+		5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */; };
 		565130D9268BD7D3008FE8D4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565130D8268BD7D3008FE8D4 /* Units.swift */; };
@@ -48,7 +49,6 @@
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
-		56924DD223F802A70043C9BE /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56924DD123F802A70043C9BE /* String+Extensions.swift */; };
 		5695048426A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */; };
 		569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569921CB2666A1DE00236019 /* UIColor+NextStats.swift */; };
 		569EBB0D2ADBBCDA00BE5985 /* UserCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */; };
@@ -131,6 +131,7 @@
 		5647A6402BA3FE77000D51F7 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		5647A6432BA4023A000D51F7 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		5647A6452BA4CD4B000D51F7 /* NewUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
+		5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/Networking/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
@@ -156,7 +157,6 @@
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
-		56924DD123F802A70043C9BE /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "String+Extensions.swift"; path = "NextStats/Extensions/String+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIToolbar+ConfigureAppearance.swift"; sourceTree = "<group>"; };
 		569921CB2666A1DE00236019 /* UIColor+NextStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+NextStats.swift"; sourceTree = "<group>"; };
 		569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellModel.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		5601D7F425E3194400993D31 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				56924DD123F802A70043C9BE /* String+Extensions.swift */,
+				5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */,
 				562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
 				5601D7F525E3199400993D31 /* UIApplication+AppVersion.swift */,
@@ -688,6 +688,7 @@
 				569F2C7D26AAF61A001122F2 /* XMLDecodingStorage.swift in Sources */,
 				56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */,
 				5647A6462BA4CD4B000D51F7 /* NewUserController.swift in Sources */,
+				5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */,
 				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
@@ -740,7 +741,6 @@
 				56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */,
 				5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
-				56924DD223F802A70043C9BE /* String+Extensions.swift in Sources */,
 				5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
