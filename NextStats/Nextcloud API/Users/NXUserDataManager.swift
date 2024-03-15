@@ -40,15 +40,34 @@ class NXUserDataManager: NSObject {
         }
 
         switch additionalMail.element {
-        case .string(let address):
-            emails.append(address)
-        case .stringArray(let array):
-            emails.append(contentsOf: array)
-        case .none:
-            return emails
+        case .string(let address): emails.append(address)
+        case .stringArray(let array): emails.append(contentsOf: array)
+        case .none: return emails
         }
 
         return emails
+    }
+
+    func groups() -> String {
+        guard let groups = user?.data.groups
+        else { return "" }
+
+        switch groups.element {
+        case .string(let string): return string
+        case .stringArray(let array): return array.joined(separator: ", ")
+        case .none: return "N/A"
+        }
+    }
+
+    func subadmin() -> String {
+        guard let subadmin = user?.data.subadmin
+        else { return "N/A" }
+
+        switch subadmin.element {
+        case .string(let string): return string
+        case .stringArray(let array): return array.joined(separator: ", ")
+        case .none: return "N/A"
+        }
     }
 
     func lastLogonString() -> String {

@@ -33,7 +33,7 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
         switch tableSection {
         case .mail: return emailAddresses()?.count ?? 0
         case .quota: return 1
-        case .status: return 4
+        case .status: return 6
         case .capabilities: return 2
         }
     }
@@ -134,15 +134,21 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
 
         switch row {
         case 0:
+            content.text = "Groups"
+            content.secondaryText = groups()
+        case 1:
+            content.text = "SubAdmin"
+            content.secondaryText = subadmin()
+        case 2:
             content.text = .localized(.language)
             content.secondaryText = language()
-        case 1:
+        case 3:
             content.text = .localized(.lastLogin)
             content.secondaryText = lastLogonString()
-        case 2:
+        case 4:
             content.text = .localized(.location)
             content.secondaryText = location()
-        case 3:
+        case 5:
             content.text = .localized(.backend)
             content.secondaryText = backend()
         default:
