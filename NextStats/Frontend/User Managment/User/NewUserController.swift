@@ -118,7 +118,7 @@ extension NewUserController: UITableViewDataSource, UITableViewDelegate {
             type = .email
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
-        let textField = TextFieldFactory.textField(type: .normal,
+        let textField = TextFieldFactory.textField(type: type,
                                                    placeholder: placeholder)
         textField.delegate = self
         cell.textField = textField

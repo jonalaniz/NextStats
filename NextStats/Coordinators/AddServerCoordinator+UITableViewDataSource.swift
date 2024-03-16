@@ -1,5 +1,5 @@
 //
-//  NXAuthenticator+UITableViewDataSource.swift
+//  AddServerCoordinator+UITableViewDataSource.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 3/16/24.
@@ -12,7 +12,7 @@ enum LoginFields: Int, CaseIterable {
     case name = 0, url
 }
 
-extension NXAuthenitcator: UITableViewDataSource {
+extension AddServerCoordinator: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -36,7 +36,9 @@ extension NXAuthenitcator: UITableViewDataSource {
         case .url:
             textField = TextFieldFactory.textField(type: .URL,
                                                    placeholder: .localized(.addScreenUrl))
-            textField.addTarget(self, action: #selector(urlEntered), for: .editingChanged)
+            textField.addTarget(self,
+                                action: #selector(addServerVC.checkURLField),
+                                for: .editingChanged)
         }
 
         textField.delegate = self
@@ -47,7 +49,7 @@ extension NXAuthenitcator: UITableViewDataSource {
     }
 }
 
-extension NXAuthenitcator: UITextFieldDelegate {
+extension AddServerCoordinator: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

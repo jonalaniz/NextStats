@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddServerCoordinator: Coordinator {
+class AddServerCoordinator: NSObject, Coordinator {
     weak var parentCoordinator: MainCoordinator?
 
     var childCoordinators = [Coordinator]()
@@ -20,14 +20,14 @@ class AddServerCoordinator: Coordinator {
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         addServerVC = AddServerViewController()
-
-        addServerVC.coordinator = self
-        authenticator.delegate = self
-        authenticator.errorHandler = self
     }
 
     func start() {
-        addServerVC.tableView.dataSource = authenticator
+        addServerVC.coordinator = self
+        addServerVC.tableView.dataSource = self
+        authenticator.delegate = self
+        authenticator.errorHandler = self
+
         navigationController.viewControllers = [addServerVC]
         splitViewController.present(navigationController, animated: true, completion: nil)
     }

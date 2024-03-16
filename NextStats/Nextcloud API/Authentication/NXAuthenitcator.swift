@@ -182,8 +182,4 @@ class NXAuthenitcator: NSObject {
             print(error.localizedDescription)
         }
     }
-
-     @objc func urlEntered() {
-        delegate?.urlEntered()
-    }
 }
