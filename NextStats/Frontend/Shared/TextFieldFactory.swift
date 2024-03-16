@@ -11,6 +11,7 @@ import UIKit
 enum TextFieldType {
     case email, normal, password, URL
 }
+
 class TextFieldFactory {
     static func textField(type: TextFieldType, placeholder: String) -> UITextField {
         let textField = UITextField()
