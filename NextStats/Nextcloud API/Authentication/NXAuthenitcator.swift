@@ -9,7 +9,7 @@
 import UIKit
 
 /// Facilitates the authentication and capturing of server objects.
-class NXAuthenitcator {
+class NXAuthenitcator: NSObject {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
@@ -155,10 +155,7 @@ class NXAuthenitcator {
 
         return request
     }
-}
 
-// MARK: Helper Functions
-extension NXAuthenitcator {
     func cancelAuthorization() {
         shouldPoll = false
     }
@@ -184,5 +181,9 @@ extension NXAuthenitcator {
             print("Error, image not saved ")
             print(error.localizedDescription)
         }
+    }
+
+     @objc func urlEntered() {
+        delegate?.urlEntered()
     }
 }

@@ -37,4 +37,7 @@ protocol NXAuthenticationDelegate: AnyObject {
 
     /// Called when networkManager finds network error, passes localized description.
     func networkError(error: String)
+
+    /// Called when url is entered and needs checking
+    func urlEntered()
 }
