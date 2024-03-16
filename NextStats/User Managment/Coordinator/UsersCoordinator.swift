@@ -8,13 +8,14 @@
 
 import UIKit
 
-class UsersCoordinator: Coordinator {
+class UsersCoordinator: NSObject, Coordinator {
     weak var parentCoordinator: MainCoordinator?
 
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
 
+    let dataManager = NXUserDataManager.shared
     let usersViewController: UsersViewController
     let userViewController: UserViewController
 
@@ -23,11 +24,11 @@ class UsersCoordinator: Coordinator {
         usersViewController = UsersViewController()
         userViewController = UserViewController()
 
-        usersViewController.coordinator = self
         usersViewController.usersDataManager.delegate = usersViewController
     }
 
     func start() {
+        usersViewController.coordinator = self
         navigationController.viewControllers = [usersViewController]
 
         splitViewController.present(navigationController, animated: true)
@@ -39,7 +40,8 @@ class UsersCoordinator: Coordinator {
     }
 
     func showUserView(for user: User) {
-        userViewController.userDataManager.set(user)
+        userViewController.dataManager.set(user)
+        userViewController.tableView.dataSource = self
         userViewController.setupView()
         navigationController.pushViewController(userViewController, animated: true)
     }

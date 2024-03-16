@@ -113,7 +113,7 @@ class NXUserDataManager: NSObject {
         return string
     }
 
-    func canSetDisplayName() -> Bool {
+    func canSetName() -> Bool {
         return user?.data.backendCapabilities.setDisplayName ?? false
     }
 

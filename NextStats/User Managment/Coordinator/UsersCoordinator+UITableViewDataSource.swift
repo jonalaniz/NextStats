@@ -1,16 +1,19 @@
 //
-//  NXUserDataManager+UITableViewDataSource.swift
+//  UsersCoordinator+UITableViewDataSource.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 2/13/24.
+//  Created by Jon Alaniz on 3/16/24.
 //  Copyright © 2024 Jon Alaniz. All rights reserved.
 //
 
 import UIKit
 
 enum MailCellType {
-    case primary
-    case additional
+    case primary, additional
+}
+
+enum CapabilitiesCellType: Int, CaseIterable {
+    case displayName, password
 }
 
 enum UserDataSection: Int, CaseIterable {
@@ -24,14 +27,13 @@ enum UserDataSection: Int, CaseIterable {
     }
 }
 
-extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
-    // MARK: - UITableViewDataSource Functions
+extension UsersCoordinator: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableSection = UserDataSection(rawValue: section)
         else { return 0 }
 
         switch tableSection {
-        case .mail: return emailAddresses()?.count ?? 0
+        case .mail: return dataManager.emailAddresses()?.count ?? 0
         case .quota: return 1
         case .status: return 6
         case .capabilities: return 2
@@ -40,7 +42,7 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let user,
+            let user = dataManager.user,
             let tableSection = UserDataSection(rawValue: indexPath.section)
         else { return UITableViewCell() }
 
@@ -61,40 +63,17 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
         else { return nil }
 
         switch tableSection {
-        case .mail: return emailTitle()
-        case .quota: return quotaTitle()
+        case .mail: return dataManager.emailTitle()
+        case .quota: return dataManager.quotaTitle()
         case .status: return .localized(.status)
         case .capabilities: return .localized(.capabilities)
         }
     }
 
-    // MARK: - UITableViewDelegate Functions
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return shouldHide(section: section) ? CGFloat.leastNonzeroMagnitude : 20
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let tableSection = UserDataSection(rawValue: indexPath.section)
-        else { return 44 }
-
-        return tableSection.height()
-    }
-
-    // MARK: - Helper Functions
-
-    func shouldHide(section: Int) -> Bool {
-        guard let tableSection = UserDataSection(rawValue: section)
-        else { return false }
-
-        switch tableSection {
-        case .mail: return emailAddresses() == nil
-        default: return false
-        }
-    }
-
     // Email
     func mailSection(in row: Int, for user: User) -> UITableViewCell {
-        guard let emailAddresses = emailAddresses() else { return UITableViewCell() }
+        guard let emailAddresses = dataManager.emailAddresses()
+        else { return UITableViewCell() }
 
         switch row {
         case 0:
@@ -135,22 +114,22 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
         switch row {
         case 0:
             content.text = "Groups"
-            content.secondaryText = groups()
+            content.secondaryText = dataManager.groups()
         case 1:
             content.text = "SubAdmin"
-            content.secondaryText = subadmin()
+            content.secondaryText = dataManager.subadmin()
         case 2:
             content.text = .localized(.language)
-            content.secondaryText = language()
+            content.secondaryText = dataManager.language()
         case 3:
             content.text = .localized(.lastLogin)
-            content.secondaryText = lastLogonString()
+            content.secondaryText = dataManager.lastLogonString()
         case 4:
             content.text = .localized(.location)
-            content.secondaryText = location()
+            content.secondaryText = dataManager.location()
         case 5:
             content.text = .localized(.backend)
-            content.secondaryText = backend()
+            content.secondaryText = dataManager.backend()
         default:
             break
         }
@@ -161,6 +140,9 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
 
     // Capabilities
     func capabilitiesCell(_ row: Int) -> UITableViewCell {
+        guard let cellType = CapabilitiesCellType(rawValue: row)
+        else { return UITableViewCell() }
+
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
         cell.isUserInteractionEnabled = false
 
@@ -168,15 +150,13 @@ extension NXUserDataManager: UITableViewDataSource, UITableViewDelegate {
         content.textProperties.color = .label
         content.secondaryTextProperties.color = .secondaryLabel
 
-        switch row {
-        case 0:
+        switch cellType {
+        case .displayName:
             content.text = .localized(.setDisplayName)
-            canSetDisplayName() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
-        case 1:
+            dataManager.canSetName() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
+        case .password:
             content.text = .localized(.setPassword)
-            canSetPassword() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
-        default:
-            break
+            dataManager.canSetPassword() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
         }
 
         cell.contentConfiguration = content
