@@ -34,8 +34,6 @@ class MainCoordinator: Coordinator {
         splitViewController.viewControllers = [mainNavigationController, detailNavigationController]
         mainViewController.coordinator = self
         statsViewController.coordinator = self
-
-        startupSequences()
     }
 
     func showAddServerView() {
@@ -79,18 +77,6 @@ class MainCoordinator: Coordinator {
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
             childCoordinators.remove(at: index)
-        }
-    }
-
-    func startupSequences() {
-        let settingsData = jsonString.data(using: .utf8)!
-        let decoder = JSONDecoder()
-
-        do {
-            let settings = try decoder.decode(Settings.self, from: settingsData)
-            print(settings)
-        } catch {
-            print(error.localizedDescription)
         }
     }
 }

@@ -322,9 +322,9 @@
 		56491FA229E66C6000E3431D /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				5647A6422BA40217000D51F7 /* Models */,
 				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
 				5634EC3A2B6C4D8D00468AC0 /* NXUserDataManager.swift */,
+				5647A6422BA40217000D51F7 /* Models */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -365,6 +365,7 @@
 				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
 				56BB28E426A7997C00F0D8DC /* Catalyst */,
 				56DB682126AEEC400015CB04 /* Add Server */,
+				56E0AD8226ADAB810090ACB6 /* Statistics */,
 				569F2CA226AC2D1A001122F2 /* User Managment */,
 				56E0AD7D26ADA1F10090ACB6 /* Shared */,
 				56DBC1332932ED90002A306B /* Coordinators */,
@@ -408,7 +409,6 @@
 				5601D7F425E3194400993D31 /* Extensions */,
 				56DB681F26AEEBF60015CB04 /* Info */,
 				56E0AD8726ADC01D0090ACB6 /* Servers  */,
-				56E0AD8226ADAB810090ACB6 /* Statistics */,
 			);
 			path = Frontend;
 			sourceTree = "<group>";
