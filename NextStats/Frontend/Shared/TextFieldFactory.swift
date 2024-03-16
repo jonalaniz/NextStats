@@ -8,20 +8,37 @@
 
 import UIKit
 
+enum TextFieldType {
+    case email, normal, password, URL
+}
 class TextFieldFactory {
-    static func createTextField(placeholder: String,
-                                textContentType: UITextContentType,
-                                autocapitalizationType: UITextAutocapitalizationType,
-                                autocorrectionType: UITextAutocorrectionType,
-                                keyboardType: UIKeyboardType,
-                                returnKeyType: UIReturnKeyType) -> UITextField {
+    static func textField(type: TextFieldType, placeholder: String) -> UITextField {
         let textField = UITextField()
         textField.placeholder = placeholder
-        textField.textContentType = textContentType
-        textField.autocapitalizationType = autocapitalizationType
-        textField.autocorrectionType = autocorrectionType
-        textField.keyboardType = keyboardType
-        textField.returnKeyType = returnKeyType
+        textField.returnKeyType = .done
+
+        switch type {
+        case .email:
+            textField.textContentType = .emailAddress
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+            textField.keyboardType = .emailAddress
+        case .normal:
+            textField.textContentType = .name
+            textField.autocapitalizationType = .words
+            textField.autocorrectionType = .default
+            textField.keyboardType = .default
+        case .password:
+            textField.textContentType = .password
+            textField.autocapitalizationType = .words
+            textField.autocorrectionType = .no
+            textField.keyboardType = .default
+        case .URL:
+            textField.textContentType = .URL
+            textField.autocapitalizationType = .none
+            textField.autocorrectionType = .no
+            textField.keyboardType = .URL
+        }
 
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
 

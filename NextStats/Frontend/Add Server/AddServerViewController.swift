@@ -40,9 +40,8 @@ class AddServerViewController: UIViewController {
 
     private func setupView() {
         tableView.tableHeaderView = headerView
-        tableView.register(InputCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
         tableView.delegate = self
-        tableView.dataSource = self
         tableView.alwaysBounceVertical = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -70,7 +69,7 @@ class AddServerViewController: UIViewController {
     }
 
     @objc func nextButtonPressed(_ sender: Any) {
-        guard 
+        guard
             let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
             let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell
         else {
@@ -117,59 +116,8 @@ class AddServerViewController: UIViewController {
     }
 }
 
-// MARK: - UITextFieldDelegate
-extension AddServerViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
 // MARK: - TableViewDelegate
-extension AddServerViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? InputCell
-        else {
-            fatalError("DequeueReusableCell failed while casting")
-        }
-
-        let textField: UITextField
-
-        switch indexPath.row {
-        case 0:
-            textField = TextFieldFactory.createTextField(placeholder: .localized(.addScreenNickname),
-                                                         textContentType: .name,
-                                                         autocapitalizationType: .words,
-                                                         autocorrectionType: .default,
-                                                         keyboardType: .default,
-                                                         returnKeyType: .done)
-        case 1:
-            textField = TextFieldFactory.createTextField(placeholder: .localized(.addScreenUrl),
-                                                         textContentType: .URL,
-                                                         autocapitalizationType: .none,
-                                                         autocorrectionType: .no,
-                                                         keyboardType: .URL,
-                                                         returnKeyType: .done)
-            textField.addTarget(self, action: #selector(checkURLField), for: .editingChanged)
-        default:
-            textField = UITextField()
-        }
-
-        textField.delegate = self
-        cell.textField = textField
-        cell.setup()
-
-        return cell
-    }
-
+extension AddServerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return .localized(.addScreenLabel)
     }

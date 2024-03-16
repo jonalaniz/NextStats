@@ -27,6 +27,7 @@ class AddServerCoordinator: Coordinator {
     }
 
     func start() {
+        addServerVC.tableView.dataSource = authenticator
         navigationController.viewControllers = [addServerVC]
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
@@ -83,6 +84,10 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
 
     func didRecieve(loginURL: String) {
         showLoginPage(withURlString: loginURL)
+    }
+
+    func urlEntered() {
+        addServerVC.checkURLField()
     }
 }
 
