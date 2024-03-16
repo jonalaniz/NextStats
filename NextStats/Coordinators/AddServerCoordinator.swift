@@ -65,6 +65,10 @@ class AddServerCoordinator: NSObject, Coordinator {
     func dismiss() {
         navigationController.dismiss(animated: true, completion: nil)
     }
+
+    @objc func checkURL() {
+        addServerVC.checkURLField()
+    }
 }
 
 extension AddServerCoordinator: NXAuthenticationDelegate {

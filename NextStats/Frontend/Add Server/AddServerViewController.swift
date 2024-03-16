@@ -99,7 +99,7 @@ class AddServerViewController: UIViewController {
     }
 
     /// Enables the connect button when text is entered
-    @objc func checkURLField() {
+    func checkURLField() {
         // Safely unwrap urlString
         guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell
         else {
