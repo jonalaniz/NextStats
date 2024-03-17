@@ -43,6 +43,7 @@ class UsersViewController: UIViewController {
                                             action: #selector(showNewUserController))
         navigationItem.leftBarButtonItem = dismissButton
         navigationItem.rightBarButtonItem = newUserButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
     private func setupView() {
@@ -129,6 +130,7 @@ extension UsersViewController: NXDataManagerDelegate {
             handle(error: error)
             return
         case .dataCaptured:
+            navigationItem.rightBarButtonItem?.isEnabled = true
             tableView.reloadData()
             showTableView()
         }
