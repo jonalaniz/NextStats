@@ -35,8 +35,11 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func showAddUserView() {
-        let newUserController = NewUserController()
-        navigationController.pushViewController(newUserController, animated: true)
+        let child = NewUserCoordinator(splitViewController: splitViewController,
+                                       navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
 
     func showUserView(for user: User) {

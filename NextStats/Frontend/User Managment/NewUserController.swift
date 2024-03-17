@@ -22,6 +22,16 @@ class NewUserController: UIViewController {
     private func setupNavigationController() {
         title = "New User"
         navigationController?.navigationBar.prefersLargeTitles = true
+
+        let cancel = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                     target: self,
+                                     action: #selector(cancelPressed))
+        let done = UIBarButtonItem(barButtonSystemItem: .done,
+                                   target: self,
+                                   action: nil)
+
+        navigationItem.leftBarButtonItem = cancel
+        navigationItem.rightBarButtonItem = done
     }
 
     private func setupView() {
@@ -40,6 +50,10 @@ class NewUserController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
     }
+
+    @objc func cancelPressed() {
+        self.dismiss(animated: true)
+    }
 }
 
 //class NewUserFactory {
@@ -54,6 +68,12 @@ class NewUserController: UIViewController {
 //}
 
 extension NewUserController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let section = NewUserFields(rawValue: section)
+        else { return nil }
+
+        return headerFor(section: section)
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return NewUserFields.allCases.count
     }
@@ -78,7 +98,9 @@ extension NewUserController: UITableViewDataSource, UITableViewDelegate {
             else { return UITableViewCell() }
             return nameCellFor(row)
         case .requiredFields:
-            return UITableViewCell()
+            guard let row = RequiredField(rawValue: indexPath.row)
+            else { return UITableViewCell() }
+            return requiredCellFor(row)
         case .groups:
             return UITableViewCell()
         case .sumAdmin:
@@ -111,10 +133,10 @@ extension NewUserController: UITableViewDataSource, UITableViewDelegate {
 
         switch field {
         case .password:
-            placeholder = "Username (required)"
+            placeholder = "Password"
             type = .password
         case .email:
-            placeholder = "Display name"
+            placeholder = "Email"
             type = .email
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
@@ -126,6 +148,16 @@ extension NewUserController: UITableViewDataSource, UITableViewDelegate {
 
         return cell
     }
+
+    func headerFor(section: NewUserFields) -> String {
+        switch section {
+        case .name: return ""
+        case .requiredFields: return "Either a password or an email is required."
+        case .groups: return "Groups"
+        case .sumAdmin: return "Administered Groups"
+        case .quota: return "Quota"
+        }
+    }
 }
 
 extension NewUserController: UITextFieldDelegate {
@@ -135,7 +167,7 @@ extension NewUserController: UITextFieldDelegate {
     }
 }
 
-protocol NewUserFactoryDelegate {
+protocol NewUserFactoryDelegate: AnyObject {
     func success()
     func fail(statusCode: Int)
     func missingRequired(field: RequiredField)
@@ -160,15 +192,6 @@ enum NewUserFields: Int, CaseIterable {
     }
 }
 
-//Status codes:
-//
-//100 - successful
-//101 - invalid input data
-//102 - username already exists
-//103 - unknown error occurred whilst adding the user
-//104 - group does not exist
-//105 - insufficient privileges for group
-//106 - no group specified (required for subadmins)
-//107 - all errors that contain a hint - for example “Password is among the 1,000,000 most common ones. Please make it unique.” (this code was added in 12.0.6 & 13.0.1)
-//108 - password and email empty. Must set password or an email
-//109 - invitation email cannot be send
+enum QuotaTypes: Int, CaseIterable {
+    case defaultQuota, unlimited, oneGB, fiveGB, tenGB
+}
