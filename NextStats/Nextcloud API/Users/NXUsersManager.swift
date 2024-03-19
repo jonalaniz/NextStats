@@ -70,8 +70,6 @@ class NXUsersManager {
         }
     }
 
-//    private func getUserImage(userID: String) 
-
     private func decode<T: Codable>(_ data: Data) -> T? {
         let decoder = XMLDecoder()
 
