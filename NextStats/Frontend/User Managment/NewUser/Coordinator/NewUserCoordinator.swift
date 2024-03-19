@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewUserCoordinator: Coordinator {
+class NewUserCoordinator: NSObject, Coordinator {
     weak var parentCoordinator: UsersCoordinator?
 
     var childCoordinators = [Coordinator]()
@@ -26,6 +26,7 @@ class NewUserCoordinator: Coordinator {
     func start() {
         popOverNavController.viewControllers = [newUserViewController]
         newUserViewController.coordinator = self
+        newUserViewController.tableView.dataSource = self
         navigaitonController.present(popOverNavController, animated: true)
     }
 
