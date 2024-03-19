@@ -118,10 +118,6 @@ class AddServerViewController: UIViewController {
 
 // MARK: - TableViewDelegate
 extension AddServerViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return .localized(.addScreenLabel)
-    }
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 28
     }

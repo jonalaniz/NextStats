@@ -9,7 +9,7 @@
 import UIKit
 
 class NewUserController: UIViewController {
-    weak var coordinator: UsersCoordinator?
+    weak var coordinator: NewUserCoordinator?
 
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
@@ -52,20 +52,9 @@ class NewUserController: UIViewController {
     }
 
     @objc func cancelPressed() {
-        self.dismiss(animated: true)
+        coordinator?.dismiss()
     }
 }
-
-//class NewUserFactory {
-//    // We need to import a server
-//    var server: NextServer
-//
-//    // We need to get the server groups
-//
-//    // We need to create the server
-//
-//    // Before we send the request we *Need* either an email or password set
-//}
 
 extension NewUserController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

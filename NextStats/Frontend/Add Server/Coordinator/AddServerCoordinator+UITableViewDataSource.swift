@@ -47,6 +47,10 @@ extension AddServerCoordinator: UITableViewDataSource {
 
         return cell
     }
+
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return .localized(.addScreenLabel)
+    }
 }
 
 extension AddServerCoordinator: UITextFieldDelegate {

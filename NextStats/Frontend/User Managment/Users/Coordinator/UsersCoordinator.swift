@@ -49,6 +49,12 @@ class UsersCoordinator: NSObject, Coordinator {
         navigationController.pushViewController(userViewController, animated: true)
     }
 
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
+            childCoordinators.remove(at: index)
+        }
+    }
+
     func didFinish() {
         guard
             let detailNavigationController = parentCoordinator?.detailNavigationController
