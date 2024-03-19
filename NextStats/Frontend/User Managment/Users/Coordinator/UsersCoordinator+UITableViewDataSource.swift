@@ -33,7 +33,7 @@ extension UsersCoordinator: UITableViewDataSource {
         else { return 0 }
 
         switch tableSection {
-        case .mail: return dataManager.emailAddresses()?.count ?? 0
+        case .mail: return userFormatter.emailAddresses()?.count ?? 0
         case .quota: return 1
         case .status: return 6
         case .capabilities: return 2
@@ -42,7 +42,7 @@ extension UsersCoordinator: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let user = dataManager.user,
+            let user = userFormatter.user,
             let tableSection = UserDataSection(rawValue: indexPath.section)
         else { return UITableViewCell() }
 
@@ -63,8 +63,8 @@ extension UsersCoordinator: UITableViewDataSource {
         else { return nil }
 
         switch tableSection {
-        case .mail: return dataManager.emailTitle()
-        case .quota: return dataManager.quotaTitle()
+        case .mail: return userFormatter.emailTitle()
+        case .quota: return userFormatter.quotaTitle()
         case .status: return .localized(.status)
         case .capabilities: return .localized(.capabilities)
         }
@@ -72,7 +72,7 @@ extension UsersCoordinator: UITableViewDataSource {
 
     // Email
     func mailSection(in row: Int, for user: User) -> UITableViewCell {
-        guard let emailAddresses = dataManager.emailAddresses()
+        guard let emailAddresses = userFormatter.emailAddresses()
         else { return UITableViewCell() }
 
         switch row {
@@ -114,22 +114,22 @@ extension UsersCoordinator: UITableViewDataSource {
         switch row {
         case 0:
             content.text = "Groups"
-            content.secondaryText = dataManager.groups()
+            content.secondaryText = userFormatter.groups()
         case 1:
             content.text = "SubAdmin"
-            content.secondaryText = dataManager.subadmin()
+            content.secondaryText = userFormatter.subadmin()
         case 2:
             content.text = .localized(.language)
-            content.secondaryText = dataManager.language()
+            content.secondaryText = userFormatter.language()
         case 3:
             content.text = .localized(.lastLogin)
-            content.secondaryText = dataManager.lastLogonString()
+            content.secondaryText = userFormatter.lastLogonString()
         case 4:
             content.text = .localized(.location)
-            content.secondaryText = dataManager.location()
+            content.secondaryText = userFormatter.location()
         case 5:
             content.text = .localized(.backend)
-            content.secondaryText = dataManager.backend()
+            content.secondaryText = userFormatter.backend()
         default:
             break
         }
@@ -153,10 +153,10 @@ extension UsersCoordinator: UITableViewDataSource {
         switch cellType {
         case .displayName:
             content.text = .localized(.setDisplayName)
-            dataManager.canSetName() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
+            userFormatter.canSetName() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
         case .password:
             content.text = .localized(.setPassword)
-            dataManager.canSetPassword() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
+            userFormatter.canSetPassword() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
         }
 
         cell.contentConfiguration = content
