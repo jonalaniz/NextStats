@@ -35,7 +35,3 @@ class NewUserCoordinator: NSObject, Coordinator {
         parentCoordinator?.childDidFinish(self)
     }
 }
-
-class NewUserFactory {
-    
-}
