@@ -6,11 +6,7 @@
 //  Copyright © 2022 Jon Alaniz. All rights reserved.
 //
 
-import UIKit
-
-protocol ErrorHandler: AnyObject {
-    func handle(error type: FetchError)
-}
+import Foundation
 
 enum FetchError: Error {
     case error(String) // Sends error.localizedDescription
@@ -38,4 +34,8 @@ enum FetchError: Error {
         case .unexpectedResponse(_): return .localized(.unexpectedResponse)
         }
     }
+}
+
+protocol ErrorHandler: AnyObject {
+    func handle(error type: FetchError)
 }
