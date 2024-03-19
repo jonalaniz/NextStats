@@ -10,7 +10,7 @@ import UIKit
 
 class UserViewController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
-    let dataManager = NXUserDataManager.shared
+    let dataManager = NXUserFormatter.shared
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
