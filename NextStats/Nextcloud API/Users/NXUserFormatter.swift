@@ -8,9 +8,9 @@
 
 import UIKit
 
-class NXUserDataManager: NSObject {
+class NXUserFormatter: NSObject {
     /// Returns the shared `UserDataManager` instance
-    public static let shared = NXUserDataManager()
+    public static let shared = NXUserFormatter()
 
     var user: User?
 

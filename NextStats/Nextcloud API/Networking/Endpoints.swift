@@ -9,7 +9,7 @@ import Foundation
 
 enum Endpoints: String {
     case appPassword = "/ocs/v2.php/core/apppassword"
-    case groups = "ocs/v1.php/cloud/groups"
+    case groups = "/ocs/v1.php/cloud/groups"
     case info = "/ocs/v2.php/apps/serverinfo/api/v1/info"
     case login = "/index.php/login/v2"
     case logo = "/index.php/apps/theming/image/logo"
