@@ -55,7 +55,7 @@ class NetworkController {
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .into)
+        components.clearQueryAndAppend(endpoint: .info)
 
         var request = URLRequest(url: components.url!)
         request.setUserAgent()
