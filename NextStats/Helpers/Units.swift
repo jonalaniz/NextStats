@@ -35,15 +35,15 @@ public struct Units {
     public func getReadableUnit() -> String {
         switch bytes {
         case 0..<1_024:
-            return "\(bytes) bytes"
+            return "\(bytes)Bytes"
         case 1_024..<(1_024 * 1_024):
-            return "\(String(format: "%.2f", kilobytes)) KB"
+            return "\(String(format: "%.1f", kilobytes))KB"
         case 1_024..<(1_024 * 1_024 * 1_024):
-            return "\(String(format: "%.2f", megabytes)) MB"
+            return "\(String(format: "%.1f", megabytes))MB"
         case (1_024 * 1_024 * 1_024)...Double.greatestFiniteMagnitude:
-            return "\(String(format: "%.2f", gigabytes)) GB"
+            return "\(String(format: "%.1f", gigabytes))GB"
         default:
-            return "\(bytes) bytes"
+            return "\(bytes)Bytes"
         }
     }
 }
