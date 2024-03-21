@@ -1,7 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "nextstat-logo-transparent-ios.png",
+      "filename" : "nextstat-logo-transparent-ios-light.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "nextstat-logo-transparent-ios-dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,15 +21,56 @@
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
       "idiom" : "universal",
       "scale" : "3x"
     },
     {
-      "filename" : "nextstat-logo-transparent-mac.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "nextstat-logo-transparent-ios-light 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "nextstat-logo-transparent-ios-dark 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
       "idiom" : "mac",
       "scale" : "2x"
     }
