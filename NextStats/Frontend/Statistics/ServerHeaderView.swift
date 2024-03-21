@@ -73,7 +73,7 @@ class ServerHeaderView: UIView {
 
     let users: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .secondarySystemFill
+        button.backgroundColor = .button
         button.layer.cornerRadius = 10
 
         button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
@@ -86,7 +86,7 @@ class ServerHeaderView: UIView {
 
     let visitServerButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .secondarySystemFill
+        button.backgroundColor = .button
         button.layer.cornerRadius = 10
         button.sfSymbolWithText(symbol: "safari.fill",
                                 text: .localized(.serverHeaderVisit),

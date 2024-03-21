@@ -16,7 +16,6 @@ class ProgressCell: UITableViewCell {
     var iconLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.tintColor = .themeColor
 
         return label
     }()
@@ -119,15 +118,14 @@ class ProgressCell: UITableViewCell {
 
         switch icon {
         case .storage:
-            string.prefixingSFSymbol("internaldrive", color: .label)
+            string.prefixingSFSymbol("internaldrive", color: .themeColor)
         case .memory:
-            string.prefixingSFSymbol("memorychip", color: .label)
-            string.append(NSAttributedString(string: " RAM"))
+            string.prefixingSFSymbol("memorychip", color: .themeColor)
+            string.append(NSAttributedString(string: " RAM", attributes: [.foregroundColor: UIColor.themeColor]))
         case .swap:
-            string.prefixingSFSymbol("memorychip.fill", color: .label)
-            string.append(NSAttributedString(string: " Swap"))
+            string.prefixingSFSymbol("memorychip.fill", color: .themeColor)
+            string.append(NSAttributedString(string: " Swap", attributes: [.foregroundColor: UIColor.themeColor]))
         }
-
         iconLabel.attributedText = string
     }
 
@@ -140,7 +138,6 @@ class ProgressCell: UITableViewCell {
         detailLabel.text = label
 
         let progress = Float(used) / Float(total)
-        print(progress)
         progressView.progress = progress
     }
 }

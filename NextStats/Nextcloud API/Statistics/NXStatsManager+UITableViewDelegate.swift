@@ -123,6 +123,7 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
             content.secondaryText = stats.nextcloud?.system?.memcacheDistributed ?? "N/A"
         }
 
+        content.textProperties.color = .themeColor
         content.secondaryTextProperties.color = .secondaryLabel
         cell.contentConfiguration = content
         cell.selectionStyle = .none
@@ -217,6 +218,7 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
             content.secondaryText = numberOfFiles()
         }
 
+        content.textProperties.color = .themeColor
         content.secondaryTextProperties.color = .secondaryLabel
         cell.contentConfiguration = content
         cell.selectionStyle = .none
@@ -260,6 +262,7 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         case .total: content.text = "Total Users"
         }
 
+        content.textProperties.color = .themeColor
         content.secondaryText = activityValue(for: cellRow)
         content.secondaryTextProperties.color = .secondaryLabel
         cell.contentConfiguration = content
