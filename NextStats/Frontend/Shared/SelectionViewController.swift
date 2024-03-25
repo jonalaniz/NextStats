@@ -35,16 +35,9 @@ class SelectionViewController: UITableViewController {
         case .subAdmin: title = "Admin of"
         case .quota: title = "Quota"
         }
-
-        let doneButton = UIBarButtonItem(systemItem: .done)
-        doneButton.action = #selector(done)
-        doneButton.target = self
-        doneButton.style = .plain
-
-        navigationItem.rightBarButtonItem = doneButton
     }
 
-    @objc func done() {
+    override func viewWillDisappear(_ animated: Bool) {
         var selected = Array(selections)
         selected.sort()
 
@@ -53,8 +46,6 @@ class SelectionViewController: UITableViewController {
         } else {
             delegate?.selected(selected, type: selectionType)
         }
-
-        navigationController?.popViewController(animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -86,6 +77,7 @@ class SelectionViewController: UITableViewController {
             selections.removeAll()
             selections.insert(selectable[indexPath.row])
             tableView.reloadData()
+            navigationController?.popViewController(animated: true)
             return
         }
 

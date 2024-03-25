@@ -21,7 +21,7 @@ class NXUserFactory: NSObject {
     private var groupsObject: GroupsObject?
     private var memberOf = [String]()
     private var adminOf = [String]()
-    private var quota = String()
+    private var quota = QuotaType.defaultQuota
 
     private override init() {}
 
@@ -69,6 +69,10 @@ class NXUserFactory: NSObject {
         }
     }
 
+    func quotaType() -> QuotaType {
+        return quota
+    }
+
     func set(groups: [String]) {
         memberOf = groups
     }
@@ -78,7 +82,40 @@ class NXUserFactory: NSObject {
     }
 
     func set(quota: String) {
-        // Guard
+        guard let selectedQuota = QuotaType(rawValue: quota)
+        else { return }
+
+        self.quota = selectedQuota
+    }
+
+    func createUser(userid: String,
+                    displayName: String?,
+                    email: String?,
+                    password: String?,
+                    groups: [String]?,
+                    subAdmin: [String]?) {
+
+    }
+
+    func createNewUser() {
+        let newUser = NewUser(userid: "Piss",
+                              password: nil,
+                              displayName: nil,
+                              email: nil,
+                              groups: nil,
+                              subAdmin: nil,
+                              quota: nil,
+                              language: nil)
+
+        let encoder = JSONEncoder()
+
+        do {
+            let data = try encoder.encode(newUser)
+            let string = String(data: data, encoding: .utf8)
+            print(string)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
 }

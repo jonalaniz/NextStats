@@ -45,7 +45,10 @@ class NewUserCoordinator: NSObject, Coordinator {
         switch type {
         case .groups: selectionView = SelectionViewController(data: groups, type: .groups)
         case .subAdmin: selectionView = SelectionViewController(data: groups, type: .subAdmin)
-        case .quota: return
+        case .quota:
+            let array = QuotaType.allCases.map { $0.rawValue }
+            selectionView = SelectionViewController(data: array, type: .quota)
+            selectionView.selections.insert(userFactory.quotaType().rawValue)
         }
 
         selectionView.delegate = self

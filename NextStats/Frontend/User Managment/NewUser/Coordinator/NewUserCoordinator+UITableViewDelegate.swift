@@ -22,7 +22,8 @@ extension NewUserCoordinator: UITableViewDelegate {
         switch section {
         case .groups: showSelectionView(type: .groups)
         case .subAdmin: showSelectionView(type: .subAdmin)
-        default: break
+        case .quota: showSelectionView(type: .quota)
+        default: return
         }
 
         tableView.deselectRow(at: indexPath, animated: true)

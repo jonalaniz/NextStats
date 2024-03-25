@@ -9,13 +9,12 @@
 import UIKit
 
 enum NewUserFields: Int, CaseIterable {
-    case name = 0, requiredFields, groups, subAdmin
-//         quota
+    case name = 0, requiredFields, groups, subAdmin, quota
 
     func sections() -> Int {
         switch self {
         case .name, .requiredFields: return 2
-        case .groups, .subAdmin: return 1
+        case .groups, .subAdmin, .quota: return 1
         }
     }
 }
@@ -28,8 +27,20 @@ enum RequiredField: Int, CaseIterable {
     case email = 0, password
 }
 
-enum QuotaTypes: Int, CaseIterable {
-    case defaultQuota, unlimited, oneGB, fiveGB, tenGB
+enum QuotaType: String, CaseIterable {
+    case defaultQuota = "Default"
+    case oneGB = "1 GB"
+    case fiveGB = "5 GB"
+    case tenGB = "10 GB"
+
+    func stringValue() -> String? {
+        switch self {
+        case .defaultQuota: return nil
+        case .oneGB: return "1073741824"
+        case .fiveGB: return "5368709120"
+        case .tenGB: return  "10737418240"
+        }
+    }
 }
 
 extension NewUserCoordinator: UITableViewDataSource {
@@ -58,6 +69,7 @@ extension NewUserCoordinator: UITableViewDataSource {
             return requiredCellFor(row)
         case .groups: return groupsCell()
         case .subAdmin: return subAdminCell()
+        case .quota: return quotaCell()
         }
     }
 
@@ -167,12 +179,26 @@ extension NewUserCoordinator: UITableViewDataSource {
         return cell
     }
 
+    func quotaCell() -> UITableViewCell {
+        let quota = userFactory.quotaType()
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        var content = cell.defaultContentConfiguration()
+
+        content.text = quota.rawValue
+        cell.contentConfiguration = content
+        cell.accessoryType = .disclosureIndicator
+
+        return cell
+
+    }
+
     func headerFor(section: NewUserFields) -> String {
         switch section {
         case .name: return ""
         case .requiredFields: return "Email or password required."
         case .groups: return "Groups"
         case .subAdmin: return "Set group admin for"
+        case .quota: return "Quota"
         }
     }
 }

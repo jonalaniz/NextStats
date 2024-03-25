@@ -32,6 +32,7 @@ class NewUserController: UIViewController {
 
         navigationItem.leftBarButtonItem = cancel
         navigationItem.rightBarButtonItem = done
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
     private func setupView() {

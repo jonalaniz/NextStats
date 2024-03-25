@@ -18,7 +18,7 @@ extension NewUserCoordinator: SelectionViewDelegate {
     }
 
     func selected(_ selection: String, type: SelectionType) {
-        if type == .quota { userFactory.set(quota: selection)}
+        if type == .quota { userFactory.set(quota: selection) }
 
         newUserViewController.tableView.reloadData()
     }
