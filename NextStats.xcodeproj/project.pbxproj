@@ -54,6 +54,7 @@
 		567D82632BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */; };
 		567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82642BB1305D007BF135 /* SelectionViewController.swift */; };
 		567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */; };
+		567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82682BB1B2A4007BF135 /* QuotaType.swift */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
 		5695048426A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */; };
@@ -169,6 +170,7 @@
 		567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUserCoordinator+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		567D82642BB1305D007BF135 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
 		567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
+		567D82682BB1B2A4007BF135 /* QuotaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaType.swift; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIToolbar+ConfigureAppearance.swift"; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 			children = (
 				5647A6452BA4CD4B000D51F7 /* NewUserController.swift */,
 				567D825B2BA7AF6B007BF135 /* Coordinator */,
+				567D82682BB1B2A4007BF135 /* QuotaType.swift */,
 			);
 			path = NewUser;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */,
 				56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */,
 				5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */,
+				567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
 				5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,

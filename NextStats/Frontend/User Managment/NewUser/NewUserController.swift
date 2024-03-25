@@ -28,7 +28,7 @@ class NewUserController: UIViewController {
                                      action: #selector(cancelPressed))
         let done = UIBarButtonItem(barButtonSystemItem: .done,
                                    target: self,
-                                   action: nil)
+                                   action: #selector(donePressed))
 
         navigationItem.leftBarButtonItem = cancel
         navigationItem.rightBarButtonItem = done
@@ -53,10 +53,8 @@ class NewUserController: UIViewController {
     @objc func cancelPressed() {
         coordinator?.dismiss()
     }
-}
 
-protocol NewUserFactoryDelegate: AnyObject {
-    func success()
-    func fail(statusCode: Int)
-    func missingRequired(field: RequiredField)
+    @objc func donePressed() {
+        coordinator?.createUser()
+    }
 }

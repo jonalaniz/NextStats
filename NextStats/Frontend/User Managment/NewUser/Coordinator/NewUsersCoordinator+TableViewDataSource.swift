@@ -27,22 +27,6 @@ enum RequiredField: Int, CaseIterable {
     case email = 0, password
 }
 
-enum QuotaType: String, CaseIterable {
-    case defaultQuota = "Default"
-    case oneGB = "1 GB"
-    case fiveGB = "5 GB"
-    case tenGB = "10 GB"
-
-    func stringValue() -> String? {
-        switch self {
-        case .defaultQuota: return nil
-        case .oneGB: return "1073741824"
-        case .fiveGB: return "5368709120"
-        case .tenGB: return  "10737418240"
-        }
-    }
-}
-
 extension NewUserCoordinator: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return NewUserFields.allCases.count
@@ -82,14 +66,20 @@ extension NewUserCoordinator: UITableViewDataSource {
 
     func nameCellFor(_ field: NameField) -> InputCell {
         let placeholder: String
+        let selector: Selector
 
         switch field {
-        case .username: placeholder = "Username (required)"
-        case .displayName: placeholder = "Display name"
+        case .username:
+            placeholder = "Username (required)"
+            selector = #selector(updateUserid)
+        case .displayName:
+            placeholder = "Display name"
+            selector = #selector(updateDisplayName)
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
         let textField = TextFieldFactory.textField(type: .normal,
                                                    placeholder: placeholder)
+        textField.addTarget(self, action: selector, for: .editingChanged)
         textField.delegate = self
         cell.textField = textField
         cell.setup()
@@ -97,26 +87,83 @@ extension NewUserCoordinator: UITableViewDataSource {
         return cell
     }
 
+    @objc func updateUserid() {
+        let indexPath = IndexPath(row: NameField.username.rawValue,
+                                  section: NewUserFields.name.rawValue)
+        guard
+            let cell = getInputCell(at: indexPath),
+            let string = cell.textField.text,
+            !string.isEmpty
+        else { return }
+
+        userFactory.set(userid: string)
+        checkRequirements()
+    }
+
+    @objc func updateDisplayName() {
+        let indexPath = IndexPath(row: NameField.displayName.rawValue,
+                                  section: NewUserFields.name.rawValue)
+        guard
+            let cell = getInputCell(at: indexPath),
+            let string = cell.textField.text,
+            !string.isEmpty
+        else { return }
+
+        userFactory.set(displayName: string)
+        checkRequirements()
+    }
+
     func requiredCellFor(_ field: RequiredField) -> InputCell {
         let placeholder: String
         let type: TextFieldType
+        let selector: Selector
 
         switch field {
         case .password:
             placeholder = "Password"
+            selector = #selector(updatePassword)
             type = .password
         case .email:
             placeholder = "Email"
+            selector =  #selector(updateEmail)
             type = .email
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
         let textField = TextFieldFactory.textField(type: type,
                                                    placeholder: placeholder)
+        textField.addTarget(self, action: selector, for: .editingChanged)
         textField.delegate = self
         cell.textField = textField
         cell.setup()
 
         return cell
+    }
+
+    @objc func updateEmail() {
+        let indexPath = IndexPath(row: RequiredField.email.rawValue,
+                                  section: NewUserFields.requiredFields.rawValue)
+
+        guard
+            let cell = getInputCell(at: indexPath),
+            let string = cell.textField.text,
+            !string.isEmpty
+        else { return }
+
+        userFactory.set(email: string)
+        checkRequirements()
+    }
+
+    @objc func updatePassword() {
+        let indexPath = IndexPath(row: RequiredField.password.rawValue,
+                                  section: NewUserFields.requiredFields.rawValue)
+        guard
+            let cell = getInputCell(at: indexPath),
+            let string = cell.textField.text,
+            !string.isEmpty
+        else { return }
+
+        userFactory.set(password: string)
+        checkRequirements()
     }
 
     func groupsCell() -> UITableViewCell {
@@ -132,7 +179,7 @@ extension NewUserCoordinator: UITableViewDataSource {
             return cell
         }
 
-        guard let groups = userFactory.groupsAvailable() else {
+        guard userFactory.groupsAvailable() != nil else {
             content.text = "No groups available"
             content.textProperties.color = .secondaryLabel
             cell.contentConfiguration = content
@@ -162,7 +209,7 @@ extension NewUserCoordinator: UITableViewDataSource {
             return cell
         }
 
-        guard let groups = userFactory.groupsAvailable() else {
+        guard userFactory.groupsAvailable() != nil else {
             content.text = "No groups available"
             content.textProperties.color = .secondaryLabel
             cell.contentConfiguration = content
@@ -200,6 +247,20 @@ extension NewUserCoordinator: UITableViewDataSource {
         case .subAdmin: return "Set group admin for"
         case .quota: return "Quota"
         }
+    }
+
+    private func getInputCell(at indexPath: IndexPath) -> InputCell? {
+        let tableView = newUserViewController.tableView
+        guard let cell = tableView.cellForRow(at: indexPath) as? InputCell
+        else { return nil }
+
+        return cell
+    }
+
+    private func checkRequirements() {
+        guard userFactory.requirementsMet() else { return }
+
+        newUserViewController.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 }
 

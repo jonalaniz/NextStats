@@ -19,9 +19,14 @@ class NXUserFactory: NSObject {
 
     let networking = NetworkController.shared
     private var groupsObject: GroupsObject?
+
+    private var userid: String?
+    private var displayName: String?
+    private var email: String?
+    private var password: String?
     private var memberOf = [String]()
     private var adminOf = [String]()
-    private var quota = QuotaType.defaultQuota
+    private var quota: QuotaType = .defaultQuota
 
     private override init() {}
 
@@ -73,6 +78,22 @@ class NXUserFactory: NSObject {
         return quota
     }
 
+    func set(userid: String) {
+        self.userid = userid
+    }
+
+    func set(displayName: String) {
+        self.displayName = displayName
+    }
+
+    func set(email: String) {
+        self.email = email
+    }
+
+    func set(password: String) {
+        self.password = password
+    }
+
     func set(groups: [String]) {
         memberOf = groups
     }
@@ -88,38 +109,55 @@ class NXUserFactory: NSObject {
         self.quota = selectedQuota
     }
 
-    func createUser(userid: String,
-                    displayName: String?,
-                    email: String?,
-                    password: String?,
-                    groups: [String]?,
-                    subAdmin: [String]?) {
+    func createUser() {
+        guard requirementsMet() else {
+            delegate?.requirementsNotMet()
+            return
+        }
 
+        let newUser = NewUser(userid: userid!,
+                              password: password,
+                              displayName: displayName,
+                              email: email,
+                              groups: memberOf,
+                              subAdmin: adminOf,
+                              quota: quota.stringValue(),
+                              language: nil)
+        encode(newUser)
     }
 
-    func createNewUser() {
-        let newUser = NewUser(userid: "Piss",
-                              password: nil,
-                              displayName: nil,
-                              email: nil,
-                              groups: nil,
-                              subAdmin: nil,
-                              quota: nil,
-                              language: nil)
-
+    private func encode(_ user: NewUser) {
         let encoder = JSONEncoder()
-
         do {
-            let data = try encoder.encode(newUser)
-            let string = String(data: data, encoding: .utf8)
-            print(string)
+            let data = try encoder.encode(user)
         } catch {
-            print(error.localizedDescription)
+            print(error)
         }
     }
 
+    func requirementsMet() -> Bool {
+        guard userid != nil else { return false }
+
+        if email != nil || password != nil {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    private func reset() {
+        userid = nil
+        displayName = nil
+        email = nil
+        password = nil
+        groupsObject = nil
+        memberOf = []
+        adminOf = []
+        quota = .defaultQuota
+    }
 }
 
 protocol NXUserFactoryDelegate: AnyObject {
-
+    func requirementsNotMet()
+    func unableToEncodeData()
 }

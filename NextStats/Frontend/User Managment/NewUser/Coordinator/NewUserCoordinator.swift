@@ -54,4 +54,8 @@ class NewUserCoordinator: NSObject, Coordinator {
         selectionView.delegate = self
         popOverNavController.pushViewController(selectionView, animated: true)
     }
+
+    func createUser() {
+        userFactory.createUser()
+    }
 }
