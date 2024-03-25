@@ -42,7 +42,6 @@ struct NextServer: Codable, Equatable {
     func authenticationString() -> String {
         let credentials = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
         let authenticationString = "Basic \(credentials)"
-        print(authenticationString)
 
         return authenticationString
     }

@@ -51,6 +51,9 @@
 		567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82552BA7A710007BF135 /* NewUserCoordinator.swift */; };
 		567D825F2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */; };
 		567D82612BAA18C4007BF135 /* NXUserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82602BAA18C4007BF135 /* NXUserFactory.swift */; };
+		567D82632BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */; };
+		567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82642BB1305D007BF135 /* SelectionViewController.swift */; };
+		567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
 		5695048426A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */; };
@@ -163,6 +166,9 @@
 		567D82552BA7A710007BF135 /* NewUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserCoordinator.swift; sourceTree = "<group>"; };
 		567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+TableViewDataSource.swift"; sourceTree = "<group>"; };
 		567D82602BAA18C4007BF135 /* NXUserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactory.swift; sourceTree = "<group>"; };
+		567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUserCoordinator+UITableViewDelegate.swift"; sourceTree = "<group>"; };
+		567D82642BB1305D007BF135 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
+		567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIToolbar+ConfigureAppearance.swift"; sourceTree = "<group>"; };
@@ -444,7 +450,9 @@
 			isa = PBXGroup;
 			children = (
 				567D82552BA7A710007BF135 /* NewUserCoordinator.swift */,
+				567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */,
 				567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */,
+				567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -573,6 +581,7 @@
 				56C781A52AD7DF2200872988 /* TextFieldFactory.swift */,
 				56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */,
 				56557EF923CA6E89008CF684 /* WebViewController.swift */,
+				567D82642BB1305D007BF135 /* SelectionViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -739,6 +748,7 @@
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
+				567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */,
 				569F2C7726AAF61A001122F2 /* EncodingErrorExtension.swift in Sources */,
 				56B8C5D02B9FF776009176BB /* Settings.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
@@ -782,6 +792,7 @@
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
 				5652A2F7276489AE0050F5EB /* NXAuthenitcator.swift in Sources */,
+				567D82632BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoints.swift in Sources */,
 				56AA8FC328FEB04D00A6B4BD /* ErrorHandler.swift in Sources */,
 				56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */,
@@ -814,6 +825,7 @@
 				56C781A62AD7DF2200872988 /* TextFieldFactory.swift in Sources */,
 				569F2C7A26AAF61A001122F2 /* DecodingErrorExtension.swift in Sources */,
 				5601D7F625E3199400993D31 /* UIApplication+AppVersion.swift in Sources */,
+				567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */,
 				5634EC3B2B6C4D8D00468AC0 /* NXUserFormatter.swift in Sources */,
 				56C781A82AD8957200872988 /* AddServerHeaderView.swift in Sources */,
 				56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */,

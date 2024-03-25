@@ -15,9 +15,12 @@ class UsersCoordinator: NSObject, Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
 
-    let dataManager = NXUserDataManager.shared
+    let userFormatter = NXUserFormatter.shared
+    let usersManager = NXUsersManager.shared
     let usersViewController: UsersViewController
     let userViewController: UserViewController
+
+    let newUserController = NXUserFactory.shared
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -32,6 +35,7 @@ class UsersCoordinator: NSObject, Coordinator {
         navigationController.viewControllers = [usersViewController]
 
         splitViewController.present(navigationController, animated: true)
+        newUserController.getGroups(for: usersManager.server)
     }
 
     func showAddUserView() {

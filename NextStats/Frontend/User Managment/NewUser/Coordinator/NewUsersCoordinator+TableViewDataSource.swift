@@ -9,12 +9,13 @@
 import UIKit
 
 enum NewUserFields: Int, CaseIterable {
-    case name = 0, requiredFields, groups, sumAdmin, quota
+    case name = 0, requiredFields, groups, subAdmin
+//         quota
 
     func sections() -> Int {
         switch self {
         case .name, .requiredFields: return 2
-        case .groups, .sumAdmin, .quota: return 1
+        case .groups, .subAdmin: return 1
         }
     }
 }
@@ -55,12 +56,8 @@ extension NewUserCoordinator: UITableViewDataSource {
             guard let row = RequiredField(rawValue: indexPath.row)
             else { return UITableViewCell() }
             return requiredCellFor(row)
-        case .groups:
-            return UITableViewCell()
-        case .sumAdmin:
-            return UITableViewCell()
-        case .quota:
-            return UITableViewCell()
+        case .groups: return groupsCell()
+        case .subAdmin: return subAdminCell()
         }
     }
 
@@ -110,13 +107,72 @@ extension NewUserCoordinator: UITableViewDataSource {
         return cell
     }
 
+    func groupsCell() -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        var content = cell.defaultContentConfiguration()
+
+        guard userFactory.selectedGroupsFor(role: .member).isEmpty else {
+            content.text = userFactory.selectedGroupsFor(role: .member).joined(separator: ", ")
+            content.textProperties.color = .label
+            cell.contentConfiguration = content
+            cell.accessoryType = .disclosureIndicator
+
+            return cell
+        }
+
+        guard let groups = userFactory.groupsAvailable() else {
+            content.text = "No groups available"
+            content.textProperties.color = .secondaryLabel
+            cell.contentConfiguration = content
+            cell.isUserInteractionEnabled = false
+
+            return cell
+        }
+
+        content.text = "Select groups"
+        content.textProperties.color = .secondaryLabel
+        cell.contentConfiguration = content
+        cell.accessoryType = .disclosureIndicator
+
+        return cell
+    }
+
+    func subAdminCell() -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        var content = cell.defaultContentConfiguration()
+
+        guard userFactory.selectedGroupsFor(role: .admin).isEmpty else {
+            content.text = userFactory.selectedGroupsFor(role: .admin).joined(separator: ", ")
+            content.textProperties.color = .label
+            cell.contentConfiguration = content
+            cell.accessoryType = .disclosureIndicator
+
+            return cell
+        }
+
+        guard let groups = userFactory.groupsAvailable() else {
+            content.text = "No groups available"
+            content.textProperties.color = .secondaryLabel
+            cell.contentConfiguration = content
+            cell.isUserInteractionEnabled = false
+
+            return cell
+        }
+
+        content.text = "Select groups"
+        content.textProperties.color = .secondaryLabel
+        cell.contentConfiguration = content
+        cell.accessoryType = .disclosureIndicator
+
+        return cell
+    }
+
     func headerFor(section: NewUserFields) -> String {
         switch section {
         case .name: return ""
-        case .requiredFields: return "Either a password or an email is required."
+        case .requiredFields: return "Email or password required."
         case .groups: return "Groups"
-        case .sumAdmin: return "Administered Groups"
-        case .quota: return "Quota"
+        case .subAdmin: return "Set group admin for"
         }
     }
 }

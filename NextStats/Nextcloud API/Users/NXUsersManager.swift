@@ -22,7 +22,7 @@ class NXUsersManager {
     private let networking = NetworkController.shared
     private var userIDs = [String]()
     private var users = [User]()
-    private var server: NextServer! {
+    private(set) var server: NextServer! {
         didSet {
             userIDs.removeAll()
             users.removeAll()

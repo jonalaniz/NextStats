@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct Group: Codable {
+struct GroupsObject: Codable {
     let meta: Meta
     let data: GroupData
 }
 
 struct GroupData: Codable {
-    let groups: ElementContainer
+    let groups: Groups
 }

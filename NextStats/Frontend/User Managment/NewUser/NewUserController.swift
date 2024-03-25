@@ -36,7 +36,6 @@ class NewUserController: UIViewController {
 
     private func setupView() {
         tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
-        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         view.backgroundColor = .systemBackground
@@ -52,12 +51,6 @@ class NewUserController: UIViewController {
 
     @objc func cancelPressed() {
         coordinator?.dismiss()
-    }
-}
-
-extension NewUserController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
     }
 }
 
