@@ -31,6 +31,7 @@ class TextFieldFactory {
             textField.keyboardType = .default
         case .password:
             textField.textContentType = .password
+            textField.isSecureTextEntry = true
             textField.autocapitalizationType = .words
             textField.autocorrectionType = .no
             textField.keyboardType = .default
