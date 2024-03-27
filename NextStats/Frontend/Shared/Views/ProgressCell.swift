@@ -23,6 +23,7 @@ class ProgressCell: UITableViewCell {
     var detailLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "No data available"
         label.textAlignment = .right
         label.textColor = .secondaryLabel
 
@@ -83,34 +84,39 @@ class ProgressCell: UITableViewCell {
     }
 
     private func setProgress(with quota: Quota) {
-        guard
-            let progressFloat = quota.relative,
-            let free = quota.free,
-            let used = quota.used,
-            let total = quota.total,
-            let quota = quota.quota
-        else { return }
+        switch quota.quota {
+        case .int(let int):
+            guard
+                let progressFloat = quota.relative,
+                let free = quota.free,
+                let used = quota.used,
+                let total = quota.total,
+                let quota = quota.quota
+            else { return }
 
-        let usedString = Units(bytes: Double(used)).getReadableUnit()
-        let totalString = Units(bytes: Double(total)).getReadableUnit()
+            let usedString = Units(bytes: Double(used)).getReadableUnit()
+            let totalString = Units(bytes: Double(total)).getReadableUnit()
 
-        var quotaString = ""
+            var quotaString = ""
 
-        // Check if there is a quota
-        if quota < 0 {
-            // Negative quotas mean no quota (Unlimited).
-            quotaString = "\(usedString) of \(totalString) Used"
-        } else {
-            let quotaUnit = Units(bytes: Double(quota))
-            quotaString = "\(usedString) of \(quotaUnit.getReadableUnit())"
+            // Check if there is a quota
+            if int < 0 {
+                // Negative quotas mean no quota (Unlimited).
+                quotaString = "\(usedString) of \(totalString) Used"
+            } else {
+                let quotaUnit = Units(bytes: Double(int))
+                quotaString = "\(usedString) of \(quotaUnit.getReadableUnit())"
+            }
+
+            detailLabel.text = quotaString
+
+            // Nextcloud gives a literal representation of the percentage
+            // 0.3 = 0.3% in this case
+            let correctedProgress = Float(progressFloat / 100)
+            progressView.progress = correctedProgress
+        case .string(let string): return
+        case .none: return
         }
-
-        detailLabel.text = quotaString
-
-        // Nextcloud gives a literal representation of the percentage
-        // 0.3 = 0.3% in this case
-        let correctedProgress = Float(progressFloat / 100)
-        progressView.progress = correctedProgress
     }
 
     private func set(icon: ProgressCellIcon) {

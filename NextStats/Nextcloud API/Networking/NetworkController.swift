@@ -139,17 +139,39 @@ class NetworkController {
         return data
     }
 
-//    func postUser(url: URL, authenticaiton: String) async throws -> Data {
-//        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-//        components.clearQueryAndAppend(endpoint: .users)
-//
-//        var request = URLRequest(url: components.url!)
-//        request.httpMethod = "POST"
-//        request.setUserAgent()
-//
-//        let config = config(authString: authenticaiton, ocsApiRequest: true)
-//        let session = URLSession(configuration: config)
-//    }
+    func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.clearQueryAndAppend(endpoint: .users)
+
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "POST"
+        request.httpBody = data
+        request.setUserAgent()
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        let config = config(authString: authenticaiton, ocsApiRequest: true)
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw FetchError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw FetchError.unexpectedResponse(urlResponse)
+        }
+
+        guard let response = try? XMLDecoder().decode(Response.self, from: data)
+        else {
+            let string = String(data: data, encoding: .utf8)!
+            print(string)
+            throw FetchError.invalidData
+        }
+
+        return response
+    }
 
     static func deauthorize(request: URLRequest, config: URLSessionConfiguration) async throws -> Data {
         let session = URLSession(configuration: config)
