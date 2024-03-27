@@ -53,6 +53,10 @@ class UsersCoordinator: NSObject, Coordinator {
         navigationController.pushViewController(userViewController, animated: true)
     }
 
+    func updateUsers() {
+        // Update data here
+    }
+
     func childDidFinish(_ child: Coordinator?) {
         for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
             childCoordinators.remove(at: index)
@@ -70,5 +74,16 @@ class UsersCoordinator: NSObject, Coordinator {
         }
 
         parentCoordinator?.childDidFinish(self)
+    }
+}
+
+extension UsersCoordinator: NXDataManagerDelegate {
+    func stateDidChange(_ dataManagerState: NXDataManagerState) {
+        switch dataManagerState {
+        case .fetchingData: break
+        case .parsingData: break
+        case .failed(let nXDataManagerError): break
+        case .dataCaptured: break
+        }
     }
 }

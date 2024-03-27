@@ -121,18 +121,58 @@ class NXUserFactory: NSObject {
                               email: email,
                               groups: memberOf,
                               subAdmin: adminOf,
-                              quota: quota.stringValue(),
-                              language: nil)
-        encode(newUser)
+                              quota: quota.stringValue())
+
+        do {
+            let data = try JSONEncoder().encode(newUser)
+            delegate?.stateDidChange(.userCreated(data))
+            let string = String(data: data, encoding: .utf8)!
+            print(string)
+        } catch {
+            print(error.localizedDescription)
+            delegate?.unableToEncodeData()
+        }
     }
 
-    private func encode(_ user: NewUser) {
-        let encoder = JSONEncoder()
-        do {
-            let data = try encoder.encode(user)
-        } catch {
-            print(error)
+    func postUser(data: Data, to server: NextServer) {
+        let urlString = server.URLString
+        let url = URL(string: urlString)!
+        let authentication = server.authenticationString()
+
+        Task {
+            do {
+                let response = try await networking.post(user: data, 
+                                                         url: url,
+                                                         authenticaiton: authentication)
+                await checkResponse(response)
+                delegate?.stateDidChange(.serverResponded)
+            } catch {
+                guard let err = error as? FetchError else {
+                    print(error.localizedDescription)
+                    return
+                }
+                print(err.title)
+                print(err.description)
+            }
         }
+    }
+
+    @MainActor private func checkResponse(_ response: Response) {
+        let meta = response.meta
+        guard meta.statuscode == 100
+        else {
+            delegate?.error(.server(status: meta.status,
+                                    meessage: meta.status))
+            print("Server Error:")
+            print(meta.status)
+            print(meta.message)
+            return
+        }
+
+        print(meta.status)
+        print(meta.message)
+        delegate?.stateDidChange(.sucess)
+        reset()
     }
 
     func requirementsMet() -> Bool {
@@ -158,6 +198,21 @@ class NXUserFactory: NSObject {
 }
 
 protocol NXUserFactoryDelegate: AnyObject {
+    func stateDidChange(_ state: NXUserFactoryState)
+    func error(_ error: ErrorType)
     func requirementsNotMet()
     func unableToEncodeData()
+}
+
+enum ErrorType {
+    case app
+    case networking
+    case server(status: String, meessage: String)
+}
+
+enum NXUserFactoryState {
+    case userCreated(Data)
+    case serverResponded
+    case responseError
+    case sucess
 }

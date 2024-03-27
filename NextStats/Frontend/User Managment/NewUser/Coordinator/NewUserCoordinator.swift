@@ -26,6 +26,7 @@ class NewUserCoordinator: NSObject, Coordinator {
     }
 
     func start() {
+        userFactory.delegate = self
         popOverNavController.viewControllers = [newUserViewController]
         newUserViewController.coordinator = self
         newUserViewController.tableView.dataSource = self
@@ -57,5 +58,49 @@ class NewUserCoordinator: NSObject, Coordinator {
 
     func createUser() {
         userFactory.createUser()
+    }
+}
+
+extension NewUserCoordinator: NXUserFactoryDelegate {
+    func error(_ error: ErrorType) {
+        // piss
+    }
+
+    func stateDidChange(_ state: NXUserFactoryState) {
+        switch state {
+        case .userCreated(let data):
+            guard let server = parentCoordinator?.usersManager.server
+            else { return }
+
+            userFactory.postUser(data: data, to: server)
+            // Show a spinner or something
+        case .sucess:
+            parentCoordinator?.updateUsers()
+            popOverNavController.dismiss(animated: true)
+        default: break
+        }
+    }
+
+    func error(_ error: FetchError) {
+//        switch error {
+//        case .error(let string):
+//            <#code#>
+//        case .invalidData:
+//            <#code#>
+//        case .invalidURL:
+//            <#code#>
+//        case .missingResponse:
+//            <#code#>
+//        case .unexpectedResponse(let hTTPURLResponse):
+//            <#code#>
+//        }
+    }
+
+    func requirementsNotMet() {
+        // Highlight the requirement labels
+    }
+
+    func unableToEncodeData() {
+        // Show internal error??
     }
 }

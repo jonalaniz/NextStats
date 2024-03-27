@@ -108,7 +108,12 @@ class NXUserFormatter: NSObject {
 
         var string = ""
 
-        (quota > 0) ? (string = .localized(.quota)) : (string = .localized(.quotaUnlimited))
+        switch quota {
+        case .int(let quotaInt):
+            (quotaInt > 0) ? (string = .localized(.quota)) : (string = .localized(.quotaUnlimited))
+        case .string(let quotaString):
+            string = quotaString
+        }
 
         return string
     }
