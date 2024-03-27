@@ -9,9 +9,11 @@
 import Foundation
 
 struct Response: Codable {
-    let ocs: Container
+    let meta: NewUserResponse
 }
 
-struct Container: Codable {
-    let meta: Meta
+struct NewUserResponse: Codable {
+    let status: String
+    let statuscode: Int
+    let message: String
 }
