@@ -16,5 +16,4 @@ struct NewUser: Codable {
     let groups: [String]?
     let subAdmin: [String]?
     let quota: String?
-    let language: String?
 }
