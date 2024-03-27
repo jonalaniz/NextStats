@@ -87,7 +87,39 @@ struct Quota: Codable {
     let used: Int?
     let total: Int?
     let relative: Double?
-    let quota: Int?
+    let quota: QuotaContainer?
+}
+
+enum QuotaContainer: Codable {
+    case int(Int)
+    case string(String)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let data = try? container.decode(Int.self) {
+            self = .int(data)
+            return
+        }
+
+        if let data = try? container.decode(String.self) {
+            self = .string(data)
+            return
+        }
+
+        throw DecodingError.typeMismatch(ElementContainer.self,
+                                         DecodingError.Context(codingPath: decoder.codingPath,
+                                                               debugDescription: "Group type mismatch"))
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .int(let data):
+            try container.encode(data)
+        case .string(let data):
+            try container.encode(data)
+        }
+    }
 }
 
 struct SubAdmin: Codable {
