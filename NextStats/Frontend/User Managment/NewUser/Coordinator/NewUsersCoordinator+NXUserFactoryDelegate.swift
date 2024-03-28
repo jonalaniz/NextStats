@@ -63,7 +63,7 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
     }
 
     private func showError(title: String, description: String, handler: ((UIAlertAction) -> Void)?) {
-        let alert = UIAlertController(title: title,
+        let alert = UIAlertController(title: title.capitalized,
                                         message: description,
                                         preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Continue",
