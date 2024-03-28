@@ -34,6 +34,9 @@ class NXUsersManager {
     func fetchUsersData() {
         delegate?.stateDidChange(.fetchingData)
 
+        if !users.isEmpty { users.removeAll() }
+        if !userIDs.isEmpty { userIDs.removeAll() }
+
         let url = URL(string: server.URLString)!
         let authString = server.authenticationString()
 

@@ -148,7 +148,6 @@ class NetworkController {
         request.httpBody = data
         request.setUserAgent()
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
 
         let config = config(authString: authenticaiton, ocsApiRequest: true)
         let session = URLSession(configuration: config)

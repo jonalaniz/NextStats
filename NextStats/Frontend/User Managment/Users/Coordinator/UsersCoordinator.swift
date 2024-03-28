@@ -54,7 +54,7 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func updateUsers() {
-        // Update data here
+        usersViewController.usersDataManager.fetchUsersData()
     }
 
     func childDidFinish(_ child: Coordinator?) {
