@@ -48,6 +48,7 @@
 		565EFE632BB36F9800100D94 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE622BB36F9800100D94 /* Response.swift */; };
 		565EFE652BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */; };
 		565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE662BB6007500100D94 /* NewUserStatusCode.swift */; };
+		565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */; };
 		5671B6932B639D950026E4A0 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671B6922B639D950026E4A0 /* ProgressCell.swift */; };
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
@@ -166,7 +167,8 @@
 		565CDC0725E612C900028EA9 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
 		565EFE622BB36F9800100D94 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+NXUserFactoryDelegate.swift"; sourceTree = "<group>"; };
-		565EFE662BB6007500100D94 /* NewUserStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewUserStatusCode.swift; path = "NextStats/Nextcloud API/Users/Models/NewUserStatusCode.swift"; sourceTree = "<group>"; };
+		565EFE662BB6007500100D94 /* NewUserStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserStatusCode.swift; sourceTree = "<group>"; };
+		565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactoryDelegate.swift; sourceTree = "<group>"; };
 		5671B6922B639D950026E4A0 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
 		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -267,8 +269,9 @@
 			isa = PBXGroup;
 			children = (
 				5647A6432BA4023A000D51F7 /* Groups.swift */,
-				565EFE622BB36F9800100D94 /* Response.swift */,
 				5647A6402BA3FE77000D51F7 /* NewUser.swift */,
+				565EFE662BB6007500100D94 /* NewUserStatusCode.swift */,
+				565EFE622BB36F9800100D94 /* Response.swift */,
 				562ED27B26B5E9B100E4E1C5 /* User.swift */,
 				569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */,
 				569F2CA526AC2EB5001122F2 /* Users.swift */,
@@ -357,10 +360,9 @@
 		56491FA229E66C6000E3431D /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
-				5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */,
 				5647A6422BA40217000D51F7 /* Models */,
-				567D82602BAA18C4007BF135 /* NXUserFactory.swift */,
+				565EFE6A2BB6177A00100D94 /* User Manager */,
+				565EFE6B2BB6179200100D94 /* UserFactory */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -380,7 +382,6 @@
 		56557ED723C8B09A008CF684 = {
 			isa = PBXGroup;
 			children = (
-				565EFE662BB6007500100D94 /* NewUserStatusCode.swift */,
 				56557EE223C8B09A008CF684 /* NextStats */,
 				565975B925567DF70043C007 /* NextStatsTests */,
 				56557EE123C8B09A008CF684 /* Products */,
@@ -425,6 +426,24 @@
 				565975BC25567DF70043C007 /* Info.plist */,
 			);
 			path = NextStatsTests;
+			sourceTree = "<group>";
+		};
+		565EFE6A2BB6177A00100D94 /* User Manager */ = {
+			isa = PBXGroup;
+			children = (
+				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
+				5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */,
+			);
+			path = "User Manager";
+			sourceTree = "<group>";
+		};
+		565EFE6B2BB6179200100D94 /* UserFactory */ = {
+			isa = PBXGroup;
+			children = (
+				567D82602BAA18C4007BF135 /* NXUserFactory.swift */,
+				565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */,
+			);
+			path = UserFactory;
 			sourceTree = "<group>";
 		};
 		567BF636258ADDF1000E64D9 /* Localization */ = {
@@ -827,6 +846,7 @@
 				56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */,
 				56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */,
 				5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */,
+				565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */,
 				567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
 				5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */,

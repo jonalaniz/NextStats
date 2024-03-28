@@ -90,26 +90,14 @@ extension NewUserCoordinator: UITableViewDataSource {
     @objc func updateUserid() {
         let indexPath = IndexPath(row: NameField.username.rawValue,
                                   section: NewUserFields.name.rawValue)
-        guard
-            let cell = getInputCell(at: indexPath),
-            let string = cell.textField.text,
-            !string.isEmpty
-        else { return }
-
-        userFactory.set(userid: string)
+        userFactory.set(userid: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 
     @objc func updateDisplayName() {
         let indexPath = IndexPath(row: NameField.displayName.rawValue,
                                   section: NewUserFields.name.rawValue)
-        guard
-            let cell = getInputCell(at: indexPath),
-            let string = cell.textField.text,
-            !string.isEmpty
-        else { return }
-
-        userFactory.set(displayName: string)
+        userFactory.set(displayName: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 
@@ -131,7 +119,7 @@ extension NewUserCoordinator: UITableViewDataSource {
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
         let textField = TextFieldFactory.textField(type: type,
                                                    placeholder: placeholder)
-        textField.addTarget(self, action: selector, for: .editingChanged)
+        textField.addTarget(self, action: selector, for: .allEditingEvents)
         textField.delegate = self
         cell.textField = textField
         cell.setup()
@@ -142,27 +130,14 @@ extension NewUserCoordinator: UITableViewDataSource {
     @objc func updateEmail() {
         let indexPath = IndexPath(row: RequiredField.email.rawValue,
                                   section: NewUserFields.requiredFields.rawValue)
-
-        guard
-            let cell = getInputCell(at: indexPath),
-            let string = cell.textField.text,
-            !string.isEmpty
-        else { return }
-
-        userFactory.set(email: string)
+        userFactory.set(email: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 
     @objc func updatePassword() {
         let indexPath = IndexPath(row: RequiredField.password.rawValue,
                                   section: NewUserFields.requiredFields.rawValue)
-        guard
-            let cell = getInputCell(at: indexPath),
-            let string = cell.textField.text,
-            !string.isEmpty
-        else { return }
-
-        userFactory.set(password: string)
+        userFactory.set(password: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 

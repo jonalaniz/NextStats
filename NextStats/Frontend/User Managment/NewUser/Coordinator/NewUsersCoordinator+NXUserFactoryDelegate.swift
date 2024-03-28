@@ -38,8 +38,6 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
 
     private func handleFactoryError(_ error: NXUserFactoryError) {
         switch error {
-        case .requirementsNotMet:
-            showError(title: "Requirement Not Met", description: "Email or Password Required", handler: nil)
         case .unableToEncodeData:
             showError(title: "Internal Error",
                       description: "Unable to Encode Data",

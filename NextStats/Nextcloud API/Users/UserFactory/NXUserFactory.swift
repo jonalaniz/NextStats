@@ -78,19 +78,19 @@ class NXUserFactory: NSObject {
         return quota
     }
 
-    func set(userid: String) {
+    func set(userid: String?) {
         self.userid = userid
     }
 
-    func set(displayName: String) {
+    func set(displayName: String?) {
         self.displayName = displayName
     }
 
-    func set(email: String) {
+    func set(email: String?) {
         self.email = email
     }
 
-    func set(password: String) {
+    func set(password: String?) {
         self.password = password
     }
 
@@ -110,11 +110,6 @@ class NXUserFactory: NSObject {
     }
 
     func createUser() {
-        guard requirementsMet() else {
-            delegate?.error(.factory(.requirementsNotMet))
-            return
-        }
-
         let newUser = NewUser(userid: userid!,
                               password: password,
                               displayName: displayName,
@@ -171,7 +166,9 @@ class NXUserFactory: NSObject {
     func requirementsMet() -> Bool {
         guard userid != nil else { return false }
 
-        if email != nil || password != nil {
+        if email != "" || password != "" {
+            return true
+        } else if email != nil || password != nil {
             return true
         } else {
             return false
@@ -188,25 +185,4 @@ class NXUserFactory: NSObject {
         adminOf = []
         quota = .defaultQuota
     }
-}
-
-protocol NXUserFactoryDelegate: AnyObject {
-    func stateDidChange(_ state: NXUserFactoryState)
-    func error(_ error: NXUserFactoryErrorType)
-}
-
-enum NXUserFactoryErrorType {
-    case factory(_ error: NXUserFactoryError)
-    case networking(NetworkError)
-    case server(code: Int, status: String, message: String)
-}
-
-enum NXUserFactoryError {
-    case requirementsNotMet
-    case unableToEncodeData
-}
-
-enum NXUserFactoryState {
-    case userCreated(Data)
-    case sucess
 }
