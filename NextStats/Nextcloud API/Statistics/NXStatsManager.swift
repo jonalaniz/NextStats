@@ -38,7 +38,7 @@ class NXStatsManager: NSObject {
                                                                             authentication: authString)
                 await format(statistics: object)
             } catch {
-                guard let errorType = error as? FetchError else {
+                guard let errorType = error as? NetworkError else {
                     print("Timeout ERROR")
                     delegate?.stateDidChange(.failed(.networkError(.error(error.localizedDescription))))
                     return

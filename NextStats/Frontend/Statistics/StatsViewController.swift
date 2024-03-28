@@ -160,7 +160,7 @@ extension StatsViewController: NXDataManagerDelegate {
         }
     }
 
-    private func handleNetworkError(_ error: FetchError) {
+    private func handleNetworkError(_ error: NetworkError) {
         switch error {
         case .error(let err):
             showErrorAndReturn(title: .localized(.errorTitle), description: err)

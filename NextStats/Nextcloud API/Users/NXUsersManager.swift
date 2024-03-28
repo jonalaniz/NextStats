@@ -46,7 +46,7 @@ class NXUsersManager {
 
                 // Here we work with our captured data object
                 guard let decodedData: Users = self.decode(data) else {
-                    throw FetchError.invalidData
+                    throw NetworkError.invalidData
                 }
 
                 decodedData.data.users.element.forEach { self.userIDs.append($0) }
@@ -58,7 +58,7 @@ class NXUsersManager {
                     let data = try await networking.fetchData(with: request, config: configuration)
 
                     guard let decodedUser: User = self.decode(data) else {
-                        throw FetchError.invalidData
+                        throw NetworkError.invalidData
                     }
 
                     users.append(decodedUser)

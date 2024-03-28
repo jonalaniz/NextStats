@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FetchError: Error {
+enum NetworkError: Error {
     case error(String) // Sends error.localizedDescription
     case invalidData // Is this redundant?
     case invalidURL
@@ -37,5 +37,5 @@ enum FetchError: Error {
 }
 
 protocol ErrorHandler: AnyObject {
-    func handle(error type: FetchError)
+    func handle(error type: NetworkError)
 }

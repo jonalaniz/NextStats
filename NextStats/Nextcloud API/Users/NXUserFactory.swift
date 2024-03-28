@@ -111,7 +111,7 @@ class NXUserFactory: NSObject {
 
     func createUser() {
         guard requirementsMet() else {
-            delegate?.requirementsNotMet()
+            delegate?.error(.factory(.requirementsNotMet))
             return
         }
 
@@ -130,7 +130,7 @@ class NXUserFactory: NSObject {
             print(string)
         } catch {
             print(error.localizedDescription)
-            delegate?.unableToEncodeData()
+            delegate?.error(.factory(.unableToEncodeData))
         }
     }
 
@@ -141,18 +141,16 @@ class NXUserFactory: NSObject {
 
         Task {
             do {
-                let response = try await networking.post(user: data, 
+                let response = try await networking.post(user: data,
                                                          url: url,
                                                          authenticaiton: authentication)
                 await checkResponse(response)
-                delegate?.stateDidChange(.serverResponded)
             } catch {
-                guard let err = error as? FetchError else {
-                    print(error.localizedDescription)
+                guard let networkError = error as? NetworkError else {
+                    delegate?.error(.networking(.error(error.localizedDescription)))
                     return
                 }
-                print(err.title)
-                print(err.description)
+                delegate?.error(.networking(networkError))
             }
         }
     }
@@ -161,16 +159,11 @@ class NXUserFactory: NSObject {
         let meta = response.meta
         guard meta.statuscode == 100
         else {
-            delegate?.error(.server(status: meta.status,
-                                    meessage: meta.status))
-            print("Server Error:")
-            print(meta.status)
-            print(meta.message)
+            delegate?.error(.server(code: meta.statuscode,
+                                    status: meta.status,
+                                    message: meta.message))
             return
         }
-
-        print(meta.status)
-        print(meta.message)
         delegate?.stateDidChange(.sucess)
         reset()
     }
@@ -199,20 +192,21 @@ class NXUserFactory: NSObject {
 
 protocol NXUserFactoryDelegate: AnyObject {
     func stateDidChange(_ state: NXUserFactoryState)
-    func error(_ error: ErrorType)
-    func requirementsNotMet()
-    func unableToEncodeData()
+    func error(_ error: NXUserFactoryErrorType)
 }
 
-enum ErrorType {
-    case app
-    case networking
-    case server(status: String, meessage: String)
+enum NXUserFactoryErrorType {
+    case factory(_ error: NXUserFactoryError)
+    case networking(NetworkError)
+    case server(code: Int, status: String, message: String)
+}
+
+enum NXUserFactoryError {
+    case requirementsNotMet
+    case unableToEncodeData
 }
 
 enum NXUserFactoryState {
     case userCreated(Data)
-    case serverResponded
-    case responseError
     case sucess
 }

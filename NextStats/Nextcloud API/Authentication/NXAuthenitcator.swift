@@ -27,7 +27,7 @@ class NXAuthenitcator: NSObject {
                 let object = try await networking.fetchAuthenticationData(url: url)
                 await setupAuthenitcationObject(with: object)
             } catch {
-                guard let errorType = error as? FetchError else {
+                guard let errorType = error as? NetworkError else {
                     handle(error: .error(error.localizedDescription))
                     return
                 }
@@ -68,7 +68,7 @@ class NXAuthenitcator: NSObject {
                 await createServerFrom(data: data)
             } catch {
                 // Check if expected type of error else
-                guard let error = error as? FetchError else {
+                guard let error = error as? NetworkError else {
                     handle(error: .error(error.localizedDescription))
                     return
                 }
@@ -167,7 +167,7 @@ class NXAuthenitcator: NSObject {
         return object
     }
 
-    private func handle(error: FetchError) {
+    private func handle(error: NetworkError) {
         DispatchQueue.main.async {
             self.errorHandler?.handle(error: error)
         }

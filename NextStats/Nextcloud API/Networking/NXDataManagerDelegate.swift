@@ -19,7 +19,7 @@ enum NXDataManagerState {
 }
 
 enum NXDataManagerError {
-    case networkError(FetchError)
+    case networkError(NetworkError)
     case unableToDecode // Will this catch `missindData` and `invalidData`?
     case missingData // Possibly redundant?
 

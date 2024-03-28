@@ -96,7 +96,7 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
 }
 
 extension AddServerCoordinator: ErrorHandler {
-    func handle(error type: FetchError) {
+    func handle(error type: NetworkError) {
         switch type {
         case .invalidURL:
             addServerVC.updateStatusLabel(with: .localized(.serverFormEnterValidAddress))

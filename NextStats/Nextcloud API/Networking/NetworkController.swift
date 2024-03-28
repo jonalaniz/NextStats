@@ -38,16 +38,16 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         guard let object = try? JSONDecoder().decode(AuthenticationObject.self,
                                                      from: data) else {
-            throw FetchError.invalidData
+            throw NetworkError.invalidData
         }
 
         return object
@@ -66,16 +66,16 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         guard let object = try? JSONDecoder().decode(ServerStats.self,
                                                      from: data) else {
-            throw FetchError.invalidData
+            throw NetworkError.invalidData
         }
 
         return object
@@ -89,11 +89,11 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         return data
@@ -106,11 +106,11 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         return data
@@ -129,11 +129,11 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         return data
@@ -155,18 +155,17 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         guard let response = try? XMLDecoder().decode(Response.self, from: data)
         else {
             let string = String(data: data, encoding: .utf8)!
-            print(string)
-            throw FetchError.invalidData
+            throw NetworkError.invalidData
         }
 
         return response
@@ -178,11 +177,11 @@ class NetworkController {
         let (data, response) = try await session.data(for: request)
 
         guard let urlResponse = response as? HTTPURLResponse else {
-            throw FetchError.missingResponse
+            throw NetworkError.missingResponse
         }
 
         guard (200...299).contains(urlResponse.statusCode) else {
-            throw FetchError.unexpectedResponse(urlResponse)
+            throw NetworkError.unexpectedResponse(urlResponse)
         }
 
         return data
