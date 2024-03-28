@@ -20,10 +20,10 @@ class NXUserFactory: NSObject {
     let networking = NetworkController.shared
     private var groupsObject: GroupsObject?
 
-    private var userid: String?
-    private var displayName: String?
-    private var email: String?
-    private var password: String?
+    private(set) var userid: String?
+    private(set) var displayName: String?
+    private(set) var email: String?
+    private(set) var password: String?
     private var memberOf = [String]()
     private var adminOf = [String]()
     private var quota: QuotaType = .defaultQuota

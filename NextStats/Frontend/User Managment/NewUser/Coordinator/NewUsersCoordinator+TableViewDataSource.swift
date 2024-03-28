@@ -67,18 +67,22 @@ extension NewUserCoordinator: UITableViewDataSource {
     func nameCellFor(_ field: NameField) -> InputCell {
         let placeholder: String
         let selector: Selector
+        let text: String?
 
         switch field {
         case .username:
+            text = userFactory.userid
             placeholder = "Username (required)"
             selector = #selector(updateUserid)
         case .displayName:
+            text = userFactory.displayName
             placeholder = "Display name"
             selector = #selector(updateDisplayName)
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
         let textField = TextFieldFactory.textField(type: .normal,
                                                    placeholder: placeholder)
+        textField.text = text
         textField.addTarget(self, action: selector, for: .editingChanged)
         textField.delegate = self
         cell.textField = textField
@@ -105,20 +109,24 @@ extension NewUserCoordinator: UITableViewDataSource {
         let placeholder: String
         let type: TextFieldType
         let selector: Selector
+        let text: String?
 
         switch field {
         case .password:
             placeholder = "Password"
             selector = #selector(updatePassword)
             type = .password
+            text = userFactory.password
         case .email:
             placeholder = "Email"
             selector =  #selector(updateEmail)
             type = .email
+            text = userFactory.email
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
         let textField = TextFieldFactory.textField(type: type,
                                                    placeholder: placeholder)
+        textField.text = text
         textField.addTarget(self, action: selector, for: .allEditingEvents)
         textField.delegate = self
         cell.textField = textField
