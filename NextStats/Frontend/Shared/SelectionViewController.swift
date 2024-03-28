@@ -81,7 +81,6 @@ class SelectionViewController: UITableViewController {
             return
         }
 
-        print("\(selectable[indexPath.row]) selected")
         selections.insert(selectable[indexPath.row])
         tableView.reloadData()
     }

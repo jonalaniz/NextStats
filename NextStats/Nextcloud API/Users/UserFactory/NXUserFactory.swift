@@ -60,13 +60,6 @@ class NXUserFactory: NSObject {
         }
     }
 
-    func select(groups: [String], for role: GroupRole) {
-        switch role {
-        case .member: memberOf.append(contentsOf: groups)
-        case .admin: adminOf.append(contentsOf: groups)
-        }
-    }
-
     func selectedGroupsFor(role: GroupRole) -> [String] {
         switch role {
         case .member: return memberOf
