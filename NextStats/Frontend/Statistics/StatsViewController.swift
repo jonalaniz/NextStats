@@ -111,9 +111,6 @@ class StatsViewController: UIViewController {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: .localized(.statsActionRename),
                                    style: .default, handler: showRenameSheet))
-//        ac.addAction(UIAlertAction(title: "Update Icon",
-//                                   style: .default,
-//                                   handler: refreshIcon))
         ac.addAction(UIAlertAction(title: .localized(.statsActionDelete),
                                    style: .destructive, handler: delete))
         ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
