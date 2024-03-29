@@ -44,10 +44,7 @@ class ServerViewController: UIViewController {
         // Toggle table view editing.
         tableView.setEditing(editing, animated: true)
     }
-}
 
-// MARK: - UI Functions
-extension ServerViewController {
     @objc func refresh() {
         tableView.reloadData()
         serverManager.pingServers()
@@ -88,8 +85,8 @@ extension ServerViewController {
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         #endif
 
-        tableView.delegate = serverManager
-        tableView.dataSource = serverManager
+        tableView.delegate = coordinator
+        tableView.dataSource = coordinator
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
 
         tableView.translatesAutoresizingMaskIntoConstraints = false

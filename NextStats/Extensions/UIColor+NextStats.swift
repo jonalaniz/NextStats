@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIColor {
-//    static let themeColor = UIColor(red: 142 / 255, green: 154 / 255, blue: 255 / 255, alpha: 1.0)
     static let themeColor = UIColor(named: "themeColor")!
     static let buttonColor = UIColor(named: "button")!
     static let statusLabelRed = UIColor(red: 255/255, green: 42/255, blue: 85/255, alpha: 1)

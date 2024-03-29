@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainCoordinator: Coordinator {
+class MainCoordinator: NSObject, Coordinator {
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
 

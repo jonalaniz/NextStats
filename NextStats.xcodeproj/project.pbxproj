@@ -49,6 +49,7 @@
 		565EFE652BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */; };
 		565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE662BB6007500100D94 /* NewUserStatusCode.swift */; };
 		565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */; };
+		565EFE6F2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE6E2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift */; };
 		5671B6932B639D950026E4A0 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671B6922B639D950026E4A0 /* ProgressCell.swift */; };
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
@@ -169,6 +170,7 @@
 		565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+NXUserFactoryDelegate.swift"; sourceTree = "<group>"; };
 		565EFE662BB6007500100D94 /* NewUserStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserStatusCode.swift; sourceTree = "<group>"; };
 		565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactoryDelegate.swift; sourceTree = "<group>"; };
+		565EFE6E2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MainCoordinator+UITableViewDataSource.swift"; path = "NextStats/Frontend/MainCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		5671B6922B639D950026E4A0 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
 		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 		56557ED723C8B09A008CF684 = {
 			isa = PBXGroup;
 			children = (
+				565EFE6E2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift */,
 				56557EE223C8B09A008CF684 /* NextStats */,
 				565975B925567DF70043C007 /* NextStatsTests */,
 				56557EE123C8B09A008CF684 /* Products */,
@@ -805,6 +808,7 @@
 				56C31270269109CB0077B40D /* String+Keys.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */,
+				565EFE6F2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift in Sources */,
 				5695048426A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
 				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,

@@ -71,6 +71,10 @@ class NXServerManager: NSObject {
 
     func isEmpty() -> Bool { servers.isEmpty }
 
+    func serverAt(_ index: Int) -> NextServer { return servers[index] }
+
+    func serverCount() -> Int { return servers.count }
+
     func removeCachedImage(at path: String) {
         let fileManager = FileManager.default
 
@@ -136,47 +140,5 @@ class NXServerManager: NSObject {
         DispatchQueue.main.async {
             self.delegate?.pingedServer(at: index, isOnline: status)
         }
-    }
-}
-
-extension NXServerManager: UITableViewDataSource {
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
-        return servers.count
-    }
-
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
-        else {
-            fatalError("DequeueReusableCell failed while casting")
-        }
-
-        cell.accessoryType = .disclosureIndicator
-        cell.server = servers[indexPath.row]
-        cell.setup()
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            delegate?.deauthorize(server: servers[indexPath.row])
-            remove(servers[indexPath.row], refresh: false)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
-    }
-}
-
-extension NXServerManager: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.selected(server: servers[indexPath.row])
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
     }
 }

@@ -59,6 +59,7 @@ class ServerCell: UITableViewCell {
 
 extension ServerCell {
     func setup() {
+        accessoryType = .disclosureIndicator
         serverImageView.translatesAutoresizingMaskIntoConstraints = false
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
 
