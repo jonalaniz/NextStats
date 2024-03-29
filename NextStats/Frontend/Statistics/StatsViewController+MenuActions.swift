@@ -55,10 +55,6 @@ extension StatsViewController {
         present(ac, animated: true)
     }
 
-    @objc func refreshIcon(action: UIAlertAction) {
-        print("Refresh Icon")
-    }
-
     @objc func delete(action: UIAlertAction) {
         let ac = UIAlertController(title: .localized(.statsActionDeleteTitle),
                                    message: .localized(.statsActionDeleteMessage),
