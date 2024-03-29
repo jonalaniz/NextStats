@@ -10,7 +10,7 @@ import UIKit
 
 struct ServerHeaderViewConstants {
     static let headerHeight: Int = {
-        return 320
+        return 300
     }()
 
     static let userString: NSAttributedString = {
@@ -31,7 +31,7 @@ class ServerHeaderView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = 6
 
         return stackView
     }()
@@ -123,7 +123,6 @@ class ServerHeaderView: UIView {
         mainStackView.addArrangedSubview(buttonStackView)
         buttonStackView.addArrangedSubview(users)
         buttonStackView.addArrangedSubview(visitServerButton)
-        mainStackView.addArrangedSubview(spacerView)
 
         addSubview(mainStackView)
 
@@ -133,8 +132,7 @@ class ServerHeaderView: UIView {
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             imageView.widthAnchor.constraint(equalToConstant: 180),
-            imageView.heightAnchor.constraint(equalToConstant: 180),
-            spacerView.heightAnchor.constraint(equalToConstant: 10)
+            imageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }
 
