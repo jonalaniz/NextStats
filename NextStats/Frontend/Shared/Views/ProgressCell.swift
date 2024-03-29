@@ -88,10 +88,8 @@ class ProgressCell: UITableViewCell {
         case .int(let int):
             guard
                 let progressFloat = quota.relative,
-                let free = quota.free,
                 let used = quota.used,
-                let total = quota.total,
-                let quota = quota.quota
+                let total = quota.total
             else { return }
 
             let usedString = Units(bytes: Double(used)).getReadableUnit()
@@ -114,8 +112,7 @@ class ProgressCell: UITableViewCell {
             // 0.3 = 0.3% in this case
             let correctedProgress = Float(progressFloat / 100)
             progressView.progress = correctedProgress
-        case .string(let string): return
-        case .none: return
+        default: return
         }
     }
 
