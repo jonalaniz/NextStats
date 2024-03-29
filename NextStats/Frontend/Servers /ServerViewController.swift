@@ -19,6 +19,7 @@ class ServerViewController: UIViewController {
         super.viewDidLoad()
         serverManager.delegate = self
         setupView()
+        setupToolbar()
         serverManager.pingServers()
     }
 
@@ -69,30 +70,14 @@ extension ServerViewController {
         // Setup Navigation Bar
         title = "NextStats"
 
+        if let navBar = navigationController?.navigationBar {
+            let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
+            navBar.titleTextAttributes = attributes
+            navBar.largeTitleTextAttributes = attributes
+        }
+
         navigationController?.toolbar.configureAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
-
-        // Set Up Toolbar
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"),
-                                    style: .plain,
-                                    target: self,
-                                    action: #selector(infoButtonPressed))
-        let infoButton = UIButton()
-        infoButton.sfSymbolWithText(symbol: "externaldrive.fill.badge.plus",
-                                    text: .localized(.serverAddButton),
-                                    color: .themeColor)
-        infoButton.setTitleColor(.themeColor, for: .normal)
-        let infoButtonItem = infoButton
-        infoButtonItem.addTarget(self,
-                                 action: #selector(addServerPressed),
-                                 for: .touchUpInside)
-        infoButtonItem.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        infoButtonItem.contentEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
-
-        let infoButtonView = UIBarButtonItem(customView: infoButtonItem)
-
-        toolbarItems = [infoButtonView, spacer, about]
 
         // Initialize tableView with proper style for platform and add refreshControl
         #if targetEnvironment(macCatalyst)
@@ -103,12 +88,10 @@ extension ServerViewController {
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         #endif
 
-        // Connect tableView to ViewController and register Cell
         tableView.delegate = serverManager
         tableView.dataSource = serverManager
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
 
-        // Constrain our views
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
@@ -121,6 +104,43 @@ extension ServerViewController {
 
         // Initial server checking
         serversDidChange(refresh: false)
+    }
+
+    func setupToolbar() {
+        let addServerButton = UIButton(configuration: .plain())
+        let addString: String = .localized(.serverAddButton)
+        let aString = NSMutableAttributedString()
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.themeColor,
+            .font: UIFont.boldSystemFont(ofSize: 16)]
+        aString.prefixingSFSymbol("externaldrive.fill.badge.plus", color: .themeColor)
+        aString.append(NSAttributedString(string: " \(addString)", attributes: attributes))
+        addServerButton.setAttributedTitle(aString, for: .normal)
+
+        addServerButton.addTarget(self, action: #selector(addServerPressed), for: .touchUpInside)
+        let insets = NSDirectionalEdgeInsets(top: 10.0,
+                                             leading: 0,
+                                             bottom: 14.0,
+                                             trailing: 10.0)
+        addServerButton.configuration?.contentInsets = insets
+
+        let addServerButtonView = UIBarButtonItem(customView: addServerButton)
+
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"),
+                                    style: .plain,
+                                    target: self,
+                                    action: #selector(infoButtonPressed))
+        let aboutButton = UIButton(configuration: .plain())
+        aboutButton.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
+        let aboutButtonInsets = NSDirectionalEdgeInsets(top: 10.0,
+                                                        leading: 10.0,
+                                                        bottom: 14.0,
+                                                        trailing: 0)
+        aboutButton.configuration?.contentInsets = aboutButtonInsets
+        let aboutButtonView = UIBarButtonItem(customView: aboutButton)
+
+        toolbarItems = [addServerButtonView, spacer, aboutButtonView]
     }
 }
 

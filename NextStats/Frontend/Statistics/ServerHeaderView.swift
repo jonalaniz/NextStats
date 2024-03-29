@@ -72,27 +72,34 @@ class ServerHeaderView: UIView {
     }()
 
     let users: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: .plain())
         button.backgroundColor = .button
         button.layer.cornerRadius = 10
 
         button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
         button.setTitleColor(.themeColor, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
-
+        let insets = NSDirectionalEdgeInsets(top: 12.0,
+                                             leading: 14.0,
+                                             bottom: 12.0,
+                                             trailing: 14.0)
+        button.configuration?.contentInsets = insets
         return button
     }()
 
     let visitServerButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: .plain())
         button.backgroundColor = .button
         button.layer.cornerRadius = 10
         button.sfSymbolWithText(symbol: "safari.fill",
                                 text: .localized(.serverHeaderVisit),
                                 color: .themeColor)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        button.contentEdgeInsets = UIEdgeInsets(top: 12.0, left: 14.0, bottom: 12.0, right: 14.0)
+        let insets = NSDirectionalEdgeInsets(top: 12.0,
+                                             leading: 14.0,
+                                             bottom: 12.0,
+                                             trailing: 14.0)
+        button.configuration?.contentInsets = insets
 
         return button
     }()
@@ -123,8 +130,8 @@ class ServerHeaderView: UIView {
         NSLayoutConstraint.activate([
             mainStackView.topAnchor.constraint(equalTo: topAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 18),
-            mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -18),
+            mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             imageView.widthAnchor.constraint(equalToConstant: 180),
             imageView.heightAnchor.constraint(equalToConstant: 180),
             spacerView.heightAnchor.constraint(equalToConstant: 10)
