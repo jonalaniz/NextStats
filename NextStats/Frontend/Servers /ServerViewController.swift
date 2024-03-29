@@ -127,11 +127,10 @@ extension ServerViewController {
 
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
-        let about = UIBarButtonItem(image: UIImage(systemName: "info.circle.fill"),
-                                    style: .plain,
-                                    target: self,
-                                    action: #selector(infoButtonPressed))
         let aboutButton = UIButton(configuration: .plain())
+        aboutButton.addTarget(self,
+                              action: #selector(infoButtonPressed),
+                              for: .touchUpInside)
         aboutButton.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         let aboutButtonInsets = NSDirectionalEdgeInsets(top: 10.0,
                                                         leading: 10.0,
