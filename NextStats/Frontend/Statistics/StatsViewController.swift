@@ -37,9 +37,9 @@ class StatsViewController: UIViewController {
 
         // Setup our buttons
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
-                                                 style: .plain,
-                                                 target: self,
-                                                 action: #selector(menuTapped))
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(menuTapped))
 
         navigationItem.rightBarButtonItem = moreButton
         navigationItem.largeTitleDisplayMode = .never
