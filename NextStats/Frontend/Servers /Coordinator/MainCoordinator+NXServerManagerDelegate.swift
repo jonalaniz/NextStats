@@ -23,13 +23,7 @@ extension MainCoordinator: NXServerManagerDelegate {
     }
 
     func serversDidChange(refresh: Bool) {
-        if serverManager.isEmpty() {
-            mainViewController.navigationItem.rightBarButtonItem = nil
-            mainViewController.add(mainViewController.noServersViewController)
-        } else {
-            mainViewController.navigationItem.rightBarButtonItem = mainViewController.editButtonItem
-            mainViewController.noServersViewController.remove()
-        }
+        serverManager.isEmpty() ? mainViewController.showNoServersVC() : mainViewController.removeNoServersVC()
 
         if refresh { mainViewController.tableView.reloadData() }
 

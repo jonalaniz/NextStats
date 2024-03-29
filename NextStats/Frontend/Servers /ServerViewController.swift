@@ -38,41 +38,17 @@ class ServerViewController: UIViewController {
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
-        // Takes care of toggling the button's title.
         super.setEditing(editing, animated: true)
 
-        // Toggle table view editing.
         tableView.setEditing(editing, animated: true)
     }
 
-    @objc func refresh() {
-        tableView.reloadData()
-        serverManager.pingServers()
-
-        if tableView.refreshControl?.isRefreshing == true {
-            tableView.refreshControl?.endRefreshing()
-        }
-    }
-
-    // Toolbar Buttons: Loads AddServerView and InfoView
-    @objc func addServerPressed() {
-        coordinator?.showAddServerView()
-    }
-
-    @objc func infoButtonPressed() {
-        coordinator?.showInfoView()
-    }
-
     private func setupView() {
-        // Setup Navigation Bar
         title = "NextStats"
 
-        if let navBar = navigationController?.navigationBar {
-            let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
-            navBar.titleTextAttributes = attributes
-            navBar.largeTitleTextAttributes = attributes
-        }
-
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
         navigationController?.toolbar.configureAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -88,7 +64,6 @@ class ServerViewController: UIViewController {
         tableView.delegate = coordinator
         tableView.dataSource = coordinator
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
-
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
@@ -137,5 +112,32 @@ class ServerViewController: UIViewController {
         let aboutButtonView = UIBarButtonItem(customView: aboutButton)
 
         toolbarItems = [addServerButtonView, spacer, aboutButtonView]
+    }
+
+    @objc func refresh() {
+        tableView.reloadData()
+        serverManager.pingServers()
+
+        if tableView.refreshControl?.isRefreshing == true {
+            tableView.refreshControl?.endRefreshing()
+        }
+    }
+
+    @objc func addServerPressed() {
+        coordinator?.showAddServerView()
+    }
+
+    @objc func infoButtonPressed() {
+        coordinator?.showInfoView()
+    }
+
+    func showNoServersVC() {
+        navigationItem.rightBarButtonItem = nil
+        add(noServersViewController)
+    }
+
+    func removeNoServersVC() {
+        navigationItem.rightBarButtonItem = editButtonItem
+        noServersViewController.remove()
     }
 }
