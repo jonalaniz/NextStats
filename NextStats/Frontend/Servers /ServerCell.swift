@@ -95,10 +95,10 @@ extension ServerCell {
 
     func setOnlineStatus(to online: Bool) {
         if online {
-            self.statusLabel.textColor = .systemGreen
+            self.statusLabel.textColor = .statusLabelGreen
             self.statusLabel.text = "Online"
         } else {
-            self.statusLabel.textColor = .red
+            self.statusLabel.textColor = .statusLabelRed
             self.statusLabel.text = "Unreachable"
         }
 
