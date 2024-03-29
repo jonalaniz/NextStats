@@ -88,12 +88,15 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        var content = cell.defaultContentConfiguration()
 
         // Custom Cell Setup
         switch indexPath.section {
         case 2:
             // License Section
             cell.accessoryType = .disclosureIndicator
+            content.text = infoModel.titleLabelFor(row: indexPath.row, section: indexPath.section)
+            content.secondaryText = infoModel.detailLabelFor(row: indexPath.row, section: indexPath.section)
         case 3:
             // IAP Section
             // Get product
@@ -107,17 +110,16 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             let cost = formatter.string(from: product.price)
 
             // Setup cell
-            cell.textLabel?.text = product.localizedTitle
-            cell.detailTextLabel?.text = cost
-
-            return cell
+            content.text = product.localizedTitle
+            content.secondaryText = cost
         default:
             cell.selectionStyle = .none
+            content.text = infoModel.titleLabelFor(row: indexPath.row, section: indexPath.section)
+            content.secondaryText = infoModel.detailLabelFor(row: indexPath.row, section: indexPath.section)
         }
 
-        // Default Cell Setup
-        cell.textLabel?.text = infoModel.titleLabelFor(row: indexPath.row, section: indexPath.section)
-        cell.detailTextLabel?.text = infoModel.detailLabelFor(row: indexPath.row, section: indexPath.section)
+        content.textProperties.color = .theme
+        cell.contentConfiguration = content
 
         return cell
     }
