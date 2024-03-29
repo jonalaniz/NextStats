@@ -17,7 +17,7 @@ class ServerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        serverManager.delegate = self
+        serverManager.delegate = coordinator
         setupView()
         setupToolbar()
         serverManager.pingServers()
@@ -100,7 +100,7 @@ class ServerViewController: UIViewController {
         ])
 
         // Initial server checking
-        serversDidChange(refresh: false)
+        coordinator?.serversDidChange(refresh: false)
     }
 
     func setupToolbar() {
@@ -137,74 +137,5 @@ class ServerViewController: UIViewController {
         let aboutButtonView = UIBarButtonItem(customView: aboutButton)
 
         toolbarItems = [addServerButtonView, spacer, aboutButtonView]
-    }
-}
-
-// MARK: - NXServerManagerDelegate
-extension ServerViewController: NXServerManagerDelegate {
-    func deauthorize(server: NextServer) {
-        // Create the URL components and append correct path
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .appPassword)
-
-        // Configure headers
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["Authorization": server.authenticationString(),
-                                        "OCS-APIREQUEST": "true"]
-
-        // Configure HTTP Request
-        var request = URLRequest(url: components.url!)
-        request.httpMethod = "DELETE"
-
-        Task {
-            do {
-                _ = try await NetworkController.deauthorize(request: request, config: config)
-            } catch {
-                DispatchQueue.main.async {
-                    self.showError()
-                }
-            }
-        }
-    }
-
-    func showError() {
-        // TODO: Localize this!
-        let message = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions"
-
-        let errorAC = UIAlertController(title: "Unable to remove NextStats",
-                                        message: message,
-                                        preferredStyle: .alert)
-
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default))
-        present(errorAC, animated: true)
-    }
-
-    // THIS FUNCTION SHOULD NOT CHANGE TABLEVIEW IN ANY WAY
-    func serversDidChange(refresh: Bool) {
-        if serverManager.isEmpty() {
-            navigationItem.rightBarButtonItem = nil
-            add(noServersViewController)
-        } else {
-            navigationItem.rightBarButtonItem = editButtonItem
-            noServersViewController.remove()
-        }
-
-        if refresh { tableView.reloadData() }
-
-        // So iPad doesn't get tableView stuck in editing mode
-        setEditing(false, animated: true)
-    }
-
-    func pingedServer(at index: Int, isOnline: Bool) {
-        guard
-            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ServerCell
-        else { return }
-
-        cell.setOnlineStatus(to: isOnline)
-    }
-
-    func selected(server: NextServer) {
-        coordinator?.showStatsView(for: server)
     }
 }

@@ -28,7 +28,7 @@ extension MainCoordinator: UITableViewDataSource {
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let row = indexPath.row
-            mainViewController.deauthorize(server: serverManager.serverAt(row))
+            serverManager.deauthorize(server: serverManager.serverAt(row))
             serverManager.remove(serverManager.serverAt(row), refresh: false)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }

@@ -171,8 +171,10 @@ class NetworkController {
         return response
     }
 
-    static func deauthorize(request: URLRequest, config: URLSessionConfiguration) async throws -> Data {
+    func deauthorize(at url: URL, config: URLSessionConfiguration) async throws -> Data {
         let session = URLSession(configuration: config)
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
 
         let (data, response) = try await session.data(for: request)
 

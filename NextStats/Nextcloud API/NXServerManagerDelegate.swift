@@ -9,8 +9,7 @@
 import Foundation
 
 protocol NXServerManagerDelegate: AnyObject {
-    func deauthorize(server: NextServer)
+    func deauthorizationFailed(server: NextServer)
     func serversDidChange(refresh: Bool)
     func pingedServer(at index: Int, isOnline: Bool)
-    func selected(server: NextServer)
 }

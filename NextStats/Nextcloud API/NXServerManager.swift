@@ -14,6 +14,7 @@ class NXServerManager: NSObject {
     public static let shared = NXServerManager()
 
     weak var delegate: NXServerManagerDelegate?
+    let networking = NetworkController.shared
 
     private var servers: [NextServer] {
         didSet {
@@ -53,19 +54,14 @@ class NXServerManager: NSObject {
     func remove(_ server: NextServer,
                 renaming: Bool = false,
                 refresh: Bool) {
-        // Remove the server from the server array
         servers.removeAll(where: { $0 == server })
-
-        // Alert our delegate that the server was removed
         delegate?.serversDidChange(refresh: refresh)
 
-        // Delete the imageCache
         if !renaming {
             let path = server.imagePath()
             removeCachedImage(at: path)
 
-            // Deauthorize NextStats with the server
-            delegate?.deauthorize(server: server)
+            deauthorize(server: server)
         }
     }
 
@@ -134,6 +130,25 @@ class NXServerManager: NSObject {
             self.setOnlineStatus(at: index, to: true)
         }
         task.resume()
+    }
+
+    func deauthorize(server: NextServer) {
+        var components = URLComponents(string: server.URLString)!
+        components.clearQueryAndAppend(endpoint: .appPassword)
+
+        let config = networking.config(authString: server.authenticationString(),
+                                       ocsApiRequest: true)
+        let url = components.url!
+
+        Task {
+            do {
+                _ = try await self.networking.deauthorize(at: url, config: config)
+            } catch {
+                DispatchQueue.main.async {
+                    self.delegate?.deauthorizationFailed(server: server)
+                }
+            }
+        }
     }
 
     private func setOnlineStatus(at index: Int, to status: Bool) {
