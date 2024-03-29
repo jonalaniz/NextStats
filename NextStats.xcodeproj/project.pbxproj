@@ -329,9 +329,6 @@
 		5647A6552BA653C0000D51F7 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
-				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
-				565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */,
-				565EFE6E2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift */,
 				56DB682126AEEC400015CB04 /* Add Server */,
 				56DB681F26AEEBF60015CB04 /* Info */,
 				56E0AD8726ADC01D0090ACB6 /* Servers  */,
@@ -450,6 +447,16 @@
 				565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */,
 			);
 			path = UserFactory;
+			sourceTree = "<group>";
+		};
+		565EFE722BB757E800100D94 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
+				565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */,
+				565EFE6E2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		567BF636258ADDF1000E64D9 /* Localization */ = {
@@ -637,6 +644,7 @@
 		56E0AD8726ADC01D0090ACB6 /* Servers  */ = {
 			isa = PBXGroup;
 			children = (
+				565EFE722BB757E800100D94 /* Coordinator */,
 				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */,
