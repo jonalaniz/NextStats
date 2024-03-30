@@ -116,7 +116,7 @@ class NetworkController {
         return data
     }
 
-    func fetchUsers(url: URL, authentication: String) async throws -> Data {
+    func fetchUsers(url: URL, authentication: String) async throws -> Users {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: .users)
 
@@ -136,7 +136,12 @@ class NetworkController {
             throw NetworkError.unexpectedResponse(urlResponse)
         }
 
-        return data
+        guard let users = try? XMLDecoder().decode(Users.self, from: data)
+        else {
+            throw NetworkError.invalidData
+        }
+
+        return users
     }
 
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
@@ -164,7 +169,70 @@ class NetworkController {
 
         guard let response = try? XMLDecoder().decode(Response.self, from: data)
         else {
-            let string = String(data: data, encoding: .utf8)!
+            throw NetworkError.invalidData
+        }
+
+        return response
+    }
+
+    func toggleUser(_ user: String,
+                    at url: URL,
+                    with authString: String) async throws -> Response {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.clearQueryAndAppend(endpoint: .user)
+        components.path += user
+
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "PUT"
+        request.setUserAgent()
+
+        let config = config(authString: authString, ocsApiRequest: true)
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw NetworkError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw NetworkError.unexpectedResponse(urlResponse)
+        }
+
+        guard let response = try? XMLDecoder().decode(Response.self, from: data)
+        else {
+            throw NetworkError.invalidData
+        }
+
+        return response
+    }
+
+    func deleteUser(_ user: String,
+                    at url: URL,
+                    with authString: String) async throws -> Response {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.clearQueryAndAppend(endpoint: .user)
+        components.path += user
+
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "DELETE"
+        request.setUserAgent()
+
+        let config = config(authString: authString, ocsApiRequest: true)
+        let session = URLSession(configuration: config)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw NetworkError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw NetworkError.unexpectedResponse(urlResponse)
+        }
+
+        guard let response = try? XMLDecoder().decode(Response.self, from: data)
+        else {
             throw NetworkError.invalidData
         }
 

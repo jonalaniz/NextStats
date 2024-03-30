@@ -27,7 +27,7 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
     func error(_ error: NXUserFactoryErrorType) {
         // Stop spinner
         switch error {
-        case .factory(let error):
+        case .app(let error):
             handleFactoryError(error)
         case .networking:
             break

@@ -118,7 +118,7 @@ class NXUserFactory: NSObject {
             print(string)
         } catch {
             print(error.localizedDescription)
-            delegate?.error(.factory(.unableToEncodeData))
+            delegate?.error(.app(.unableToEncodeData))
         }
     }
 

@@ -94,6 +94,7 @@
 		56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* NXServerManager.swift */; };
 		56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */; };
 		56C31270269109CB0077B40D /* String+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C3126F269109CB0077B40D /* String+Keys.swift */; };
+		56C632E62BB8D1F6007B2032 /* NXUserManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C632E52BB8D1F6007B2032 /* NXUserManagerDelegate.swift */; };
 		56C781A62AD7DF2200872988 /* TextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C781A52AD7DF2200872988 /* TextFieldFactory.swift */; };
 		56C781A82AD8957200872988 /* AddServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C781A72AD8957200872988 /* AddServerHeaderView.swift */; };
 		56C959702655E42F00BD3B06 /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* InputCell.swift */; };
@@ -217,6 +218,7 @@
 		56BCF6B32487CA8D0048B991 /* NXServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManager.swift; sourceTree = "<group>"; };
 		56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManagerDelegate.swift; sourceTree = "<group>"; };
 		56C3126F269109CB0077B40D /* String+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Keys.swift"; sourceTree = "<group>"; };
+		56C632E52BB8D1F6007B2032 /* NXUserManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserManagerDelegate.swift; sourceTree = "<group>"; };
 		56C781A52AD7DF2200872988 /* TextFieldFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFactory.swift; sourceTree = "<group>"; };
 		56C781A72AD8957200872988 /* AddServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerHeaderView.swift; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
+				56C632E52BB8D1F6007B2032 /* NXUserManagerDelegate.swift */,
 				5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */,
 			);
 			path = "User Manager";
@@ -856,6 +859,7 @@
 				5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */,
 				5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */,
 				56557F0023CA89B9008CF684 /* StatsViewController.swift in Sources */,
+				56C632E62BB8D1F6007B2032 /* NXUserManagerDelegate.swift in Sources */,
 				565130D9268BD7D3008FE8D4 /* Units.swift in Sources */,
 				56C959702655E42F00BD3B06 /* InputCell.swift in Sources */,
 				56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */,

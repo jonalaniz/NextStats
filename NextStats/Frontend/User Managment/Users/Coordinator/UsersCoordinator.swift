@@ -26,12 +26,11 @@ class UsersCoordinator: NSObject, Coordinator {
         self.splitViewController = splitViewController
         usersViewController = UsersViewController()
         userViewController = UserViewController()
-
-        usersViewController.usersDataManager.delegate = usersViewController
     }
 
     func start() {
         usersViewController.coordinator = self
+        usersManager.delegate = self
         navigationController.viewControllers = [usersViewController]
 
         splitViewController.present(navigationController, animated: true)
@@ -47,6 +46,7 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func showUserView(for user: User) {
+        userViewController.coordinator = self
         userViewController.dataManager.set(user)
         userViewController.tableView.dataSource = self
         userViewController.setupView()
@@ -54,7 +54,15 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func updateUsers() {
-        usersViewController.usersDataManager.fetchUsersData()
+        usersManager.fetchUsersData()
+    }
+
+    func delete(user: String) {
+        usersManager.delete(user: user)
+    }
+
+    func toggle(user: String) {
+        usersManager.toggle(user: user)
     }
 
     func childDidFinish(_ child: Coordinator?) {
@@ -77,13 +85,21 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 }
 
-extension UsersCoordinator: NXDataManagerDelegate {
-    func stateDidChange(_ dataManagerState: NXDataManagerState) {
-        switch dataManagerState {
-        case .fetchingData: break
-        case .parsingData: break
-        case .failed(let nXDataManagerError): break
-        case .dataCaptured: break
+extension UsersCoordinator: NXUserManagerDelegate {
+    func stateDidChange(_ state: NXUserManagerState) {
+        switch state {
+        case .deletedUser:
+            usersViewController.tableView.reloadData()
+            navigationController.popViewController(animated: true)
+        case .toggledUser:
+            usersViewController.tableView.reloadData()
+            navigationController.popViewController(animated: true)
+        case .usersLoaded:
+            usersViewController.showData()
         }
+    }
+
+    func error(_ error: NXUserManagerErrorType) {
+        // Handle error
     }
 }

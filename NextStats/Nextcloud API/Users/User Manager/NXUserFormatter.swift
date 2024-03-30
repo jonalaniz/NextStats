@@ -18,6 +18,16 @@ class NXUserFormatter: NSObject {
         self.user = user
     }
 
+    func userID() -> String {
+        guard let user else { return "" }
+        return user.data.id
+    }
+
+    func enabled() -> Bool {
+        guard let user else { return false }
+        return user.data.enabled
+    }
+
     func title() -> String {
         guard let user else { return "" }
         return user.data.displayname ?? ""

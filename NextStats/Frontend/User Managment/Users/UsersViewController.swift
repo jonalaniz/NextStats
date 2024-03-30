@@ -66,7 +66,8 @@ class UsersViewController: UIViewController {
         tableView.isHidden = true
     }
 
-    private func showTableView() {
+    func showData() {
+        navigationItem.rightBarButtonItem?.isEnabled = true
         tableView.reloadData()
         tableView.isHidden = false
         loadingViewController.remove()
@@ -130,9 +131,7 @@ extension UsersViewController: NXDataManagerDelegate {
             handle(error: error)
             return
         case .dataCaptured:
-            navigationItem.rightBarButtonItem?.isEnabled = true
-            tableView.reloadData()
-            showTableView()
+            return
         }
     }
 

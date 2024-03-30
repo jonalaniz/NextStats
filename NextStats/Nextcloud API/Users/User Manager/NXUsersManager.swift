@@ -13,12 +13,17 @@ enum UserDataTypes {
     case users(Users)
 }
 
+enum ResponseType {
+    case deletion
+    case toggle
+}
+
 /// Facilitates the fetching, creation, deletion, and editing of Nextcloud Users
 class NXUsersManager {
     /// Returns singleton instance of `UserDataManager`
     static let shared = NXUsersManager()
 
-    weak var delegate: NXDataManagerDelegate?
+    weak var delegate: NXUserManagerDelegate?
     private let networking = NetworkController.shared
     private var userIDs = [String]()
     private var users = [User]()
@@ -32,8 +37,6 @@ class NXUsersManager {
     private init() {}
 
     func fetchUsersData() {
-        delegate?.stateDidChange(.fetchingData)
-
         if !users.isEmpty { users.removeAll() }
         if !userIDs.isEmpty { userIDs.removeAll() }
 
@@ -42,14 +45,10 @@ class NXUsersManager {
 
         Task {
             do {
-                let data = try await networking.fetchUsers(url: url, authentication: authString)
+                let usersObject = try await networking.fetchUsers(url: url, authentication: authString)
 
-                // Here we work with our captured data object
-                guard let decodedData: Users = self.decode(data) else {
-                    throw NetworkError.invalidData
-                }
-
-                decodedData.data.users.element.forEach { self.userIDs.append($0) }
+                // Here we work with our captured users object
+                usersObject.data.users.element.forEach { self.userIDs.append($0) }
 
                 let configuration = networking.config(authString: authString, ocsApiRequest: true)
 
@@ -57,42 +56,106 @@ class NXUsersManager {
                     let request = networking.request(url: url, with: .user, appending: userID)
                     let data = try await networking.fetchData(with: request, config: configuration)
 
-                    guard let decodedUser: User = self.decode(data) else {
+                    guard let user = try? XMLDecoder().decode(User.self, from: data) else {
                         throw NetworkError.invalidData
                     }
 
-                    users.append(decodedUser)
+                    users.append(user)
                 }
 
                 DispatchQueue.main.async {
-                    self.delegate?.stateDidChange(.dataCaptured)
+                    self.delegate?.stateDidChange(.usersLoaded)
                 }
             } catch {
-                print(error)
+                guard let networkError = error as? NetworkError else {
+                    delegate?.error(.networking(.error(error.localizedDescription)))
+                    return
+                }
+                delegate?.error(.networking(networkError))
             }
         }
     }
 
-    private func decode<T: Codable>(_ data: Data) -> T? {
-        let decoder = XMLDecoder()
+    func toggle(user: String) {
+        guard let userObject = users.first(where: { $0.data.id == user }) else { return }
+        let url = URL(string: server.URLString)!
+        let suffix: String
+        userObject.data.enabled ? (suffix = "\(user)/disable") : (suffix = "\(user)/enable")
+        let authString = server.authenticationString()
 
-        do {
-            let loaded = try decoder.decode(T.self, from: data)
-            return loaded
-        } catch {
-            print(error)
+        Task {
+            do {
+                let response = try await networking.toggleUser(suffix, at: url, with: authString)
+
+                DispatchQueue.main.async {
+                    self.processResponse(user, type: .toggle, response: response)
+                }
+            } catch {
+                guard let networkError = error as? NetworkError else {
+                    delegate?.error(.networking(.error(error.localizedDescription)))
+                    return
+                }
+                delegate?.error(.networking(networkError))
+            }
         }
 
-        return nil
     }
-}
 
-/// TableView Helper Methods
-extension NXUsersManager {
+    func delete(user: String) {
+        let url = URL(string: server.URLString)!
+        let authString = server.authenticationString()
+
+        Task {
+            do {
+                let response = try await networking.deleteUser(user, at: url, with: authString)
+                DispatchQueue.main.async {
+                    self.processResponse(user, type: .deletion, response: response)
+                }
+            } catch {
+                guard let networkError = error as? NetworkError else {
+                    delegate?.error(.networking(.error(error.localizedDescription)))
+                    return
+                }
+                delegate?.error(.networking(networkError))
+            }
+        }
+
+    }
+
+    private func processResponse(_ user: String, type: ResponseType, response: Response) {
+        let meta = response.meta
+        guard meta.statuscode == 100 else {
+            self.delegate?.error(.server(code: meta.statuscode,
+                                         status: meta.status,
+                                         message: meta.message))
+            return
+        }
+
+        switch type {
+        case .deletion: remove(user: user)
+        case .toggle: updateToggleFor(user: user)
+        }
+    }
+
+    private func updateToggleFor(user: String) {
+        if let index = users.firstIndex(where: { $0.data.id
+            == user }) {
+            users[index].data.enabled.toggle()
+        }
+        self.delegate?.stateDidChange(.toggledUser)
+    }
+
+    private func remove(user: String) {
+        userIDs.removeAll(where: { $0 == user })
+        users.removeAll(where: { $0.data.id == user })
+        self.delegate?.stateDidChange(.deletedUser)
+    }
+
     func setServer(server: NextServer) {
         self.server = server
     }
 
+    // TableView Helper Methods
     func user(id: String) -> User {
         return users.first(where: { $0.data.id == id })!
     }
@@ -107,7 +170,7 @@ extension NXUsersManager {
 
     func userCellModel(_ index: Int) -> UserCellModel? {
         guard !users.isEmpty else {
-            delegate?.stateDidChange(.failed(.missingData))
+            delegate?.error(.app(.usersEmpty))
             return nil
         }
 

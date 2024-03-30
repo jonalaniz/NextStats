@@ -11,11 +11,11 @@ import Foundation
 // swiftlint:disable identifier_name
 struct User: Codable {
     let meta: Meta
-    let data: UserDataStruct
+    var data: UserDataStruct
 }
 
 struct UserDataStruct: Codable {
-    let enabled: Bool
+    var enabled: Bool
     let storageLocation: String?
     let id: String
     let lastLogin: Int?
@@ -57,7 +57,6 @@ struct UserDataStruct: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
         self.storageLocation = try? container.decode(String.self, forKey: .storageLocation)
         self.id = try container.decode(String.self, forKey: .id)
         self.lastLogin = try? container.decode(Int.self, forKey: .lastLogin)
@@ -75,6 +74,12 @@ struct UserDataStruct: Codable {
         self.language = try? container.decode(String.self, forKey: .language)
         self.locale = try? container.decode(String.self, forKey: .locale)
         self.backendCapabilities = try container.decode(BackendCapabilities.self, forKey: .backendCapabilities)
+
+        if let enabled = try? container.decode(Bool.self, forKey: .enabled) {
+            self.enabled = enabled
+        } else {
+            self.enabled = false
+        }
     }
 }
 

@@ -8,7 +8,10 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
 class UserViewController: UIViewController {
+    weak var coordinator: UsersCoordinator?
+
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let dataManager = NXUserFormatter.shared
 
@@ -20,6 +23,7 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupMenu()
     }
 
     func setupView() {
@@ -39,6 +43,54 @@ class UserViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+
+    func setupMenu() {
+        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(menuTapped))
+        navigationItem.rightBarButtonItem = moreButton
+    }
+
+    @objc func menuTapped() {
+        let ableTitle: String
+        dataManager.enabled() ? (ableTitle = "Disable") : (ableTitle = "Enable")
+
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: ableTitle,
+                                   style: .default,
+                                   handler: toggleAbility))
+        ac.addAction(UIAlertAction(title: "Delete",
+                                   style: .destructive,
+                                   handler: showScareSheet))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel), style: .cancel))
+        if #available(iOS 16.0, *) {
+            ac.popoverPresentationController?.sourceItem = self.navigationItem.rightBarButtonItem
+        } else {
+            ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        }
+        present(ac, animated: true)
+    }
+
+    func toggleAbility(action: UIAlertAction) {
+        coordinator?.toggle(user: dataManager.userID())
+    }
+
+    func showScareSheet(action: UIAlertAction) {
+        let ac = UIAlertController(title: "Delete User?",
+                                   message: "Are you sure you want to delete \(dataManager.userID())",
+                                   preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Delete",
+                                   style: .destructive,
+                                   handler: deleteUser))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        present(ac, animated: true)
+    }
+
+    func deleteUser(action: UIAlertAction) {
+        coordinator?.delete(user: dataManager.userID())
     }
 }
 
