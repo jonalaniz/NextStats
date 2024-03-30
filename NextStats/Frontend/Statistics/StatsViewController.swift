@@ -115,7 +115,11 @@ class StatsViewController: UIViewController {
                                    style: .destructive, handler: delete))
         ac.addAction(UIAlertAction(title: .localized(.statsActionCancel),
                                    style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        if #available(iOS 16.0, *) {
+            ac.popoverPresentationController?.sourceItem = self.navigationItem.rightBarButtonItem
+        } else {
+            ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        }
         present(ac, animated: true)
     }
 
