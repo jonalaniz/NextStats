@@ -15,7 +15,7 @@ class UsersCoordinator: NSObject, Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
 
-    let userFormatter = NXUserFormatter.shared
+    let formatter = NXUserFormatter.shared
     let usersManager = NXUsersManager.shared
     let usersViewController: UsersViewController
     let userViewController: UserViewController
