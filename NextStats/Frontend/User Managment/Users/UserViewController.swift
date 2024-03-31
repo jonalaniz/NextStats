@@ -66,13 +66,13 @@ class UserViewController: UIViewController {
 
     @objc func menuTapped() {
         let ableTitle: String
-        dataManager.enabled() ? (ableTitle = "Disable") : (ableTitle = "Enable")
+        dataManager.enabled() ? (ableTitle = .localized(.disable)) : (ableTitle = .localized(.enable))
 
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: ableTitle,
                                    style: .default,
                                    handler: toggleAbility))
-        ac.addAction(UIAlertAction(title: "Delete",
+        ac.addAction(UIAlertAction(title: .localized(.delete),
                                    style: .destructive,
                                    handler: showScareSheet))
         ac.addAction(UIAlertAction(title: .localized(.statsActionCancel), style: .cancel))
@@ -89,13 +89,13 @@ class UserViewController: UIViewController {
     }
 
     func showScareSheet(action: UIAlertAction) {
-        let ac = UIAlertController(title: "Delete User?",
-                                   message: "Are you sure you want to delete \(dataManager.userID())",
+        let ac = UIAlertController(title: .localized(.deleteUser),
+                                   message: "\(String.localized(.deleteUserMessage)) \(dataManager.userID())",
                                    preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Delete",
+        ac.addAction(UIAlertAction(title: .localized(.delete),
                                    style: .destructive,
                                    handler: deleteUser))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel), style: .cancel))
 
         present(ac, animated: true)
     }

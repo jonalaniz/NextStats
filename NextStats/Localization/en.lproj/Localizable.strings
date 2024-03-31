@@ -177,6 +177,23 @@
 /* Text = "No" */
 "users.no" = "No";
 
+// MARK: - Users.Popover
+
+/* Text = "Enable" */
+"users.enable" = "Enable";
+
+/* Text = "Disable" */
+"users.disable" = "Disable";
+
+/* Text = "Delete" */
+"users.delete" = "Delete";
+
+/* Text = "Delete User?" */
+"users.deleteUser" = "Delete User?";
+
+/* Text = "Are you sure you want to denete" */
+"users.deleteUserMessage" = "Are you sure you want to delete";
+
 // MARK: - NewUsers
 
 /* Text = "New User" */

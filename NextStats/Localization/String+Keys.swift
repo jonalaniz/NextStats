@@ -6,6 +6,7 @@
 //  Copyright © 2021 Jon Alaniz.
 //
 
+// swiftlint:disable identifier_name
 import Foundation
 
 enum LocalizedKeys: String {
@@ -81,6 +82,13 @@ enum LocalizedKeys: String {
     case setDisplayName = "users.setDisplayName"
     case setPassword = "users.setPassword"
     case no = "users.no"
+
+    // MARK: - Users.Popover
+    case enable = "users.enable"
+    case disable = "users.disable"
+    case delete = "users.delete"
+    case deleteUser = "users.deleteUser"
+    case deleteUserMessage = "users.deleteUserMessage"
 
     // MARK: - New Users
     case newUser = "newusers.newuser"

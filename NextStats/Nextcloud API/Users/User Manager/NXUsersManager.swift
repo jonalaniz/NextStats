@@ -6,6 +6,7 @@
 //  Copyright © 2021 Jon Alaniz.
 //
 
+// swiftlint:disable identifier_name
 import Foundation
 
 enum ResponseType {
