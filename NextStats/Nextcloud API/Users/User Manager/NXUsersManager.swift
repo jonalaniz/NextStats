@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum UserDataTypes {
-    case user
-    case users(Users)
-}
-
 enum ResponseType {
     case deletion
     case toggle
