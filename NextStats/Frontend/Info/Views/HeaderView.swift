@@ -40,6 +40,7 @@ class HeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.textColor = .themeColor
         label.text = "NextStats"
 
         return label
@@ -49,7 +50,7 @@ class HeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .headline)
-        label.textColor = .secondaryLabel
+        label.textColor = .label
         label.text = UIApplication.appVersion
 
         return label
@@ -59,7 +60,7 @@ class HeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .callout)
-        label.textColor = .tertiaryLabel
+        label.textColor = .secondaryLabel
         label.text = "Created by Jon Alaniz"
 
         return label

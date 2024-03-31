@@ -79,9 +79,9 @@ class ServerHeaderView: UIView {
         button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
         button.setTitleColor(.themeColor, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        let insets = NSDirectionalEdgeInsets(top: 12.0,
+        let insets = NSDirectionalEdgeInsets(top: 13.0,
                                              leading: 14.0,
-                                             bottom: 12.0,
+                                             bottom: 13.0,
                                              trailing: 14.0)
         button.configuration?.contentInsets = insets
         return button
@@ -95,9 +95,9 @@ class ServerHeaderView: UIView {
                                 text: .localized(.serverHeaderVisit),
                                 color: .themeColor)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        let insets = NSDirectionalEdgeInsets(top: 12.0,
+        let insets = NSDirectionalEdgeInsets(top: 13.0,
                                              leading: 14.0,
-                                             bottom: 12.0,
+                                             bottom: 13.0,
                                              trailing: 14.0)
         button.configuration?.contentInsets = insets
 
@@ -131,7 +131,7 @@ class ServerHeaderView: UIView {
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            imageView.widthAnchor.constraint(equalToConstant: 180),
+//            imageView.widthAnchor.constraint(equalToConstant: 180),
             imageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }

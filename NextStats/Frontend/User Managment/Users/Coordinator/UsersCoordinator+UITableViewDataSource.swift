@@ -93,7 +93,7 @@ extension UsersCoordinator: UITableViewDataSource {
         case .primary:
             content.textProperties.color = .themeColor
         case .additional:
-            content.textProperties.color = .label
+            content.textProperties.color = .secondaryLabel
         }
 
         content.text = email ?? ""
