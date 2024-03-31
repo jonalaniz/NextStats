@@ -125,8 +125,7 @@ class NXUsersManager {
     private func processResponse(_ user: String, type: ResponseType, response: Response) {
         let meta = response.meta
         guard meta.statuscode == 100 else {
-            self.delegate?.error(.server(code: meta.statuscode,
-                                         status: meta.status,
+            self.delegate?.error(.server(status: meta.status,
                                          message: meta.message))
             return
         }

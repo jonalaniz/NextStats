@@ -22,7 +22,7 @@ enum NXUserManagerState {
 enum NXUserManagerErrorType {
     case app(_ error: NXUserManagerError)
     case networking(NetworkError)
-    case server(code: Int, status: String, message: String)
+    case server(status: String, message: String)
 }
 
 enum NXUserManagerError {
