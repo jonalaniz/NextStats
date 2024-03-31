@@ -54,6 +54,7 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func updateUsers() {
+        usersViewController.showLoadingView()
         usersManager.fetchUsersData()
     }
 

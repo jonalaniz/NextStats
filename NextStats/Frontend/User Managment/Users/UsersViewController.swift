@@ -19,6 +19,7 @@ class UsersViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationController()
         setupView()
+        showLoadingView()
         usersDataManager.fetchUsersData()
     }
 
@@ -62,15 +63,17 @@ class UsersViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-
-        add(loadingViewController)
-        tableView.isHidden = true
     }
 
     private func setTitleColor() {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
+    }
+
+    func showLoadingView() {
+        add(loadingViewController)
+        tableView.isHidden = true
     }
 
     func showData() {
