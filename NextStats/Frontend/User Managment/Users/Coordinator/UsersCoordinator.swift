@@ -93,7 +93,8 @@ extension UsersCoordinator: NXUserManagerDelegate {
             navigationController.popViewController(animated: true)
         case .toggledUser:
             usersViewController.tableView.reloadData()
-            navigationController.popViewController(animated: true)
+            userViewController.dataManager.user?.data.enabled.toggle()
+            userViewController.setTitleColor()
         case .usersLoaded:
             usersViewController.showData()
         }

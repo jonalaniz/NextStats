@@ -24,6 +24,7 @@ class UsersViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setTitleColor()
 
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
@@ -64,6 +65,12 @@ class UsersViewController: UIViewController {
 
         add(loadingViewController)
         tableView.isHidden = true
+    }
+
+    private func setTitleColor() {
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
     }
 
     func showData() {

@@ -17,6 +17,7 @@ class UserViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setTitleColor()
         tableView.reloadData()
     }
 
@@ -43,6 +44,16 @@ class UserViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+
+    func setTitleColor() {
+        let color: UIColor
+        guard let enabled = dataManager.user?.data.enabled else { return }
+        enabled ? (color = .themeColor) : (color = .systemGray)
+
+        let attributes = [NSAttributedString.Key.foregroundColor: color]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
     }
 
     func setupMenu() {
