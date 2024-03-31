@@ -55,7 +55,7 @@ class NXServerManager: NSObject {
                 renaming: Bool = false,
                 refresh: Bool) {
         servers.removeAll(where: { $0 == server })
-        delegate?.serversDidChange(refresh: refresh)
+        delegate?.serversDidChange(refresh: true)
 
         if !renaming {
             let path = server.imagePath()

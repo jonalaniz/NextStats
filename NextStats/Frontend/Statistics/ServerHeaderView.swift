@@ -121,7 +121,7 @@ class ServerHeaderView: UIView {
         mainStackView.addArrangedSubview(nameLabel)
         mainStackView.addArrangedSubview(addressLabel)
         mainStackView.addArrangedSubview(buttonStackView)
-        buttonStackView.addArrangedSubview(users)
+//        buttonStackView.addArrangedSubview(users)
         buttonStackView.addArrangedSubview(visitServerButton)
 
         addSubview(mainStackView)
