@@ -10,11 +10,8 @@ import UIKit
 
 extension MainCoordinator: NXServerManagerDelegate {
     func deauthorizationFailed(server: NextServer) {
-        // TODO: Localize this!
-        let message = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions"
-
-        let errorAC = UIAlertController(title: "Unable to remove NextStats",
-                                        message: message,
+        let errorAC = UIAlertController(title: .localized(.unableToRemove),
+                                        message: .localized(.unableToRemoveMessage),
                                         preferredStyle: .alert)
 
         errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),

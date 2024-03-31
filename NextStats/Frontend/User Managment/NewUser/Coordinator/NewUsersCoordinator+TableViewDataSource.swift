@@ -72,11 +72,11 @@ extension NewUserCoordinator: UITableViewDataSource {
         switch field {
         case .username:
             text = userFactory.userid
-            placeholder = "Username (required)"
+            placeholder = .localized(.usernameRequired)
             selector = #selector(updateUserid)
         case .displayName:
             text = userFactory.displayName
-            placeholder = "Display name"
+            placeholder = .localized(.displayName)
             selector = #selector(updateDisplayName)
         }
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
@@ -113,12 +113,12 @@ extension NewUserCoordinator: UITableViewDataSource {
 
         switch field {
         case .password:
-            placeholder = "Password"
+            placeholder = .localized(.password)
             selector = #selector(updatePassword)
             type = .password
             text = userFactory.password
         case .email:
-            placeholder = "Email"
+            placeholder = .localized(.email)
             selector =  #selector(updateEmail)
             type = .email
             text = userFactory.email
@@ -163,7 +163,7 @@ extension NewUserCoordinator: UITableViewDataSource {
         }
 
         guard userFactory.groupsAvailable() != nil else {
-            content.text = "No groups available"
+            content.text = .localized(.noGroups)
             content.textProperties.color = .secondaryLabel
             cell.contentConfiguration = content
             cell.isUserInteractionEnabled = false
@@ -171,7 +171,7 @@ extension NewUserCoordinator: UITableViewDataSource {
             return cell
         }
 
-        content.text = "Select groups"
+        content.text = .localized(.selectGroups)
         content.textProperties.color = .secondaryLabel
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator
@@ -193,7 +193,7 @@ extension NewUserCoordinator: UITableViewDataSource {
         }
 
         guard userFactory.groupsAvailable() != nil else {
-            content.text = "No groups available"
+            content.text = .localized(.noGroups)
             content.textProperties.color = .secondaryLabel
             cell.contentConfiguration = content
             cell.isUserInteractionEnabled = false
@@ -201,7 +201,7 @@ extension NewUserCoordinator: UITableViewDataSource {
             return cell
         }
 
-        content.text = "Select groups"
+        content.text = .localized(.selectGroups)
         content.textProperties.color = .secondaryLabel
         cell.contentConfiguration = content
         cell.accessoryType = .disclosureIndicator
@@ -225,10 +225,10 @@ extension NewUserCoordinator: UITableViewDataSource {
     func headerFor(section: NewUserFields) -> String {
         switch section {
         case .name: return ""
-        case .requiredFields: return "Email or password required."
-        case .groups: return "Groups"
-        case .subAdmin: return "Set group admin for"
-        case .quota: return "Quota"
+        case .requiredFields: return .localized(.requiredFields)
+        case .groups: return .localized(.groups)
+        case .subAdmin: return .localized(.setSubAdmin)
+        case .quota: return .localized(.quota)
         }
     }
 

@@ -99,6 +99,7 @@
 		56C781A62AD7DF2200872988 /* TextFieldFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C781A52AD7DF2200872988 /* TextFieldFactory.swift */; };
 		56C781A82AD8957200872988 /* AddServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C781A72AD8957200872988 /* AddServerHeaderView.swift */; };
 		56C959702655E42F00BD3B06 /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* InputCell.swift */; };
+		56D4ACE92BB9DD5E00C640EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */; };
 		56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */; };
 		56E0AD7C26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */; };
 		56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */; };
@@ -224,6 +225,7 @@
 		56C781A52AD7DF2200872988 /* TextFieldFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFactory.swift; sourceTree = "<group>"; };
 		56C781A72AD8957200872988 /* AddServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerHeaderView.swift; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
+		56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NXAuthenticationDelegate.swift; sourceTree = "<group>"; };
 		56E0AD7B26AD959B0090ACB6 /* URLCompontents+ClearQueryAndAppend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLCompontents+ClearQueryAndAppend.swift"; sourceTree = "<group>"; };
 		56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				567BF636258ADDF1000E64D9 /* Localization */,
 				56DBC1352932EF11002A306B /* Nextcloud API */,
 				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
+				56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
 			);
 			path = NextStats;
@@ -755,6 +758,7 @@
 			files = (
 				567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */,
 				56557EF023C8B09C008CF684 /* LaunchScreen.storyboard in Resources */,
+				56D4ACE92BB9DD5E00C640EB /* PrivacyInfo.xcprivacy in Resources */,
 				56557EED23C8B09C008CF684 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,9 +31,9 @@ class SelectionViewController: UITableViewController {
 
     override func viewDidLoad() {
         switch selectionType {
-        case .groups: title = "Groups"
-        case .subAdmin: title = "Admin of"
-        case .quota: title = "Quota"
+        case .groups: title = .localized(.groups)
+        case .subAdmin: title = .localized(.adminOf)
+        case .quota: title = .localized(.quota)
         }
     }
 
@@ -65,7 +65,6 @@ class SelectionViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard !selections.contains(selectable[indexPath.row]) else {
-            print("\(selectable[indexPath.row]) removed")
             selections.remove(selectable[indexPath.row])
             tableView.reloadData()
             return
@@ -73,7 +72,6 @@ class SelectionViewController: UITableViewController {
 
         // If selectionType is quota, only one item is selectable
         guard selectionType != .quota else {
-            print("Quota \(selectable[indexPath.row]) selected")
             selections.removeAll()
             selections.insert(selectable[indexPath.row])
             tableView.reloadData()

@@ -20,7 +20,7 @@ class NewUserController: UIViewController {
     }
 
     private func setupNavigationController() {
-        title = "New User"
+        title = .localized(.newUser)
         navigationController?.navigationBar.prefersLargeTitles = true
 
         let cancel = UIBarButtonItem(barButtonSystemItem: .cancel,

@@ -39,8 +39,8 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
     private func handleFactoryError(_ error: NXUserFactoryError) {
         switch error {
         case .unableToEncodeData:
-            showError(title: "Internal Error",
-                      description: "Unable to Encode Data",
+            showError(title: .localized(.internalError),
+                      description: .localized(.unableToEncodeData),
                       handler: nil)
         }
     }
@@ -66,7 +66,7 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
         let alert = UIAlertController(title: title.capitalized,
                                         message: description,
                                         preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Continue",
+        alert.addAction(UIAlertAction(title: .localized(.statsActionContinue),
                                       style: .default,
                                       handler: handler))
         DispatchQueue.main.async {

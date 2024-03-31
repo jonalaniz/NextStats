@@ -82,6 +82,21 @@ enum LocalizedKeys: String {
     case setPassword = "users.setPassword"
     case no = "users.no"
 
+    // MARK: - New Users
+    case newUser = "newusers.newuser"
+    case usernameRequired = "newusers.userNameRequired"
+    case displayName = "newusers.displayName"
+    case password = "newusers.password"
+    case email = "newuser.email"
+    case noGroups = "newuser.noGroups"
+    case selectGroups = "Select groups"
+    case requiredFields = "newuser.requiredFields"
+    case groups = "newuser.groups"
+    case setSubAdmin = "newuser.setSubAdmin"
+
+    // MARK: - SelectionViewController
+    case adminOf = "selection.adminOf"
+
     // MARK: - Errors.StatusLabel
     case errorTitle = "error.title"
     case invalidData = "error.invaliddata"
@@ -102,4 +117,10 @@ enum LocalizedKeys: String {
     // MARK: - Errors.DataManagerError
     case missingData = "error.missingData"
     case unableToParseData = "error.unableToParseData"
+
+    // MARK: - Errors.NXErrors
+    case internalError = "error.internal"
+    case unableToEncodeData = "error.unableToEncodeData"
+    case unableToRemove = "error.unableToRemove"
+    case unableToRemoveMessage = "error.unableToRemoveMessage"
 }

@@ -177,6 +177,46 @@
 /* Text = "No" */
 "users.no" = "No";
 
+// MARK: - NewUsers
+
+/* Text = "New User" */
+"newusers.newuser" = "New User";
+
+/* Text = "Username (required)" */
+"newusers.userNameRequired" = "Username (required)";
+
+/* Text = "Display name" */
+"newusers.displayName" = "Display name";
+
+/* Text = "Password" */
+"newusers.password" = "Password";
+
+/* Text = "Email" */
+"newuser.email" = "Email";
+
+/* Text = "No groups available" */
+"newuser.noGroups" = "No groups available";
+
+/* Text = "Select groups" */
+"newuser.selectGroups" = "Select groups";
+
+/* Text = "Email or password required" */
+"newuser.requiredFields" = "Email or password required";
+
+/* Text = "Groups" */
+"newuser.groups" = "Groups";
+
+/* Text = "Set group admin for" */
+"newuser.setSubAdmin" = "Set group admin for";
+
+/* Text = "Quota" */
+"newuser.quota" = "Quota";
+
+// MARK: - SelectionViewController
+
+/* Text = "Admin of" */
+"selection.adminOf" = "Admin of";
+
 // MARK: - Errors.Status Label
 
 /* Text = "Error" */
@@ -227,3 +267,17 @@
 
 /* Text = "Unable to parse JSON." */
 "error.unableToParseData" = "Unable to parse data.";
+
+// MARK: - Errors.NXErrors
+
+/* Text = "Internal Error" */
+"error.internal" = "Internal Error";
+
+/* Text = "Unable to Encode Data" */
+"error.unableToEncodeData" = "Unable to Encode Data";
+
+/* Text = "Unable to remove NextStats" */
+"error.unableToRemove" = "Unable to remove NextStats";
+
+/* Text = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions" */
+"error.unableToRemoveMessage" = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud";
