@@ -123,6 +123,12 @@ class ServerViewController: UIViewController {
         }
     }
 
+    @objc func menuTapped() {
+        guard coordinator?.statsViewController.serverInitialized != false
+        else { return }
+        coordinator?.statsViewController.menuTapped()
+    }
+
     @objc func addServerPressed() {
         coordinator?.showAddServerView()
     }

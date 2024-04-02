@@ -13,7 +13,6 @@ class ToolbarDelegate: NSObject {}
 #if targetEnvironment(macCatalyst)
 extension NSToolbarItem.Identifier {
     static let addServer = NSToolbarItem.Identifier("com.jonalaniz.nextstats.addServer")
-    static let refresh = NSToolbarItem.Identifier("com.jonalaniz.nextstats.refresh")
     static let menu = NSToolbarItem.Identifier("com.jonalaniz.nextstats.menu")
 }
 
@@ -46,19 +45,11 @@ extension ToolbarDelegate: NSToolbarDelegate {
             item.action = #selector(ServerViewController.addServerPressed)
             item.target = nil
             toolbarItem = item
-        case .refresh:
-            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            item.image = UIImage(systemName: "arrow.clockwise")
-            item.label = "Refresh Server"
-            item.action = #selector(StatsViewController.reload)
-            item.target = nil
-            toolbarItem = item
         case .menu:
-            let item = NSMenuToolbarItem(itemIdentifier: itemIdentifier)
+            let item = NSToolbarItem(itemIdentifier: itemIdentifier)
             item.image = UIImage(systemName: "ellipsis.circle")
-            item.showsIndicator = false
             item.label = "Server Menu"
-            item.itemMenu = buildServerMenu()
+            item.action = #selector(StatsViewController.menuTapped)
             item.target = nil
             toolbarItem = item
         default:
@@ -68,13 +59,13 @@ extension ToolbarDelegate: NSToolbarDelegate {
         return toolbarItem
     }
 
-    func buildServerMenu() -> UIMenu {
-        let renameServer = UICommand(title: "Rename", action: #selector(StatsViewController.showRenameSheet))
-        let delete = UICommand(title: "Delete", action: #selector(StatsViewController.delete(action:)))
-        let menu = UIMenu(title: "", options: .displayInline, children: [renameServer, delete])
-
-        return menu
-    }
+//    func buildServerMenu() -> UIMenu {
+//        let renameServer = UICommand(title: "Rename", action: #selector(StatsViewController.showRenameSheet))
+//        let delete = UICommand(title: "Delete", action: #selector(StatsViewController.delete(action:)))
+//        let menu = UIMenu(title: "", options: .displayInline, children: [renameServer, delete])
+//
+//        return menu
+//    }
 
 }
 #endif
