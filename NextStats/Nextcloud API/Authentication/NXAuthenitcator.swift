@@ -60,6 +60,7 @@ class NXAuthenitcator: NSObject {
     }
 
     private func pollForCredentials(at url: URL, with token: String) {
+        guard shouldPoll else { return }
         let request = pollRequest(url: url, with: token)
 
         Task {
