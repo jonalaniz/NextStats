@@ -177,6 +177,60 @@
 /* Text = "No" */
 "users.no" = "Nayır,";
 
+// MARK: - Users.Popover
+
+/* Text = "Enable" */
+"users.enable" = "Olanak vermek";
+
+/* Text = "Disable" */
+"users.disable" = "Devre dışı bırakmak";
+
+/* Text = "Delete" */
+"users.delete" = "Silmek";
+
+/* Text = "Delete User?" */
+"users.deleteUser" = "Kullanıcıyı sil??";
+
+/* Text = "Are you sure you want to denete" */
+"users.deleteUserMessage" = "Silmek istediğine emin misin";
+
+// MARK: - NewUsers
+
+/* Text = "New User" */
+"newusers.newuser" = "Yeni kullanıcı";
+
+/* Text = "Username (required)" */
+"newusers.userNameRequired" = "Kullanıcı adı (gerekli)";
+
+/* Text = "Display name" */
+"newusers.displayName" = "Ekran adı";
+
+/* Text = "Password" */
+"newusers.password" = "Şifre";
+
+/* Text = "Email" */
+"newuser.email" = "E-posta";
+
+/* Text = "No groups available" */
+"newuser.noGroups" = "Grup mevcut değil";
+
+/* Text = "Select groups" */
+"newuser.selectGroups" = "Grupları seçin";
+
+/* Text = "Email or password required" */
+"newuser.requiredFields" = "E-posta veya şifre gerekli";
+
+/* Text = "Groups" */
+"newuser.groups" = "Gruplar";
+
+/* Text = "Set group admin for" */
+"newuser.setSubAdmin" = "Şunun için grup yöneticisini ayarla:";
+
+// MARK: - SelectionViewController
+
+/* Text = "Admin of" */
+"selection.adminOf" = "Yöneticisi";
+
 // MARK: - Errors.Status Label
 
 /* Text = "Error" */
@@ -227,3 +281,17 @@
 
 /* Text = "Unable to parse JSON." */
 "error.unableToParseJSON" = "Veri ayrıştırılamıyor.";
+
+// MARK: - Errors.NXErrors
+
+/* Text = "Internal Error" */
+"error.internal" = "İç hata";
+
+/* Text = "Unable to Encode Data" */
+"error.unableToEncodeData" = "Veri Kodlanamıyor";
+
+/* Text = "Unable to remove NextStats" */
+"error.unableToRemove" = "NextStats kaldırılamıyor";
+
+/* Text = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions" */
+"error.unableToRemoveMessage" = "Şifre NextStats'tan kaldırıldı ancak uygulama şifresini Nextcloud içinden silmeniz gerekebilir";

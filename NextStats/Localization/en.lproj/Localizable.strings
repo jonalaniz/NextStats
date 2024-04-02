@@ -226,9 +226,6 @@
 /* Text = "Set group admin for" */
 "newuser.setSubAdmin" = "Set group admin for";
 
-/* Text = "Quota" */
-"newuser.quota" = "Quota";
-
 // MARK: - SelectionViewController
 
 /* Text = "Admin of" */

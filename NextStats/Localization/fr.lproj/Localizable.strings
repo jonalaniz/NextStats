@@ -177,6 +177,60 @@
 /* Text = "No" */
 "users.no" = "Non";
 
+// MARK: - Users.Popover
+
+/* Text = "Enable" */
+"users.enable" = "Activer";
+
+/* Text = "Disable" */
+"users.disable" = "Désactiver";
+
+/* Text = "Delete" */
+"users.delete" = "Supprimer";
+
+/* Text = "Delete User?" */
+"users.deleteUser" = "Supprimer l'utilisateur?";
+
+/* Text = "Are you sure you want to denete" */
+"users.deleteUserMessage" = "Etes-vous sûr que vous voulez supprimer";
+
+// MARK: - NewUsers
+
+/* Text = "New User" */
+"newusers.newuser" = "Nouvel utilisateur";
+
+/* Text = "Username (required)" */
+"newusers.userNameRequired" = "Nom d'utilisateur (requis)";
+
+/* Text = "Display name" */
+"newusers.displayName" = "Afficher un nom";
+
+/* Text = "Password" */
+"newusers.password" = "Mot de passe";
+
+/* Text = "Email" */
+"newuser.email" = "Email";
+
+/* Text = "No groups available" */
+"newuser.noGroups" = "Aucun groupe disponible";
+
+/* Text = "Select groups" */
+"newuser.selectGroups" = "Sélectionnez des groupes";
+
+/* Text = "Email or password required" */
+"newuser.requiredFields" = "Email ou mot de passe requis";
+
+/* Text = "Groups" */
+"newuser.groups" = "Groupes";
+
+/* Text = "Set group admin for" */
+"newuser.setSubAdmin" = "Définir l'administrateur de groupe pour";
+
+// MARK: - SelectionViewController
+
+/* Text = "Admin of" */
+"selection.adminOf" = "Administrateur de";
+
 // MARK: - Errors.Status Label
 
 /* Text = "Error" */
@@ -227,3 +281,17 @@
 
 /* Text = "Unable to parse JSON." */
 "error.unableToParseJSON" = "Impossible d'analyser les données.";
+
+// MARK: - Errors.NXErrors
+
+/* Text = "Internal Error" */
+"error.internal" = "Erreur Interne";
+
+/* Text = "Unable to Encode Data" */
+"error.unableToEncodeData" = "Impossible d'encoder les données";
+
+/* Text = "Unable to remove NextStats" */
+"error.unableToRemove" = "Impossible de supprimer NextStats";
+
+/* Text = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions" */
+"error.unableToRemoveMessage" = "Mot de passe supprimé de NextStats, mais vous devrez peut-être supprimer le mot de passe de l'application dans Nextcloud";
