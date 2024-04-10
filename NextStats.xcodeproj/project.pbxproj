@@ -1066,11 +1066,11 @@
 		56557EF523C8B09C008CF684 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Light";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = NextStats/NextStats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStats/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "NextStats - A Nextcloud monitor and utility";
@@ -1094,11 +1094,11 @@
 		56557EF623C8B09C008CF684 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Light";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = NextStats/NextStats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStats/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "NextStats - A Nextcloud monitor and utility";
