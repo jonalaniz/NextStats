@@ -29,7 +29,7 @@ class NextStatsTests: XCTestCase {
             return
         }
 
-        guard let testURL = bundle.url(forResource: "test", withExtension: "json") else {
+        guard let testURL = bundle.url(forResource: "hydrogen", withExtension: "json") else {
             XCTFail("Missing file: test.json")
             return
         }

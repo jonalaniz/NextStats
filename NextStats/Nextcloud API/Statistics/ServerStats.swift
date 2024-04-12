@@ -70,7 +70,7 @@ struct System: Codable {
         self.filelockingEnabled = try container.decode(String.self, forKey: .filelockingEnabled)
         self.memcacheLocking = try container.decode(String.self, forKey: .memcacheLocking)
         self.debug = try container.decode(String.self, forKey: .debug)
-        self.freespace = try container.decode(Int.self, forKey: .freespace)
+        self.freespace = try? container.decode(Int.self, forKey: .freespace)
         self.cpuload = try container.decode([Double].self, forKey: .cpuload)
         self.memTotal = try container.decode(MemoryValue.self, forKey: .memTotal)
         self.memFree = try container.decode(MemoryValue.self, forKey: .memFree)

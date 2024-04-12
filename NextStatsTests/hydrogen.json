@@ -1,0 +1,195 @@
+{
+  "ocs": {
+    "meta": {
+      "status": "ok",
+      "statuscode": 200,
+      "message": "OK"
+    },
+    "data": {
+      "nextcloud": {
+        "system": {
+          "version": "28.0.4.1",
+          "theme": "",
+          "enable_avatars": "yes",
+          "enable_previews": "yes",
+          "memcache.local": "\\OC\\Memcache\\Redis",
+          "memcache.distributed": "\\OC\\Memcache\\Redis",
+          "filelocking.enabled": "yes",
+          "memcache.locking": "\\OC\\Memcache\\Redis",
+          "debug": "no",
+          "freespace": null,
+          "cpuload": [
+            0.13720703125,
+            0.16357421875,
+            0.09326171875
+          ],
+          "mem_total": 2003968,
+          "mem_free": 1015808,
+          "swap_total": 1047552,
+          "swap_free": 713728
+        },
+        "storage": {
+          "num_users": 2,
+          "num_files": 110497,
+          "num_storages": 5,
+          "num_storages_local": 1,
+          "num_storages_home": 0,
+          "num_storages_other": 4
+        },
+        "shares": {
+          "num_shares": 3,
+          "num_shares_user": 0,
+          "num_shares_groups": 0,
+          "num_shares_link": 3,
+          "num_shares_mail": 0,
+          "num_shares_room": 0,
+          "num_shares_link_no_password": 3,
+          "num_fed_shares_sent": 0,
+          "num_fed_shares_received": 0,
+          "permissions_3_17": 3
+        }
+      },
+      "server": {
+        "webserver": "Apache",
+        "php": {
+          "version": "8.xxx",
+          "memory_limit": 536870912,
+          "max_execution_time": 3600,
+          "upload_max_filesize": 2097152,
+          "opcache_revalidate_freq": 2,
+          "opcache": {
+            "opcache_enabled": true,
+            "cache_full": false,
+            "restart_pending": false,
+            "restart_in_progress": false,
+            "memory_usage": {
+              "used_memory": 37304328,
+              "free_memory": 96913400,
+              "wasted_memory": 0,
+              "current_wasted_percentage": 0
+            },
+            "interned_strings_usage": {
+              "buffer_size": 6290992,
+              "used_memory": 4769368,
+              "free_memory": 1521624,
+              "number_of_strings": 74905
+            },
+            "opcache_statistics": {
+              "num_cached_scripts": 1545,
+              "num_cached_keys": 2927,
+              "max_cached_keys": 16229,
+              "hits": 2184964,
+              "start_time": 1712872804,
+              "last_restart_time": 0,
+              "oom_restarts": 0,
+              "hash_restarts": 0,
+              "manual_restarts": 0,
+              "misses": 1563,
+              "blacklist_misses": 0,
+              "blacklist_miss_ratio": 0,
+              "opcache_hit_rate": 99.9285167756904
+            },
+            "jit": {
+              "enabled": false,
+              "on": false,
+              "kind": 5,
+              "opt_level": 4,
+              "opt_flags": 6,
+              "buffer_size": 0,
+              "buffer_free": 0
+            }
+          },
+          "apcu": {
+            "cache": {
+              "num_slots": 4099,
+              "ttl": 0,
+              "num_hits": 0,
+              "num_misses": 0,
+              "num_inserts": 0,
+              "num_entries": 0,
+              "expunges": 0,
+              "start_time": 1712872804,
+              "mem_size": 0,
+              "memory_type": "mmap"
+            },
+            "sma": {
+              "num_seg": 1,
+              "seg_size": 33554312,
+              "avail_mem": 33521328
+            }
+          },
+          "extensions": [
+            "Core",
+            "date",
+            "libxml",
+            "openssl",
+            "pcre",
+            "zlib",
+            "filter",
+            "hash",
+            "json",
+            "Reflection",
+            "SPL",
+            "session",
+            "standard",
+            "sodium",
+            "apache2handler",
+            "mysqlnd",
+            "PDO",
+            "xml",
+            "apcu",
+            "bcmath",
+            "bz2",
+            "calendar",
+            "ctype",
+            "curl",
+            "dom",
+            "mbstring",
+            "FFI",
+            "fileinfo",
+            "ftp",
+            "gd",
+            "gettext",
+            "gmp",
+            "iconv",
+            "igbinary",
+            "imagick",
+            "intl",
+            "ldap",
+            "exif",
+            "mysqli",
+            "pdo_mysql",
+            "Phar",
+            "posix",
+            "readline",
+            "redis",
+            "shmop",
+            "SimpleXML",
+            "smbclient",
+            "sockets",
+            "sysvmsg",
+            "sysvsem",
+            "sysvshm",
+            "tokenizer",
+            "xmlreader",
+            "xmlwriter",
+            "xsl",
+            "zip",
+            "libsmbclient",
+            "Zend OPcache"
+          ]
+        },
+        "database": {
+          "type": "mysql",
+          "version": "8.xxx",
+          "size": "60006400"
+        }
+      },
+      "activeUsers": {
+        "last5minutes": 1,
+        "last1hour": 1,
+        "last24hours": 2
+      }
+    }
+  }
+}

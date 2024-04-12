@@ -23,6 +23,7 @@
 		562ED27C26B5E9B100E4E1C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562ED27B26B5E9B100E4E1C5 /* User.swift */; };
 		56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56320CD226A838C10099C7EA /* MenuBuilder.swift */; };
 		5634EC3B2B6C4D8D00468AC0 /* NXUserFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */; };
+		563998C62BC9894D0086CEE5 /* hydrogen.json in Resources */ = {isa = PBXBuildFile; fileRef = 563998C52BC9894D0086CEE5 /* hydrogen.json */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6402BA3FE77000D51F7 /* NewUser.swift */; };
 		5647A6442BA4023A000D51F7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6432BA4023A000D51F7 /* Groups.swift */; };
@@ -143,6 +144,7 @@
 		562ED27B26B5E9B100E4E1C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		56320CD226A838C10099C7EA /* MenuBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBuilder.swift; sourceTree = "<group>"; };
 		5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFormatter.swift; sourceTree = "<group>"; };
+		563998C52BC9894D0086CEE5 /* hydrogen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hydrogen.json; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		5647A6402BA3FE77000D51F7 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		5647A6432BA4023A000D51F7 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				565975BA25567DF70043C007 /* NextStatsTests.swift */,
+				563998C52BC9894D0086CEE5 /* hydrogen.json */,
 				565975C425567ECB0043C007 /* test.json */,
 				565975C8255680130043C007 /* working.json */,
 				565975BC25567DF70043C007 /* Info.plist */,
@@ -769,6 +772,7 @@
 			files = (
 				565975C525567ECB0043C007 /* test.json in Resources */,
 				565975C9255680130043C007 /* working.json in Resources */,
+				563998C62BC9894D0086CEE5 /* hydrogen.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,7 +1131,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStatsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1149,7 +1153,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStatsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
