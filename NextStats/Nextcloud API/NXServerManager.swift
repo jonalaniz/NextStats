@@ -139,11 +139,11 @@ class NXServerManager: NSObject {
         let config = networking.config(authString: server.authenticationString(),
                                        ocsApiRequest: true)
         let url = components.url!
-
         Task {
             do {
                 _ = try await self.networking.deauthorize(at: url, config: config)
             } catch {
+                print(error)
                 DispatchQueue.main.async {
                     self.delegate?.deauthorizationFailed(server: server)
                 }
