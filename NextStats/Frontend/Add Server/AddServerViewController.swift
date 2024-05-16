@@ -95,7 +95,7 @@ class AddServerViewController: UIViewController {
     }
 
     @objc func cancelPressed() {
-        coordinator?.cancelAuthentication()
+        coordinator?.dismiss()
     }
 
     /// Enables the connect button when text is entered

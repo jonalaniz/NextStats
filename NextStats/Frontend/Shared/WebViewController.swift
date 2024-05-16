@@ -25,6 +25,12 @@ class WebViewController: UIViewController {
         webView.cleanAllCookies()
         webView.load(URLRequest(url: url))
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        coordinator?.cancelAuthentication()
+    }
 }
 
 extension WebViewController: WKNavigationDelegate {

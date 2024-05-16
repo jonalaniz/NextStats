@@ -58,12 +58,11 @@ class AddServerCoordinator: NSObject, Coordinator {
     func cancelAuthentication() {
         // Cancel polling endpoint
         authenticator.cancelAuthorization()
-        parentCoordinator?.childDidFinish(self)
-        dismiss()
     }
 
     func dismiss() {
         navigationController.dismiss(animated: true, completion: nil)
+        parentCoordinator?.childDidFinish(self)
     }
 
     @objc func checkURL() {
@@ -74,7 +73,6 @@ class AddServerCoordinator: NSObject, Coordinator {
 extension AddServerCoordinator: NXAuthenticationDelegate {
     func didCapture(server: NextServer) {
         parentCoordinator?.addServer(server)
-        parentCoordinator?.childDidFinish(self)
         dismiss()
     }
 
