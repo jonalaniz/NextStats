@@ -144,6 +144,35 @@ class NetworkController {
         return users
     }
 
+    func neoPost(url: URL,
+                 authentication: String? = nil) async throws -> Data {
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setUserAgent()
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let configuration: URLSessionConfiguration
+        if authentication == nil {
+            configuration = config(authString: authentication, ocsApiRequest: true)
+        } else {
+            configuration = URLSessionConfiguration.default
+        }
+
+        let session = URLSession(configuration: configuration)
+
+        let (data, response) = try await session.data(for: request)
+
+        guard let urlResponse = response as? HTTPURLResponse else {
+            throw NetworkError.missingResponse
+        }
+
+        guard (200...299).contains(urlResponse.statusCode) else {
+            throw NetworkError.unexpectedResponse(urlResponse)
+        }
+
+        return data
+    }
+
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.clearQueryAndAppend(endpoint: .users)

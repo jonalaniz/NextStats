@@ -109,6 +109,7 @@
 		56E0AD8626ADC0180090ACB6 /* NoServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */; };
 		56E6834126B245A800C1E17C /* IAP Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834026B245A800C1E17C /* IAP Helper.swift */; };
 		56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834226B245AF00C1E17C /* NextStats Products.swift */; };
+		56EFB6CE2BF5DEEF004F6A53 /* WipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
@@ -236,6 +237,7 @@
 		56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoServersViewController.swift; sourceTree = "<group>"; };
 		56E6834026B245A800C1E17C /* IAP Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IAP Helper.swift"; sourceTree = "<group>"; };
 		56E6834226B245AF00C1E17C /* NextStats Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NextStats Products.swift"; sourceTree = "<group>"; };
+		56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WipeObject.swift; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 				56491FA229E66C6000E3431D /* Users */,
 				56E0AD7A26AD88DA0090ACB6 /* Networking */,
 				56B8C5CF2B9FF776009176BB /* Settings.swift */,
+				56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */,
 			);
 			path = "Nextcloud API";
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 				569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */,
 				569EBB0F2ADBC15900BE5985 /* UserCell.swift in Sources */,
 				56C31270269109CB0077B40D /* String+Keys.swift in Sources */,
+				56EFB6CE2BF5DEEF004F6A53 /* WipeObject.swift in Sources */,
 				56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */,
 				56320CD326A838C10099C7EA /* MenuBuilder.swift in Sources */,
 				565EFE6F2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift in Sources */,

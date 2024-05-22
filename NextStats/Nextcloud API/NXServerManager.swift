@@ -132,6 +132,27 @@ class NXServerManager: NSObject {
         task.resume()
     }
 
+    func checkRemoteWipe(server: NextServer) {
+        // Create the URL
+        var components = URLComponents(string: server.URLString)!
+        components.clearQueryAndAppend(endpoint: .wipeCheck)
+        components.queryItems = [URLQueryItem(name: "token", value: server.password)]
+
+        let url = components.url!
+
+        Task {
+            do {
+                let data = try await self.networking.neoPost(url: url)
+                let object = try JSONDecoder().decode(WipeObject.self, from: data)
+                print(object)
+                // Decode the object, check if it needs to be wiped
+            } catch {
+                // If there is an error, we should continue as normal
+                print(error)
+            }
+        }
+    }
+
     func deauthorize(server: NextServer) {
         var components = URLComponents(string: server.URLString)!
         components.clearQueryAndAppend(endpoint: .appPassword)
