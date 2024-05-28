@@ -155,6 +155,8 @@ extension StatsViewController: NXDataManagerDelegate {
             case .missingData:
                 self.showErrorAndReturn(title: .localized(.errorTitle),
                                         description: nextDataManagerError.description)
+            case .unauthorized:
+                coordinator?.serverManager.checkWipeStatus(server: dataManager.server!)
             }
         case .dataCaptured:
             showTableView()

@@ -22,6 +22,7 @@ enum NXDataManagerError {
     case networkError(NetworkError)
     case unableToDecode // Will this catch `missindData` and `invalidData`?
     case missingData // Possibly redundant?
+    case unauthorized
 
     public var description: String {
         switch self {

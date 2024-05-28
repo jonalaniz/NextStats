@@ -152,7 +152,7 @@ class NetworkController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let configuration: URLSessionConfiguration
-        if authentication == nil {
+        if authentication != nil {
             configuration = config(authString: authentication, ocsApiRequest: true)
         } else {
             configuration = URLSessionConfiguration.default

@@ -132,27 +132,6 @@ class NXServerManager: NSObject {
         task.resume()
     }
 
-    func checkRemoteWipe(server: NextServer) {
-        // Create the URL
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .wipeCheck)
-        components.queryItems = [URLQueryItem(name: "token", value: server.password)]
-
-        let url = components.url!
-
-        Task {
-            do {
-                let data = try await self.networking.neoPost(url: url)
-                let object = try JSONDecoder().decode(WipeObject.self, from: data)
-                print(object)
-                // Decode the object, check if it needs to be wiped
-            } catch {
-                // If there is an error, we should continue as normal
-                print(error)
-            }
-        }
-    }
-
     func deauthorize(server: NextServer) {
         var components = URLComponents(string: server.URLString)!
         components.clearQueryAndAppend(endpoint: .appPassword)
@@ -175,6 +154,57 @@ class NXServerManager: NSObject {
     private func setOnlineStatus(at index: Int, to status: Bool) {
         DispatchQueue.main.async {
             self.delegate?.pingedServer(at: index, isOnline: status)
+        }
+    }
+
+    // MARK: - Remote Wipe Functions
+    func checkWipeStatus(server: NextServer) {
+        var components = URLComponents(string: server.URLString)!
+        components.clearQueryAndAppend(endpoint: .wipeCheck)
+        components.queryItems = [URLQueryItem(name: "token", value: server.password)]
+
+        let url = components.url!
+
+        Task {
+            do {
+                let data = try await self.networking.neoPost(url: url)
+                let object = try JSONDecoder().decode(WipeObject.self, from: data)
+                guard object.wipe == true else {
+                    delegate?.unauthorized()
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self.wipe(server: server)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+
+    private func wipe(server: NextServer) {
+        servers.removeAll(where: { $0 == server })
+        delegate?.serversDidChange(refresh: true)
+        delegate?.serverWiped()
+
+        let path = server.imagePath()
+        removeCachedImage(at: path)
+
+        var components = URLComponents(string: server.URLString)!
+        components.clearQueryAndAppend(endpoint: .wipeSuccess)
+        components.queryItems = [URLQueryItem(name: "token", value: server.password)]
+
+        postWipe(url: components.url!)
+    }
+
+    private func postWipe(url: URL) {
+        Task {
+            do {
+                _ = try await self.networking.neoPost(url: url)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }
