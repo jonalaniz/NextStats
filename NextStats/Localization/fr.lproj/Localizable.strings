@@ -128,10 +128,10 @@
 // MARK: - User Cell
 
 /* Text = "enabled" */
-"usercell.enabled" = "Aktiviert";
+"usercell.enabled" = "Activé";
 
 /* Text = "Disabled" */
-"usercell.disabled" = "Deaktiviert";
+"usercell.disabled" = "Désactivé";
 
 // MARK: - Users
 
