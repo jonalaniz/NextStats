@@ -12,4 +12,6 @@ protocol NXServerManagerDelegate: AnyObject {
     func deauthorizationFailed(server: NextServer)
     func serversDidChange(refresh: Bool)
     func pingedServer(at index: Int, isOnline: Bool)
+    func unauthorized()
+    func serverWiped()
 }

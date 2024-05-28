@@ -28,11 +28,27 @@ extension MainCoordinator: NXServerManagerDelegate {
         mainViewController.setEditing(false, animated: true)
     }
 
+    func serverWiped() {
+        mainViewController.navigationController?.popToRootViewController(animated: true)
+    }
+
     func pingedServer(at index: Int, isOnline: Bool) {
         let indexPath = IndexPath(row: index, section: 0)
         guard let cell = mainViewController.tableView.cellForRow(at: indexPath) as? ServerCell
         else { return }
 
         cell.setOnlineStatus(to: isOnline)
+    }
+
+    func unauthorized() {
+        mainViewController.navigationController?.popToRootViewController(animated: true)
+
+        let errorAC = UIAlertController(title: .localized(.unauthorized),
+                                        message: .localized(.unauthorizedDescription),
+                                        preferredStyle: .alert)
+
+        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
+                                        style: .default))
+        mainViewController.present(errorAC, animated: true)
     }
 }

@@ -16,4 +16,6 @@ enum Endpoints: String {
     case settings = "/index.php/apps/theming/manifest/settings"
     case user = "/ocs/v1.php/cloud/users/"
     case users = "/ocs/v1.php/cloud/users"
+    case wipeCheck = "/index.php/core/wipe/check"
+    case wipeSuccess = "/index.php/core/wipe/success"
 }

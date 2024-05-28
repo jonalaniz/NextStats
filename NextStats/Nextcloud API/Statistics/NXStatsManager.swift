@@ -54,6 +54,12 @@ class NXStatsManager: NSObject {
                 case .missingResponse:
                     delegate?.stateDidChange(.failed(.networkError(.missingResponse)))
                 case .unexpectedResponse(let response):
+                    print(response.statusCode)
+                    if response.statusCode != 401 || response.statusCode != 403 {
+                        delegate?.stateDidChange(.failed(.unauthorized))
+                        return
+                    }
+
                     delegate?.stateDidChange(.failed(.networkError(.unexpectedResponse(response))))
                 }
             }
