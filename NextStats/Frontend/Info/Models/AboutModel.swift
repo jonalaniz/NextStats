@@ -37,7 +37,7 @@ class AboutModel: NSObject {
 
     func toggleIcon() {
         let icon = UIApplication.shared.alternateIconName
-        
+
         guard UIApplication.shared.supportsAlternateIcons else {
             return
         }
