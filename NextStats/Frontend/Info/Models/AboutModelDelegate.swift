@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol AboutModelDelegate: AnyObject {
+    func iapEnabled()
+}
