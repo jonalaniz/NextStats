@@ -50,10 +50,10 @@ open class KeychainWrapper {
     public static let standard = KeychainWrapper()
     
     /// ServiceName is used for the kSecAttrService property to uniquely identify this keychain accessor. If no service name is specified, KeychainWrapper will default to using the bundleIdentifier.
-    private (set) public var serviceName: String
+    private(set) public var serviceName: String
     
     /// AccessGroup is used for the kSecAttrAccessGroup property to identify which Keychain Access Group this entry belongs to. This allows you to use the KeychainWrapper with shared keychain access between different applications.
-    private (set) public var accessGroup: String?
+    private(set) public var accessGroup: String?
     
     private static let defaultServiceName: String = {
         return Bundle.main.bundleIdentifier ?? "SwiftKeychainWrapper"
@@ -199,7 +199,7 @@ open class KeychainWrapper {
         guard let keychainData = data(forKey: key, withAccessibility: accessibility) else {
             return nil
         }
-        
+
         return NSKeyedUnarchiver.unarchiveObject(with: keychainData) as? NSCoding
     }
 
@@ -286,8 +286,7 @@ open class KeychainWrapper {
     /// - parameter withAccessibility: Optional accessibility to use when setting the keychain item.
     /// - returns: True if the save was successful, false otherwise.
     @discardableResult open func set(_ value: NSCoding, forKey key: String, withAccessibility accessibility: KeychainItemAccessibility? = nil) -> Bool {
-        let data = NSKeyedArchiver.archivedData(withRootObject: value)
-        
+        guard let data = try? NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: false) else { fatalError() }
         return set(data, forKey: key, withAccessibility: accessibility)
     }
 

@@ -105,9 +105,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
                 fail(transaction: transaction)
             case .restored:
                 restore(transaction: transaction)
-            case .deferred:
-                break
-            case .purchasing:
+            default:
                 break
             }
         }
