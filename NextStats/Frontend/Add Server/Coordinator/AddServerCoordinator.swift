@@ -15,7 +15,7 @@ class AddServerCoordinator: NSObject, Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
     let addServerVC: AddServerViewController
-    let authenticator = NXAuthenitcator()
+    let authenticator = NXAuthenticator()
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -50,7 +50,7 @@ class AddServerCoordinator: NSObject, Coordinator {
         urlString.isValidIPAddress() ? (urlString.addIPPrefix()) : (urlString.addHTTPPrefix())
 
         let url = URL(string: urlString)!
-        authenticator.requestAuthenitcationObject(at: url, named: name)
+        authenticator.requestAuthenticationObject(at: url, named: name)
 
         addServerVC.headerView.activityIndicatior.activate()
     }

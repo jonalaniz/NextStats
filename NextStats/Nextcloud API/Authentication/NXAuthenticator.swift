@@ -9,7 +9,7 @@
 import UIKit
 
 /// Facilitates the authentication and capturing of server objects.
-class NXAuthenitcator: NSObject {
+class NXAuthenticator: NSObject {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
@@ -19,13 +19,13 @@ class NXAuthenitcator: NSObject {
     private var serverImage: UIImage?
     private var shouldPoll = false
 
-    func requestAuthenitcationObject(at url: URL, named name: String) {
+    func requestAuthenticationObject(at url: URL, named name: String) {
         serverName = name
 
         Task {
             do {
                 let object = try await networking.fetchAuthenticationData(url: url)
-                await setupAuthenitcationObject(with: object)
+                await setupAuthenticationObject(with: object)
             } catch {
                 guard let errorType = error as? NetworkError else {
                     handle(error: .error(error.localizedDescription))
@@ -37,7 +37,7 @@ class NXAuthenitcator: NSObject {
         }
     }
 
-    @MainActor private func setupAuthenitcationObject(with object: AuthenticationObject) {
+    @MainActor private func setupAuthenticationObject(with object: AuthenticationObject) {
         // Check for data from authenticationObject
         guard
             let pollURL = URL(string: (object.poll?.endpoint)!),
@@ -92,8 +92,6 @@ class NXAuthenitcator: NSObject {
     }
 
     private func checkForCustomImage(at url: URL) {
-        print("Logo URL: \(url)")
-
         Task {
             do {
                 let image = try await UIImage(data: networking.fetchData(from: url))

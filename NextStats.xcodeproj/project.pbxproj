@@ -53,7 +53,7 @@
 		5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */; };
 		565130D9268BD7D3008FE8D4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565130D8268BD7D3008FE8D4 /* Units.swift */; };
 		5652A2F527647FE90050F5EB /* LoginObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F427647FE90050F5EB /* LoginObject.swift */; };
-		5652A2F7276489AE0050F5EB /* NXAuthenitcator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F6276489AE0050F5EB /* NXAuthenitcator.swift */; };
+		5652A2F7276489AE0050F5EB /* NXAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */; };
 		56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE323C8B09A008CF684 /* AppDelegate.swift */; };
 		56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE523C8B09A008CF684 /* SceneDelegate.swift */; };
 		56557EE823C8B09A008CF684 /* AddServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EE723C8B09A008CF684 /* AddServerViewController.swift */; };
@@ -185,7 +185,7 @@
 		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/Networking/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		5652A2F427647FE90050F5EB /* LoginObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginObject.swift; sourceTree = "<group>"; };
-		5652A2F6276489AE0050F5EB /* NXAuthenitcator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXAuthenitcator.swift; sourceTree = "<group>"; };
+		5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXAuthenticator.swift; sourceTree = "<group>"; };
 		56557EE023C8B09A008CF684 /* NextStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NextStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		56557EE323C8B09A008CF684 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		56557EE523C8B09A008CF684 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 		56491FA029E66B6400E3431D /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				5652A2F6276489AE0050F5EB /* NXAuthenitcator.swift */,
+				5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */,
 				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
 			);
 			path = Authentication;
@@ -930,7 +930,7 @@
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
-				5652A2F7276489AE0050F5EB /* NXAuthenitcator.swift in Sources */,
+				5652A2F7276489AE0050F5EB /* NXAuthenticator.swift in Sources */,
 				567D82632BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoints.swift in Sources */,
 				56AA8FC328FEB04D00A6B4BD /* ErrorHandler.swift in Sources */,
