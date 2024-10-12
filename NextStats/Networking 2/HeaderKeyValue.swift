@@ -7,10 +7,32 @@
 
 import Foundation
 
-enum HeaderKeyValue: String {
-    case accept = "Accept"
-    case apiKey = "X-FreeScout-API-Key"
-    case applicationJSON = "application/json"
-    case contentType = "Content-Type"
-    case jsonCharset = "application/json; charset=UTF-8"
+enum Header {
+    case acceptJSON
+    case authorization
+    case contentType
+    case ocsAPIRequest
+    case userAgent(String)
+
+    // Method to get the string representation of the header key
+    func key() -> String {
+        switch self {
+        case .acceptJSON: return "Accept"
+        case .authorization: return "Authorization"
+        case .contentType: return "Content-Type"
+        case .ocsAPIRequest: return "OCS-APIRequest"
+        case .userAgent: return "User-Agent"
+        }
+    }
+
+    // Method to get the string representation of the header value
+    func value() -> String {
+        switch self {
+        case .acceptJSON: return "application/json"
+        case .authorization: return "" // Don't call this one
+        case .contentType: return "application/json"
+        case .ocsAPIRequest: return "true"
+        case .userAgent(let string): return "NextStats for \(string)"
+        }
+    }
 }

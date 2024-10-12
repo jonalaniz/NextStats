@@ -149,7 +149,8 @@ class NetworkController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setUserAgent()
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(Header.contentType.value(),
+                         forHTTPHeaderField: Header.contentType.key())
 
         let configuration: URLSessionConfiguration
         if authentication != nil {
@@ -308,15 +309,15 @@ class NetworkController {
             return configuration
         }
 
-        var headers = ["Authorization": authorizationString]
+        var headers = [Header.authorization.key(): authorizationString]
 
         if ocsApiRequest == true {
             // OCS-APIRequest is needed for legacy (XML based) requests
-            headers.updateValue("true",
-                                forKey: "OCS-APIRequest")
+            headers.updateValue(Header.ocsAPIRequest.value(),
+                                forKey: Header.ocsAPIRequest.key())
         } else {
-            headers.updateValue("application/json",
-                                forKey: "Accept")
+            headers.updateValue(Header.acceptJSON.value(),
+                                forKey: Header.acceptJSON.key())
         }
 
         configuration.httpAdditionalHeaders = headers
@@ -339,6 +340,7 @@ extension URLRequest {
         default: osName = "¯\\_(ツ)_/¯"
         }
 
-        self.setValue("NextStats for \(osName)", forHTTPHeaderField: "User-Agent")
+        self.setValue(Header.userAgent(osName).value(),
+                      forHTTPHeaderField: Header.userAgent(osName).key())
     }
 }
