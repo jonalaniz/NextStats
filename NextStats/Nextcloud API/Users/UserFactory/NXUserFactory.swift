@@ -31,11 +31,12 @@ class NXUserFactory: NSObject {
     private override init() {}
 
     func getGroups(for server: NextServer) {
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .groups)
+        let urlWithEndpoint = URL(string: Endpoints.groups.rawValue,
+                                  relativeTo: URL(string: server.URLString))!
+
         let authString = server.authenticationString()
         let config = networking.config(authString: authString, ocsApiRequest: true)
-        let request = URLRequest(url: components.url!)
+        let request = URLRequest(url: urlWithEndpoint)
 
         Task {
             do {

@@ -133,15 +133,14 @@ class NXServerManager: NSObject {
     }
 
     func deauthorize(server: NextServer) {
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .appPassword)
-
+        let urlWithEndpoint = URL(string: Endpoints.appPassword.rawValue,
+                                  relativeTo: URL(string: server.URLString)!)!
         let config = networking.config(authString: server.authenticationString(),
                                        ocsApiRequest: true)
-        let url = components.url!
         Task {
             do {
-                _ = try await self.networking.deauthorize(at: url, config: config)
+                _ = try await self.networking.deauthorize(at: urlWithEndpoint,
+                                                          config: config)
             } catch {
                 print(error)
                 DispatchQueue.main.async {
@@ -159,15 +158,17 @@ class NXServerManager: NSObject {
 
     // MARK: - Remote Wipe Functions
     func checkWipeStatus(server: NextServer) {
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .wipeCheck)
-        components.queryItems = [URLQueryItem(name: "token", value: server.password)]
+        let urlWithEndpoint = URL(string: Endpoints.wipeCheck.rawValue,
+                      relativeTo: URL(string: server.URLString)!)!
+        var components = URLComponents(url: urlWithEndpoint,
+                                       resolvingAgainstBaseURL: false)
+        components?.queryItems = [URLQueryItem(name: "token", value: server.password)]
 
-        let url = components.url!
+        let url = components?.url!
 
         Task {
             do {
-                let data = try await self.networking.neoPost(url: url)
+                let data = try await self.networking.neoPost(url: url!)
                 let object = try JSONDecoder().decode(WipeObject.self, from: data)
                 guard object.wipe == true else {
                     delegate?.unauthorized()
@@ -191,8 +192,10 @@ class NXServerManager: NSObject {
         let path = server.imagePath()
         removeCachedImage(at: path)
 
-        var components = URLComponents(string: server.URLString)!
-        components.clearQueryAndAppend(endpoint: .wipeSuccess)
+        let urlWithEndpoint = URL(string: Endpoints.wipeSuccess.rawValue,
+                                  relativeTo: URL(string: server.URLString)!)!
+        var components = URLComponents(url: urlWithEndpoint,
+                                       resolvingAgainstBaseURL: false)!
         components.queryItems = [URLQueryItem(name: "token", value: server.password)]
 
         postWipe(url: components.url!)

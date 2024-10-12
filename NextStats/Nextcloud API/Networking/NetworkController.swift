@@ -25,10 +25,10 @@ class NetworkController {
     private init() { }
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path += Endpoints.login.rawValue
+        let urlWithEnpoint = URL(string: Endpoints.login.rawValue,
+                                 relativeTo: url)!
 
-        var request  = URLRequest(url: components.url!)
+        var request  = URLRequest(url: urlWithEnpoint)
         request.httpMethod = "POST"
         request.setUserAgent()
 
@@ -54,10 +54,10 @@ class NetworkController {
     }
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .info)
+        let urlWithEndpoint = URL(string: Endpoints.info.rawValue,
+                                  relativeTo: url)!
 
-        var request = URLRequest(url: components.url!)
+        var request = URLRequest(url: urlWithEndpoint)
         request.setUserAgent()
 
         let config = config(authString: authentication)
@@ -117,10 +117,10 @@ class NetworkController {
     }
 
     func fetchUsers(url: URL, authentication: String) async throws -> Users {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .users)
+        let urlWithEnpoint = URL(string: Endpoints.users.rawValue,
+                                 relativeTo: url)!
 
-        var request = URLRequest(url: components.url!)
+        var request = URLRequest(url: urlWithEnpoint)
         request.setUserAgent()
 
         let config = config(authString: authentication, ocsApiRequest: true)
@@ -175,14 +175,15 @@ class NetworkController {
     }
 
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .users)
+        let urlWithEnpoint = URL(string: Endpoints.users.rawValue,
+                                 relativeTo: url)!
 
-        var request = URLRequest(url: components.url!)
+        var request = URLRequest(url: urlWithEnpoint)
         request.httpMethod = "POST"
         request.httpBody = data
         request.setUserAgent()
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(Header.contentType.value(),
+                         forHTTPHeaderField: Header.contentType.key())
 
         let config = config(authString: authenticaiton, ocsApiRequest: true)
         let session = URLSession(configuration: config)
@@ -208,11 +209,10 @@ class NetworkController {
     func toggleUser(_ user: String,
                     at url: URL,
                     with authString: String) async throws -> Response {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .user)
-        components.path += user
+        let urlWithEndpoint = URL(string: Endpoints.user.rawValue + user,
+                                  relativeTo: url)!
 
-        var request = URLRequest(url: components.url!)
+        var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "PUT"
         request.setUserAgent()
 
@@ -240,11 +240,10 @@ class NetworkController {
     func deleteUser(_ user: String,
                     at url: URL,
                     with authString: String) async throws -> Response {
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: .user)
-        components.path += user
+        let urlWithEndpoint = URL(string: Endpoints.user.rawValue + user,
+                                  relativeTo: url)!
 
-        var request = URLRequest(url: components.url!)
+        var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "DELETE"
         request.setUserAgent()
 
@@ -292,13 +291,13 @@ class NetworkController {
     func request(url: URL,
                  with endpoint: Endpoints,
                  appending user: String? = nil) -> URLRequest {
-        let url = url
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.clearQueryAndAppend(endpoint: endpoint)
+        guard let user = user else {
+            return URLRequest(url: URL(string: endpoint.rawValue,
+                                       relativeTo: url)!)
+        }
 
-        if let username = user { components.path.append(contentsOf: username) }
-
-        return URLRequest(url: components.url!)
+        return URLRequest(url: URL(string: endpoint.rawValue + user,
+                                   relativeTo: url)!)
     }
 
     func config(authString: String? = nil,
