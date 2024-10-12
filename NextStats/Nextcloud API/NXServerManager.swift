@@ -133,8 +133,13 @@ class NXServerManager: NSObject {
     }
 
     func deauthorize(server: NextServer) {
-        let urlWithEndpoint = URL(string: Endpoint.appPassword.rawValue,
-                                  relativeTo: URL(string: server.URLString)!)!
+        guard
+            let url = URL(string: server.URLString),
+            let urlWithEndpoint = Endpoint.appPassword.buildURL(relativeTo: url)
+        else {
+            return
+        }
+
         let config = networking.config(authString: server.authenticationString(),
                                        ocsApiRequest: true)
         Task {
@@ -158,11 +163,17 @@ class NXServerManager: NSObject {
 
     // MARK: - Remote Wipe Functions
     func checkWipeStatus(server: NextServer) {
-        let urlWithEndpoint = URL(string: Endpoint.wipeCheck.rawValue,
-                      relativeTo: URL(string: server.URLString)!)!
+        guard
+            let baseURL = URL(string: server.URLString),
+            let urlWithEndpoint = Endpoint.wipeCheck.buildURL(relativeTo: baseURL)
+        else {
+            return
+        }
+
         var components = URLComponents(url: urlWithEndpoint,
                                        resolvingAgainstBaseURL: false)
-        components?.queryItems = [URLQueryItem(name: "token", value: server.password)]
+        components?.queryItems = [URLQueryItem(name: "token",
+                                               value: server.password)]
 
         let url = components?.url!
 
@@ -191,12 +202,16 @@ class NXServerManager: NSObject {
 
         let path = server.imagePath()
         removeCachedImage(at: path)
-
-        let urlWithEndpoint = URL(string: Endpoint.wipeSuccess.rawValue,
-                                  relativeTo: URL(string: server.URLString)!)!
+        
+        guard
+            let url = URL(string: server.URLString),
+            let urlWithEndpoint = Endpoint.wipeSuccess.buildURL(relativeTo: url)
+        else { return }
+        
         var components = URLComponents(url: urlWithEndpoint,
                                        resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "token", value: server.password)]
+        components.queryItems = [URLQueryItem(name: "token",
+                                              value: server.password)]
 
         postWipe(url: components.url!)
     }

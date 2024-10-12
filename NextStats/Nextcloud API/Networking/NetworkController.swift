@@ -25,10 +25,11 @@ class NetworkController {
     private init() { }
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
-        let urlWithEnpoint = URL(string: Endpoint.login.rawValue,
-                                 relativeTo: url)!
+        guard let urlWithEndpoint = Endpoint.logo.buildURL(relativeTo: url) else {
+            throw NetworkError.invalidURL
+        }
 
-        var request  = URLRequest(url: urlWithEnpoint)
+        var request  = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
         request.setUserAgent()
 
@@ -54,8 +55,9 @@ class NetworkController {
     }
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
-        let urlWithEndpoint = URL(string: Endpoint.info.rawValue,
-                                  relativeTo: url)!
+        guard let urlWithEndpoint = Endpoint.info.buildURL(relativeTo: url) else {
+            throw NetworkError.invalidURL
+        }
 
         var request = URLRequest(url: urlWithEndpoint)
         request.setUserAgent()
@@ -117,10 +119,11 @@ class NetworkController {
     }
 
     func fetchUsers(url: URL, authentication: String) async throws -> Users {
-        let urlWithEnpoint = URL(string: Endpoint.users.rawValue,
-                                 relativeTo: url)!
+        guard let urlWithEndpoint = Endpoint.users.buildURL(relativeTo: url) else {
+            throw NetworkError.invalidURL
+        }
 
-        var request = URLRequest(url: urlWithEnpoint)
+        var request = URLRequest(url: urlWithEndpoint)
         request.setUserAgent()
 
         let config = config(authString: authentication, ocsApiRequest: true)
@@ -175,10 +178,11 @@ class NetworkController {
     }
 
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
-        let urlWithEnpoint = URL(string: Endpoint.users.rawValue,
-                                 relativeTo: url)!
+        guard let urlWithEndpoint = Endpoint.users.buildURL(relativeTo: url) else {
+            throw NetworkError.invalidURL
+        }
 
-        var request = URLRequest(url: urlWithEnpoint)
+        var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
         request.httpBody = data
         request.setUserAgent()
