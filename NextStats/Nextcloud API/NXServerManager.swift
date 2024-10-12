@@ -133,7 +133,7 @@ class NXServerManager: NSObject {
     }
 
     func deauthorize(server: NextServer) {
-        let urlWithEndpoint = URL(string: Endpoints.appPassword.rawValue,
+        let urlWithEndpoint = URL(string: Endpoint.appPassword.rawValue,
                                   relativeTo: URL(string: server.URLString)!)!
         let config = networking.config(authString: server.authenticationString(),
                                        ocsApiRequest: true)
@@ -158,7 +158,7 @@ class NXServerManager: NSObject {
 
     // MARK: - Remote Wipe Functions
     func checkWipeStatus(server: NextServer) {
-        let urlWithEndpoint = URL(string: Endpoints.wipeCheck.rawValue,
+        let urlWithEndpoint = URL(string: Endpoint.wipeCheck.rawValue,
                       relativeTo: URL(string: server.URLString)!)!
         var components = URLComponents(url: urlWithEndpoint,
                                        resolvingAgainstBaseURL: false)
@@ -192,7 +192,7 @@ class NXServerManager: NSObject {
         let path = server.imagePath()
         removeCachedImage(at: path)
 
-        let urlWithEndpoint = URL(string: Endpoints.wipeSuccess.rawValue,
+        let urlWithEndpoint = URL(string: Endpoint.wipeSuccess.rawValue,
                                   relativeTo: URL(string: server.URLString)!)!
         var components = URLComponents(url: urlWithEndpoint,
                                        resolvingAgainstBaseURL: false)!

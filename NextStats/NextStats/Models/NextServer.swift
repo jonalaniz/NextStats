@@ -32,7 +32,7 @@ struct NextServer: Codable, Equatable {
     }
 
     private func imageURL() -> URL {
-        return  URL(string: Endpoints.logo.rawValue,
+        return  URL(string: Endpoint.logo.rawValue,
                     relativeTo: URL(string: URLString)!)!
     }
 

@@ -56,7 +56,7 @@ class NXAuthenticator: NSObject {
         self.delegate?.didRecieve(loginURL: loginURL)
         shouldPoll = true
 
-        let logoURL = URL(string: Endpoints.logo.rawValue,
+        let logoURL = URL(string: Endpoint.logo.rawValue,
                           relativeTo: pollURL)!
         checkForCustomImage(at: logoURL)
 

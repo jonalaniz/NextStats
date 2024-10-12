@@ -31,7 +31,7 @@ class NXUserFactory: NSObject {
     private override init() {}
 
     func getGroups(for server: NextServer) {
-        let urlWithEndpoint = URL(string: Endpoints.groups.rawValue,
+        let urlWithEndpoint = URL(string: Endpoint.groups.rawValue,
                                   relativeTo: URL(string: server.URLString))!
 
         let authString = server.authenticationString()

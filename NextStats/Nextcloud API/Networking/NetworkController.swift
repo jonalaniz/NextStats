@@ -25,7 +25,7 @@ class NetworkController {
     private init() { }
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
-        let urlWithEnpoint = URL(string: Endpoints.login.rawValue,
+        let urlWithEnpoint = URL(string: Endpoint.login.rawValue,
                                  relativeTo: url)!
 
         var request  = URLRequest(url: urlWithEnpoint)
@@ -54,7 +54,7 @@ class NetworkController {
     }
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
-        let urlWithEndpoint = URL(string: Endpoints.info.rawValue,
+        let urlWithEndpoint = URL(string: Endpoint.info.rawValue,
                                   relativeTo: url)!
 
         var request = URLRequest(url: urlWithEndpoint)
@@ -117,7 +117,7 @@ class NetworkController {
     }
 
     func fetchUsers(url: URL, authentication: String) async throws -> Users {
-        let urlWithEnpoint = URL(string: Endpoints.users.rawValue,
+        let urlWithEnpoint = URL(string: Endpoint.users.rawValue,
                                  relativeTo: url)!
 
         var request = URLRequest(url: urlWithEnpoint)
@@ -175,7 +175,7 @@ class NetworkController {
     }
 
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
-        let urlWithEnpoint = URL(string: Endpoints.users.rawValue,
+        let urlWithEnpoint = URL(string: Endpoint.users.rawValue,
                                  relativeTo: url)!
 
         var request = URLRequest(url: urlWithEnpoint)
@@ -209,7 +209,7 @@ class NetworkController {
     func toggleUser(_ user: String,
                     at url: URL,
                     with authString: String) async throws -> Response {
-        let urlWithEndpoint = URL(string: Endpoints.user.rawValue + user,
+        let urlWithEndpoint = URL(string: Endpoint.user.rawValue + user,
                                   relativeTo: url)!
 
         var request = URLRequest(url: urlWithEndpoint)
@@ -240,7 +240,7 @@ class NetworkController {
     func deleteUser(_ user: String,
                     at url: URL,
                     with authString: String) async throws -> Response {
-        let urlWithEndpoint = URL(string: Endpoints.user.rawValue + user,
+        let urlWithEndpoint = URL(string: Endpoint.user.rawValue + user,
                                   relativeTo: url)!
 
         var request = URLRequest(url: urlWithEndpoint)
@@ -289,7 +289,7 @@ class NetworkController {
     // MARK: - Helper Methods
 
     func request(url: URL,
-                 with endpoint: Endpoints,
+                 with endpoint: Endpoint,
                  appending user: String? = nil) -> URLRequest {
         guard let user = user else {
             return URLRequest(url: URL(string: endpoint.rawValue,
