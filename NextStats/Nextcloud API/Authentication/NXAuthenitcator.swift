@@ -52,9 +52,9 @@ class NXAuthenitcator: NSObject {
         self.delegate?.didRecieve(loginURL: loginURL)
         shouldPoll = true
 
-        var logoURL = URLComponents(url: pollURL, resolvingAgainstBaseURL: false)!
-        logoURL.replacePathWith(endpoint: .logo)
-        checkForCustomImage(at: logoURL.url!)
+        let logoURL = URL(string: Endpoints.logo.rawValue,
+                          relativeTo: pollURL)!
+        checkForCustomImage(at: logoURL)
 
         pollForCredentials(at: pollURL, with: token)
     }
