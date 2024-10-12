@@ -33,7 +33,7 @@ class NXUserFactory: NSObject {
     func getGroups(for server: NextServer) {
         guard
             let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.groups.buildURL(relativeTo: url)
+            let urlWithEndpoint = Endpoint.groups.url(relativeTo: url)
         else {
             // TODO: Error handling
             return

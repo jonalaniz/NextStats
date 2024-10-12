@@ -19,7 +19,7 @@ enum Endpoint: String {
     case wipeCheck = "/index.php/core/wipe/check"
     case wipeSuccess = "/index.php/core/wipe/success"
 
-    func buildURL(relativeTo baseURL: URL) -> URL? {
+    func url(relativeTo baseURL: URL) -> URL? {
         return URL(string: self.rawValue, relativeTo: baseURL)
     }
 }

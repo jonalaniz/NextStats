@@ -25,7 +25,7 @@ class NetworkController {
     private init() { }
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
-        guard let urlWithEndpoint = Endpoint.logo.buildURL(relativeTo: url) else {
+        guard let urlWithEndpoint = Endpoint.logo.url(relativeTo: url) else {
             throw NetworkError.invalidURL
         }
 
@@ -55,7 +55,7 @@ class NetworkController {
     }
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
-        guard let urlWithEndpoint = Endpoint.info.buildURL(relativeTo: url) else {
+        guard let urlWithEndpoint = Endpoint.info.url(relativeTo: url) else {
             throw NetworkError.invalidURL
         }
 
@@ -119,7 +119,7 @@ class NetworkController {
     }
 
     func fetchUsers(url: URL, authentication: String) async throws -> Users {
-        guard let urlWithEndpoint = Endpoint.users.buildURL(relativeTo: url) else {
+        guard let urlWithEndpoint = Endpoint.users.url(relativeTo: url) else {
             throw NetworkError.invalidURL
         }
 
@@ -178,7 +178,7 @@ class NetworkController {
     }
 
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
-        guard let urlWithEndpoint = Endpoint.users.buildURL(relativeTo: url) else {
+        guard let urlWithEndpoint = Endpoint.users.url(relativeTo: url) else {
             throw NetworkError.invalidURL
         }
 

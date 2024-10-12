@@ -135,7 +135,7 @@ class NXServerManager: NSObject {
     func deauthorize(server: NextServer) {
         guard
             let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.appPassword.buildURL(relativeTo: url)
+            let urlWithEndpoint = Endpoint.appPassword.url(relativeTo: url)
         else {
             return
         }
@@ -165,7 +165,7 @@ class NXServerManager: NSObject {
     func checkWipeStatus(server: NextServer) {
         guard
             let baseURL = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.wipeCheck.buildURL(relativeTo: baseURL)
+            let urlWithEndpoint = Endpoint.wipeCheck.url(relativeTo: baseURL)
         else {
             return
         }
@@ -205,7 +205,7 @@ class NXServerManager: NSObject {
         
         guard
             let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.wipeSuccess.buildURL(relativeTo: url)
+            let urlWithEndpoint = Endpoint.wipeSuccess.url(relativeTo: url)
         else { return }
         
         var components = URLComponents(url: urlWithEndpoint,
