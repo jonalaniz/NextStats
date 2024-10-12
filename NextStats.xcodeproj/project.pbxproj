@@ -328,6 +328,8 @@
 			isa = PBXGroup;
 			children = (
 				562C25A12CB9F6C0001BF067 /* NextcloudService.swift */,
+				56B1413E267E7236002D66D8 /* Endpoints.swift */,
+				5647A6422BA40217000D51F7 /* Models */,
 			);
 			path = NextcloudService;
 			sourceTree = "<group>";
@@ -335,13 +337,26 @@
 		562C25A02CB9F66E001BF067 /* NextStats */ = {
 			isa = PBXGroup;
 			children = (
+				562C25A42CB9FE16001BF067 /* Models */,
 			);
 			path = NextStats;
+			sourceTree = "<group>";
+		};
+		562C25A42CB9FE16001BF067 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				56B8C5CF2B9FF776009176BB /* Settings.swift */,
+				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5647A6422BA40217000D51F7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
+				5652A2F427647FE90050F5EB /* LoginObject.swift */,
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 				5647A6432BA4023A000D51F7 /* Groups.swift */,
 				5647A6402BA3FE77000D51F7 /* NewUser.swift */,
 				565EFE662BB6007500100D94 /* NewUserStatusCode.swift */,
@@ -349,6 +364,7 @@
 				562ED27B26B5E9B100E4E1C5 /* User.swift */,
 				569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */,
 				569F2CA526AC2EB5001122F2 /* Users.swift */,
+				56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -415,8 +431,6 @@
 			children = (
 				5652A2F6276489AE0050F5EB /* NXAuthenitcator.swift */,
 				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
-				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
-				5652A2F427647FE90050F5EB /* LoginObject.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -426,7 +440,6 @@
 			children = (
 				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
 				5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */,
-				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -512,7 +525,6 @@
 				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
 				56C632E52BB8D1F6007B2032 /* NXUserManagerDelegate.swift */,
 				5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */,
-				5647A6422BA40217000D51F7 /* Models */,
 			);
 			path = "User Manager";
 			sourceTree = "<group>";
@@ -676,13 +688,10 @@
 			children = (
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
 				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
-				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
 				56491FA029E66B6400E3431D /* Authentication */,
 				56491FA129E66C0E00E3431D /* Statistics */,
 				56491FA229E66C6000E3431D /* Users */,
 				56E0AD7A26AD88DA0090ACB6 /* Networking */,
-				56B8C5CF2B9FF776009176BB /* Settings.swift */,
-				56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */,
 			);
 			path = "Nextcloud API";
 			sourceTree = "<group>";
@@ -692,7 +701,6 @@
 			children = (
 				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 				56AA8FC228FEB04D00A6B4BD /* ErrorHandler.swift */,
-				56B1413E267E7236002D66D8 /* Endpoints.swift */,
 				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
 			);
 			path = Networking;
