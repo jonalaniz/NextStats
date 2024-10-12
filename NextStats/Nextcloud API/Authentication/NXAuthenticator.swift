@@ -13,11 +13,15 @@ class NXAuthenticator: NSObject {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
-    private let networking = NetworkController.shared
+    private let networking: NetworkController
 
     private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
+    
+    init(networking: NetworkController = NetworkController.shared) {
+        self.networking = networking
+    }
 
     func requestAuthenticationObject(at url: URL, named name: String) {
         serverName = name
