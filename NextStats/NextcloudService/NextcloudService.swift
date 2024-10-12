@@ -10,6 +10,6 @@ import Foundation
 
 final class NextcloudService {
     static let shared = NextcloudService()
-    
+
     private init() {}
 }
