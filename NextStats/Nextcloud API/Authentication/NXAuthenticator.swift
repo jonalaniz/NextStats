@@ -56,7 +56,7 @@ class NXAuthenticator: NSObject {
         self.delegate?.didRecieve(loginURL: loginURL)
         shouldPoll = true
 
-        guard let logoURL = Endpoint.logo.buildURL(relativeTo: pollURL) else {
+        guard let logoURL = Endpoint.logo.url(relativeTo: pollURL) else {
             pollForCredentials(at: pollURL, with: token)
             return
         }
