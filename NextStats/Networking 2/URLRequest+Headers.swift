@@ -6,28 +6,29 @@
 //
 
 import Foundation
+import UIKit
 
 extension URLRequest {
-    mutating func addHeaders(from headers: [String: String]? = nil) {
-        guard let headers = headers, !headers.isEmpty else {
-            self.defaultHeaders()
-            return
-        }
-
+    mutating func addHeaders(from headers: [String: String]) {
         for header in headers {
             self.addValue(header.value, forHTTPHeaderField: header.key)
         }
     }
 
-    mutating func defaultHeaders() {
-        self.addValue(
-            Header.acceptJSON.value(),
-            forHTTPHeaderField: Header.acceptJSON.key()
-        )
+    mutating func setUserAgent() {
+        let osName: String
 
-        self.addValue(
-            Header.contentType.value(),
-            forHTTPHeaderField: Header.contentType.key()
-        )
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone: osName = "iOS"
+        case .pad: osName = "iPadOS"
+        case .tv: osName = "tvOS"
+        case .carPlay: osName = "carPlay"
+        case .mac: osName = "macOS"
+        case .vision: osName = "visionOS"
+        default: osName = "¯\\_(ツ)_/¯"
+        }
+
+        self.setValue(Header.userAgent(osName).value(),
+                      forHTTPHeaderField: Header.userAgent(osName).key())
     }
 }

@@ -325,22 +325,3 @@ class NetworkController {
         return configuration
     }
 }
-
-extension URLRequest {
-    mutating func setUserAgent() {
-        let osName: String
-
-        switch UIDevice.current.userInterfaceIdiom {
-        case .phone: osName = "iOS"
-        case .pad: osName = "iPadOS"
-        case .tv: osName = "tvOS"
-        case .carPlay: osName = "carPlay"
-        case .mac: osName = "macOS"
-        case .vision: osName = "visionOS"
-        default: osName = "¯\\_(ツ)_/¯"
-        }
-
-        self.setValue(Header.userAgent(osName).value(),
-                      forHTTPHeaderField: Header.userAgent(osName).key())
-    }
-}
