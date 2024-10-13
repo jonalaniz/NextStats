@@ -77,7 +77,7 @@ extension StatsViewController {
 
         let manager = NXServerManager.shared
 
-        manager.rename(server: server, name: name) { newServer in
+        manager.renameServer(server, to: name) { newServer in
             dataManager.server = newServer
         }
     }

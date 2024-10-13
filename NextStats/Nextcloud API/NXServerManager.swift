@@ -85,7 +85,7 @@ class NXServerManager: NSObject {
     }
 
     // Create a closure to return the server object ot the StatsViewController
-    func rename(server: NextServer, name: String, completion: (NextServer) -> Void) {
+    func renameServer(_ server: NextServer, to name: String, completion: (NextServer) -> Void) {
         let newServer = NextServer(name: name,
                                    friendlyURL: server.friendlyURL,
                                    URLString: server.URLString,
@@ -202,12 +202,12 @@ class NXServerManager: NSObject {
 
         let path = server.imagePath()
         removeCachedImage(at: path)
-        
+
         guard
             let url = URL(string: server.URLString),
             let urlWithEndpoint = Endpoint.wipeSuccess.url(relativeTo: url)
         else { return }
-        
+
         var components = URLComponents(url: urlWithEndpoint,
                                        resolvingAgainstBaseURL: false)!
         components.queryItems = [URLQueryItem(name: "token",
