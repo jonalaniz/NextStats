@@ -25,9 +25,7 @@ class NetworkController {
     private init() { }
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
-        guard let urlWithEndpoint = Endpoint.logo.url(relativeTo: url) else {
-            throw NetworkError.invalidURL
-        }
+        let urlWithEndpoint = try buildEndpointURL(baseURL: url, endpoint: .login)
 
         var request  = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
@@ -38,13 +36,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         guard let object = try? JSONDecoder().decode(AuthenticationObject.self,
                                                      from: data) else {
@@ -55,9 +47,7 @@ class NetworkController {
     }
 
     func fetchServerStatisticsData(url: URL, authentication: String) async throws -> ServerStats {
-        guard let urlWithEndpoint = Endpoint.info.url(relativeTo: url) else {
-            throw NetworkError.invalidURL
-        }
+        let urlWithEndpoint = try buildEndpointURL(baseURL: url, endpoint: .info)
 
         var request = URLRequest(url: urlWithEndpoint)
         request.setUserAgent()
@@ -67,13 +57,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         guard let object = try? JSONDecoder().decode(ServerStats.self,
                                                      from: data) else {
@@ -90,13 +74,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         return data
     }
@@ -107,21 +85,13 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         return data
     }
 
     func fetchUsers(url: URL, authentication: String) async throws -> Users {
-        guard let urlWithEndpoint = Endpoint.users.url(relativeTo: url) else {
-            throw NetworkError.invalidURL
-        }
+        let urlWithEndpoint = try buildEndpointURL(baseURL: url, endpoint: .users)
 
         var request = URLRequest(url: urlWithEndpoint)
         request.setUserAgent()
@@ -131,13 +101,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         guard let users = try? XMLDecoder().decode(Users.self, from: data)
         else {
@@ -166,21 +130,13 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         return data
     }
 
     func post(user data: Data, url: URL, authenticaiton: String) async throws -> Response {
-        guard let urlWithEndpoint = Endpoint.users.url(relativeTo: url) else {
-            throw NetworkError.invalidURL
-        }
+        let urlWithEndpoint = try buildEndpointURL(baseURL: url, endpoint: .users)
 
         var request = URLRequest(url: urlWithEndpoint)
         request.httpMethod = "POST"
@@ -194,13 +150,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         guard let response = try? XMLDecoder().decode(Response.self, from: data)
         else {
@@ -225,13 +175,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         guard let response = try? XMLDecoder().decode(Response.self, from: data)
         else {
@@ -256,13 +200,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         guard let response = try? XMLDecoder().decode(Response.self, from: data)
         else {
@@ -279,13 +217,7 @@ class NetworkController {
 
         let (data, response) = try await session.data(for: request)
 
-        guard let urlResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
-        }
-
-        guard (200...299).contains(urlResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(urlResponse)
-        }
+        _ = try validateResponse(response)
 
         return data
     }
@@ -326,5 +258,23 @@ class NetworkController {
         configuration.httpAdditionalHeaders = headers
 
         return configuration
+    }
+
+    private func buildEndpointURL(baseURL: URL, endpoint: Endpoint) throws -> URL {
+        guard let endpointURL = endpoint.url(relativeTo: baseURL) else {
+            throw NetworkError.invalidURL
+        }
+
+        return endpointURL
+    }
+
+    private func validateResponse(_ response: URLResponse?) throws -> HTTPURLResponse {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.missingResponse
+        }
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw NetworkError.unexpectedResponse(httpResponse)
+        }
+        return httpResponse
     }
 }
