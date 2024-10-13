@@ -18,7 +18,7 @@ class NXAuthenticator: NSObject {
     private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
-    
+
     init(networking: NetworkController = NetworkController.shared) {
         self.networking = networking
     }
