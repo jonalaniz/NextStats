@@ -11,7 +11,7 @@ import UIKit
 enum StatsSection: Int, CaseIterable {
     case system = 0, memory, storage, activity
 
-    func height() -> CGFloat {
+    var rowHeight: CGFloat {
         switch self {
         case .memory: return 66
         default: return 44
@@ -37,10 +37,7 @@ enum ActivityRow: Int, CaseIterable {
 
 extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let tableSection = StatsSection(rawValue: indexPath.section)
-        else { return 0 }
-
-        return tableSection.height()
+        return StatsSection(rawValue: indexPath.section)?.rowHeight ?? 0
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,39 +91,21 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
     private func systemCell(row: Int) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
 
-        guard let cellRow = SystemRow(rawValue: row)
+        guard
+            let cellRow = SystemRow(rawValue: row),
+            let system = stats.nextcloud?.system
         else { return cell }
 
-        var content = cell.defaultContentConfiguration()
-
         switch cellRow {
-        case .cpu:
-            content.text = "CPU"
-            content.secondaryText = cpuLoadAverages()
-        case .webServer:
-            content.text = "Web Server"
-            content.secondaryText = stats.server?.webserver ?? "N/A"
-        case .PHPVersion:
-            content.text = "PHP Version"
-            content.secondaryText = stats.server?.php?.version ?? "N/A"
-        case .databaseVersion:
-            content.text = "Database"
-            content.secondaryText = databaseVersion()
-        case .databaseSize:
-            content.text = "Database Size"
-            content.secondaryText = databaseSize()
-        case .localCache:
-            content.text = "Local Cache"
-            content.secondaryText = stats.nextcloud?.system?.memcacheLocal ?? "N/A"
-        case .distributedCache:
-            content.text = "Distributed Cache"
-            content.secondaryText = stats.nextcloud?.system?.memcacheDistributed ?? "N/A"
+        case .cpu: configureCell(cell, text: "CPU", secondaryText: cpuLoadAverages())
+        case .webServer: configureCell(cell, text: "Web Server", secondaryText: stats.server?.webserver)
+        case .PHPVersion: configureCell(cell, text: "PHP Version", secondaryText: stats.server?.php?.version)
+        case .databaseVersion: configureCell(cell, text: "Database", secondaryText: databaseVersion())
+        case .databaseSize: configureCell(cell, text: "Database Size", secondaryText: databaseSize())
+        case .localCache: configureCell(cell, text: "Local Cache", secondaryText: system.memcacheLocal)
+        case .distributedCache: configureCell(cell, text: "Distributed Cache", secondaryText: system.memcacheDistributed)
         }
 
-        content.textProperties.color = .themeColor
-        content.secondaryTextProperties.color = .secondaryLabel
-        cell.contentConfiguration = content
-        cell.selectionStyle = .none
         return cell
     }
 
@@ -207,21 +186,11 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         guard let cellRow = StorageRow(rawValue: row)
         else { return cell }
 
-        var content = cell.defaultContentConfiguration()
-
         switch cellRow {
-        case .space:
-            content.text = "Free Space"
-            content.secondaryText = freeSpace()
-        case .files:
-            content.text = "Number of Files"
-            content.secondaryText = numberOfFiles()
+        case .space: configureCell(cell, text: "Free Space", secondaryText: freeSpace())
+        case .files: configureCell(cell, text: "Number of Files", secondaryText: numberOfFiles())
         }
 
-        content.textProperties.color = .themeColor
-        content.secondaryTextProperties.color = .secondaryLabel
-        cell.contentConfiguration = content
-        cell.selectionStyle = .none
         return cell
     }
 
@@ -253,20 +222,13 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         guard let cellRow = ActivityRow(rawValue: row)
         else { return cell }
 
-        var content = cell.defaultContentConfiguration()
-
         switch cellRow {
-        case .last5: content.text = "Last 5 Minutes"
-        case .lastHour: content.text = "Last Hour"
-        case .lastDay: content.text = "Last Day"
-        case .total: content.text = "Total Users"
+        case .last5: configureCell(cell, text: "Last 5 Minutes", secondaryText: activityValue(for: cellRow))
+        case .lastHour: configureCell(cell, text: "Last Hour", secondaryText: activityValue(for: cellRow))
+        case .lastDay: configureCell(cell, text: "Last Day", secondaryText: activityValue(for: cellRow))
+        case .total: configureCell(cell, text: "Total Users", secondaryText: activityValue(for: cellRow))
         }
 
-        content.textProperties.color = .themeColor
-        content.secondaryText = activityValue(for: cellRow)
-        content.secondaryTextProperties.color = .secondaryLabel
-        cell.contentConfiguration = content
-        cell.selectionStyle = .none
         return cell
     }
 
@@ -284,5 +246,15 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         case .lastDay: return String(lastDay)
         case .total: return String(total)
         }
+    }
+
+    private func configureCell(_ cell: UITableViewCell, text: String, secondaryText: String?) {
+        var content = cell.defaultContentConfiguration()
+        content.text = text
+        content.secondaryText = secondaryText ?? "N/A"
+        content.textProperties.color = .theme
+        content.secondaryTextProperties.color = .secondaryLabel
+        cell.contentConfiguration = content
+        cell.selectionStyle = .none
     }
 }
