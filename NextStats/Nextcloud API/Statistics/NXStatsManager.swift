@@ -9,7 +9,7 @@
 import Foundation
 
 /// Facilitates the fetching and parsing of OCS objects into NextStat objects
-class NXStatsManager: NSObject {
+final class NXStatsManager: NSObject {
     /// Returns the shared `StatisticsDataManager` instance
     public static let shared = NXStatsManager()
 
@@ -38,30 +38,7 @@ class NXStatsManager: NSObject {
                                                                             authentication: authString)
                 await format(statistics: object)
             } catch {
-                guard let errorType = error as? NetworkError else {
-                    print("Timeout ERROR")
-                    delegate?.stateDidChange(.failed(.networkError(.error(error.localizedDescription))))
-                    return
-                }
-
-                switch errorType {
-                case .error(let description):
-                    delegate?.stateDidChange(.failed(.networkError(.error(description))))
-                case .invalidData:
-                    delegate?.stateDidChange(.failed(.networkError(.invalidData)))
-                case .invalidURL:
-                    delegate?.stateDidChange(.failed(.networkError(.invalidURL)))
-                case .missingResponse:
-                    delegate?.stateDidChange(.failed(.networkError(.missingResponse)))
-                case .unexpectedResponse(let response):
-                    print(response.statusCode)
-                    if response.statusCode != 401 || response.statusCode != 403 {
-                        delegate?.stateDidChange(.failed(.unauthorized))
-                        return
-                    }
-
-                    delegate?.stateDidChange(.failed(.networkError(.unexpectedResponse(response))))
-                }
+                handleError(error)
             }
         }
     }
@@ -85,5 +62,31 @@ class NXStatsManager: NSObject {
     /// Set the server value
     func set(server: NextServer) {
         self.server = server
+    }
+
+    private func handleError(_ error: Error) {
+        guard let errorType = error as? NetworkError else {
+            print("Timeout ERROR")
+            delegate?.stateDidChange(.failed(.networkError(.error(error.localizedDescription))))
+            return
+        }
+
+        switch errorType {
+        case .error(let description):
+            delegate?.stateDidChange(.failed(.networkError(.error(description))))
+        case .invalidData:
+            delegate?.stateDidChange(.failed(.networkError(.invalidData)))
+        case .invalidURL:
+            delegate?.stateDidChange(.failed(.networkError(.invalidURL)))
+        case .missingResponse:
+            delegate?.stateDidChange(.failed(.networkError(.missingResponse)))
+        case .unexpectedResponse(let response):
+            if response.statusCode == 401 || response.statusCode == 403 {
+                delegate?.stateDidChange(.failed(.unauthorized))
+                return
+            } else {
+                delegate?.stateDidChange(.failed(.networkError(.unexpectedResponse(response))))
+            }
+        }
     }
 }
