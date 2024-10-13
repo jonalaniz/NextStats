@@ -105,9 +105,11 @@ class NXServerManager: NSObject {
     }
 
     private func pingServer(at index: Int) {
-        let url = URL(string: servers[index].URLString)!
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-        let request = URLRequest(url: (components?.url)!)
+        guard let url = URL(string: servers[index].URLString) else {
+            return
+        }
+
+        let request = URLRequest(url: url)
         let task = URLSession(configuration: .default).dataTask(with: request) { _, possibleResponse, possibleError in
 
             guard  possibleError == nil else {
