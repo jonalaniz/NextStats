@@ -37,8 +37,4 @@ extension MainCoordinator: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         showStatsView(for: serverManager.serverAt(indexPath.row))
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
 }

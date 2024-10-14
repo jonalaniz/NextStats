@@ -63,6 +63,7 @@ class ServerViewController: UIViewController {
 
         tableView.delegate = coordinator
         tableView.dataSource = coordinator
+        tableView.rowHeight = 100
         tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
