@@ -9,59 +9,59 @@
 import UIKit
 
 class ServerCell: UITableViewCell {
-    var server: NextServer!
-
-    var serverImageView: UIImageView = {
+    private var serverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
 
         return imageView
     }()
 
-    var serverNameLabel: UILabel = {
+    private var serverNameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
-
         #if targetEnvironment(macCatalyst)
         label.textColor = .label
         #else
         label.textColor = .themeColor
         #endif
-
         return label
     }()
 
-    var serverURLLabel: UILabel = {
+    private var serverURLLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .secondaryLabel
-
         return label
     }()
 
-    var statusLabel: UILabel = {
+    private var statusLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
-
         return label
     }()
 
-    var verticalStackView: UIStackView = {
+    private var verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fill
         stackView.spacing = 2
-
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-}
 
-extension ServerCell {
-    func setup() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupLayout()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupLayout() {
         accessoryType = .disclosureIndicator
-        serverImageView.translatesAutoresizingMaskIntoConstraints = false
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(serverImageView)
         contentView.addSubview(verticalStackView)
@@ -80,30 +80,19 @@ extension ServerCell {
             verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             verticalStackView.centerYAnchor.constraint(equalTo: serverImageView.centerYAnchor)
         ])
+    }
 
-        if traitCollection.userInterfaceStyle == .light {
-            #if !targetEnvironment(macCatalyst)
-            backgroundColor = .quaternarySystemFill
-            #endif
-        }
-
-        serverNameLabel.text = server?.name
-        serverURLLabel.text = server?.friendlyURL
-
+    func configure(with server: NextServer) {
+        serverNameLabel.text = server.name
+        serverURLLabel.text = server.friendlyURL
         serverImageView.image = server.serverImage()
     }
 
-    func setOnlineStatus(to online: Bool) {
-        if online {
-            self.statusLabel.textColor = .statusLabelGreen
-            self.statusLabel.text = "Online"
-        } else {
-            self.statusLabel.textColor = .statusLabelRed
-            self.statusLabel.text = "Unreachable"
-        }
-
-        self.statusLabel.layer.opacity = 0.8
-        self.statusLabel.isHidden = false
+    func setOnlineStatus(to isOnline: Bool) {
+        statusLabel.text = isOnline ? "Online" : "Unreachable"
+        statusLabel.textColor = isOnline ? .statusLabelGreen : .statusLabelRed
+        statusLabel.layer.opacity = 0.8
+        statusLabel.isHidden = false
 
         UIView.animate(withDuration: 0.4) {
             self.verticalStackView.layoutIfNeeded()
