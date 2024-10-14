@@ -30,7 +30,7 @@ final class APIManager: Managable {
         if let unwrappedHeaders = headers {
             request.addHeaders(from: unwrappedHeaders)
         }
-        
+
         request.setUserAgent()
 
         return try await self.responseHandler(session.data(for: request))
