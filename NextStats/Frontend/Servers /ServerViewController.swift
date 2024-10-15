@@ -54,22 +54,21 @@ class ServerViewController: UIViewController {
         navigationController?.toolbar.configureAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        #if targetEnvironment(macCatalyst)
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        #else
-        navigationController?.isToolbarHidden = false
-        #endif
+        if isRunningOnMacCatalyst() {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        } else {
+            navigationController?.isToolbarHidden = false
+        }
     }
 
     private func setupTableView() {
-        // Initialize tableView with proper style for platform and add refreshControl
-        #if targetEnvironment(macCatalyst)
-        tableView = UITableView(frame: .zero, style: .plain)
-        #else
-        tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        #endif
+        let style: UITableView.Style = isRunningOnMacCatalyst() ? .plain : .insetGrouped
+        tableView = UITableView(frame: .zero, style: style)
+
+        if !isRunningOnMacCatalyst() {
+            tableView.refreshControl = UIRefreshControl()
+            tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        }
 
         tableView.delegate = coordinator
         tableView.dataSource = coordinator
@@ -158,5 +157,13 @@ class ServerViewController: UIViewController {
             subview.leftAnchor.constraint(equalTo: view.leftAnchor),
             subview.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
+    }
+
+    private func isRunningOnMacCatalyst() -> Bool {
+        #if targetEnvironment(macCatalyst)
+        return true
+        #else
+        return false
+        #endif
     }
 }
