@@ -46,6 +46,15 @@ class ServerViewController: UIViewController {
         coordinator?.serversDidChange(refresh: false)
     }
 
+    private func addNoServersViewController() {
+        noServersViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(noServersViewController.view)
+        activateFullScreenConstraints(for: noServersViewController.view)
+
+        addChild(noServersViewController)
+        noServersViewController.didMove(toParent: self)
+    }
+
     private func configureNavigationAppearance() {
         title = "NextStats"
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
@@ -80,16 +89,7 @@ class ServerViewController: UIViewController {
         activateFullScreenConstraints(for: tableView)
     }
 
-    private func addNoServersViewController() {
-        noServersViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(noServersViewController.view)
-        activateFullScreenConstraints(for: noServersViewController.view)
-
-        addChild(noServersViewController)
-        noServersViewController.didMove(toParent: self)
-    }
-
-    func setupToolbar() {
+    private func setupToolbar() {
         let addServerButton = UIButton(configuration: .plain())
         let addString: String = .localized(.serverAddButton)
         let aString = NSMutableAttributedString()
@@ -123,18 +123,6 @@ class ServerViewController: UIViewController {
         toolbarItems = [addServerButtonView, .flexibleSpace(), aboutButtonView]
     }
 
-    @objc func refresh() {
-        tableView.reloadData()
-        serverManager.pingServers()
-        tableView.refreshControl?.endRefreshing()
-    }
-
-    @objc func menuTapped() {
-        guard coordinator?.statsViewController.serverInitialized != false
-        else { return }
-        coordinator?.statsViewController.menuTapped()
-    }
-
     @objc func addServerPressed() {
         coordinator?.showAddServerView()
     }
@@ -143,11 +131,16 @@ class ServerViewController: UIViewController {
         coordinator?.showInfoView()
     }
 
-    func updateUIBasedOnServerState() {
-        let hasServers = serverManager.serverCount() > 0
-        tableView.isHidden = !hasServers
-        noServersViewController.view.isHidden = hasServers
-        navigationItem.rightBarButtonItem = hasServers ? editButtonItem : nil
+    @objc func menuTapped() {
+        guard coordinator?.statsViewController.serverInitialized != false
+        else { return }
+        coordinator?.statsViewController.menuTapped()
+    }
+
+    @objc func refresh() {
+        tableView.reloadData()
+        serverManager.pingServers()
+        tableView.refreshControl?.endRefreshing()
     }
 
     private func activateFullScreenConstraints(for subview: UIView) {
@@ -165,5 +158,12 @@ class ServerViewController: UIViewController {
         #else
         return false
         #endif
+    }
+
+    func updateUIBasedOnServerState() {
+        let hasServers = serverManager.serverCount() > 0
+        tableView.isHidden = !hasServers
+        noServersViewController.view.isHidden = hasServers
+        navigationItem.rightBarButtonItem = hasServers ? editButtonItem : nil
     }
 }
