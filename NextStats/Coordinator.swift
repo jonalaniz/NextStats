@@ -13,3 +13,7 @@ protocol Coordinator: AnyObject {
 
     func start()
 }
+
+protocol Coordinator: Coordinator {
+    var parentCoordinator: Coordinator? { get set }
+}

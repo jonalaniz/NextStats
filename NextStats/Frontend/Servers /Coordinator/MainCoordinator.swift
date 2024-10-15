@@ -71,7 +71,6 @@ class MainCoordinator: NSObject, Coordinator {
     func addServer(_ server: NextServer) {
         serverManager.add(server)
         mainViewController.refresh()
-        childDidFinish(self)
     }
 
     func childDidFinish(_ child: Coordinator?) {
