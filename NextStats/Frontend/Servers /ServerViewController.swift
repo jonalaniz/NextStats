@@ -109,8 +109,6 @@ class ServerViewController: UIViewController {
 
         let addServerButtonView = UIBarButtonItem(customView: addServerButton)
 
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
         let aboutButton = UIButton(configuration: .plain())
         aboutButton.addTarget(self,
                               action: #selector(infoButtonPressed),
@@ -123,16 +121,13 @@ class ServerViewController: UIViewController {
         aboutButton.configuration?.contentInsets = aboutButtonInsets
         let aboutButtonView = UIBarButtonItem(customView: aboutButton)
 
-        toolbarItems = [addServerButtonView, spacer, aboutButtonView]
+        toolbarItems = [addServerButtonView, .flexibleSpace(), aboutButtonView]
     }
 
     @objc func refresh() {
         tableView.reloadData()
         serverManager.pingServers()
-
-        if tableView.refreshControl?.isRefreshing == true {
-            tableView.refreshControl?.endRefreshing()
-        }
+        tableView.refreshControl?.endRefreshing()
     }
 
     @objc func menuTapped() {
