@@ -20,7 +20,7 @@ extension MainCoordinator: NXServerManagerDelegate {
     }
 
     func serversDidChange(refresh: Bool) {
-        serverManager.isEmpty() ? mainViewController.showNoServersVC() : mainViewController.removeNoServersVC()
+        mainViewController.updateUIBasedOnServerState()
 
         if refresh { mainViewController.tableView.reloadData() }
 

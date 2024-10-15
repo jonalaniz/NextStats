@@ -18,6 +18,7 @@ class ServerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         serverManager.delegate = coordinator
+        configureNavigationAppearance()
         setupView()
         setupToolbar()
         serverManager.pingServers()
@@ -25,33 +26,42 @@ class ServerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
-
-        #if targetEnvironment(macCatalyst)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        #else
-        navigationController?.isToolbarHidden = false
-        #endif
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
-
         tableView.setEditing(editing, animated: true)
     }
 
     private func setupView() {
-        title = "NextStats"
+        setupTableView()
+        addNoServersViewController()
 
+        // Initial server checking
+        coordinator?.serversDidChange(refresh: false)
+    }
+
+    private func configureNavigationAppearance() {
+        title = "NextStats"
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
         navigationController?.toolbar.configureAppearance()
         navigationController?.navigationBar.prefersLargeTitles = true
 
+        #if targetEnvironment(macCatalyst)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        #else
+        navigationController?.isToolbarHidden = false
+        #endif
+    }
+
+    private func setupTableView() {
         // Initialize tableView with proper style for platform and add refreshControl
         #if targetEnvironment(macCatalyst)
         tableView = UITableView(frame: .zero, style: .plain)
@@ -68,15 +78,16 @@ class ServerViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
 
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+        activateFullScreenConstraints(for: tableView)
+    }
 
-        // Initial server checking
-        coordinator?.serversDidChange(refresh: false)
+    private func addNoServersViewController() {
+        noServersViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(noServersViewController.view)
+        activateFullScreenConstraints(for: noServersViewController.view)
+
+        addChild(noServersViewController)
+        noServersViewController.didMove(toParent: self)
     }
 
     func setupToolbar() {
@@ -138,13 +149,19 @@ class ServerViewController: UIViewController {
         coordinator?.showInfoView()
     }
 
-    func showNoServersVC() {
-        navigationItem.rightBarButtonItem = nil
-        add(noServersViewController)
+    func updateUIBasedOnServerState() {
+        let hasServers = serverManager.serverCount() > 0
+        tableView.isHidden = !hasServers
+        noServersViewController.view.isHidden = hasServers
+        navigationItem.rightBarButtonItem = hasServers ? editButtonItem : nil
     }
 
-    func removeNoServersVC() {
-        navigationItem.rightBarButtonItem = editButtonItem
-        noServersViewController.remove()
+    private func activateFullScreenConstraints(for subview: UIView) {
+        NSLayoutConstraint.activate([
+            subview.topAnchor.constraint(equalTo: view.topAnchor),
+            subview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            subview.leftAnchor.constraint(equalTo: view.leftAnchor),
+            subview.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
     }
 }
