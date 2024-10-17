@@ -18,10 +18,11 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         setupView()
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(thank),
-                                               name: .IAPHelperPurchaseNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(forName: .IAPHelperPurchaseNotification,
+                                               object: nil,
+                                               queue: .main) { [weak self] _ in
+            self?.thank()
+        }
     }
 
     private func setupView() {
