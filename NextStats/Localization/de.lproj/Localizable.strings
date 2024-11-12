@@ -15,7 +15,7 @@
 "add.screen.nickname" = "Servername (optional)";
 
 /* Text = "Server URL:" */
-"add.screen.url" = "Server URL:";
+"add.screen.url" = "Server-URL:";
 
 /* Text = "When monitoring servers externally, Nextstats requires SSL encryption (https)." */
 "add.screen.label" = "Bei der externen Überwachung von Servern benötigt NextStats eine SSL-Verschlüsselung (https).";
@@ -35,7 +35,7 @@
 "server.form.myserver" = "Mein Server";
 
 /* Text = "Enter an address..." */
-"server.form.enterAddress" = "Gib eine Adresse ein";
+"server.form.enterAddress" = "Adresse eingeben ...";
 
 /* Text = "Enter a valid address..." */
 "server.form.enterValidAddress" = "Geben Sie eine gültige Adresse ein";
@@ -75,7 +75,7 @@
 "stats.action.delete.message" = "Das kann nicht rückgängig gemacht werden.";
 
 /* Text = "Cancel" */
-"stats.action.cancel" = "Stornieren";
+"stats.action.cancel" = "Abbrechen";
 
 /* Text = "Continue" */
 "stats.action.continue" = "Fortsetzen";
@@ -100,10 +100,10 @@
 "info.screen.localization.french" = "Französisch";
 
 /* Text = "German" */
-"info.screen.localization.german" = "Deutsche";
+"info.screen.localization.german" = "Deutsch";
 
 /* Text = "Turkish" */
-"info.screen.localization.turkish" = "Türkische";
+"info.screen.localization.turkish" = "Türkisch";
 
 /* Text = "Licenses" */
 "info.screen.licenses.header" = "Lizenzen";
@@ -120,7 +120,7 @@
 "info.screen.support.description" = "NextStats ist und bleibt kostenlos. Wenn Sie die app nützlich finden, bitten wir Sie um eine Spende, um die Entwicklung dieses Produkts zu unterstützen";
 
 /* Text = "Thank You" */
-"iap.thankyou" = "Dankeschön";
+"iap.thankyou" = "Danke schön";
 
 /* Text = "Thank you very much for supporting the further development of NextStats!" */
 "iap.thankyou.description" = "Vielen Dank, dass Sie die Weiterentwicklung von NextStats unterstützen!";
@@ -139,13 +139,13 @@
 "users" = "Benutzer";
 
 /* Text = "Email" */
-"users.email" = "Email";
+"users.email" = "E-Mail";
 
 /* Text = "No Email on file*/
 "users.noemail" = "Keine E-Mail hinterlegt";
 
 /* Text = "Quota" */
-"users.quota" = "Quote";
+"users.quota" = "Kontingent";
 
 /* Text = "Quota (Unlimited)" */
 "users.quotaunlimited" = "Kontingent (unbegrenzt)";
@@ -160,7 +160,7 @@
 "users.language" = "Sprache";
 
 /* Text = "Last Login"*/
-"users.lastLogin" = "Letzter Log-in";
+"users.lastLogin" = "Letzte Anmeldung";
 
 /* Text = "Location"*/
 "users.location" = "Standort";
@@ -189,7 +189,7 @@
 "users.delete" = "Löschen";
 
 /* Text = "Delete User?" */
-"users.deleteUser" = "Benutzer Löschen?";
+"users.deleteUser" = "Benutzer löschen?";
 
 /* Text = "Are you sure you want to denete" */
 "users.deleteUserMessage" = "Sind Sie sicher, dass Sie löschen möchten";
@@ -209,7 +209,7 @@
 "newusers.password" = "Passwort";
 
 /* Text = "Email" */
-"newuser.email" = "Email";
+"newuser.email" = "E-Mail";
 
 /* Text = "No groups available" */
 "newuser.noGroups" = "Keine Gruppen verfügbar";
@@ -288,7 +288,7 @@
 "error.internal" = "Interner Fehler";
 
 /* Text = "Unable to Encode Data" */
-"error.unableToEncodeData" = "Daten können nicht kodiert werden";
+"error.unableToEncodeData" = "Daten können nicht dekodiert werden";
 
 /* Text = "Unable to remove NextStats" */
 "error.unableToRemove" = "NextStats konnte nicht entfernt werden";
