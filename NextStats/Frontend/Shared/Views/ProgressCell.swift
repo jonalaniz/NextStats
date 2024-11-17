@@ -83,6 +83,34 @@ class ProgressCell: UITableViewCell {
         ])
     }
 
+    private func set(icon: ProgressCellIcon) {
+        let string = NSMutableAttributedString()
+
+        switch icon {
+        case .storage:
+            string.prefixingSFSymbol("internaldrive", color: .themeColor)
+        case .memory:
+            string.prefixingSFSymbol("memorychip", color: .themeColor)
+            string.append(NSAttributedString(string: " RAM", attributes: [.foregroundColor: UIColor.themeColor]))
+        case .swap:
+            string.prefixingSFSymbol("memorychip.fill", color: .themeColor)
+            string.append(NSAttributedString(string: " Swap", attributes: [.foregroundColor: UIColor.themeColor]))
+        }
+        iconLabel.attributedText = string
+    }
+
+    private func setProgress(free: Int, total: Int) {
+        let used = total - free
+        let usedString = Units(kilobytes: Double(used)).getReadableUnit()
+        let totalString = Units(kilobytes: Double(total)).getReadableUnit()
+        let label = "\(usedString) of \(totalString) Used"
+
+        detailLabel.text = label
+
+        let progress = Float(used) / Float(total)
+        progressView.progress = progress
+    }
+
     private func setProgress(with quota: Quota) {
         switch quota.quota {
         case .int(let int):
@@ -114,33 +142,5 @@ class ProgressCell: UITableViewCell {
             progressView.progress = correctedProgress
         default: return
         }
-    }
-
-    private func set(icon: ProgressCellIcon) {
-        let string = NSMutableAttributedString()
-
-        switch icon {
-        case .storage:
-            string.prefixingSFSymbol("internaldrive", color: .themeColor)
-        case .memory:
-            string.prefixingSFSymbol("memorychip", color: .themeColor)
-            string.append(NSAttributedString(string: " RAM", attributes: [.foregroundColor: UIColor.themeColor]))
-        case .swap:
-            string.prefixingSFSymbol("memorychip.fill", color: .themeColor)
-            string.append(NSAttributedString(string: " Swap", attributes: [.foregroundColor: UIColor.themeColor]))
-        }
-        iconLabel.attributedText = string
-    }
-
-    private func setProgress(free: Int, total: Int) {
-        let used = total - free
-        let usedString = Units(kilobytes: Double(used)).getReadableUnit()
-        let totalString = Units(kilobytes: Double(total)).getReadableUnit()
-        let label = "\(usedString) of \(totalString) Used"
-
-        detailLabel.text = label
-
-        let progress = Float(used) / Float(total)
-        progressView.progress = progress
     }
 }

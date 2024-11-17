@@ -131,7 +131,6 @@ class ServerHeaderView: UIView {
             mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-//            imageView.widthAnchor.constraint(equalToConstant: 180),
             imageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }

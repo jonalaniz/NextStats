@@ -18,27 +18,24 @@ class TextFieldFactory {
         textField.placeholder = placeholder
         textField.returnKeyType = .done
 
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .default
+
         switch type {
         case .email:
             textField.textContentType = .emailAddress
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
             textField.keyboardType = .emailAddress
         case .normal:
             textField.textContentType = .name
             textField.autocapitalizationType = .words
             textField.autocorrectionType = .default
-            textField.keyboardType = .default
         case .password:
             textField.textContentType = .password
             textField.isSecureTextEntry = true
             textField.autocapitalizationType = .words
-            textField.autocorrectionType = .no
-            textField.keyboardType = .default
         case .URL:
             textField.textContentType = .URL
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
             textField.keyboardType = .URL
         }
 

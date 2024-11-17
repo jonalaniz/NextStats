@@ -10,13 +10,7 @@ import UIKit
 
 extension MainCoordinator: NXServerManagerDelegate {
     func deauthorizationFailed(server: NextServer) {
-        let errorAC = UIAlertController(title: .localized(.unableToRemove),
-                                        message: .localized(.unableToRemoveMessage),
-                                        preferredStyle: .alert)
-
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default))
-        mainViewController.present(errorAC, animated: true)
+        showAlert(title: .localized(.unableToRemove), message: .localized(.unableToRemoveMessage))
     }
 
     func serversDidChange(refresh: Bool) {
@@ -42,13 +36,12 @@ extension MainCoordinator: NXServerManagerDelegate {
 
     func unauthorized() {
         mainViewController.navigationController?.popToRootViewController(animated: true)
+        showAlert(title: .localized(.unauthorized), message: .localized(.unauthorizedDescription))
+    }
 
-        let errorAC = UIAlertController(title: .localized(.unauthorized),
-                                        message: .localized(.unauthorizedDescription),
-                                        preferredStyle: .alert)
-
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default))
-        mainViewController.present(errorAC, animated: true)
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: .localized(.statsActionContinue), style: .default))
+        mainViewController.present(alert, animated: true)
     }
 }
