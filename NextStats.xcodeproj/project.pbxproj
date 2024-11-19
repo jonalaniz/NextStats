@@ -63,7 +63,6 @@
 		565975C525567ECB0043C007 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C425567ECB0043C007 /* test.json */; };
 		565975C9255680130043C007 /* working.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C8255680130043C007 /* working.json */; };
 		565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565CDC0725E612C900028EA9 /* InfoCoordinator.swift */; };
-		565EFE632BB36F9800100D94 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE622BB36F9800100D94 /* Response.swift */; };
 		565EFE652BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */; };
 		565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE662BB6007500100D94 /* NewUserStatusCode.swift */; };
 		565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */; };
@@ -201,7 +200,6 @@
 		565975C425567ECB0043C007 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		565975C8255680130043C007 /* working.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = working.json; sourceTree = "<group>"; };
 		565CDC0725E612C900028EA9 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
-		565EFE622BB36F9800100D94 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+NXUserFactoryDelegate.swift"; sourceTree = "<group>"; };
 		565EFE662BB6007500100D94 /* NewUserStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserStatusCode.swift; sourceTree = "<group>"; };
 		565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactoryDelegate.swift; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 				5647A6432BA4023A000D51F7 /* Groups.swift */,
 				5647A6402BA3FE77000D51F7 /* NewUser.swift */,
 				565EFE662BB6007500100D94 /* NewUserStatusCode.swift */,
-				565EFE622BB36F9800100D94 /* Response.swift */,
 				562ED27B26B5E9B100E4E1C5 /* User.swift */,
 				569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */,
 				569F2CA526AC2EB5001122F2 /* Users.swift */,
@@ -885,7 +882,6 @@
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
 				567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */,
-				565EFE632BB36F9800100D94 /* Response.swift in Sources */,
 				569F2C7726AAF61A001122F2 /* EncodingErrorExtension.swift in Sources */,
 				56B8C5D02B9FF776009176BB /* Settings.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
