@@ -8,12 +8,12 @@
 import Foundation
 
 // Authorization Structs - Objects used in authorizaton flow
-struct AuthenticationObject: Decodable {
+struct AuthenticationObject: Codable {
     let poll: Poll?
     let login: String?
 }
 
-struct Poll: Decodable {
+struct Poll: Codable {
     let token: String?
     let endpoint: String?
 }
