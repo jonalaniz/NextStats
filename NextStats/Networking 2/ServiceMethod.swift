@@ -8,7 +8,8 @@
 import Foundation
 
 enum ServiceMethod: String {
+    case delete = "DELETE"
     case get = "GET"
     case post = "POST"
-    case delete = "DELETE"
+    case put = "PUT"
 }
