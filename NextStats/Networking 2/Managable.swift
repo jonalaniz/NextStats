@@ -12,6 +12,7 @@ protocol Managable {
                              httpMethod: ServiceMethod,
                              body: Data?,
                              headers: [String: String]?,
-                             expectingReturnType: T.Type
+                             expectingReturnType: T.Type,
+                             legacyType: Bool
     ) async throws -> T
 }
