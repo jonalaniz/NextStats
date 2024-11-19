@@ -13,7 +13,7 @@ final class NXStatsManager: NSObject {
     /// Returns the shared `StatisticsDataManager` instance
     public static let shared = NXStatsManager()
 
-    private let networking = NetworkController.shared
+    private let service = NextcloudService.shared
 
     var stats: DataClass!
     weak var delegate: NXDataManagerDelegate?
@@ -29,13 +29,9 @@ final class NXStatsManager: NSObject {
     private func requestStatistics(for server: NextServer) {
         delegate?.stateDidChange(.fetchingData)
 
-        let url = URL(string: server.URLString)!
-        let authString = server.authenticationString()
-
         Task {
             do {
-                let object = try await networking.fetchServerStatisticsData(url: url,
-                                                                            authentication: authString)
+                let object = try await service.fetchStatistics(for: server)
                 await format(statistics: object)
             } catch {
                 handleError(error)

@@ -13,22 +13,18 @@ class NXAuthenticator: NSObject {
     weak var delegate: NXAuthenticationDelegate?
     weak var errorHandler: ErrorHandler?
 
-    private let networking: NetworkController
+    private let service = NextcloudService.shared
 
     private var serverName: String?
     private var serverImage: UIImage?
     private var shouldPoll = false
-
-    init(networking: NetworkController = NetworkController.shared) {
-        self.networking = networking
-    }
 
     func requestAuthenticationObject(at url: URL, named name: String) {
         serverName = name
 
         Task {
             do {
-                let object = try await networking.fetchAuthenticationData(url: url)
+                let object = try await service.fetchAuthenticationData(url: url)
                 await setupAuthenticationObject(with: object)
             } catch {
                 guard let errorType = error as? NetworkError else {
@@ -69,31 +65,29 @@ class NXAuthenticator: NSObject {
 
     private func pollForCredentials(at url: URL, with token: String) {
         guard shouldPoll else { return }
-        let request = pollRequest(url: url, with: token)
 
         Task {
             do {
-                let data = try await networking.fetchData(with: request)
-                await createServerFrom(data: data)
+                let object = try await service.fetchLoginObject(from: url, with: token)
+
+                await createServerFrom(object)
             } catch {
-                // Check if expected type of error else
-                guard let error = error as? NetworkError else {
+                guard let error = error as? APIManagerError else {
                     handle(error: .error(error.localizedDescription))
                     return
                 }
-                // Switch over the error and handle all responses other than 404 (expected until authenticated).
-                switch error {
-                case .unexpectedResponse(let hTTPURLResponse):
-                    guard hTTPURLResponse.statusCode == 404 else {
-                        handle(error: .unexpectedResponse(hTTPURLResponse))
-                        return
-                    }
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self.shouldPoll ? (self.pollForCredentials(at: url, with: token)) : (nil)
-                    }
-                default:
-                    self.delegate?.failedToGetCredentials(withError: .serverNotFound)
+                guard case .invalidResponse(let response) = error else {
+                    // TODO: Handle errors
+                    return
+                }
+
+                guard response == 404 else {
+                    return
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.shouldPoll ? (self.pollForCredentials(at: url, with: token)) : (nil)
                 }
             }
         }
@@ -102,7 +96,7 @@ class NXAuthenticator: NSObject {
     private func checkForCustomImage(at url: URL) {
         Task {
             do {
-                let image = try await UIImage(data: networking.fetchData(from: url))
+                let image = try await UIImage(data: service.fetchData(from: url))
                 self.serverImage = image
             } catch {
                 return
@@ -110,20 +104,13 @@ class NXAuthenticator: NSObject {
         }
     }
 
-    @MainActor private func createServerFrom(data: Data) {
+    @MainActor private func createServerFrom(_ object: LoginObject) {
         let server: NextServer
 
         guard
-            let loginObject = self.decode(modelType: LoginObject.self, from: data)
-        else {
-            self.handle(error: .invalidData)
-            return
-        }
-
-        guard
-            let url = loginObject.server,
-            let username = loginObject.loginName,
-            let password = loginObject.appPassword
+            let url = object.server,
+            let username = object.loginName,
+            let password = object.appPassword
         else {
             delegate?.failedToGetCredentials(withError: .authorizationDataMissing)
             return
@@ -151,16 +138,6 @@ class NXAuthenticator: NSObject {
 
             delegate?.didCapture(server: server)
         }
-    }
-
-    private func pollRequest(url: URL, with token: String) -> URLRequest {
-        let tokenPrefix = "token="
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = (tokenPrefix + token).data(using: .utf8)
-        print("Token: \(token)")
-
-        return request
     }
 
     func cancelAuthorization() {

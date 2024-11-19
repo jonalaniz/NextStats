@@ -15,7 +15,6 @@
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
 		5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */; };
-		561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B988C25A8517700A8FE6D /* NetworkController.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */; };
 		562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */; };
@@ -120,6 +119,7 @@
 		56C781A82AD8957200872988 /* AddServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C781A72AD8957200872988 /* AddServerHeaderView.swift */; };
 		56C959702655E42F00BD3B06 /* InputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C9596F2655E42F00BD3B06 /* InputCell.swift */; };
 		56D3442C2CEC61B200A5933B /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D3442B2CEC61B200A5933B /* GenericResponse.swift */; };
+		56D3442E2CEC8C2900A5933B /* ToggleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D3442D2CEC8C2900A5933B /* ToggleType.swift */; };
 		56D4ACE92BB9DD5E00C640EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */; };
 		56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */; };
 		56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */; };
@@ -156,7 +156,6 @@
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NXStatsManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		561B988C25A8517700A8FE6D /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationObject.swift; sourceTree = "<group>"; };
 		562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+SFSymbols.swift"; sourceTree = "<group>"; };
@@ -259,6 +258,7 @@
 		56C781A72AD8957200872988 /* AddServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerHeaderView.swift; sourceTree = "<group>"; };
 		56C9596F2655E42F00BD3B06 /* InputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCell.swift; sourceTree = "<group>"; };
 		56D3442B2CEC61B200A5933B /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
+		56D3442D2CEC8C2900A5933B /* ToggleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleType.swift; sourceTree = "<group>"; };
 		56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NXAuthenticationDelegate.swift; sourceTree = "<group>"; };
 		56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -326,9 +326,10 @@
 		562C259F2CB9F64B001BF067 /* NextcloudService */ = {
 			isa = PBXGroup;
 			children = (
-				562C25A12CB9F6C0001BF067 /* NextcloudService.swift */,
 				56B1413E267E7236002D66D8 /* Endpoint.swift */,
 				5647A6422BA40217000D51F7 /* Models */,
+				562C25A12CB9F6C0001BF067 /* NextcloudService.swift */,
+				56D3442D2CEC8C2900A5933B /* ToggleType.swift */,
 			);
 			path = NextcloudService;
 			sourceTree = "<group>";
@@ -699,7 +700,6 @@
 		56E0AD7A26AD88DA0090ACB6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				561B988C25A8517700A8FE6D /* NetworkController.swift */,
 				56AA8FC228FEB04D00A6B4BD /* ErrorHandler.swift */,
 				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
 			);
@@ -914,7 +914,6 @@
 				565EFE6F2BB72B6000100D94 /* MainCoordinator+UITableViewDataSource.swift in Sources */,
 				5695048426A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift in Sources */,
 				569921CC2666A1DE00236019 /* UIColor+NextStats.swift in Sources */,
-				561B988D25A8517700A8FE6D /* NetworkController.swift in Sources */,
 				562ED27A26B5D8E800E4E1C5 /* UserViewController.swift in Sources */,
 				5691ECB22C071CF100F1EDE1 /* AboutModel+UITableViewDataSource.swift in Sources */,
 				569F2C8026AAF61A001122F2 /* XMLKey.swift in Sources */,
@@ -962,6 +961,7 @@
 				56D3442C2CEC61B200A5933B /* GenericResponse.swift in Sources */,
 				569EC31F25B4F7F600B955EC /* HeaderView.swift in Sources */,
 				5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */,
+				56D3442E2CEC8C2900A5933B /* ToggleType.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
 				567D825F2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,

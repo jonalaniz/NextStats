@@ -17,7 +17,7 @@ class NXUserFactory: NSObject {
 
     weak var delegate: NXUserFactoryDelegate?
 
-    let networking = NetworkController.shared
+    let service = NextcloudService.shared
     private var groupsObject: GroupsObject?
 
     private(set) var userid: String?
@@ -31,25 +31,10 @@ class NXUserFactory: NSObject {
     private override init() {}
 
     func getGroups(for server: NextServer) {
-        guard
-            let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.groups.url(relativeTo: url)
-        else {
-            // TODO: Error handling
-            return
-        }
-
-        let authString = server.authenticationString()
-        let config = networking.config(authString: authString, ocsApiRequest: true)
-        let request = URLRequest(url: urlWithEndpoint)
-
         Task {
             do {
-                let data = try await self.networking.fetchData(with: request,
-                                                          config: config)
-                let decoder = XMLDecoder()
-                let groups = try? decoder.decode(GroupsObject.self, from: data)
-                self.groupsObject = groups
+                let object = try await service.fetchGroups(for: server)
+                self.groupsObject = object
             } catch {
                 print(error)
             }
@@ -129,15 +114,9 @@ class NXUserFactory: NSObject {
     }
 
     func postUser(data: Data, to server: NextServer) {
-        let urlString = server.URLString
-        let url = URL(string: urlString)!
-        let authentication = server.authenticationString()
-
         Task {
             do {
-                let response = try await networking.post(user: data,
-                                                         url: url,
-                                                         authenticaiton: authentication)
+                let response = try await service.postUser(data, in: server)
                 await checkResponse(response)
             } catch {
                 guard let networkError = error as? NetworkError else {
@@ -149,7 +128,7 @@ class NXUserFactory: NSObject {
         }
     }
 
-    @MainActor private func checkResponse(_ response: Response) {
+    @MainActor private func checkResponse(_ response: GenericResponse) {
         let meta = response.meta
         guard meta.statuscode == 100
         else {

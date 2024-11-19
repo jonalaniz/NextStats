@@ -18,7 +18,8 @@ final class APIManager: Managable {
                     httpMethod: ServiceMethod,
                     body: Data?,
                     headers: [String: String]?,
-                    expectingReturnType: T.Type
+                    expectingReturnType: T.Type,
+                    legacyType: Bool = false
     ) async throws -> T where T: Decodable, T: Encodable {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
@@ -33,9 +34,14 @@ final class APIManager: Managable {
 
         request.setUserAgent()
 
+        guard !legacyType else {
+            return try await self.legacyResponseHandler(session.data(for: request))
+        }
+
         return try await self.responseHandler(session.data(for: request))
     }
 
+    /// Decodes responses in JSON for modern requests
     func responseHandler<T: Codable>(_ dataWithResponse: (data: Data, response: URLResponse)) async throws -> T {
         guard let response = dataWithResponse.response as? HTTPURLResponse else {
             throw APIManagerError.conversionFailedToHTTPURLResponse
@@ -44,5 +50,16 @@ final class APIManager: Managable {
         try response.statusCodeChecker()
 
         return try JSONDecoder().decode(T.self, from: dataWithResponse.data)
+    }
+
+    /// Decodes responses in XML for OCS-API Requests
+    func legacyResponseHandler<T: Codable>(_ dataWithResponse: (data: Data, response: URLResponse)) async throws -> T {
+        guard let response = dataWithResponse.response as? HTTPURLResponse else {
+            throw APIManagerError.conversionFailedToHTTPURLResponse
+        }
+
+        try response.statusCodeChecker()
+
+        return try XMLDecoder().decode(T.self, from: dataWithResponse.data)
     }
 }
