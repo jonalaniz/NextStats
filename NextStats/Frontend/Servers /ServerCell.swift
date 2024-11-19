@@ -9,6 +9,24 @@
 import UIKit
 
 class ServerCell: UITableViewCell {
+    private var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.clipsToBounds = true
+
+        return imageView
+    }()
+
+    private var blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .systemThickMaterial)
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView.translatesAutoresizingMaskIntoConstraints = false
+        effectView.clipsToBounds = true
+
+        return effectView
+    }()
+
     private var serverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -56,12 +74,24 @@ class ServerCell: UITableViewCell {
         setupLayout()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateBlurViews()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        updateBlurViews()
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private func setupLayout() {
         accessoryType = .disclosureIndicator
+        backgroundColor = .clear
+
+        addSubview(backgroundImageView)
+        addSubview(blurEffectView)
 
         contentView.addSubview(serverImageView)
         contentView.addSubview(verticalStackView)
@@ -71,6 +101,16 @@ class ServerCell: UITableViewCell {
         verticalStackView.addArrangedSubview(statusLabel)
 
         NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
+            blurEffectView.topAnchor.constraint(equalTo: topAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+
             serverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             serverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             serverImageView.heightAnchor.constraint(equalToConstant: 78),
@@ -86,6 +126,7 @@ class ServerCell: UITableViewCell {
         serverNameLabel.text = server.name
         serverURLLabel.text = server.friendlyURL
         serverImageView.image = server.serverImage()
+        backgroundImageView.image = server.serverImage()
     }
 
     func setOnlineStatus(to isOnline: Bool) {
@@ -97,5 +138,15 @@ class ServerCell: UITableViewCell {
         UIView.animate(withDuration: 0.4) {
             self.verticalStackView.layoutIfNeeded()
         }
+    }
+
+    private func updateBlurViews() {
+        let currentMode = UIScreen.main.traitCollection.userInterfaceStyle
+        let selectedBlur: UIBlurEffect.Style = currentMode == .light ? .systemUltraThinMaterial : .prominent
+        let deselectedBlur: UIBlurEffect.Style = currentMode == .light ? .systemThickMaterial : .regular
+        let selected = self.isSelected
+
+        let effect = selected ? UIBlurEffect(style: selectedBlur) : UIBlurEffect(style: deselectedBlur)
+        blurEffectView.effect = effect
     }
 }
