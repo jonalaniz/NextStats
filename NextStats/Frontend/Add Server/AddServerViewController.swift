@@ -44,6 +44,10 @@ class AddServerViewController: UIViewController {
         tableView.delegate = self
         tableView.alwaysBounceVertical = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.5
+        tableView.backgroundView = backgroundView
 
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)

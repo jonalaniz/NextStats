@@ -34,6 +34,9 @@ class StatsViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.8
+        tableView.backgroundView = backgroundView
 
         // Setup our buttons
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),

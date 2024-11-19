@@ -74,6 +74,10 @@ class ServerViewController: UIViewController {
         let style: UITableView.Style = isRunningOnMacCatalyst() ? .plain : .insetGrouped
         tableView = UITableView(frame: .zero, style: style)
 
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.8
+        tableView.backgroundView = backgroundView
+
         if !isRunningOnMacCatalyst() {
             tableView.refreshControl = UIRefreshControl()
             tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
