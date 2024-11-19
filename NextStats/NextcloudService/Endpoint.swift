@@ -19,7 +19,11 @@ enum Endpoint: String {
     case wipeCheck = "/index.php/core/wipe/check"
     case wipeSuccess = "/index.php/core/wipe/success"
 
-    func url(relativeTo baseURL: URL) -> URL? {
-        return URL(string: self.rawValue, relativeTo: baseURL)
+    func url(relativeTo baseURL: URL, appending pathComponent: String? = nil) -> URL? {
+        guard let pathComponent = pathComponent else {
+            return URL(string: self.rawValue, relativeTo: baseURL)
+        }
+
+        return URL(string: self.rawValue + pathComponent, relativeTo: baseURL)
     }
 }
