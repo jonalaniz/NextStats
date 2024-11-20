@@ -20,7 +20,7 @@ enum StatsSection: Int, CaseIterable {
 }
 
 enum SystemRow: Int, CaseIterable {
-    case cpu = 0, webServer, PHPVersion, databaseVersion, databaseSize, localCache, distributedCache
+    case cpu = 0, webServer, phpVersion, databaseVersion, databaseSize, localCache, distributedCache
 }
 
 enum MemoryRow: Int, CaseIterable {
@@ -99,7 +99,7 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         switch cellRow {
         case .cpu: configureCell(cell, text: "CPU", secondaryText: cpuLoadAverages())
         case .webServer: configureCell(cell, text: "Web Server", secondaryText: stats.server?.webserver)
-        case .PHPVersion: configureCell(cell, text: "PHP Version", secondaryText: stats.server?.php?.version)
+        case .phpVersion: configureCell(cell, text: "PHP Version", secondaryText: stats.server?.php?.version)
         case .databaseVersion: configureCell(cell, text: "Database", secondaryText: databaseVersion())
         case .databaseSize: configureCell(cell, text: "Database Size", secondaryText: databaseSize())
         case .localCache: configureCell(cell, text: "Local Cache", secondaryText: system.memcacheLocal)
