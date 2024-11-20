@@ -11,7 +11,7 @@ import UIKit
 /// Facilitates the authentication and capturing of server objects.
 class NXAuthenticator: NSObject {
     weak var delegate: NXAuthenticationDelegate?
-    weak var errorHandler: ErrorHandler?
+    weak var errorHandler: ErrorHandling?
 
     private let service = NextcloudService.shared
 
@@ -27,12 +27,12 @@ class NXAuthenticator: NSObject {
                 let object = try await service.fetchAuthenticationData(url: url)
                 await setupAuthenticationObject(with: object)
             } catch {
-                guard let errorType = error as? NetworkError else {
-                    handle(error: .error(error.localizedDescription))
+                guard let error = error as? APIManagerError else {
+                    handle(error: .somethingWentWrong(error: error))
                     return
                 }
 
-                handle(error: errorType)
+                handle(error: error)
             }
         }
     }
@@ -44,12 +44,12 @@ class NXAuthenticator: NSObject {
             let token = object.poll?.token,
             let loginURL = object.login
         else {
-            self.delegate?.failedToGetCredentials(withError: .authorizationDataMissing)
+            handle(error: .conversionFailedToHTTPURLResponse)
             return
         }
 
         // Notify our delegate of loginURL and begin polling and grab custom image
-        self.delegate?.didRecieve(loginURL: loginURL)
+        delegate?.didRecieve(loginURL: loginURL)
         shouldPoll = true
 
         guard let logoURL = Endpoint.logo.url(relativeTo: pollURL) else {
@@ -73,19 +73,21 @@ class NXAuthenticator: NSObject {
                 await createServerFrom(object)
             } catch {
                 guard let error = error as? APIManagerError else {
-                    handle(error: .error(error.localizedDescription))
+                    handle(error: .somethingWentWrong(error: error))
                     return
                 }
 
                 guard case .invalidResponse(let response) = error else {
-                    // TODO: Handle errors
+                    handle(error: error)
                     return
                 }
 
                 guard response == 404 else {
+                    handle(error: error)
                     return
                 }
 
+                // If we get a 404, then the user has not authenticated
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.shouldPoll ? (self.pollForCredentials(at: url, with: token)) : (nil)
                 }
@@ -112,7 +114,7 @@ class NXAuthenticator: NSObject {
             let username = object.loginName,
             let password = object.appPassword
         else {
-            delegate?.failedToGetCredentials(withError: .authorizationDataMissing)
+            handle(error: .serializaitonFailed)
             return
         }
 
@@ -151,9 +153,9 @@ class NXAuthenticator: NSObject {
         return object
     }
 
-    private func handle(error: NetworkError) {
+    private func handle(error: APIManagerError) {
         DispatchQueue.main.async {
-            self.errorHandler?.handle(error: error)
+            self.errorHandler?.handleError(error)
         }
     }
 
