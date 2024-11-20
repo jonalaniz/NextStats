@@ -504,7 +504,6 @@
 				56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
 				562C25A02CB9F66E001BF067 /* NextStats */,
-				562C259F2CB9F64B001BF067 /* NextcloudService */,
 				562C258E2CB9F631001BF067 /* Networking 2 */,
 			);
 			path = NextStats;
@@ -689,6 +688,7 @@
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
+				562C259F2CB9F64B001BF067 /* NextcloudService */,
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
 				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
 				56491FA029E66B6400E3431D /* Authentication */,
