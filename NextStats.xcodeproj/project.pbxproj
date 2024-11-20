@@ -109,7 +109,6 @@
 		56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */; };
 		56B597A82CEDE1510060B42B /* StatsViewController+NXDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A72CEDE1510060B42B /* StatsViewController+NXDataManagerDelegate.swift */; };
 		56B597AA2CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A92CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift */; };
-		56B8C5D02B9FF776009176BB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B8C5CF2B9FF776009176BB /* Settings.swift */; };
 		56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */; };
 		56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* NXServerManager.swift */; };
 		56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */; };
@@ -183,7 +182,7 @@
 		5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		5647A6502BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/Networking/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		5652A2F427647FE90050F5EB /* LoginObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginObject.swift; sourceTree = "<group>"; };
 		5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXAuthenticator.swift; sourceTree = "<group>"; };
@@ -249,7 +248,6 @@
 		56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+ErrorHandling.swift"; sourceTree = "<group>"; };
 		56B597A72CEDE1510060B42B /* StatsViewController+NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+NXDataManagerDelegate.swift"; sourceTree = "<group>"; };
 		56B597A92CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+ErrorHandling.swift"; sourceTree = "<group>"; };
-		56B8C5CF2B9FF776009176BB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDelegate.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* NXServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManager.swift; sourceTree = "<group>"; };
 		56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManagerDelegate.swift; sourceTree = "<group>"; };
@@ -310,21 +308,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		562C258E2CB9F631001BF067 /* Networking 2 */ = {
-			isa = PBXGroup;
-			children = (
-				562C25862CB9F631001BF067 /* APIManager.swift */,
-				562C25872CB9F631001BF067 /* APIManagerError.swift */,
-				562C25882CB9F631001BF067 /* Error+Description.swift */,
-				562C25892CB9F631001BF067 /* HeaderKeyValue.swift */,
-				562C258A2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift */,
-				562C258B2CB9F631001BF067 /* Managable.swift */,
-				562C258C2CB9F631001BF067 /* ServiceMethod.swift */,
-				562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */,
-			);
-			path = "Networking 2";
-			sourceTree = "<group>";
-		};
 		562C259F2CB9F64B001BF067 /* NextcloudService */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,18 +319,9 @@
 			path = NextcloudService;
 			sourceTree = "<group>";
 		};
-		562C25A02CB9F66E001BF067 /* NextStats */ = {
-			isa = PBXGroup;
-			children = (
-				562C25A42CB9FE16001BF067 /* Models */,
-			);
-			path = NextStats;
-			sourceTree = "<group>";
-		};
 		562C25A42CB9FE16001BF067 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56B8C5CF2B9FF776009176BB /* Settings.swift */,
 				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
 			);
 			path = Models;
@@ -491,8 +465,8 @@
 			children = (
 				56557EE323C8B09A008CF684 /* AppDelegate.swift */,
 				56557EEC23C8B09C008CF684 /* Assets.xcassets */,
-				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
 				56BB28E426A7997C00F0D8DC /* Catalyst */,
+				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
 				5601D7F425E3194400993D31 /* Extensions */,
 				5647A6552BA653C0000D51F7 /* Frontend */,
 				564C8DC724D779150095D43B /* Helpers */,
@@ -503,8 +477,6 @@
 				56A8EFD0256AC84100AFC20C /* NextStats.entitlements */,
 				56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */,
 				56557EE523C8B09A008CF684 /* SceneDelegate.swift */,
-				562C25A02CB9F66E001BF067 /* NextStats */,
-				562C258E2CB9F631001BF067 /* Networking 2 */,
 			);
 			path = NextStats;
 			sourceTree = "<group>";
@@ -688,13 +660,15 @@
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
+				56491FA029E66B6400E3431D /* Authentication */,
+				562C25A42CB9FE16001BF067 /* Models */,
+				56E0AD7A26AD88DA0090ACB6 /* Networking */,
 				562C259F2CB9F64B001BF067 /* NextcloudService */,
+				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
 				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
-				56491FA029E66B6400E3431D /* Authentication */,
 				56491FA129E66C0E00E3431D /* Statistics */,
 				56491FA229E66C6000E3431D /* Users */,
-				56E0AD7A26AD88DA0090ACB6 /* Networking */,
 			);
 			path = "Nextcloud API";
 			sourceTree = "<group>";
@@ -702,7 +676,14 @@
 		56E0AD7A26AD88DA0090ACB6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
+				562C25862CB9F631001BF067 /* APIManager.swift */,
+				562C25872CB9F631001BF067 /* APIManagerError.swift */,
+				562C25882CB9F631001BF067 /* Error+Description.swift */,
+				562C25892CB9F631001BF067 /* HeaderKeyValue.swift */,
+				562C258A2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift */,
+				562C258B2CB9F631001BF067 /* Managable.swift */,
+				562C258C2CB9F631001BF067 /* ServiceMethod.swift */,
+				562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -889,7 +870,6 @@
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
 				567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */,
 				569F2C7726AAF61A001122F2 /* EncodingErrorExtension.swift in Sources */,
-				56B8C5D02B9FF776009176BB /* Settings.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
 				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */,
