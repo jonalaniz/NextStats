@@ -49,7 +49,12 @@ final class APIManager: Managable {
 
         try response.statusCodeChecker()
 
-        return try JSONDecoder().decode(T.self, from: dataWithResponse.data)
+        do {
+            return try JSONDecoder().decode(T.self, from: dataWithResponse.data)
+        } catch {
+            print(error)
+            throw APIManagerError.serializaitonFailed
+        }
     }
 
     /// Decodes responses in XML for OCS-API Requests
@@ -60,6 +65,11 @@ final class APIManager: Managable {
 
         try response.statusCodeChecker()
 
-        return try XMLDecoder().decode(T.self, from: dataWithResponse.data)
+        do {
+            return try XMLDecoder().decode(T.self, from: dataWithResponse.data)
+        } catch {
+            print(error)
+            throw APIManagerError.serializaitonFailed
+        }
     }
 }
