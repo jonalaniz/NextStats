@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol ErrorHandling: AnyObject {
+    func handleError(_ error: APIManagerError)
+}
+
 enum APIManagerError: Error {
     case configurationMissing
     case conversionFailedToHTTPURLResponse
@@ -15,20 +19,14 @@ enum APIManagerError: Error {
     case serializaitonFailed
     case somethingWentWrong(error: Error?)
 
-    var errorDescription: String {
+    var localizedDescription: String {
         switch self {
-        case .configurationMissing:
-            return "Missing configuration data"
-        case .conversionFailedToHTTPURLResponse:
-            return "Typecasting failed."
-        case .invalidResponse(let statuscode):
-            return "Invalid Response (\(statuscode))"
-        case .invalidURL:
-            return "Invalid URL"
-        case .serializaitonFailed:
-            return "JSONSerialization Failed"
-        case .somethingWentWrong(let error):
-            return error?.localizedDescription ?? "Something went wrong"
+        case .configurationMissing: return .localized(.authorizationDataMissing)
+        case .conversionFailedToHTTPURLResponse: return .localized(.missingResponse)
+        case .invalidResponse(let statuscode): return "\(String.localized(.unexpectedResponse)) (\(statuscode))"
+        case .invalidURL: return .localized(.serverFormEnterValidAddress)
+        case .serializaitonFailed: return .localized(.failedToSerializeResponse)
+        case .somethingWentWrong(let error): return error?.localizedDescription ?? "Unknown Error"
         }
     }
 }
