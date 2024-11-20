@@ -14,8 +14,8 @@ protocol NXUserFactoryDelegate: AnyObject {
 }
 
 enum NXUserFactoryErrorType {
-    case app(_ error: NXUserFactoryError)
-    case networking(NetworkError)
+    case application(_ error: NXUserFactoryError)
+    case network(APIManagerError)
     case server(code: Int, status: String, message: String)
 }
 
@@ -24,6 +24,6 @@ enum NXUserFactoryError {
 }
 
 enum NXUserFactoryState {
-    case userCreated(Data)
+    case userCreated(data: Data)
     case sucess
 }

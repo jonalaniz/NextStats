@@ -103,7 +103,9 @@ extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
         case .databaseVersion: configureCell(cell, text: "Database", secondaryText: databaseVersion())
         case .databaseSize: configureCell(cell, text: "Database Size", secondaryText: databaseSize())
         case .localCache: configureCell(cell, text: "Local Cache", secondaryText: system.memcacheLocal)
-        case .distributedCache: configureCell(cell, text: "Distributed Cache", secondaryText: system.memcacheDistributed)
+        case .distributedCache: configureCell(
+            cell, text: "Distributed Cache",
+            secondaryText: system.memcacheDistributed)
         }
 
         return cell

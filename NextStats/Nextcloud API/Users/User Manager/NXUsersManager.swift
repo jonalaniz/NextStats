@@ -20,6 +20,7 @@ class NXUsersManager {
     static let shared = NXUsersManager()
 
     weak var delegate: NXUserManagerDelegate?
+    weak var errorHandler: ErrorHandling?
     private let service = NextcloudService.shared
     private var userIDs = [String]()
     private var users = [User]()
@@ -52,11 +53,12 @@ class NXUsersManager {
                     self.delegate?.stateDidChange(.usersLoaded)
                 }
             } catch {
-                guard let networkError = error as? NetworkError else {
-                    delegate?.error(.networking(.error(error.localizedDescription)))
+                guard let error = error as? APIManagerError else {
+                    handle(error: .somethingWentWrong(error: error))
                     return
                 }
-                delegate?.error(.networking(networkError))
+
+                handle(error: error)
             }
         }
     }
@@ -74,11 +76,12 @@ class NXUsersManager {
                     self.processResponse(user, type: .toggle, response: response)
                 }
             } catch {
-                guard let networkError = error as? NetworkError else {
-                    delegate?.error(.networking(.error(error.localizedDescription)))
+                guard let error = error as? APIManagerError else {
+                    handle(error: .somethingWentWrong(error: error))
                     return
                 }
-                delegate?.error(.networking(networkError))
+
+                handle(error: error)
             }
         }
 
@@ -93,11 +96,12 @@ class NXUsersManager {
                     self.processResponse(user, type: .deletion, response: response)
                 }
             } catch {
-                guard let networkError = error as? NetworkError else {
-                    delegate?.error(.networking(.error(error.localizedDescription)))
+                guard let error = error as? APIManagerError else {
+                    handle(error: .somethingWentWrong(error: error))
                     return
                 }
-                delegate?.error(.networking(networkError))
+
+                handle(error: error)
             }
         }
 
@@ -106,8 +110,6 @@ class NXUsersManager {
     private func processResponse(_ user: String, type: ResponseType, response: GenericResponse) {
         let meta = response.meta
         guard meta.statuscode == 100 else {
-            self.delegate?.error(.server(status: meta.status,
-                                         message: meta.message))
             return
         }
 
@@ -150,7 +152,6 @@ class NXUsersManager {
 
     func userCellModel(_ index: Int) -> UserCellModel? {
         guard !users.isEmpty else {
-            delegate?.error(.app(.usersEmpty))
             return nil
         }
 
@@ -160,5 +161,11 @@ class NXUsersManager {
                              displayName: userData.displayname ?? "N/A",
                              email: userData.email ?? "N/A",
                              enabled: userData.enabled)
+    }
+
+    private func handle(error: APIManagerError) {
+        DispatchQueue.main.async {
+            self.errorHandler?.handleError(error)
+        }
     }
 }

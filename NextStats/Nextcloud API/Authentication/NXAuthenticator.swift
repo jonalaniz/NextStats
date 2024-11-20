@@ -82,7 +82,7 @@ class NXAuthenticator: NSObject {
                     return
                 }
 
-                guard response == 404 else {
+                guard response.statusCode == 404 else {
                     handle(error: error)
                     return
                 }

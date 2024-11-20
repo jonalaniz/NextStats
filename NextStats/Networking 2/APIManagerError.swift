@@ -14,10 +14,10 @@ protocol ErrorHandling: AnyObject {
 enum APIManagerError: Error {
     case configurationMissing
     case conversionFailedToHTTPURLResponse
-    case invalidResponse(statuscode: Int)
+    case invalidResponse(response: HTTPURLResponse)
     case invalidURL
     case serializaitonFailed
-    case somethingWentWrong(error: Error?)
+    case somethingWentWrong(error: Error)
 
     var localizedDescription: String {
         switch self {
@@ -26,7 +26,7 @@ enum APIManagerError: Error {
         case .invalidResponse(let statuscode): return "\(String.localized(.unexpectedResponse)) (\(statuscode))"
         case .invalidURL: return .localized(.serverFormEnterValidAddress)
         case .serializaitonFailed: return .localized(.failedToSerializeResponse)
-        case .somethingWentWrong(let error): return error?.localizedDescription ?? "Unknown Error"
+        case .somethingWentWrong(let error): return error.localizedDescription
         }
     }
 }

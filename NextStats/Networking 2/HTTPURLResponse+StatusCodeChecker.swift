@@ -12,7 +12,7 @@ extension HTTPURLResponse {
         switch self.statusCode {
         case 200...299: return
         default:
-            throw APIManagerError.invalidResponse(statuscode: self.statusCode)
+            throw APIManagerError.invalidResponse(response: self)
         }
     }
 }

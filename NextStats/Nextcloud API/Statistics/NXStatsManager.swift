@@ -17,6 +17,7 @@ final class NXStatsManager: NSObject {
 
     var stats: DataClass!
     weak var delegate: NXDataManagerDelegate?
+    weak var errorHandler: ErrorHandling?
 
     var server: NextServer? {
         didSet {
@@ -34,7 +35,11 @@ final class NXStatsManager: NSObject {
                 let object = try await service.fetchStatistics(for: server)
                 await format(statistics: object)
             } catch {
-                handleError(error)
+                guard let error = error as? APIManagerError else {
+                    errorHandler?.handleError(.somethingWentWrong(error: error))
+                    return
+                }
+                errorHandler?.handleError(error)
             }
         }
     }
@@ -42,7 +47,7 @@ final class NXStatsManager: NSObject {
     @MainActor private func format(statistics: ServerStats) {
         guard let data = statistics.ocs?.data
         else {
-            delegate?.stateDidChange(.failed(.missingData))
+            errorHandler?.handleError(.serializaitonFailed)
             return
         }
 
@@ -58,31 +63,5 @@ final class NXStatsManager: NSObject {
     /// Set the server value
     func set(server: NextServer) {
         self.server = server
-    }
-
-    private func handleError(_ error: Error) {
-        guard let errorType = error as? NetworkError else {
-            print("Timeout ERROR")
-            delegate?.stateDidChange(.failed(.networkError(.error(error.localizedDescription))))
-            return
-        }
-
-        switch errorType {
-        case .error(let description):
-            delegate?.stateDidChange(.failed(.networkError(.error(description))))
-        case .invalidData:
-            delegate?.stateDidChange(.failed(.networkError(.invalidData)))
-        case .invalidURL:
-            delegate?.stateDidChange(.failed(.networkError(.invalidURL)))
-        case .missingResponse:
-            delegate?.stateDidChange(.failed(.networkError(.missingResponse)))
-        case .unexpectedResponse(let response):
-            if response.statusCode == 401 || response.statusCode == 403 {
-                delegate?.stateDidChange(.failed(.unauthorized))
-                return
-            } else {
-                delegate?.stateDidChange(.failed(.networkError(.unexpectedResponse(response))))
-            }
-        }
     }
 }

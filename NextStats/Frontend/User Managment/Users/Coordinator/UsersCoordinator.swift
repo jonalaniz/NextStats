@@ -31,6 +31,7 @@ class UsersCoordinator: NSObject, Coordinator {
     func start() {
         usersViewController.coordinator = self
         usersManager.delegate = self
+        usersManager.errorHandler = self
         navigationController.viewControllers = [usersViewController]
 
         splitViewController.present(navigationController, animated: true)

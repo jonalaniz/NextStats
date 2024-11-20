@@ -185,7 +185,6 @@ final class NextcloudService {
         var components = URLComponents(url: urlWithEndpoint, resolvingAgainstBaseURL: false)!
         components.queryItems = [URLQueryItem(name: "token",
                                                value: server.password)]
-        let headers = [Header.contentType.key(): Header.contentType.value()]
 
         guard let url = components.url else {
             throw APIManagerError.invalidURL
@@ -237,10 +236,10 @@ final class NextcloudService {
 
     private func validateResponse(_ response: URLResponse?) throws {
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw NetworkError.missingResponse
+            throw APIManagerError.invalidURL
         }
         guard (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.unexpectedResponse(httpResponse)
+            throw APIManagerError.invalidResponse(response: httpResponse)
         }
     }
 }
