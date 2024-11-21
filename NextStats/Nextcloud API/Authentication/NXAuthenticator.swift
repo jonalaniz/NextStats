@@ -146,13 +146,6 @@ class NXAuthenticator: NSObject {
         shouldPoll = false
     }
 
-    private func decode<T: Decodable>(modelType: T.Type, from data: Data) -> T? {
-        let decoder = JSONDecoder()
-        guard let object = try? decoder.decode(modelType, from: data) else { return nil }
-
-        return object
-    }
-
     private func handle(error: APIManagerError) {
         DispatchQueue.main.async {
             self.errorHandler?.handleError(error)
