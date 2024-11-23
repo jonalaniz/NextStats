@@ -45,7 +45,7 @@ final class NextcloudService {
         )
     }
 
-    /// Generic fetch request that takes only a URL.
+    /// Generic fetch request that takes only a URL, returns data
     func fetchData(from url: URL) async throws -> Data {
         let request = URLRequest(url: url)
         let (data, response) = try await session.data(for: request)
@@ -161,36 +161,26 @@ final class NextcloudService {
 
     func wipeStatus(for server: NextServer) async throws -> WipeObject {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .wipeCheck)
-        var components = URLComponents(url: urlWithEndpoint, resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "token",
-                                               value: server.password)]
-        let headers = [Header.contentType.key(): Header.contentType.value()]
-
-        guard let url = components.url else {
-            throw APIManagerError.invalidURL
-        }
+        let body = "token=\(server.password)".data(using: .utf8)
 
         return try await apiManager.request(
-            url: url,
+            url: urlWithEndpoint.absoluteURL,
             httpMethod: .post,
-            body: nil,
-            headers: headers,
+            body: body,
+            headers: nil,
             expectingReturnType: WipeObject.self,
             legacyType: false
         )
     }
 
-    func postWipe(_ server: NextServer) async throws -> Data {
+    func postWipe(_ server: NextServer) async throws {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .wipeCheck)
-        var components = URLComponents(url: urlWithEndpoint, resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "token",
-                                               value: server.password)]
+        let body = "token=\(server.password)".data(using: .utf8)
 
-        guard let url = components.url else {
-            throw APIManagerError.invalidURL
-        }
-
-        return try await fetchData(from: url)
+        try await apiManager.fireAndForget(url: urlWithEndpoint,
+                                           httpMethod: .post,
+                                           body: body,
+                                           headers: nil)
     }
 
     // MARK: - Utilities
