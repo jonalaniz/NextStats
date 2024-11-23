@@ -15,4 +15,10 @@ protocol Managable {
                              expectingReturnType: T.Type,
                              legacyType: Bool
     ) async throws -> T
+
+    func fireAndForget(url: URL,
+                       httpMethod: ServiceMethod,
+                       body: Data?,
+                       headers: [String: String]?
+    ) async throws
 }
