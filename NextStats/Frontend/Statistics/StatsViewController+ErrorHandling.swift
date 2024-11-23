@@ -12,23 +12,33 @@ extension StatsViewController: ErrorHandling {
     func handleError(_ error: APIManagerError) {
         switch error {
         case .configurationMissing:
-            showErrorAndReturn(title: .localized(.errorTitle), description: .localized(.authorizationDataMissing))
+            showErrorAndReturn(title: .localized(.errorTitle),
+                               description: .localized(.authorizationDataMissing))
         case .conversionFailedToHTTPURLResponse:
             showErrorAndReturn(title: .localized(.missingResponse),
-                      description: .localized(.missingResponseDescription))
+                               description: .localized(.missingResponseDescription))
         case .invalidResponse(response: let response):
-            showErrorAndReturn(title: .localized(.unexpectedResponse) + "\(response.statusCode)",
-                      description: response.description)
+            processResponse(code: response.statusCode,
+                            description: response.description)
         case .invalidURL:
             showErrorAndReturn(title: .localized(.errorTitle),
-                      description: .localized(.notValidhost))
+                               description: .localized(.notValidhost))
         case .serializaitonFailed:
             showErrorAndReturn(title: .localized(.errorTitle),
-                      description: .localized(.failedToSerializeResponse))
+                               description: .localized(.failedToSerializeResponse))
         case .somethingWentWrong(error: let error):
             showErrorAndReturn(title: .localized(.errorTitle),
-                      description: error.localizedDescription)
+                               description: error.localizedDescription)
         }
+    }
+
+    private func processResponse(code: Int, description: String) {
+        guard code != 401 && code != 403 else {
+            coordinator?.serverManager.checkWipeStatus(server: dataManager.server!)
+            return
+        }
+
+        showErrorAndReturn(title: .localized(.unexpectedResponse), description: description)
     }
 
     private func showErrorAndReturn(title: String, description: String) {
