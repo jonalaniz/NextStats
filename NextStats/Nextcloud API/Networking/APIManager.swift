@@ -14,6 +14,40 @@ final class APIManager: Managable {
 
     private init() {}
 
+    func fireAndForget(url: URL,
+                       httpMethod: ServiceMethod,
+                       body: Data? = nil,
+                       headers: [String: String]?
+    ) async throws {
+        Task {
+            do {
+                var request = URLRequest(url: url)
+                request.httpMethod = httpMethod.rawValue
+
+                if let body = body, httpMethod != .get {
+                    request.httpBody = body
+                }
+
+                if let unwrappedHeaders = headers {
+                    request.addHeaders(from: unwrappedHeaders)
+                }
+
+                request.setUserAgent()
+
+                let (_, response) = try await session.data(for: request)
+
+                guard let response = response as? HTTPURLResponse else {
+                    throw APIManagerError.conversionFailedToHTTPURLResponse
+                }
+
+                try response.statusCodeChecker()
+
+            } catch {
+                throw APIManagerError.somethingWentWrong(error: error)
+            }
+        }
+    }
+
     func request<T>(url: URL,
                     httpMethod: ServiceMethod,
                     body: Data?,
