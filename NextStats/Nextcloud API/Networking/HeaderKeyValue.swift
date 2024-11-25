@@ -11,6 +11,7 @@ enum Header {
     case acceptJSON
     case authorization
     case contentType
+    case maintenance
     case ocsAPIRequest
     case userAgent(String)
 
@@ -20,6 +21,7 @@ enum Header {
         case .acceptJSON: return "Accept"
         case .authorization: return "Authorization"
         case .contentType: return "Content-Type"
+        case .maintenance: return "x-nextcloud-maintenance-mode"
         case .ocsAPIRequest: return "OCS-APIRequest"
         case .userAgent: return "User-Agent"
         }
@@ -31,6 +33,7 @@ enum Header {
         case .acceptJSON: return "application/json"
         case .authorization: return "" // Don't call this one
         case .contentType: return "application/json"
+        case .maintenance: return "1"
         case .ocsAPIRequest: return "true"
         case .userAgent(let string): return "NextStats for \(string)"
         }
