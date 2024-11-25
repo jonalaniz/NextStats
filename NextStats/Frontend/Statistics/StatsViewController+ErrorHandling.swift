@@ -12,23 +12,25 @@ extension StatsViewController: ErrorHandling {
     func handleError(_ error: APIManagerError) {
         switch error {
         case .configurationMissing:
-            showErrorAndReturn(title: .localized(.errorTitle),
-                               description: .localized(.authorizationDataMissing))
+            showErrorAndReturn(title: .localized(.errorTitle), description: error.localizedDescription)
         case .conversionFailedToHTTPURLResponse:
             showErrorAndReturn(title: .localized(.missingResponse),
-                               description: .localized(.missingResponseDescription))
-        case .invalidResponse(response: let response):
-            processResponse(code: response.statusCode,
-                            description: response.description)
+                               description: error.localizedDescription)
+        case .invalidResponse(response: _):
+            showErrorAndReturn(title: "Unexpected Response",
+                               description: error.localizedDescription)
         case .invalidURL:
             showErrorAndReturn(title: .localized(.errorTitle),
-                               description: .localized(.notValidhost))
+                               description: error.localizedDescription)
+        case .maintenance:
+            showErrorAndReturn(title: .localized(.maintenanceMode),
+                               description: error.localizedDescription)
         case .serializaitonFailed:
             showErrorAndReturn(title: .localized(.errorTitle),
-                               description: .localized(.failedToSerializeResponse))
+                               description: error.localizedDescription)
         case .somethingWentWrong(error: let error):
             showErrorAndReturn(title: .localized(.errorTitle),
-                               description: error.localizedDescription)
+                      description: error.localizedDescription)
         }
     }
 

@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum ServerStatus {
+    case online
+    case offline
+    case maintenance
+}
+
 class ServerCell: UITableViewCell {
     private var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -129,9 +135,19 @@ class ServerCell: UITableViewCell {
         backgroundImageView.image = server.serverImage()
     }
 
-    func setOnlineStatus(to isOnline: Bool) {
-        statusLabel.text = isOnline ? "Online" : "Unreachable"
-        statusLabel.textColor = isOnline ? .statusLabelGreen : .statusLabelRed
+    func setStatus(to status: ServerStatus) {
+        switch status {
+        case .online:
+            statusLabel.text = "Online"
+            statusLabel.textColor = .statusLabelGreen
+        case .offline:
+            statusLabel.text = "Offline"
+            statusLabel.textColor = .statusLabelRed
+        case .maintenance:
+            statusLabel.text = "Maintenance"
+            statusLabel.textColor = .systemYellow
+        }
+
         statusLabel.layer.opacity = 0.8
         statusLabel.isHidden = false
 

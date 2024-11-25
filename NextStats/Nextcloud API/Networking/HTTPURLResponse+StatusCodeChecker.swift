@@ -12,7 +12,17 @@ extension HTTPURLResponse {
         switch self.statusCode {
         case 200...299: return
         default:
+            try checkForMaintenance()
             throw APIManagerError.invalidResponse(response: self)
+        }
+    }
+
+    func checkForMaintenance() throws {
+        guard let value = self.value(forHTTPHeaderField: Header.maintenance.key())
+        else { return }
+
+        if value == Header.maintenance.value() {
+            throw APIManagerError.maintenance
         }
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 protocol NXServerManagerDelegate: AnyObject {
     func deauthorizationFailed(server: NextServer)
     func serversDidChange(refresh: Bool)
-    func pingedServer(at index: Int, isOnline: Bool)
+    func pingedServer(at index: Int, status: ServerStatus)
     func unauthorized()
     func serverWiped()
 }

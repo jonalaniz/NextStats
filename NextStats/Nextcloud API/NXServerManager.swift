@@ -104,6 +104,7 @@ class NXServerManager: NSObject {
         }
     }
 
+    // TODO: This needs to use the new APIManager
     private func pingServer(at index: Int) {
         guard let url = URL(string: servers[index].URLString) else {
             return
@@ -113,23 +114,26 @@ class NXServerManager: NSObject {
         let task = URLSession(configuration: .default).dataTask(with: request) { _, possibleResponse, possibleError in
 
             guard  possibleError == nil else {
-                DispatchQueue.main.async {
-                    self.delegate?.pingedServer(at: index, isOnline: false)
-                }
+                self.setOnlineStatus(at: index, to: .offline)
                 return
             }
 
             guard let response = possibleResponse as? HTTPURLResponse else {
-                self.setOnlineStatus(at: index, to: false)
+                self.setOnlineStatus(at: index, to: .offline)
                 return
             }
 
             guard (200...299).contains(response.statusCode) else {
-                self.setOnlineStatus(at: index, to: false)
+                if response.value(forHTTPHeaderField: Header.maintenance.key()) == Header.maintenance.value() {
+                    self.setOnlineStatus(at: index, to: .maintenance)
+                    return
+                }
+
+                self.setOnlineStatus(at: index, to: .offline)
                 return
             }
 
-            self.setOnlineStatus(at: index, to: true)
+            self.setOnlineStatus(at: index, to: .online)
         }
         task.resume()
     }
@@ -151,9 +155,9 @@ class NXServerManager: NSObject {
         }
     }
 
-    private func setOnlineStatus(at index: Int, to status: Bool) {
+    private func setOnlineStatus(at index: Int, to status: ServerStatus) {
         DispatchQueue.main.async {
-            self.delegate?.pingedServer(at: index, isOnline: status)
+            self.delegate?.pingedServer(at: index, status: status)
         }
     }
 
