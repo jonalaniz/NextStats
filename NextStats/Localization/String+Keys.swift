@@ -131,4 +131,8 @@ enum LocalizedKeys: String {
     case unableToEncodeData = "error.unableToEncodeData"
     case unableToRemove = "error.unableToRemove"
     case unableToRemoveMessage = "error.unableToRemoveMessage"
+
+    // MARK: - APIManager Errors
+    case maintenanceMode = "error.maintenance"
+    case maintenanceDescription = "error.maintenanceDescription"
 }
