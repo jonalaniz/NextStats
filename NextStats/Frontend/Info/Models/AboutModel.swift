@@ -26,10 +26,12 @@ class AboutModel: NSObject {
     let developerNames = ["Jon Alaniz"]
     let translatorLanguages: [String] = [.localized(.infoScreenLocaleFrench),
                                          .localized(.infoScreenLocaleGerman),
+                                         .localized(.infoScreenLocaleGerman),
                                          .localized(.infoScreenLocaleTurkish)]
     let translatorNames = ["Maxime Killinger",
-                            "Carina Pfaffelhuber",
-                            "Hüseyin Fahri Uzun"]
+                           "Carina Pfaffelhuber",
+                           "@rakekniven",
+                           "Hüseyin Fahri Uzun"]
     let licences = ["MIT License",
                     "GNU AGPLv3 License"]
 
