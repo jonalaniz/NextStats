@@ -16,9 +16,9 @@ protocol Managable {
                              legacyType: Bool
     ) async throws -> T
 
-    func fireAndForget(url: URL,
-                       httpMethod: ServiceMethod,
-                       body: Data?,
-                       headers: [String: String]?
-    ) async throws
+    func genericRequest(url: URL,
+                        httpMethod: ServiceMethod,
+                        body: Data?,
+                        headers: [String: String]?
+    ) async throws -> Data
 }
