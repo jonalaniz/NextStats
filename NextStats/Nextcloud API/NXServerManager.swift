@@ -118,7 +118,6 @@ class NXServerManager: NSObject {
                     self.setOnlineStatus(at: index, to: .offline)
                     return
                 }
-                print(error.description)
 
                 switch error {
                 case .maintenance:
@@ -139,7 +138,6 @@ class NXServerManager: NSObject {
                     return
                 }
             } catch {
-                print(error)
                 DispatchQueue.main.async {
                     self.delegate?.deauthorizationFailed(server: server)
                 }
@@ -186,7 +184,7 @@ class NXServerManager: NSObject {
     private func postWipe(_ server: NextServer) {
         Task {
             do {
-                _ = try await service.postWipe(server)
+                try await service.postWipe(server)
             } catch {
                 print(error.localizedDescription)
             }

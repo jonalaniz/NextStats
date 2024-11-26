@@ -181,10 +181,11 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .wipeCheck)
         let body = "token=\(server.password)".data(using: .utf8)
 
-        try await apiManager.fireAndForget(url: urlWithEndpoint,
-                                           httpMethod: .post,
-                                           body: body,
-                                           headers: nil)
+        _ = try await apiManager.genericRequest(url: urlWithEndpoint,
+                                                httpMethod: .post,
+                                                body: body,
+                                                headers: nil)
+
     }
 
     // MARK: - Utilities
@@ -227,5 +228,5 @@ final class NextcloudService {
 
         return headers
     }
-    
+
 }
