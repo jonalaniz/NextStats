@@ -104,38 +104,30 @@ class NXServerManager: NSObject {
         }
     }
 
-    // TODO: This needs to use the new APIManager
     private func pingServer(at index: Int) {
         guard let url = URL(string: servers[index].URLString) else {
             return
         }
 
-        let request = URLRequest(url: url)
-        let task = URLSession(configuration: .default).dataTask(with: request) { _, possibleResponse, possibleError in
-
-            guard  possibleError == nil else {
-                self.setOnlineStatus(at: index, to: .offline)
-                return
-            }
-
-            guard let response = possibleResponse as? HTTPURLResponse else {
-                self.setOnlineStatus(at: index, to: .offline)
-                return
-            }
-
-            guard (200...299).contains(response.statusCode) else {
-                if response.value(forHTTPHeaderField: Header.maintenance.key()) == Header.maintenance.value() {
-                    self.setOnlineStatus(at: index, to: .maintenance)
+        Task {
+            do {
+                _ = try await service.fetchData(from: url)
+                self.setOnlineStatus(at: index, to: .online)
+            } catch {
+                guard let error = error as? APIManagerError else {
+                    self.setOnlineStatus(at: index, to: .offline)
                     return
                 }
+                print(error.description)
 
-                self.setOnlineStatus(at: index, to: .offline)
-                return
+                switch error {
+                case .maintenance:
+                    self.setOnlineStatus(at: index, to: .maintenance)
+                default:
+                    self.setOnlineStatus(at: index, to: .offline)
+                }
             }
-
-            self.setOnlineStatus(at: index, to: .online)
         }
-        task.resume()
     }
 
     func deauthorize(server: NextServer) {
