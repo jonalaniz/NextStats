@@ -37,7 +37,7 @@ extension AddServerCoordinator: UITableViewDataSource {
             textField = TextFieldFactory.textField(type: .URL,
                                                    placeholder: .localized(.addScreenUrl))
             textField.addTarget(self,
-                                action: #selector(checkURL),
+                                action: #selector(validateURL),
                                 for: .editingChanged)
         }
 

@@ -295,3 +295,11 @@
 
 /* Text = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud at Personal Settings > Security > Devices & Sessions" */
 "error.unableToRemoveMessage" = "Password removed from NextStats, but you may have to delete the app key from within Nextcloud";
+
+// MARK: - APIManager.Errors
+
+/* Text = Maintenance mode */
+"error.maintenance" = "Maintenance mode";
+
+/* This server is currently in maintenance mode, which may take a while. Contact your system administrator if this message persists or appeared unexpectedly. */
+"error.maintenanceDescription" = "This server is currently in maintenance mode, which may take a while. Contact your system administrator if this message persists or appeared unexpectedly.";

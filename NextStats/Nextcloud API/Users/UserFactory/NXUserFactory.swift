@@ -17,7 +17,7 @@ class NXUserFactory: NSObject {
 
     weak var delegate: NXUserFactoryDelegate?
 
-    let networking = NetworkController.shared
+    let service = NextcloudService.shared
     private var groupsObject: GroupsObject?
 
     private(set) var userid: String?
@@ -31,25 +31,10 @@ class NXUserFactory: NSObject {
     private override init() {}
 
     func getGroups(for server: NextServer) {
-        guard
-            let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.groups.url(relativeTo: url)
-        else {
-            // TODO: Error handling
-            return
-        }
-
-        let authString = server.authenticationString()
-        let config = networking.config(authString: authString, ocsApiRequest: true)
-        let request = URLRequest(url: urlWithEndpoint)
-
         Task {
             do {
-                let data = try await self.networking.fetchData(with: request,
-                                                          config: config)
-                let decoder = XMLDecoder()
-                let groups = try? decoder.decode(GroupsObject.self, from: data)
-                self.groupsObject = groups
+                let object = try await service.fetchGroups(for: server)
+                self.groupsObject = object
             } catch {
                 print(error)
             }
@@ -119,37 +104,28 @@ class NXUserFactory: NSObject {
 
         do {
             let data = try JSONEncoder().encode(newUser)
-            delegate?.stateDidChange(.userCreated(data))
-            let string = String(data: data, encoding: .utf8)!
-            print(string)
+            delegate?.stateDidChange(.userCreated(data: data))
         } catch {
-            print(error.localizedDescription)
-            delegate?.error(.app(.unableToEncodeData))
+            handle(error: .application(.unableToEncodeData))
         }
     }
 
     func postUser(data: Data, to server: NextServer) {
-        let urlString = server.URLString
-        let url = URL(string: urlString)!
-        let authentication = server.authenticationString()
-
         Task {
             do {
-                let response = try await networking.post(user: data,
-                                                         url: url,
-                                                         authenticaiton: authentication)
+                let response = try await service.postUser(data, in: server)
                 await checkResponse(response)
             } catch {
-                guard let networkError = error as? NetworkError else {
-                    delegate?.error(.networking(.error(error.localizedDescription)))
+                guard let networkError = error as? APIManagerError else {
+                    delegate?.error(.network(.somethingWentWrong(error: error)))
                     return
                 }
-                delegate?.error(.networking(networkError))
+                delegate?.error(.network(networkError))
             }
         }
     }
 
-    @MainActor private func checkResponse(_ response: Response) {
+    @MainActor private func checkResponse(_ response: GenericResponse) {
         let meta = response.meta
         guard meta.statuscode == 100
         else {
@@ -163,15 +139,8 @@ class NXUserFactory: NSObject {
     }
 
     func requirementsMet() -> Bool {
-        guard userid != nil else { return false }
-
-        if email != "" || password != "" {
-            return true
-        } else if email != nil || password != nil {
-            return true
-        } else {
-            return false
-        }
+        guard let userid = userid, !userid.isEmpty else { return false }
+        return !(email?.isEmpty ?? true) || !(password?.isEmpty ?? true)
     }
 
     private func reset() {
@@ -180,8 +149,12 @@ class NXUserFactory: NSObject {
         email = nil
         password = nil
         groupsObject = nil
-        memberOf = []
-        adminOf = []
+        memberOf.removeAll()
+        adminOf.removeAll()
         quota = .defaultQuota
+    }
+
+    private func handle(error: NXUserFactoryErrorType) {
+        delegate?.error(error)
     }
 }

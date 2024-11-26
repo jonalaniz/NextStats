@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LoginObject: Decodable {
+struct LoginObject: Codable {
     let server: String?
     let loginName: String?
     let appPassword: String?

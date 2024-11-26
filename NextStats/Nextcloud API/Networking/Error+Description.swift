@@ -9,6 +9,6 @@ import Foundation
 
 extension Error {
     var description: String {
-        ((self as? APIManagerError)?.errorDescription) ?? self.localizedDescription
+        ((self as? APIManagerError)?.localizedDescription) ?? self.localizedDescription
     }
 }

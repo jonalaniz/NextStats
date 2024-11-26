@@ -26,12 +26,12 @@ extension MainCoordinator: NXServerManagerDelegate {
         mainViewController.navigationController?.popToRootViewController(animated: true)
     }
 
-    func pingedServer(at index: Int, isOnline: Bool) {
+    func pingedServer(at index: Int, status: ServerStatus) {
         let indexPath = IndexPath(row: index, section: 0)
         guard let cell = mainViewController.tableView.cellForRow(at: indexPath) as? ServerCell
         else { return }
 
-        cell.setOnlineStatus(to: isOnline)
+        cell.setStatus(to: status)
     }
 
     func unauthorized() {

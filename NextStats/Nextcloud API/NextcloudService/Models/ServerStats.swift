@@ -17,12 +17,6 @@ struct Ocs: Codable {
     let data: DataClass?
 }
 
-struct Meta: Codable {
-    let status: String
-    let statuscode: Int
-    let message: String?
-}
-
 struct DataClass: Codable {
     let nextcloud: Nextcloud?
     let server: Server?

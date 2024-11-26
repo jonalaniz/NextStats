@@ -40,6 +40,10 @@ class InfoViewController: UIViewController {
         tableView.tableHeaderView = HeaderView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.5
+        tableView.backgroundView = backgroundView
+
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([

@@ -21,6 +21,7 @@ class StatsViewController: UIViewController {
     override func loadView() {
         super.loadView()
         dataManager.delegate = self
+        dataManager.errorHandler = self
         setupView()
     }
 
@@ -34,6 +35,9 @@ class StatsViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .systemGroupedBackground
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.8
+        tableView.backgroundView = backgroundView
 
         // Setup our buttons
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
@@ -65,12 +69,12 @@ class StatsViewController: UIViewController {
         tableView.isHidden = true
     }
 
-    private func showLoadingView() {
+    func showLoadingView() {
         tableView.isHidden = true
         add(loadingView)
     }
 
-    private func showTableView() {
+    func showTableView() {
         if tableView.delegate == nil {
             tableView.delegate = dataManager
             tableView.dataSource = dataManager
@@ -134,76 +138,5 @@ class StatsViewController: UIViewController {
         userDataManager.setServer(server: dataManager.server!)
 
         coordinator?.showUsersView()
-    }
-}
-
-// MARK: - NextStatsDataManagerDelegate
-extension StatsViewController: NXDataManagerDelegate {
-    func stateDidChange(_ dataManagerState: NXDataManagerState) {
-        switch dataManagerState {
-        case .fetchingData:
-            showLoadingView()
-        case .parsingData:
-            print("Parsing Data")
-        case .failed(let nextDataManagerError):
-            switch nextDataManagerError {
-            case .networkError(let error):
-                handleNetworkError(error)
-            case .unableToDecode:
-                self.showErrorAndReturn(title: .localized(.errorTitle),
-                                        description: nextDataManagerError.description)
-            case .missingData:
-                self.showErrorAndReturn(title: .localized(.errorTitle),
-                                        description: nextDataManagerError.description)
-            case .unauthorized:
-                coordinator?.serverManager.checkWipeStatus(server: dataManager.server!)
-            }
-        case .dataCaptured:
-            showTableView()
-        }
-    }
-
-    private func handleNetworkError(_ error: NetworkError) {
-        switch error {
-        case .error(let err):
-            showErrorAndReturn(title: .localized(.errorTitle), description: err)
-        case .invalidData:
-            self.showErrorAndReturn(title: error.title,
-                                    description: error.description)
-        case .invalidURL:
-            showErrorAndReturn(title: .localized(.errorTitle), description: .localized(.notValidhost))
-        case .missingResponse:
-            showErrorAndReturn(title: .localized(.missingResponse),
-                               description: .localized(.missingResponseDescription))
-        case .unexpectedResponse(let response):
-            switch response.statusCode {
-            case 401:
-                showErrorAndReturn(title: error.title + ": \(response.statusCode)",
-                                   description: .localized(.unauthorizedDescription))
-            default:
-                showErrorAndReturn(title: error.title + ": \(response.statusCode)",
-                                   description: response.description)
-            }
-        }
-    }
-
-    private func showErrorAndReturn(title: String, description: String) {
-        let errorAC = UIAlertController(title: title,
-                                        message: description,
-                                        preferredStyle: .alert)
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default,
-                                        handler: self.dismissView))
-
-        DispatchQueue.main.async {
-            self.loadingView.remove()
-            self.tableView.isHidden = true
-            self.present(errorAC, animated: true)
-        }
-    }
-
-    func dismissView(action: UIAlertAction! = nil) {
-        tableView.isHidden = true
-        self.navigationController?.navigationController?.popToRootViewController(animated: true)
     }
 }

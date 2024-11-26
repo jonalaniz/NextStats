@@ -34,6 +34,10 @@ class UserViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
 
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.5
+        tableView.backgroundView = backgroundView
+
         tableView.register(ProgressCell.self, forCellReuseIdentifier: "QuotaCell")
 
         view.addSubview(tableView)

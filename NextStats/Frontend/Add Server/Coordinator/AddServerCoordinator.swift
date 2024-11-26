@@ -14,8 +14,8 @@ class AddServerCoordinator: NSObject, Coordinator {
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
-    let addServerVC: AddServerViewController
-    let authenticator = NXAuthenticator()
+    private let addServerVC: AddServerViewController
+    private let authenticator = NXAuthenticator()
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -32,7 +32,7 @@ class AddServerCoordinator: NSObject, Coordinator {
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
 
-    private func showLoginPage(withURlString urlString: String) {
+    private func navigateToLoginPage(withURlString urlString: String) {
         let webVC = WebViewController()
         webVC.coordinator = self
         webVC.passedURLString = urlString
@@ -65,7 +65,7 @@ class AddServerCoordinator: NSObject, Coordinator {
         parentCoordinator?.childDidFinish(self)
     }
 
-    @objc func checkURL() {
+    @objc func validateURL() {
         addServerVC.checkURLField()
     }
 }
@@ -76,16 +76,8 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
         dismiss()
     }
 
-    func networkError(error: String) {
-        addServerVC.updateStatusLabel(with: error)
-    }
-
-    func failedToGetCredentials(withError error: ServerManagerAuthenticationError) {
-        addServerVC.updateStatusLabel(with: error.description)
-    }
-
     func didRecieve(loginURL: String) {
-        showLoginPage(withURlString: loginURL)
+        navigateToLoginPage(withURlString: loginURL)
     }
 
     func urlEntered() {
@@ -93,19 +85,8 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
     }
 }
 
-extension AddServerCoordinator: ErrorHandler {
-    func handle(error type: NetworkError) {
-        switch type {
-        case .invalidURL:
-            addServerVC.updateStatusLabel(with: .localized(.serverFormEnterValidAddress))
-        case .error(let error):
-            addServerVC.updateStatusLabel(with: error)
-        case .missingResponse:
-            addServerVC.updateStatusLabel(with: .localized(.missingResponse))
-        case .unexpectedResponse(let response):
-            addServerVC.updateStatusLabel(with: "\(String.localized(.unexpectedResponse)) (\(response.statusCode))")
-        case .invalidData:
-            addServerVC.updateStatusLabel(with: .localized(.invalidData))
-        }
+extension AddServerCoordinator: ErrorHandling {
+    func handleError(_ error: APIManagerError) {
+        addServerVC.updateStatusLabel(with: error.localizedDescription)
     }
 }

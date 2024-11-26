@@ -14,7 +14,7 @@ class NXServerManager: NSObject {
     public static let shared = NXServerManager()
 
     weak var delegate: NXServerManagerDelegate?
-    let networking = NetworkController.shared
+    let service = NextcloudService.shared
 
     private var servers: [NextServer] {
         didSet {
@@ -109,47 +109,35 @@ class NXServerManager: NSObject {
             return
         }
 
-        let request = URLRequest(url: url)
-        let task = URLSession(configuration: .default).dataTask(with: request) { _, possibleResponse, possibleError in
-
-            guard  possibleError == nil else {
-                DispatchQueue.main.async {
-                    self.delegate?.pingedServer(at: index, isOnline: false)
+        Task {
+            do {
+                _ = try await service.fetchData(from: url)
+                self.setOnlineStatus(at: index, to: .online)
+            } catch {
+                guard let error = error as? APIManagerError else {
+                    self.setOnlineStatus(at: index, to: .offline)
+                    return
                 }
-                return
-            }
 
-            guard let response = possibleResponse as? HTTPURLResponse else {
-                self.setOnlineStatus(at: index, to: false)
-                return
+                switch error {
+                case .maintenance:
+                    self.setOnlineStatus(at: index, to: .maintenance)
+                default:
+                    self.setOnlineStatus(at: index, to: .offline)
+                }
             }
-
-            guard (200...299).contains(response.statusCode) else {
-                self.setOnlineStatus(at: index, to: false)
-                return
-            }
-
-            self.setOnlineStatus(at: index, to: true)
         }
-        task.resume()
     }
 
     func deauthorize(server: NextServer) {
-        guard
-            let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.appPassword.url(relativeTo: url)
-        else {
-            return
-        }
-
-        let config = networking.config(authString: server.authenticationString(),
-                                       ocsApiRequest: true)
         Task {
             do {
-                _ = try await self.networking.deauthorize(at: urlWithEndpoint,
-                                                          config: config)
+                let object = try await service.deauthorize(server: server)
+                guard object.meta.statuscode == 200 else {
+                    self.delegate?.deauthorizationFailed(server: server)
+                    return
+                }
             } catch {
-                print(error)
                 DispatchQueue.main.async {
                     self.delegate?.deauthorizationFailed(server: server)
                 }
@@ -157,32 +145,17 @@ class NXServerManager: NSObject {
         }
     }
 
-    private func setOnlineStatus(at index: Int, to status: Bool) {
+    private func setOnlineStatus(at index: Int, to status: ServerStatus) {
         DispatchQueue.main.async {
-            self.delegate?.pingedServer(at: index, isOnline: status)
+            self.delegate?.pingedServer(at: index, status: status)
         }
     }
 
     // MARK: - Remote Wipe Functions
     func checkWipeStatus(server: NextServer) {
-        guard
-            let baseURL = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.wipeCheck.url(relativeTo: baseURL)
-        else {
-            return
-        }
-
-        var components = URLComponents(url: urlWithEndpoint,
-                                       resolvingAgainstBaseURL: false)
-        components?.queryItems = [URLQueryItem(name: "token",
-                                               value: server.password)]
-
-        let url = components?.url!
-
         Task {
             do {
-                let data = try await self.networking.neoPost(url: url!)
-                let object = try JSONDecoder().decode(WipeObject.self, from: data)
+                let object = try await service.wipeStatus(for: server)
                 guard object.wipe == true else {
                     delegate?.unauthorized()
                     return
@@ -205,23 +178,13 @@ class NXServerManager: NSObject {
         let path = server.imagePath()
         removeCachedImage(at: path)
 
-        guard
-            let url = URL(string: server.URLString),
-            let urlWithEndpoint = Endpoint.wipeSuccess.url(relativeTo: url)
-        else { return }
-
-        var components = URLComponents(url: urlWithEndpoint,
-                                       resolvingAgainstBaseURL: false)!
-        components.queryItems = [URLQueryItem(name: "token",
-                                              value: server.password)]
-
-        postWipe(url: components.url!)
+        postWipe(server)
     }
 
-    private func postWipe(url: URL) {
+    private func postWipe(_ server: NextServer) {
         Task {
             do {
-                _ = try await self.networking.neoPost(url: url)
+                try await service.postWipe(server)
             } catch {
                 print(error.localizedDescription)
             }

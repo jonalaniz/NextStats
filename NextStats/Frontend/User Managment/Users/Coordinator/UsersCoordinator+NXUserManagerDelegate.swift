@@ -22,33 +22,4 @@ extension UsersCoordinator: NXUserManagerDelegate {
             usersViewController.showData()
         }
     }
-
-    func error(_ error: NXUserManagerErrorType) {
-        // Handle error
-        switch error {
-        case .app(let error):
-            switch error {
-            case .usersEmpty:
-                showError(title: "Error",
-                          description: "Users empty, this should not happen. Run for the hills.")
-            }
-        case .networking(let networkError):
-            showError(title: networkError.title, description: networkError.description)
-        case .server(let status, let message):
-            showError(title: status, description: message)
-        }
-    }
-
-    private func showError(title: String, description: String) {
-        let errorAC = UIAlertController(title: title,
-                                        message: description,
-                                        preferredStyle: .alert)
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default,
-                                        handler: dismissView))
-    }
-
-    private func dismissView(action: UIAlertAction) {
-        usersViewController.dismissController()
-    }
 }

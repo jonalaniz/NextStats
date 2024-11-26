@@ -54,6 +54,10 @@ class UsersViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UserCell.self, forCellReuseIdentifier: "Cell")
 
+        let backgroundView = UIImageView(image: UIImage(named: "background"))
+        backgroundView.layer.opacity = 0.5
+        tableView.backgroundView = backgroundView
+
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
 
