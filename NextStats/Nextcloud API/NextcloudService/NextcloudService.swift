@@ -50,7 +50,11 @@ final class NextcloudService {
         let request = URLRequest(url: url)
         let (data, response) = try await session.data(for: request)
 
-        try validateResponse(response)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIManagerError.invalidURL
+        }
+
+        try httpResponse.statusCodeChecker()
 
         return data
     }
@@ -223,13 +227,5 @@ final class NextcloudService {
 
         return headers
     }
-
-    private func validateResponse(_ response: URLResponse?) throws {
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIManagerError.invalidURL
-        }
-        guard (200...299).contains(httpResponse.statusCode) else {
-            throw APIManagerError.invalidResponse(response: httpResponse)
-        }
-    }
+    
 }
