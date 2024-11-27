@@ -14,15 +14,15 @@
 NextStats is a multi-server monitoring tool for NextCloud instances. It uses the serverinfo endpoint for system monitoring, OCS-API for user managment, and Login flow v2 for authentication. NextStats has been tested on servers running Nextcloud 27 and above.
 
 <p align="center">
-    <img alt="Add View" src="https://static.jonalaniz.com/3.0/add.png" width="260">
-    <img alt="Server View" src="https://static.jonalaniz.com/3.0/servers.png" width="260">
-    <img alt="Stats View" src="https://static.jonalaniz.com/3.0/stat.png" width="260">
+    <img alt="Add View" src="https://static.jonalaniz.com/3.1/add.png" width="260">
+    <img alt="Server View" src="https://static.jonalaniz.com/3.1/servers.png" width="260">
+    <img alt="Stats View" src="https://static.jonalaniz.com/3.1/stat.png" width="260">
 </p>
 
 <p align="center">
-    <img alt="Users View" src="https://static.jonalaniz.com/3.0/users.png" width="260">
-    <img alt="User View" src="https://static.jonalaniz.com/3.0/user.png" width="260">
-  	<img alt="User View" src="https://static.jonalaniz.com/3.0/new.png" width="260">
+    <img alt="Users View" src="https://static.jonalaniz.com/3.1/users.png" width="260">
+    <img alt="User View" src="https://static.jonalaniz.com/3.1/user.png" width="260">
+  	<img alt="User View" src="https://static.jonalaniz.com/3.1/new.png" width="260">
 </p>
 
 
