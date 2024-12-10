@@ -7,6 +7,7 @@
 
 import Foundation
 
+// swiftlint:disable function_parameter_count
 protocol Managable {
     func request<T: Codable>(url: URL,
                              httpMethod: ServiceMethod,
