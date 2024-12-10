@@ -13,11 +13,17 @@ class AddServerViewController: UIViewController {
 
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let headerView = AddServerHeaderView()
+    private var tableViewBottomConstraint: NSLayoutConstraint?
 
     override func loadView() {
         super.loadView()
+        subscribeToKeyboardNotifications()
         setupNavigationController()
         setupView()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     private func setupNavigationController() {
@@ -52,9 +58,11 @@ class AddServerViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
 
+        let bottomContstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        tableViewBottomConstraint = bottomContstraint
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomContstraint,
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
@@ -102,6 +110,31 @@ class AddServerViewController: UIViewController {
         coordinator?.dismiss()
     }
 
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard
+            let info = notification.userInfo,
+            let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+            let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+        else { return }
+
+        tableViewBottomConstraint?.constant = -keyboardFrame.height
+
+        UIView.animate(withDuration: duration) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    @objc private func keyboardWillDismiss(_ notification: Notification) {
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+        else { return }
+
+        tableViewBottomConstraint?.constant = 0
+
+        UIView.animate(withDuration: duration) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
     /// Enables the connect button when text is entered
     func checkURLField() {
         // Safely unwrap urlString
@@ -117,6 +150,17 @@ class AddServerViewController: UIViewController {
         } else {
             updateStatusLabel(with: .localized(.serverFormEnterAddress))
         }
+    }
+
+    private func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillDismiss),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 }
 
