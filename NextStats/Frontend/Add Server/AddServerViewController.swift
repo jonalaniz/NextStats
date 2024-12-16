@@ -69,6 +69,7 @@ class AddServerViewController: UIViewController {
     }
 
     func updateStatusLabel(with text: String) {
+        print("Update Status Label: \(text)")
         navigationItem.rightBarButtonItem?.isEnabled = false
         headerView.statusLabel.isHidden = false
         headerView.statusLabel.text = text

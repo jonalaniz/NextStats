@@ -204,19 +204,11 @@ final class NextcloudService {
     }
 
     private func buildURL(_ baseURL: URL, with endpoint: Endpoint) throws -> URL {
-        guard let endpointURL = endpoint.url(relativeTo: baseURL) else {
-            throw APIManagerError.invalidURL
-        }
-
-        return endpointURL
+        return baseURL.appendingPathComponentSafely(endpoint.rawValue)
     }
 
     private func buildURLWithPath(_ baseURL: URL, with endpoint: Endpoint, path: String) throws -> URL {
-        guard let endpointURL = endpoint.url(relativeTo: baseURL, appending: path) else {
-            throw APIManagerError.invalidURL
-        }
-
-        return endpointURL
+        return baseURL.appendingPathComponentSafely(endpoint.rawValue + "/" + path)
     }
 
     private func buildHeaders(authorization: String, ocsApiRequest: Bool) -> [String: String] {

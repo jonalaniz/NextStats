@@ -41,6 +41,7 @@
 		56330D242C071E3400685328 /* AboutModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56330D232C071E3400685328 /* AboutModelDelegate.swift */; };
 		5634EC3B2B6C4D8D00468AC0 /* NXUserFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */; };
 		563998C62BC9894D0086CEE5 /* hydrogen.json in Resources */ = {isa = PBXBuildFile; fileRef = 563998C52BC9894D0086CEE5 /* hydrogen.json */; };
+		563D542E2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */; };
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6402BA3FE77000D51F7 /* NewUser.swift */; };
 		5647A6442BA4023A000D51F7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6432BA4023A000D51F7 /* Groups.swift */; };
@@ -174,6 +175,7 @@
 		56330D232C071E3400685328 /* AboutModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModelDelegate.swift; sourceTree = "<group>"; };
 		5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFormatter.swift; sourceTree = "<group>"; };
 		563998C52BC9894D0086CEE5 /* hydrogen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hydrogen.json; sourceTree = "<group>"; };
+		563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+AppendingPathComponentSafely.swift"; sourceTree = "<group>"; };
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		5647A6402BA3FE77000D51F7 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		5647A6432BA4023A000D51F7 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */,
 				56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */,
 				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
+				563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -887,6 +890,7 @@
 				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
 				567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */,
+				563D542E2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
 				569F2C7B26AAF61A001122F2 /* XMLUnkeyedDecodingContainer.swift in Sources */,
 				569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */,

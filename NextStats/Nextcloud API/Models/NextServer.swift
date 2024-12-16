@@ -31,10 +31,6 @@ struct NextServer: Codable, Equatable {
         }
     }
 
-    private func imageURL() -> URL {
-        return Endpoint.logo.url(relativeTo: URL(string: URLString)!)!
-    }
-
     func authenticationString() -> String {
         let credentials = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
         let authenticationString = "Basic \(credentials)"

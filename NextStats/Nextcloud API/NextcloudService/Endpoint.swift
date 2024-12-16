@@ -12,18 +12,10 @@ enum Endpoint: String {
     case groups = "/ocs/v1.php/cloud/groups"
     case info = "/ocs/v2.php/apps/serverinfo/api/v1/info"
     case login = "/index.php/login/v2"
-    case logo = "/index.php/apps/theming/image/logo"
+    case logo = "index.php/apps/theming/image/logo"
     case settings = "/index.php/apps/theming/manifest/settings"
     case user = "/ocs/v1.php/cloud/users/"
     case users = "/ocs/v1.php/cloud/users"
     case wipeCheck = "/index.php/core/wipe/check"
     case wipeSuccess = "/index.php/core/wipe/success"
-
-    func url(relativeTo baseURL: URL, appending pathComponent: String? = nil) -> URL? {
-        guard let pathComponent = pathComponent else {
-            return URL(string: self.rawValue, relativeTo: baseURL)
-        }
-
-        return URL(string: self.rawValue + pathComponent, relativeTo: baseURL)
-    }
 }
