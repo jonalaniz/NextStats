@@ -13,8 +13,8 @@ enum AboutSection: Int, CaseIterable {
     case icon, development, translators, licenses, support
 }
 
-class AboutModel: NSObject {
-    public static let shared = AboutModel()
+class InfoDataManager: NSObject {
+    public static let shared = InfoDataManager()
     weak var delegate: AboutModelDelegate?
 
     var sections: [String] = ["App Icon",

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension AboutModel: UITableViewDataSource {
+extension InfoDataManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }

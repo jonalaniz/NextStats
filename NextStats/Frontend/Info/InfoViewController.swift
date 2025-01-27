@@ -9,49 +9,28 @@
 import StoreKit
 import UIKit
 
-class InfoViewController: UIViewController {
+class InfoViewController: BaseTableViewController {
     weak var coordinator: InfoCoordinator?
+    let dataManager = InfoDataManager.shared
     var products = [SKProduct]()
-    let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
 
     override func viewDidLoad() {
+        titleText = "Info"
+        prefersLargeTitles = false
+        tableStyle = .insetGrouped
+        tableViewHeaderView = HeaderView()
+        dataManager.delegate = self
+        dataSource = dataManager
+        delegate = self
         super.viewDidLoad()
-        setupView()
-
-        NotificationCenter.default.addObserver(forName: .IAPHelperPurchaseNotification,
-                                               object: nil,
-                                               queue: .main) { [weak self] _ in
-            self?.thank()
-        }
+        setupNotifications()
     }
 
-    private func setupView() {
-        // Setup Navigation Bar
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                           target: self,
-                                                           action: #selector(dismissController))
-        title = "Info"
-
-        // Setup View
-        view.backgroundColor = .systemBackground
-
-        // Setup TableViewHeader
-        tableView.tableHeaderView = HeaderView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.5
-        tableView.backgroundView = backgroundView
-
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+    override func setupNavigationController() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(dismissController))
     }
 
     @objc func dismissController() {
@@ -67,5 +46,42 @@ class InfoViewController: UIViewController {
                                          style: .default,
                                          handler: nil)))
         present(thankAC, animated: true)
+    }
+
+    private func setupNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self,
+                                       selector: #selector(thank),
+                                       name: .IAPHelperPurchaseNotification,
+                                       object: nil)
+    }
+}
+
+extension InfoViewController: AboutModelDelegate {
+    func iapEnabled() {
+        tableView.insertSections(IndexSet(integer: AboutSection.support.rawValue), with: .fade)
+    }
+}
+
+extension InfoViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let tableSection = AboutSection(rawValue: indexPath.section)
+        else { return }
+
+        let row = indexPath.row
+
+        switch tableSection {
+        case .icon: toggleIcon()
+        case .licenses: coordinator?.showWebView(urlString: dataManager.licenseURLFor(row: row))
+        case .support: dataManager.buyProduct(row)
+        default: return
+        }
+    }
+
+    private func toggleIcon() {
+        dataManager.toggleIcon()
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
 }

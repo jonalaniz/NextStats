@@ -15,6 +15,7 @@ class MainCoordinator: NSObject, Coordinator {
     let mainViewController: ServerViewController
     let detailNavigationController: UINavigationController
     let statsViewController: StatsViewController
+    let infoViewController = InfoViewController()
 
     let serverManager = NXServerManager.shared
 
