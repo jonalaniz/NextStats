@@ -57,63 +57,39 @@ extension InfoDataManager: UITableViewDataSource {
     }
 
     private func iconCell(_ row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "IconCell")
-
         let light = UIApplication.shared.alternateIconName
+        let secondaryText = (light != nil) ? ("Light") : ("Default")
 
-        var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .theme
-        content.secondaryTextProperties.color = .secondaryLabel
-        content.text = "App Icon Type"
-
-        (light != nil) ? (content.secondaryText = "Light") : (content.secondaryText = "Default")
-        cell.contentConfiguration = content
-
-        return cell
+        return infoTableViewCell(style: .value1,
+                                 reuseIdentifier: "IconCell",
+                                 text: "App Icon Type",
+                                 secondaryText: secondaryText)
     }
 
     private func developerCell(_ row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "DeveloperCell")
-        cell.isUserInteractionEnabled = false
-
-        var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .theme
-        content.secondaryTextProperties.color = .secondaryLabel
-        content.text = .localized(.infoScreenDevTitle)
-        content.secondaryText = developerNames[row]
-        cell.contentConfiguration = content
-
-        return cell
+        return infoTableViewCell(style: .value1,
+                                 reuseIdentifier: "DeveloperCell",
+                                 text: .localized(.infoScreenDevTitle),
+                                 secondaryText: developerNames[row],
+                                 isInteractive: false)
     }
 
     private func translationCell(_ row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "TranslationCell")
-        cell.isUserInteractionEnabled = false
-
-        var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .theme
-        content.secondaryTextProperties.color = .secondaryLabel
-        content.text = translatorLanguages[row]
-        content.secondaryText = translatorNames[row]
-        cell.contentConfiguration = content
-
-        return cell
+        return infoTableViewCell(style: .value1,
+                                 reuseIdentifier: "TranslationCell",
+                                 text: translatorLanguages[row],
+                                 secondaryText: translatorNames[row],
+                                 isInteractive: false)
     }
 
     private func licensesCell(_ row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "LicenseCell")
-        cell.accessoryType = .disclosureIndicator
-
-        var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .theme
-        content.text = licences[row]
-        cell.contentConfiguration = content
-
-        return cell
+        return infoTableViewCell(style: .default,
+                                 reuseIdentifier: "LicenseCell",
+                                 text: licences[row],
+                                 accessoryType: .disclosureIndicator)
     }
 
     private func productsCell(_ row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "SupportCell")
         let product = products[row]
 
         // Setup currency
@@ -123,11 +99,27 @@ extension InfoDataManager: UITableViewDataSource {
 
         let cost = formatter.string(from: product.price)
 
-        // Setup content
+        return infoTableViewCell(style: .value1,
+                                 reuseIdentifier: "SupportCell",
+                                 text: product.localizedTitle,
+                                 secondaryText: cost)
+    }
+
+    private func infoTableViewCell(style: UITableViewCell.CellStyle,
+                                   reuseIdentifier: String,
+                                   text: String,
+                                   secondaryText: String? = nil,
+                                   isInteractive: Bool = true,
+                                   accessoryType: UITableViewCell.AccessoryType = .none) -> UITableViewCell {
+        let cell = UITableViewCell(style: style, reuseIdentifier: reuseIdentifier)
+        cell.isUserInteractionEnabled = isInteractive
+        cell.accessoryType = accessoryType
+
         var content = cell.defaultContentConfiguration()
         content.textProperties.color = .theme
-        content.text = product.localizedTitle
-        content.secondaryText = cost
+        content.secondaryTextProperties.color = .secondaryLabel
+        content.text = text
+        content.secondaryText = secondaryText
         cell.contentConfiguration = content
 
         return cell
