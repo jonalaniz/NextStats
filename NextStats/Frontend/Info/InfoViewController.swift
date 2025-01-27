@@ -57,10 +57,17 @@ class InfoViewController: BaseTableViewController {
     }
 }
 
-extension InfoViewController: AboutModelDelegate {
-    func iapEnabled() {
+extension InfoViewController: DataManagerDelegate {
+    // This is called when IAP products have been gathered, only called once.
+    func dataUpdated() {
         tableView.insertSections(IndexSet(integer: AboutSection.support.rawValue), with: .fade)
     }
+    
+    func controllerDidSelect(_ selection: Int, title: String) {}
+    
+    func tableViewHeightUpdated() {}
+    
+
 }
 
 extension InfoViewController: UITableViewDelegate {

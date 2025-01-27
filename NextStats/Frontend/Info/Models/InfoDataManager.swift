@@ -15,7 +15,7 @@ enum AboutSection: Int, CaseIterable {
 
 class InfoDataManager: NSObject {
     public static let shared = InfoDataManager()
-    weak var delegate: AboutModelDelegate?
+    weak var delegate: DataManagerDelegate?
 
     var sections: [String] = ["App Icon",
                               .localized(.infoScreenDevHeader),
@@ -76,7 +76,7 @@ class InfoDataManager: NSObject {
             DispatchQueue.main.async {
                 self.products = unwrappedProducts
                 self.sections.append(.localized(.infoScreenSupportHeader))
-                self.delegate?.iapEnabled()
+                self.delegate?.dataUpdated()
             }
         }
     }
