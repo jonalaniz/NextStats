@@ -47,7 +47,7 @@ class ServerCell: UITableViewCell {
         #if targetEnvironment(macCatalyst)
         label.textColor = .label
         #else
-        label.textColor = .themeColor
+        label.textColor = .theme
         #endif
         return label
     }()
@@ -139,10 +139,10 @@ class ServerCell: UITableViewCell {
         switch status {
         case .online:
             statusLabel.text = "Online"
-            statusLabel.textColor = .statusLabelGreen
+            statusLabel.textColor = .themeGreen
         case .offline:
             statusLabel.text = "Offline"
-            statusLabel.textColor = .statusLabelRed
+            statusLabel.textColor = .themeRed
         case .maintenance:
             statusLabel.text = "Maintenance"
             statusLabel.textColor = .systemYellow

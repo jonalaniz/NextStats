@@ -57,7 +57,7 @@ class ServerViewController: UIViewController {
 
     private func configureNavigationAppearance() {
         title = "NextStats"
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
         navigationController?.toolbar.configureAppearance()
@@ -97,9 +97,9 @@ class ServerViewController: UIViewController {
         let addServerButton = UIButton(configuration: .plain())
         let addString: String = .localized(.serverAddButton)
         let aString = NSMutableAttributedString()
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.themeColor,
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.theme,
             .font: UIFont.boldSystemFont(ofSize: 16)]
-        aString.prefixingSFSymbol("externaldrive.fill.badge.plus", color: .themeColor)
+        aString.prefixingSFSymbol("externaldrive.fill.badge.plus", color: .theme)
         aString.append(NSAttributedString(string: " \(addString)", attributes: attributes))
         addServerButton.setAttributedTitle(aString, for: .normal)
 

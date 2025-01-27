@@ -33,7 +33,7 @@ class ProgressCell: UITableViewCell {
     var progressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.progressTintColor = .themeColor
+        progressView.progressTintColor = .theme
 
         return progressView
     }()
@@ -88,13 +88,13 @@ class ProgressCell: UITableViewCell {
 
         switch icon {
         case .storage:
-            string.prefixingSFSymbol("internaldrive", color: .themeColor)
+            string.prefixingSFSymbol("internaldrive", color: .theme)
         case .memory:
-            string.prefixingSFSymbol("memorychip", color: .themeColor)
-            string.append(NSAttributedString(string: " RAM", attributes: [.foregroundColor: UIColor.themeColor]))
+            string.prefixingSFSymbol("memorychip", color: .theme)
+            string.append(NSAttributedString(string: " RAM", attributes: [.foregroundColor: UIColor.theme]))
         case .swap:
-            string.prefixingSFSymbol("memorychip.fill", color: .themeColor)
-            string.append(NSAttributedString(string: " Swap", attributes: [.foregroundColor: UIColor.themeColor]))
+            string.prefixingSFSymbol("memorychip.fill", color: .theme)
+            string.append(NSAttributedString(string: " Swap", attributes: [.foregroundColor: UIColor.theme]))
         }
         iconLabel.attributedText = string
     }

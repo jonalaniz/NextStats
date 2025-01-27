@@ -40,7 +40,7 @@ class HeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .largeTitle)
-        label.textColor = .themeColor
+        label.textColor = .theme
         label.text = "NextStats"
 
         return label

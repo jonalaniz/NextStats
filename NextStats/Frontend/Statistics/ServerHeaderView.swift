@@ -16,8 +16,8 @@ struct ServerHeaderViewConstants {
     static let userString: NSAttributedString = {
         let string = NSMutableAttributedString()
         string.append(NSAttributedString(string: " " + .localized(.users) + " "))
-        string.prefixingSFSymbol("person.fill", color: .themeColor)
-        string.suffixingSFSymbol("chevron.right", color: .themeColor)
+        string.prefixingSFSymbol("person.fill", color: .theme)
+        string.suffixingSFSymbol("chevron.right", color: .theme)
 
         return string
     }()
@@ -57,7 +57,7 @@ class ServerHeaderView: UIView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
-        label.textColor = .themeColor
+        label.textColor = .theme
         label.numberOfLines = 0
 
         return label
@@ -73,11 +73,11 @@ class ServerHeaderView: UIView {
 
     let users: UIButton = {
         let button = UIButton(configuration: .plain())
-        button.backgroundColor = .buttonColor
+        button.backgroundColor = .button
         button.layer.cornerRadius = 10
 
         button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
-        button.setTitleColor(.themeColor, for: .normal)
+        button.setTitleColor(.theme, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         let insets = NSDirectionalEdgeInsets(top: 13.0,
                                              leading: 14.0,
@@ -89,11 +89,11 @@ class ServerHeaderView: UIView {
 
     let visitServerButton: UIButton = {
         let button = UIButton(configuration: .plain())
-        button.backgroundColor = .buttonColor
+        button.backgroundColor = .button
         button.layer.cornerRadius = 10
         button.sfSymbolWithText(symbol: "safari.fill",
                                 text: .localized(.serverHeaderVisit),
-                                color: .themeColor)
+                                color: .theme)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         let insets = NSDirectionalEdgeInsets(top: 13.0,
                                              leading: 14.0,

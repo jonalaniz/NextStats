@@ -53,7 +53,7 @@ class UserViewController: UIViewController {
     func setTitleColor() {
         let color: UIColor
         guard let enabled = dataManager.user?.data.enabled else { return }
-        enabled ? (color = .themeColor) : (color = .systemGray)
+        enabled ? (color = .theme) : (color = .systemGray)
 
         let attributes = [NSAttributedString.Key.foregroundColor: color]
         navigationController?.navigationBar.titleTextAttributes = attributes

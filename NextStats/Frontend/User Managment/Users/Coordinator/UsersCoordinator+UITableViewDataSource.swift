@@ -91,7 +91,7 @@ extension UsersCoordinator: UITableViewDataSource {
 
         switch type {
         case .primary:
-            content.textProperties.color = .themeColor
+            content.textProperties.color = .theme
         case .additional:
             content.textProperties.color = .secondaryLabel
         }
@@ -108,7 +108,7 @@ extension UsersCoordinator: UITableViewDataSource {
         cell.isUserInteractionEnabled = false
 
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.secondaryTextProperties.color = .secondaryLabel
 
         switch row {
@@ -147,7 +147,7 @@ extension UsersCoordinator: UITableViewDataSource {
         cell.isUserInteractionEnabled = false
 
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.secondaryTextProperties.color = .secondaryLabel
 
         switch cellType {

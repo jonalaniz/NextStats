@@ -34,7 +34,7 @@ class AddServerHeaderView: UIView {
     let statusLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
-        label.textColor = .statusLabelRed
+        label.textColor = .themeRed
         label.font = .systemFont(ofSize: 12, weight: .bold)
         label.textAlignment = .center
         label.numberOfLines = 0

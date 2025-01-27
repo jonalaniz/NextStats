@@ -62,7 +62,7 @@ extension InfoDataManager: UITableViewDataSource {
         let light = UIApplication.shared.alternateIconName
 
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.secondaryTextProperties.color = .secondaryLabel
         content.text = "App Icon Type"
 
@@ -77,7 +77,7 @@ extension InfoDataManager: UITableViewDataSource {
         cell.isUserInteractionEnabled = false
 
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.secondaryTextProperties.color = .secondaryLabel
         content.text = .localized(.infoScreenDevTitle)
         content.secondaryText = developerNames[row]
@@ -91,7 +91,7 @@ extension InfoDataManager: UITableViewDataSource {
         cell.isUserInteractionEnabled = false
 
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.secondaryTextProperties.color = .secondaryLabel
         content.text = translatorLanguages[row]
         content.secondaryText = translatorNames[row]
@@ -105,7 +105,7 @@ extension InfoDataManager: UITableViewDataSource {
         cell.accessoryType = .disclosureIndicator
 
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.text = licences[row]
         cell.contentConfiguration = content
 
@@ -125,7 +125,7 @@ extension InfoDataManager: UITableViewDataSource {
 
         // Setup content
         var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .themeColor
+        content.textProperties.color = .theme
         content.text = product.localizedTitle
         content.secondaryText = cost
         cell.contentConfiguration = content

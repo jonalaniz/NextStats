@@ -18,7 +18,7 @@ class UserCell: UITableViewCell {
         content.secondaryText = enabled()
 
         let color: UIColor
-        user.enabled ? (color = .themeColor) : (color = .secondaryLabel)
+        user.enabled ? (color = .theme) : (color = .secondaryLabel)
         content.secondaryTextProperties.color = color
 
         contentConfiguration = content

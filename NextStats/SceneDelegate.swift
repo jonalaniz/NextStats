@@ -66,7 +66,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         // Set the window to the SplitViewController
         window.rootViewController = splitViewController
         window.makeKeyAndVisible()
-        window.tintColor = .themeColor
+        window.tintColor = .theme
     }
 
     func splitViewController(_ splitViewController: UISplitViewController,

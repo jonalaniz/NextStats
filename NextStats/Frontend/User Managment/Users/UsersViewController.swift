@@ -70,7 +70,7 @@ class UsersViewController: UIViewController {
     }
 
     private func setTitleColor() {
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.themeColor]
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
     }
