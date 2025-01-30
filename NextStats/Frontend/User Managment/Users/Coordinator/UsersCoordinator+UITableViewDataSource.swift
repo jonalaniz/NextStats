@@ -104,38 +104,35 @@ extension UsersCoordinator: UITableViewDataSource {
 
     // Status
     func statusCell(_ row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
-        cell.isUserInteractionEnabled = false
-
-        var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .theme
-        content.secondaryTextProperties.color = .secondaryLabel
+        let text: String
+        let secondaryText: String
 
         switch row {
         case 0:
-            content.text = "Groups"
-            content.secondaryText = formatter.groups()
+            text = "Groups"
+            secondaryText = formatter.groups()
         case 1:
-            content.text = "SubAdmin"
-            content.secondaryText = formatter.subadmin()
+            text = "SubAdmin"
+            secondaryText = formatter.subadmin()
         case 2:
-            content.text = .localized(.language)
-            content.secondaryText = formatter.language()
+            text = .localized(.language)
+            secondaryText = formatter.language()
         case 3:
-            content.text = .localized(.lastLogin)
-            content.secondaryText = formatter.lastLogonString()
+            text = .localized(.lastLogin)
+            secondaryText = formatter.lastLogonString()
         case 4:
-            content.text = .localized(.location)
-            content.secondaryText = formatter.location()
+            text = .localized(.location)
+            secondaryText = formatter.location()
         case 5:
-            content.text = .localized(.backend)
-            content.secondaryText = formatter.backend()
-        default:
-            break
+            text = .localized(.backend)
+            secondaryText = formatter.backend()
+        default: return UITableViewCell()
         }
 
-        cell.contentConfiguration = content
-        return cell
+        return usersCell(style: .value1,
+                         reuseIdentifier: "StatusCell",
+                         text: text,
+                         secondaryText: secondaryText)
     }
 
     // Capabilities
@@ -143,22 +140,41 @@ extension UsersCoordinator: UITableViewDataSource {
         guard let cellType = CapabilitiesCellType(rawValue: row)
         else { return UITableViewCell() }
 
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "StatusCell")
-        cell.isUserInteractionEnabled = false
+        let text: String
+        var secondaryText: String?
+        var accessoryType: UITableViewCell.AccessoryType = .none
+
+        switch cellType {
+        case .displayName:
+            text = .localized(.setDisplayName)
+            formatter.canSetName() ? (accessoryType = .checkmark) : (secondaryText = .localized(.no))
+        case .password:
+            text = .localized(.setPassword)
+            formatter.canSetPassword() ? (accessoryType = .checkmark) : (secondaryText = .localized(.no))
+        }
+
+        return usersCell(style: .value1,
+                         reuseIdentifier: "StatusCell",
+                         text: text,
+                         secondaryText: secondaryText,
+                         accessoryType: accessoryType)
+    }
+
+    private func usersCell(style: UITableViewCell.CellStyle,
+                           reuseIdentifier: String,
+                           text: String,
+                           secondaryText: String? = nil,
+                           isInteractive: Bool = false,
+                           accessoryType: UITableViewCell.AccessoryType = .none) -> UITableViewCell {
+        let cell = UITableViewCell(style: style, reuseIdentifier: reuseIdentifier)
+        cell.isUserInteractionEnabled = isInteractive
+        cell.accessoryType = accessoryType
 
         var content = cell.defaultContentConfiguration()
         content.textProperties.color = .theme
         content.secondaryTextProperties.color = .secondaryLabel
-
-        switch cellType {
-        case .displayName:
-            content.text = .localized(.setDisplayName)
-            formatter.canSetName() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
-        case .password:
-            content.text = .localized(.setPassword)
-            formatter.canSetPassword() ? (cell.accessoryType = .checkmark) : (content.secondaryText = .localized(.no))
-        }
-
+        content.text = text
+        content.secondaryText = secondaryText
         cell.contentConfiguration = content
         return cell
     }

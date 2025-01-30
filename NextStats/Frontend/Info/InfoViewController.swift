@@ -62,12 +62,10 @@ extension InfoViewController: DataManagerDelegate {
     func dataUpdated() {
         tableView.insertSections(IndexSet(integer: AboutSection.support.rawValue), with: .fade)
     }
-    
-    func controllerDidSelect(_ selection: Int, title: String) {}
-    
-    func tableViewHeightUpdated() {}
-    
 
+    func controllerDidSelect(_ selection: Int, title: String) {}
+
+    func tableViewHeightUpdated() {}
 }
 
 extension InfoViewController: UITableViewDelegate {
