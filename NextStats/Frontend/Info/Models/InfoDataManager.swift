@@ -9,7 +9,7 @@
 import StoreKit
 import UIKit
 
-enum AboutSection: Int, CaseIterable {
+enum InfoSection: Int, CaseIterable {
     case icon, development, translators, licenses, support
 }
 
@@ -32,10 +32,12 @@ class InfoDataManager: NSObject {
                            "Carina Pfaffelhuber",
                            "@rakekniven",
                            "Hüseyin Fahri Uzun"]
-    let licences = ["MIT License",
+    let licenses = ["MIT License",
                     "GNU AGPLv3 License"]
 
     var products = [SKProduct]()
+
+    private override init() {}
 
     func toggleIcon() {
         let icon = UIApplication.shared.alternateIconName

@@ -18,7 +18,7 @@ extension InfoDataManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        guard let tableSection = AboutSection(rawValue: section)
+        guard let tableSection = InfoSection(rawValue: section)
         else { return "" }
 
         switch tableSection {
@@ -29,20 +29,20 @@ extension InfoDataManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tableSection = AboutSection(rawValue: section)
+        guard let tableSection = InfoSection(rawValue: section)
         else { return 0 }
 
         switch tableSection {
         case .icon: return 1
         case .development: return developerNames.count
         case .translators: return translatorNames.count
-        case .licenses: return licences.count
+        case .licenses: return licenses.count
         case .support: return products.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let tableSection = AboutSection(rawValue: indexPath.section)
+        guard let tableSection = InfoSection(rawValue: indexPath.section)
         else { return UITableViewCell() }
 
         let row = indexPath.row
@@ -85,7 +85,7 @@ extension InfoDataManager: UITableViewDataSource {
     private func licensesCell(_ row: Int) -> UITableViewCell {
         return infoTableViewCell(style: .default,
                                  reuseIdentifier: "LicenseCell",
-                                 text: licences[row],
+                                 text: licenses[row],
                                  accessoryType: .disclosureIndicator)
     }
 

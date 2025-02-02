@@ -60,7 +60,7 @@ class InfoViewController: BaseTableViewController {
 extension InfoViewController: DataManagerDelegate {
     // This is called when IAP products have been gathered, only called once.
     func dataUpdated() {
-        tableView.insertSections(IndexSet(integer: AboutSection.support.rawValue), with: .fade)
+        tableView.insertSections(IndexSet(integer: InfoSection.support.rawValue), with: .fade)
     }
 
     func controllerDidSelect(_ selection: Int, title: String) {}
@@ -72,7 +72,7 @@ extension InfoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        guard let tableSection = AboutSection(rawValue: indexPath.section)
+        guard let tableSection = InfoSection(rawValue: indexPath.section)
         else { return }
 
         let row = indexPath.row
