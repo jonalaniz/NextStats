@@ -8,20 +8,22 @@
 
 import UIKit
 
-class ServerViewController: UIViewController {
+class ServerViewController: BaseTableViewController {
     weak var coordinator: MainCoordinator?
 
     let noServersViewController = NoServersViewController()
     let serverManager = NXServerManager.shared
-    var tableView: UITableView!
 
     override func viewDidLoad() {
+        titleText = "NextStats"
+        tableStyle = isMacCatalyst() ? .plain : .insetGrouped
+        delegate = coordinator
+        dataSource = coordinator
         super.viewDidLoad()
         serverManager.delegate = coordinator
-        configureNavigationAppearance()
-        setupView()
-        setupToolbar()
         serverManager.pingServers()
+        addNoServersViewController()
+        coordinator?.serversDidChange(refresh: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,93 +40,48 @@ class ServerViewController: UIViewController {
         tableView.setEditing(editing, animated: true)
     }
 
-    private func setupView() {
-        setupTableView()
-        addNoServersViewController()
-
-        // Initial server checking
-        coordinator?.serversDidChange(refresh: false)
-    }
-
     private func addNoServersViewController() {
-        noServersViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(noServersViewController.view)
-        activateFullScreenConstraints(for: noServersViewController.view)
-
+        addFullScreenSubview(noServersViewController.view)
         addChild(noServersViewController)
         noServersViewController.didMove(toParent: self)
     }
 
-    private func configureNavigationAppearance() {
-        title = "NextStats"
+    override func setupNavigationController() {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
         navigationController?.navigationBar.titleTextAttributes = attributes
         navigationController?.navigationBar.largeTitleTextAttributes = attributes
         navigationController?.toolbar.configureAppearance()
-        navigationController?.navigationBar.prefersLargeTitles = true
 
-        if isRunningOnMacCatalyst() {
+        if isMacCatalyst() {
             navigationController?.setNavigationBarHidden(true, animated: true)
         } else {
             navigationController?.isToolbarHidden = false
         }
     }
 
-    private func setupTableView() {
-        let style: UITableView.Style = isRunningOnMacCatalyst() ? .plain : .insetGrouped
-        tableView = UITableView(frame: .zero, style: style)
-
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.8
-        tableView.backgroundView = backgroundView
-
-        if !isRunningOnMacCatalyst() {
+    override func setupTableView() {
+        super.setupTableView()
+        if !isMacCatalyst() {
             tableView.refreshControl = UIRefreshControl()
             tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         }
 
-        tableView.delegate = coordinator
-        tableView.dataSource = coordinator
         tableView.rowHeight = 100
-        tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-
-        activateFullScreenConstraints(for: tableView)
     }
 
-    private func setupToolbar() {
-        let addServerButton = UIButton(configuration: .plain())
-        let addString: String = .localized(.serverAddButton)
-        let aString = NSMutableAttributedString()
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.theme,
-            .font: UIFont.boldSystemFont(ofSize: 16)]
-        aString.prefixingSFSymbol("externaldrive.fill.badge.plus", color: .theme)
-        aString.append(NSAttributedString(string: " \(addString)", attributes: attributes))
-        addServerButton.setAttributedTitle(aString, for: .normal)
+    override func setupToolbar() {
+        let addServerButtonView = createToolbarButton(image: "externaldrive.fill.badge.plus",
+                                                      text: .localized(.serverAddButton),
+                                                      action: #selector(addServerPressed))
 
-        addServerButton.addTarget(self, action: #selector(addServerPressed), for: .touchUpInside)
-        let insets = NSDirectionalEdgeInsets(top: 10.0,
-                                             leading: 0,
-                                             bottom: 14.0,
-                                             trailing: 10.0)
-        addServerButton.configuration?.contentInsets = insets
-
-        let addServerButtonView = UIBarButtonItem(customView: addServerButton)
-
-        let aboutButton = UIButton(configuration: .plain())
-        aboutButton.addTarget(self,
-                              action: #selector(infoButtonPressed),
-                              for: .touchUpInside)
-        aboutButton.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
-        let aboutButtonInsets = NSDirectionalEdgeInsets(top: 10.0,
-                                                        leading: 10.0,
-                                                        bottom: 14.0,
-                                                        trailing: 0)
-        aboutButton.configuration?.contentInsets = aboutButtonInsets
-        let aboutButtonView = UIBarButtonItem(customView: aboutButton)
+        let aboutButtonView = createToolbarButton(image: "info.circle.fill",
+                                                  action: #selector(infoButtonPressed))
 
         toolbarItems = [addServerButtonView, .flexibleSpace(), aboutButtonView]
+    }
+
+    override func registerCells() {
+        tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
     }
 
     @objc func addServerPressed() {
@@ -147,27 +104,38 @@ class ServerViewController: UIViewController {
         tableView.refreshControl?.endRefreshing()
     }
 
-    private func activateFullScreenConstraints(for subview: UIView) {
-        NSLayoutConstraint.activate([
-            subview.topAnchor.constraint(equalTo: view.topAnchor),
-            subview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            subview.leftAnchor.constraint(equalTo: view.leftAnchor),
-            subview.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-    }
-
-    private func isRunningOnMacCatalyst() -> Bool {
-        #if targetEnvironment(macCatalyst)
-        return true
-        #else
-        return false
-        #endif
-    }
-
+    // TODO: Make private
+    // This is currently called by the coordinator, will need to be called from the datamanger eventually
     func updateUIBasedOnServerState() {
         let hasServers = serverManager.serverCount() > 0
         tableView.isHidden = !hasServers
         noServersViewController.view.isHidden = hasServers
         navigationItem.rightBarButtonItem = hasServers ? editButtonItem : nil
+    }
+
+    private func createToolbarButton(image: String, text: String? = nil, action: Selector) -> UIBarButtonItem {
+        let button = UIButton(configuration: .plain())
+        button.addTarget(self, action: action, for: .touchUpInside)
+
+        if let text = text {
+            let attributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.theme,
+                .font: UIFont.boldSystemFont(ofSize: 16)
+            ]
+
+            let attributedString = NSMutableAttributedString()
+            attributedString.prefixingSFSymbol(image, color: .theme)
+            attributedString.append(NSAttributedString(string: " \(text)", attributes: attributes))
+            button.setAttributedTitle(attributedString, for: .normal)
+        } else {
+            button.setImage(UIImage(systemName: image), for: .normal)
+        }
+
+        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 10.0,
+                                                                      leading: 10.0,
+                                                                      bottom: 14.0,
+                                                                      trailing: 10.0)
+
+        return UIBarButtonItem(customView: button)
     }
 }
