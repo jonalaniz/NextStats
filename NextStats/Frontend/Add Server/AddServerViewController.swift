@@ -8,28 +8,25 @@
 
 import UIKit
 
-class AddServerViewController: UIViewController {
+class AddServerViewController: BaseTableViewController {
     weak var coordinator: AddServerCoordinator?
 
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let headerView = AddServerHeaderView()
     private var tableViewBottomConstraint: NSLayoutConstraint?
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        tableViewHeaderView = headerView
+        tableStyle = .insetGrouped
+        titleText = .localized(.addScreenTitle)
+        super.viewDidLoad()
         subscribeToKeyboardNotifications()
-        setupNavigationController()
-        setupView()
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
-    private func setupNavigationController() {
-        title = .localized(.addScreenTitle)
-        navigationController?.navigationBar.prefersLargeTitles = true
-
+    override func setupNavigationController() {
         let nextButton = UIBarButtonItem(title: "Next",
                                          style: .plain,
                                          target: self,
@@ -41,35 +38,23 @@ class AddServerViewController: UIViewController {
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = nextButton
         navigationItem.rightBarButtonItem?.isEnabled = false
-
     }
 
-    private func setupView() {
-        tableView.tableHeaderView = headerView
-        tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
-        tableView.delegate = self
+    override func setupTableView() {
+        super.setupTableView()
         tableView.alwaysBounceVertical = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.rowHeight = 44
+        tableView.sectionHeaderHeight = 28
 
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.5
-        tableView.backgroundView = backgroundView
-
-        view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
-
-        let bottomContstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        tableViewBottomConstraint = bottomContstraint
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            bottomContstraint,
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+        tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        tableViewBottomConstraint?.isActive = true
     }
 
-    func updateStatusLabel(with text: String) {
-        print("Update Status Label: \(text)")
+    override func registerCells() {
+        tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
+    }
+
+    func updateLabel(with text: String) {
         navigationItem.rightBarButtonItem?.isEnabled = false
         headerView.statusLabel.isHidden = false
         headerView.statusLabel.text = text
@@ -85,24 +70,15 @@ class AddServerViewController: UIViewController {
         guard
             let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
             let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell
-        else {
-            fatalError("Cannot cast cell as ServerInputCell")
-        }
+        else { fatalError("Cannot cast cell as InputCell") }
 
         guard let urlString = urlCell.textField.text
         else {
-            updateStatusLabel(with: .localized(.serverFormEnterAddress))
+            updateLabel(with: .localized(.serverFormEnterAddress))
             return
         }
 
-        guard
-            let name = nicknameCell.textField.text,
-            name != ""
-        else {
-            coordinator?.requestAuthorization(with: urlString, named: "Server")
-            return
-        }
-
+        let name = nicknameCell.textField.text?.isEmpty == false ? nicknameCell.textField.text! : "Server"
         coordinator?.requestAuthorization(with: urlString, named: name)
 
     }
@@ -123,6 +99,8 @@ class AddServerViewController: UIViewController {
         UIView.animate(withDuration: duration) {
             self.view.layoutIfNeeded()
         }
+
+        self.tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .bottom, animated: true)
     }
 
     @objc private func keyboardWillDismiss(_ notification: Notification) {
@@ -146,11 +124,7 @@ class AddServerViewController: UIViewController {
 
         guard let urlString = cell.textField.text else { return }
 
-        if urlString != "" {
-            hideStatusAndEnableNextButton()
-        } else {
-            updateStatusLabel(with: .localized(.serverFormEnterAddress))
-        }
+        urlString.isEmpty ? updateLabel(with: .localized(.serverFormEnterAddress)) : hideStatusAndEnableNextButton()
     }
 
     private func subscribeToKeyboardNotifications() {
@@ -163,16 +137,5 @@ class AddServerViewController: UIViewController {
                                        selector: #selector(keyboardWillDismiss),
                                        name: UIResponder.keyboardWillHideNotification,
                                        object: nil)
-    }
-}
-
-// MARK: - TableViewDelegate
-extension AddServerViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 28
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
     }
 }

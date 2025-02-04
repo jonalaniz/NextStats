@@ -24,7 +24,7 @@ class AddServerCoordinator: NSObject, Coordinator {
 
     func start() {
         addServerVC.coordinator = self
-        addServerVC.tableView.dataSource = self
+        addServerVC.dataSource = self
         authenticator.delegate = self
         authenticator.errorHandler = self
 
@@ -87,6 +87,6 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
 
 extension AddServerCoordinator: ErrorHandling {
     func handleError(_ error: APIManagerError) {
-        addServerVC.updateStatusLabel(with: error.localizedDescription)
+        addServerVC.updateLabel(with: error.localizedDescription)
     }
 }
