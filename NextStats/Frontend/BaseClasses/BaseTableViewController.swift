@@ -107,15 +107,6 @@ class BaseTableViewController: UIViewController {
         #endif
     }
 
-    /// Adds a subview that fills the entire view.
-    ///
-    /// - Parameter subview: The subview to be added and constrained.
-    func addFullScreenSubview(_ subview: UIView) {
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(subview)
-        activateFullScreenConstraints(for: view)
-    }
-
     /// Activates layout constraints to make the given subview fill the entire view.
     ///
     /// - Parameter subview: The subview to constrain.

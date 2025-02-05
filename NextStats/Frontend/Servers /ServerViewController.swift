@@ -22,7 +22,7 @@ class ServerViewController: BaseTableViewController {
         super.viewDidLoad()
         serverManager.delegate = coordinator
         serverManager.pingServers()
-        addNoServersViewController()
+        add(noServersViewController)
         coordinator?.serversDidChange(refresh: false)
     }
 
@@ -38,12 +38,6 @@ class ServerViewController: BaseTableViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
         tableView.setEditing(editing, animated: true)
-    }
-
-    private func addNoServersViewController() {
-        addFullScreenSubview(noServersViewController.view)
-        addChild(noServersViewController)
-        noServersViewController.didMove(toParent: self)
     }
 
     override func setupNavigationController() {
