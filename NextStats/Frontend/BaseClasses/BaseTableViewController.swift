@@ -35,7 +35,7 @@ class BaseTableViewController: UIViewController {
     var prefersLargeTitles = true
 
     /// The background image view for the table view.
-    var backgroundView: UIImageView = {
+    private let backgroundView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "background")
         imageView.layer.opacity = 0.5
