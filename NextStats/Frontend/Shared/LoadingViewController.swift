@@ -8,15 +8,7 @@
 
 import UIKit
 
-class LoadingViewController: UIViewController {
-    private let backgroundView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "background")
-        imageView.layer.opacity = 0.5
-        return imageView
-    }()
-
+class LoadingViewController: BaseViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,26 +35,19 @@ class LoadingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        setupConstraints()
         activityIndicator.startAnimating()
     }
 
-    private func setupView() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(backgroundView)
+    override func setupView() {
+        super.setupView()
         view.addSubview(stackView)
-
         stackView.addArrangedSubview(activityIndicator)
         stackView.addArrangedSubview(textLabel)
     }
 
-    private func setupConstraints() {
+    override func constrainView() {
+        super.constrainView()
         NSLayoutConstraint.activate([
-            backgroundView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            backgroundView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             stackView.widthAnchor.constraint(equalToConstant: 180),
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)

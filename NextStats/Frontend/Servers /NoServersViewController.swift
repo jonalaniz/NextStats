@@ -8,9 +8,10 @@
 
 import UIKit
 
-class NoServersViewController: UIViewController {
+class NoServersViewController: BaseViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
@@ -39,15 +40,15 @@ class NoServersViewController: UIViewController {
         return label
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override func setupView() {
+        super.setupView()
+        view.addSubview(stackView)
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(textLabel)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    }
 
-        view.addSubview(stackView)
-
+    override func constrainView() {
+        super.constrainView()
         NSLayoutConstraint.activate([
             iconImageView.heightAnchor.constraint(equalToConstant: 180),
             iconImageView.widthAnchor.constraint(equalToConstant: 180),

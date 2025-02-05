@@ -130,6 +130,7 @@
 		56E6834126B245A800C1E17C /* IAP Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834026B245A800C1E17C /* IAP Helper.swift */; };
 		56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834226B245AF00C1E17C /* NextStats Products.swift */; };
 		56EFB6CE2BF5DEEF004F6A53 /* WipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */; };
+		56F1C6812D53606300EA03BD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F1C6802D53606300EA03BD /* BaseViewController.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
@@ -270,6 +271,7 @@
 		56E6834026B245A800C1E17C /* IAP Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IAP Helper.swift"; sourceTree = "<group>"; };
 		56E6834226B245AF00C1E17C /* NextStats Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NextStats Products.swift"; sourceTree = "<group>"; };
 		56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WipeObject.swift; sourceTree = "<group>"; };
+		56F1C6802D53606300EA03BD /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				56D557792D432A860027A1FB /* BaseTableViewController.swift */,
+				56F1C6802D53606300EA03BD /* BaseViewController.swift */,
 			);
 			path = BaseClasses;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				56E0AD8426ADABA90090ACB6 /* SelectServerViewController.swift in Sources */,
 				562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */,
 				569F2CA626AC2EB5001122F2 /* Users.swift in Sources */,
+				56F1C6812D53606300EA03BD /* BaseViewController.swift in Sources */,
 				569EBB0D2ADBBCDA00BE5985 /* UserCellModel.swift in Sources */,
 				569F2C7C26AAF61A001122F2 /* XMLKeyedDecodingContainer.swift in Sources */,
 				5647A6442BA4023A000D51F7 /* Groups.swift in Sources */,
