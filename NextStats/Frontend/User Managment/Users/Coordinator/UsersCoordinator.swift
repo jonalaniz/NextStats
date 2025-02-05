@@ -55,7 +55,7 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func updateUsers() {
-        usersViewController.showLoadingView()
+        usersViewController.toggleLoadingState(isLoading: true)
         usersManager.fetchUsersData()
     }
 

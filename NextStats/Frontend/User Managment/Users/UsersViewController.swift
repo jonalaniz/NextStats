@@ -8,34 +8,34 @@
 
 import UIKit
 
-class UsersViewController: UIViewController {
+/// A view controller that displays a list of users.
+class UsersViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
-
     let usersDataManager = NXUsersManager.shared
     let loadingViewController = LoadingViewController()
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
 
     override func viewDidLoad() {
+        delegate = self
+        dataSource = self
+        tableStyle = .insetGrouped
+        titleText = .localized(.users)
         super.viewDidLoad()
-        setupNavigationController()
-        setupView()
-        showLoadingView()
+        toggleLoadingState(isLoading: true)
         usersDataManager.fetchUsersData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setTitleColor()
-
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
     }
 
-    private func setupNavigationController() {
-        title = .localized(.users)
-        navigationController?.navigationBar.prefersLargeTitles = true
+    override func setupNavigationController() {
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
 
         let dismissButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                             target: self,
@@ -48,43 +48,18 @@ class UsersViewController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
-    private func setupView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UserCell.self, forCellReuseIdentifier: "Cell")
-
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.5
-        tableView.backgroundView = backgroundView
-
-        view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+    override func registerCells() {
+        tableView.register(UserCell.self, forCellReuseIdentifier: "UserCell")
     }
 
-    private func setTitleColor() {
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
-        navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
-    }
+    func toggleLoadingState(isLoading: Bool) {
+        tableView.isHidden = isLoading
 
-    func showLoadingView() {
-        add(loadingViewController)
-        tableView.isHidden = true
-    }
-
-    func showData() {
-        navigationItem.rightBarButtonItem?.isEnabled = true
-        tableView.reloadData()
-        tableView.isHidden = false
-        loadingViewController.remove()
+        if isLoading { add(loadingViewController) } else {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            tableView.reloadData()
+            loadingViewController.remove()
+        }
     }
 
     @objc func dismissController() {
@@ -103,26 +78,20 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let userModel = usersDataManager.userCellModel(indexPath.row) else {
-            return UITableViewCell()
-        }
+        guard let userModel = usersDataManager.userCellModel(indexPath.row),
+              let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell
+        else { return UITableViewCell() }
 
-        let cell = UserCell(style: .subtitle, reuseIdentifier: "Cell")
         cell.user = userModel
         cell.setup()
-
         cell.accessoryType = .disclosureIndicator
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let userModel = usersDataManager.userCellModel(indexPath.row) else {
-            return
-        }
-
+        guard let userModel = usersDataManager.userCellModel(indexPath.row) else { return }
         let user = usersDataManager.user(id: userModel.userID)
-
         coordinator?.showUserView(for: user)
     }
 

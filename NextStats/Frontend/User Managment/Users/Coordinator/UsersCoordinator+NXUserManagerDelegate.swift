@@ -19,7 +19,7 @@ extension UsersCoordinator: NXUserManagerDelegate {
             userViewController.dataManager.user?.data.enabled.toggle()
             userViewController.setTitleColor()
         case .usersLoaded:
-            usersViewController.showData()
+            usersViewController.toggleLoadingState(isLoading: false)
         }
     }
 }
