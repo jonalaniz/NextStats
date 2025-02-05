@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SelectServerViewController: UIViewController {
+class SelectServerViewController: BaseViewController {
     private let textLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = .localized(.statsScreenSelectLabel)
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
@@ -20,13 +21,13 @@ class SelectServerViewController: UIViewController {
         return label
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .systemGroupedBackground
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
+    override func setupView() {
+        super.setupView()
         view.addSubview(textLabel)
+    }
 
+    override func constrainView() {
+        super.constrainView()
         NSLayoutConstraint.activate([
             textLabel.widthAnchor.constraint(equalToConstant: 250),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
