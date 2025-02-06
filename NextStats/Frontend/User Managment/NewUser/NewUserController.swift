@@ -8,19 +8,16 @@
 
 import UIKit
 
-class NewUserController: UIViewController {
+class NewUserController: BaseTableViewController {
     weak var coordinator: NewUserCoordinator?
 
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
-
     override func viewDidLoad() {
+        titleText = .localized(.newUser)
+        tableStyle = .insetGrouped
         super.viewDidLoad()
-        setupNavigationController()
-        setupView()
     }
 
-    private func setupNavigationController() {
-        title = .localized(.newUser)
+    override func setupNavigationController() {
         navigationController?.navigationBar.prefersLargeTitles = true
 
         let cancel = UIBarButtonItem(barButtonSystemItem: .cancel,
@@ -35,23 +32,8 @@ class NewUserController: UIViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
-    private func setupView() {
+    override func registerCells() {
         tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.5
-        tableView.backgroundView = backgroundView
-
-        view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
     }
 
     @objc func cancelPressed() {

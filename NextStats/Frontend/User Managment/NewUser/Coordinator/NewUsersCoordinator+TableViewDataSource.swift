@@ -233,8 +233,9 @@ extension NewUserCoordinator: UITableViewDataSource {
     }
 
     private func getInputCell(at indexPath: IndexPath) -> InputCell? {
-        let tableView = newUserViewController.tableView
-        guard let cell = tableView.cellForRow(at: indexPath) as? InputCell
+        guard
+            let tableView = newUserViewController.tableView,
+            let cell = tableView.cellForRow(at: indexPath) as? InputCell
         else { return nil }
 
         return cell

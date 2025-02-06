@@ -29,8 +29,8 @@ class NewUserCoordinator: NSObject, Coordinator {
         userFactory.delegate = self
         popOverNavController.viewControllers = [newUserViewController]
         newUserViewController.coordinator = self
-        newUserViewController.tableView.dataSource = self
-        newUserViewController.tableView.delegate = self
+        newUserViewController.dataSource = self
+        newUserViewController.delegate = self
         navigaitonController.present(popOverNavController, animated: true)
     }
 
