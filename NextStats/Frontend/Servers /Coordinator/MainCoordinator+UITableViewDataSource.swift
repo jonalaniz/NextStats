@@ -32,9 +32,3 @@ extension MainCoordinator: UITableViewDataSource {
         }
     }
 }
-
-extension MainCoordinator: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        showStatsView(for: serverManager.serverAt(indexPath.row))
-    }
-}

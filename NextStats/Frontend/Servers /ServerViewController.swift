@@ -17,7 +17,7 @@ class ServerViewController: BaseTableViewController {
     override func viewDidLoad() {
         titleText = "NextStats"
         tableStyle = isMacCatalyst() ? .plain : .insetGrouped
-        delegate = coordinator
+        delegate = self
         dataSource = coordinator
         super.viewDidLoad()
         serverManager.delegate = coordinator
@@ -131,5 +131,11 @@ class ServerViewController: BaseTableViewController {
                                                                       trailing: 10.0)
 
         return UIBarButtonItem(customView: button)
+    }
+}
+
+extension ServerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        coordinator?.showStatsView(for: serverManager.serverAt(indexPath.row))
     }
 }
