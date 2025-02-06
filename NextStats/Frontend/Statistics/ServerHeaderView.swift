@@ -104,8 +104,6 @@ class ServerHeaderView: UIView {
         return button
     }()
 
-    let spacerView = UIView()
-
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 300, height: ServerHeaderViewConstants.headerHeight))
         setupView()
