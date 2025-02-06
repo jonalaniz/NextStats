@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewUserController: BaseTableViewController {
+class NewUserViewController: BaseTableViewController {
     weak var coordinator: NewUserCoordinator?
 
     override func viewDidLoad() {

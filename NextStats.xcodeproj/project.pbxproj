@@ -44,7 +44,7 @@
 		5646D68923CE0F750047876A /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5646D68823CE0F750047876A /* ServerViewController.swift */; };
 		5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6402BA3FE77000D51F7 /* NewUser.swift */; };
 		5647A6442BA4023A000D51F7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6432BA4023A000D51F7 /* Groups.swift */; };
-		5647A6462BA4CD4B000D51F7 /* NewUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6452BA4CD4B000D51F7 /* NewUserController.swift */; };
+		5647A6462BA4CD4B000D51F7 /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */; };
 		5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */; };
 		5647A64A2BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */; };
 		5647A6512BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6502BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift */; };
@@ -179,7 +179,7 @@
 		5646D68823CE0F750047876A /* ServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		5647A6402BA3FE77000D51F7 /* NewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUser.swift; sourceTree = "<group>"; };
 		5647A6432BA4023A000D51F7 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
-		5647A6452BA4CD4B000D51F7 /* NewUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserController.swift; sourceTree = "<group>"; };
+		5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 		5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		5647A6502BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
@@ -550,7 +550,7 @@
 		567D825A2BA7AF53007BF135 /* NewUser */ = {
 			isa = PBXGroup;
 			children = (
-				5647A6452BA4CD4B000D51F7 /* NewUserController.swift */,
+				5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */,
 				567D825B2BA7AF6B007BF135 /* Coordinator */,
 				567D82682BB1B2A4007BF135 /* QuotaType.swift */,
 			);
@@ -903,7 +903,7 @@
 				569F2C7D26AAF61A001122F2 /* XMLDecodingStorage.swift in Sources */,
 				56B597A82CEDE1510060B42B /* StatsViewController+NXDataManagerDelegate.swift in Sources */,
 				56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */,
-				5647A6462BA4CD4B000D51F7 /* NewUserController.swift in Sources */,
+				5647A6462BA4CD4B000D51F7 /* NewUserViewController.swift in Sources */,
 				5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */,
 				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,

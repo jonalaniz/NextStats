@@ -14,7 +14,7 @@ class NewUserCoordinator: NSObject, Coordinator {
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     var navigaitonController: UINavigationController
-    let newUserViewController: NewUserController
+    let newUserViewController: NewUserViewController
     let popOverNavController = UINavigationController()
 
     let userFactory = NXUserFactory.shared
@@ -22,7 +22,7 @@ class NewUserCoordinator: NSObject, Coordinator {
     init(splitViewController: UISplitViewController, navigationController: UINavigationController) {
         self.splitViewController = splitViewController
         self.navigaitonController = navigationController
-        newUserViewController = NewUserController()
+        newUserViewController = NewUserViewController()
     }
 
     func start() {
