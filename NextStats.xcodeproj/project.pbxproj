@@ -74,7 +74,6 @@
 		567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82552BA7A710007BF135 /* NewUserCoordinator.swift */; };
 		567D825F2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */; };
 		567D82612BAA18C4007BF135 /* NXUserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82602BAA18C4007BF135 /* NXUserFactory.swift */; };
-		567D82632BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */; };
 		567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82642BB1305D007BF135 /* SelectionViewController.swift */; };
 		567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */; };
 		567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82682BB1B2A4007BF135 /* QuotaType.swift */; };
@@ -214,7 +213,6 @@
 		567D82552BA7A710007BF135 /* NewUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserCoordinator.swift; sourceTree = "<group>"; };
 		567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+TableViewDataSource.swift"; sourceTree = "<group>"; };
 		567D82602BAA18C4007BF135 /* NXUserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactory.swift; sourceTree = "<group>"; };
-		567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUserCoordinator+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		567D82642BB1305D007BF135 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
 		567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
 		567D82682BB1B2A4007BF135 /* QuotaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaType.swift; sourceTree = "<group>"; };
@@ -564,7 +562,6 @@
 				565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */,
 				567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */,
 				567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */,
-				567D82622BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -940,7 +937,6 @@
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
 				5652A2F7276489AE0050F5EB /* NXAuthenticator.swift in Sources */,
-				567D82632BACD3D2007BF135 /* NewUserCoordinator+UITableViewDelegate.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoint.swift in Sources */,
 				56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */,
 				562ED27C26B5E9B100E4E1C5 /* User.swift in Sources */,

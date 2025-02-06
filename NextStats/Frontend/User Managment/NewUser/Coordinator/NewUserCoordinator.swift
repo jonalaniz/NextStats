@@ -30,7 +30,6 @@ class NewUserCoordinator: NSObject, Coordinator {
         popOverNavController.viewControllers = [newUserViewController]
         newUserViewController.coordinator = self
         newUserViewController.dataSource = self
-        newUserViewController.delegate = self
         navigaitonController.present(popOverNavController, animated: true)
     }
 
