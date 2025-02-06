@@ -35,11 +35,7 @@ enum ActivityRow: Int, CaseIterable {
     case last5 = 0, lastHour, lastDay, total
 }
 
-extension NXStatsManager: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return StatsSection(rawValue: indexPath.section)?.rowHeight ?? 0
-    }
-
+extension NXStatsManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return StatsSection.allCases.count
     }

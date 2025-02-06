@@ -60,7 +60,7 @@ class StatsViewController: BaseTableViewController {
 
     func showTableView() {
         if tableView.delegate == nil {
-            tableView.delegate = dataManager
+            tableView.delegate = self
             tableView.dataSource = dataManager
         }
 
@@ -87,7 +87,7 @@ class StatsViewController: BaseTableViewController {
     }
 
     @objc func openInSafari() {
-        guard serverInitialized != false else { return }
+        guard serverInitialized else { return }
 
         var urlString = dataManager.server!.friendlyURL
         urlString.addIPPrefix()
@@ -122,5 +122,11 @@ class StatsViewController: BaseTableViewController {
         userDataManager.setServer(server: dataManager.server!)
 
         coordinator?.showUsersView()
+    }
+}
+
+extension StatsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return StatsSection(rawValue: indexPath.section)?.rowHeight ?? 0
     }
 }
