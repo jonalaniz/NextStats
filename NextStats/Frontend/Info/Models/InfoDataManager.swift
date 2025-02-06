@@ -142,32 +142,32 @@ extension InfoDataManager: UITableViewDataSource {
         let secondaryText = (light != nil) ? ("Light") : ("Default")
 
         return configureCell(style: .value1,
-                                 reuseIdentifier: "IconCell",
-                                 text: "App Icon Type",
-                                 secondaryText: secondaryText)
+                             reuseIdentifier: "IconCell",
+                             text: "App Icon Type",
+                             secondaryText: secondaryText)
     }
 
     private func developerCell(_ row: Int) -> UITableViewCell {
         return configureCell(style: .value1,
-                                 reuseIdentifier: "DeveloperCell",
-                                 text: .localized(.infoScreenDevTitle),
-                                 secondaryText: developerNames[row],
-                                 isInteractive: false)
+                             reuseIdentifier: "DeveloperCell",
+                             text: developerTitles[row],
+                             secondaryText: developerNames[row],
+                             isInteractive: false)
     }
 
     private func translationCell(_ row: Int) -> UITableViewCell {
         return configureCell(style: .value1,
-                                 reuseIdentifier: "TranslationCell",
-                                 text: translatorLanguages[row],
-                                 secondaryText: translatorNames[row],
-                                 isInteractive: false)
+                             reuseIdentifier: "TranslationCell",
+                             text: translatorLanguages[row],
+                             secondaryText: translatorNames[row],
+                             isInteractive: false)
     }
 
     private func licensesCell(_ row: Int) -> UITableViewCell {
         return configureCell(style: .default,
-                                 reuseIdentifier: "LicenseCell",
-                                 text: licenses[row],
-                                 accessoryType: .disclosureIndicator)
+                             reuseIdentifier: "LicenseCell",
+                             text: licenses[row],
+                             accessoryType: .disclosureIndicator)
     }
 
     private func productsCell(_ row: Int) -> UITableViewCell {
