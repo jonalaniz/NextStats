@@ -9,20 +9,22 @@
 import UIKit
 
 // swiftlint:disable identifier_name
-class StatsViewController: UIViewController {
+class StatsViewController: BaseTableViewController {
     weak var coordinator: MainCoordinator?
 
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
     let dataManager = NXStatsManager.shared
     var serverInitialized = false
 
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        tableStyle = .insetGrouped
+        super.viewDidLoad()
         dataManager.delegate = self
         dataManager.errorHandler = self
-        setupView()
+
+        add(loadingView)
+        tableView.isHidden = true
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -33,13 +35,7 @@ class StatsViewController: UIViewController {
         return super.canPerformAction(action, withSender: sender)
     }
 
-    private func setupView() {
-        view.backgroundColor = .systemGroupedBackground
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.8
-        tableView.backgroundView = backgroundView
-
-        // Setup our buttons
+    override func setupNavigationController() {
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
                                          style: .plain,
                                          target: self,
@@ -48,25 +44,13 @@ class StatsViewController: UIViewController {
         navigationItem.rightBarButtonItem = moreButton
         navigationItem.largeTitleDisplayMode = .never
 
-        #if targetEnvironment(macCatalyst)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        #endif
+        if isMacCatalyst() {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+    }
 
-        // Setup our subviews
-        view.addSubview(tableView)
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+    override func registerCells() {
         tableView.register(ProgressCell.self, forCellReuseIdentifier: "MemoryCell")
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-
-        add(loadingView)
-        tableView.isHidden = true
     }
 
     func showLoadingView() {
@@ -99,7 +83,7 @@ class StatsViewController: UIViewController {
         headerView.visitServerButton.addTarget(self,
                                                action: #selector(openInSafari),
                                                for: .touchUpInside)
-        tableView.tableHeaderView = headerView
+        tableViewHeaderView = headerView
     }
 
     @objc func openInSafari() {
