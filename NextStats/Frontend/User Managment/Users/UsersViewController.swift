@@ -82,9 +82,7 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
               let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell
         else { return UITableViewCell() }
 
-        cell.user = userModel
-        cell.setup()
-        cell.accessoryType = .disclosureIndicator
+        cell.configureCell(with: userModel)
 
         return cell
     }
@@ -93,9 +91,5 @@ extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
         guard let userModel = usersDataManager.userCellModel(indexPath.row) else { return }
         let user = usersDataManager.user(id: userModel.userID)
         coordinator?.showUserView(for: user)
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 48
     }
 }
