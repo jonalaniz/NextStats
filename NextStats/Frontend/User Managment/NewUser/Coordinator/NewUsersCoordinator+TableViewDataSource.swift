@@ -11,10 +11,20 @@ import UIKit
 enum NewUserFields: Int, CaseIterable {
     case name = 0, requiredFields, groups, subAdmin, quota
 
-    func sections() -> Int {
+    var rowCount: Int {
         switch self {
         case .name, .requiredFields: return 2
         case .groups, .subAdmin, .quota: return 1
+        }
+    }
+
+    var headerTitle: String {
+        switch self {
+        case .name: return ""
+        case .requiredFields: return .localized(.requiredFields)
+        case .groups: return .localized(.groups)
+        case .subAdmin: return .localized(.setSubAdmin)
+        case .quota: return .localized(.quota)
         }
     }
 }
@@ -35,7 +45,7 @@ extension NewUserCoordinator: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableSection = NewUserFields(rawValue: section)
         else { return 0 }
-        return tableSection.sections()
+        return tableSection.rowCount
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,8 +61,8 @@ extension NewUserCoordinator: UITableViewDataSource {
             guard let row = RequiredField(rawValue: indexPath.row)
             else { return UITableViewCell() }
             return requiredCellFor(row)
-        case .groups: return groupsCell()
-        case .subAdmin: return subAdminCell()
+        case .groups: return groupSelectionCell(for: .member)
+        case .subAdmin: return groupSelectionCell(for: .admin)
         case .quota: return quotaCell()
         }
     }
@@ -61,34 +71,24 @@ extension NewUserCoordinator: UITableViewDataSource {
         guard let section = NewUserFields(rawValue: section)
         else { return nil }
 
-        return headerFor(section: section)
+        return section.headerTitle
     }
 
     func nameCellFor(_ field: NameField) -> InputCell {
-        let placeholder: String
-        let selector: Selector
-        let text: String?
-
         switch field {
         case .username:
-            text = userFactory.userid
-            placeholder = .localized(.usernameRequired)
-            selector = #selector(updateUserid)
+            return configureInputCell(
+                placeholder: .localized(.usernameRequired),
+                text: userFactory.userid,
+                type: .normal,
+                selector: #selector(updateUserid))
         case .displayName:
-            text = userFactory.displayName
-            placeholder = .localized(.displayName)
-            selector = #selector(updateDisplayName)
+            return configureInputCell(
+                placeholder: .localized(.displayName),
+                text: userFactory.displayName,
+                type: .normal,
+                selector: #selector(updateDisplayName))
         }
-        let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
-        let textField = TextFieldFactory.textField(type: .normal,
-                                                   placeholder: placeholder)
-        textField.text = text
-        textField.addTarget(self, action: selector, for: .editingChanged)
-        textField.delegate = self
-        cell.textField = textField
-        cell.setup()
-
-        return cell
     }
 
     @objc func updateUserid() {
@@ -106,32 +106,33 @@ extension NewUserCoordinator: UITableViewDataSource {
     }
 
     func requiredCellFor(_ field: RequiredField) -> InputCell {
-        let placeholder: String
-        let type: TextFieldType
-        let selector: Selector
-        let text: String?
-
         switch field {
         case .password:
-            placeholder = .localized(.password)
-            selector = #selector(updatePassword)
-            type = .password
-            text = userFactory.password
+            return configureInputCell(
+                placeholder: .localized(.password),
+                text: userFactory.password,
+                type: .password,
+                selector: #selector(updatePassword))
         case .email:
-            placeholder = .localized(.email)
-            selector =  #selector(updateEmail)
-            type = .email
-            text = userFactory.email
+            return configureInputCell(
+                placeholder: .localized(.email),
+                text: userFactory.email,
+                type: .email,
+                selector: #selector(updateEmail))
         }
+    }
+
+    private func configureInputCell(placeholder: String,
+                                    text: String?,
+                                    type: TextFieldType,
+                                    selector: Selector) -> InputCell {
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
-        let textField = TextFieldFactory.textField(type: type,
-                                                   placeholder: placeholder)
+        let textField = TextFieldFactory.textField(type: type, placeholder: placeholder)
         textField.text = text
-        textField.addTarget(self, action: selector, for: .allEditingEvents)
+        textField.addTarget(self, action: selector, for: .editingChanged)
         textField.delegate = self
         cell.textField = textField
         cell.setup()
-
         return cell
     }
 
@@ -149,42 +150,12 @@ extension NewUserCoordinator: UITableViewDataSource {
         checkRequirements()
     }
 
-    func groupsCell() -> UITableViewCell {
+    func groupSelectionCell(for role: GroupRole) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
         var content = cell.defaultContentConfiguration()
 
-        guard userFactory.selectedGroupsFor(role: .member).isEmpty else {
-            content.text = userFactory.selectedGroupsFor(role: .member).joined(separator: ", ")
-            content.textProperties.color = .label
-            cell.contentConfiguration = content
-            cell.accessoryType = .disclosureIndicator
-
-            return cell
-        }
-
-        guard userFactory.groupsAvailable() != nil else {
-            content.text = .localized(.noGroups)
-            content.textProperties.color = .secondaryLabel
-            cell.contentConfiguration = content
-            cell.isUserInteractionEnabled = false
-
-            return cell
-        }
-
-        content.text = .localized(.selectGroups)
-        content.textProperties.color = .secondaryLabel
-        cell.contentConfiguration = content
-        cell.accessoryType = .disclosureIndicator
-
-        return cell
-    }
-
-    func subAdminCell() -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        var content = cell.defaultContentConfiguration()
-
-        guard userFactory.selectedGroupsFor(role: .admin).isEmpty else {
-            content.text = userFactory.selectedGroupsFor(role: .admin).joined(separator: ", ")
+        guard userFactory.selectedGroupsFor(role: role).isEmpty else {
+            content.text = userFactory.selectedGroupsFor(role: role).joined(separator: ", ")
             content.textProperties.color = .label
             cell.contentConfiguration = content
             cell.accessoryType = .disclosureIndicator
@@ -220,16 +191,6 @@ extension NewUserCoordinator: UITableViewDataSource {
 
         return cell
 
-    }
-
-    func headerFor(section: NewUserFields) -> String {
-        switch section {
-        case .name: return ""
-        case .requiredFields: return .localized(.requiredFields)
-        case .groups: return .localized(.groups)
-        case .subAdmin: return .localized(.setSubAdmin)
-        case .quota: return .localized(.quota)
-        }
     }
 
     private func getInputCell(at indexPath: IndexPath) -> InputCell? {
