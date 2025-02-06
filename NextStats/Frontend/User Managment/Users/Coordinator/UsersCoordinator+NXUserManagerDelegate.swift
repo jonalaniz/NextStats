@@ -17,7 +17,7 @@ extension UsersCoordinator: NXUserManagerDelegate {
         case .toggledUser:
             usersViewController.tableView.reloadData()
             userViewController.dataManager.user?.data.enabled.toggle()
-            userViewController.setTitleColor()
+            userViewController.configureTitle()
         case .usersLoaded:
             usersViewController.toggleLoadingState(isLoading: false)
         }

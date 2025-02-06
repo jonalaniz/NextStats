@@ -9,58 +9,22 @@
 import UIKit
 
 // swiftlint:disable identifier_name
-class UserViewController: UIViewController {
+class UserViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
-
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     let dataManager = NXUserFormatter.shared
 
+    override func viewDidLoad() {
+        delegate = self
+        tableStyle = .insetGrouped
+        super.viewDidLoad()
+    }
+
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setTitleColor()
+        configureTitle()
         tableView.reloadData()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        setupMenu()
-    }
-
-    func setupView() {
-        view.backgroundColor = .systemBackground
-        title = dataManager.title()
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-
-        let backgroundView = UIImageView(image: UIImage(named: "background"))
-        backgroundView.layer.opacity = 0.5
-        tableView.backgroundView = backgroundView
-
-        tableView.register(ProgressCell.self, forCellReuseIdentifier: "QuotaCell")
-
-        view.addSubview(tableView)
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-    }
-
-    func setTitleColor() {
-        let color: UIColor
-        guard let enabled = dataManager.user?.data.enabled else { return }
-        enabled ? (color = .theme) : (color = .systemGray)
-
-        let attributes = [NSAttributedString.Key.foregroundColor: color]
-        navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
-    }
-
-    func setupMenu() {
+    override func setupNavigationController() {
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
                                          style: .plain,
                                          target: self,
@@ -68,9 +32,22 @@ class UserViewController: UIViewController {
         navigationItem.rightBarButtonItem = moreButton
     }
 
+    override func registerCells() {
+        tableView.register(ProgressCell.self, forCellReuseIdentifier: "QuotaCell")
+    }
+
+    func configureTitle() {
+        title = dataManager.title()
+        guard let enabled = dataManager.user?.data.enabled else { return }
+
+        let color: UIColor = enabled ? .theme : .systemGray
+        let attributes = [NSAttributedString.Key.foregroundColor: color]
+        navigationController?.navigationBar.titleTextAttributes = attributes
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+    }
+
     @objc func menuTapped() {
-        let ableTitle: String
-        dataManager.enabled() ? (ableTitle = .localized(.disable)) : (ableTitle = .localized(.enable))
+        let ableTitle: String = dataManager.enabled() ? .localized(.disable) : .localized(.enable)
 
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: ableTitle,
@@ -122,12 +99,11 @@ extension UserViewController: UITableViewDelegate {
     }
 
     func shouldHide(section: Int) -> Bool {
-        guard let tableSection = UserDataSection(rawValue: section)
+        guard
+            let tableSection = UserDataSection(rawValue: section),
+            tableSection == .mail
         else { return false }
 
-        switch tableSection {
-        case .mail: return dataManager.emailAddresses() == nil
-        default: return false
-        }
+        return dataManager.emailAddresses() == nil
     }
 }

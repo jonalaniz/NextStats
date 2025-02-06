@@ -49,7 +49,7 @@ class UsersCoordinator: NSObject, Coordinator {
     func showUserView(for user: User) {
         userViewController.coordinator = self
         userViewController.dataManager.set(user)
-        userViewController.tableView.dataSource = self
+        userViewController.dataSource = self
         userViewController.setupView()
         navigationController.pushViewController(userViewController, animated: true)
     }
