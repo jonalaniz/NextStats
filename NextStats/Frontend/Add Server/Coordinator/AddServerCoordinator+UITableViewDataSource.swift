@@ -13,23 +13,26 @@ enum LoginFields: Int, CaseIterable {
 }
 
 extension AddServerCoordinator: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return LoginFields.allCases.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let tableRow = LoginFields(rawValue: indexPath.row)
+        guard let field = LoginFields(rawValue: indexPath.row)
         else { return UITableViewCell() }
 
         let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
+        configure(cell: cell, for: field)
+        return cell
+    }
 
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return .localized(.addScreenLabel)
+    }
+
+    private func configure(cell: InputCell, for field: LoginFields) {
         let textField: UITextField
-
-        switch tableRow {
+        switch field {
         case .name:
             textField = TextFieldFactory.textField(type: .normal,
                                                    placeholder: .localized(.addScreenNickname))
@@ -44,12 +47,6 @@ extension AddServerCoordinator: UITableViewDataSource {
         textField.delegate = self
         cell.textField = textField
         cell.setup()
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return .localized(.addScreenLabel)
     }
 }
 
