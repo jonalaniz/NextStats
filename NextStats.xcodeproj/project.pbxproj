@@ -297,15 +297,15 @@
 		5601D7F425E3194400993D31 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */,
 				562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */,
+				5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
 				5601D7F525E3199400993D31 /* UIApplication+AppVersion.swift */,
 				56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */,
 				5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */,
 				56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */,
-				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
 				563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */,
+				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -314,7 +314,6 @@
 			isa = PBXGroup;
 			children = (
 				56B1413E267E7236002D66D8 /* Endpoint.swift */,
-				5647A6422BA40217000D51F7 /* Models */,
 				562C25A12CB9F6C0001BF067 /* NextcloudService.swift */,
 				56D3442D2CEC8C2900A5933B /* ToggleType.swift */,
 			);
@@ -324,21 +323,14 @@
 		562C25A42CB9FE16001BF067 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5647A6422BA40217000D51F7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
 				561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */,
 				56D3442B2CEC61B200A5933B /* GenericResponse.swift */,
-				5652A2F427647FE90050F5EB /* LoginObject.swift */,
-				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 				5647A6432BA4023A000D51F7 /* Groups.swift */,
+				5652A2F427647FE90050F5EB /* LoginObject.swift */,
 				5647A6402BA3FE77000D51F7 /* NewUser.swift */,
 				565EFE662BB6007500100D94 /* NewUserStatusCode.swift */,
+				56F7F8F324D78C9E00C667E4 /* NextServer.swift */,
+				561B989125A85C2D00A8FE6D /* ServerStats.swift */,
 				562ED27B26B5E9B100E4E1C5 /* User.swift */,
 				569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */,
 				569F2CA526AC2EB5001122F2 /* Users.swift */,
@@ -380,8 +372,8 @@
 		56491FA229E66C6000E3431D /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				565EFE6A2BB6177A00100D94 /* User Manager */,
-				565EFE6B2BB6179200100D94 /* UserFactory */,
+				5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */,
+				567D82602BAA18C4007BF135 /* NXUserFactory.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -447,25 +439,6 @@
 				565975BC25567DF70043C007 /* Info.plist */,
 			);
 			path = NextStatsTests;
-			sourceTree = "<group>";
-		};
-		565EFE6A2BB6177A00100D94 /* User Manager */ = {
-			isa = PBXGroup;
-			children = (
-				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
-				56C632E52BB8D1F6007B2032 /* NXUserManagerDelegate.swift */,
-				5634EC3A2B6C4D8D00468AC0 /* NXUserFormatter.swift */,
-			);
-			path = "User Manager";
-			sourceTree = "<group>";
-		};
-		565EFE6B2BB6179200100D94 /* UserFactory */ = {
-			isa = PBXGroup;
-			children = (
-				567D82602BAA18C4007BF135 /* NXUserFactory.swift */,
-				565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */,
-			);
-			path = UserFactory;
 			sourceTree = "<group>";
 		};
 		567BF636258ADDF1000E64D9 /* Localization */ = {
@@ -569,6 +542,7 @@
 				5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */,
 				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
 				5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */,
+				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
 			);
 			path = DataManagers;
 			sourceTree = "<group>";
@@ -700,6 +674,8 @@
 				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
 				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
 				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
+				56C632E52BB8D1F6007B2032 /* NXUserManagerDelegate.swift */,
+				565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
