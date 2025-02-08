@@ -183,7 +183,7 @@
 		5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		5647A6502BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/Delegates/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 		5652A2F427647FE90050F5EB /* LoginObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginObject.swift; sourceTree = "<group>"; };
 		5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXAuthenticator.swift; sourceTree = "<group>"; };
@@ -377,24 +377,6 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
-		56491FA029E66B6400E3431D /* Authentication */ = {
-			isa = PBXGroup;
-			children = (
-				5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */,
-				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
-			);
-			path = Authentication;
-			sourceTree = "<group>";
-		};
-		56491FA129E66C0E00E3431D /* Statistics */ = {
-			isa = PBXGroup;
-			children = (
-				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
-				5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */,
-			);
-			path = Statistics;
-			sourceTree = "<group>";
-		};
 		56491FA229E66C6000E3431D /* Users */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +565,10 @@
 				56D557FE2D46C28F0027A1FB /* BaseDataManager.swift */,
 				56D558002D46C2EB0027A1FB /* DataManagerDelegate.swift */,
 				56A56EC32563C5A3005A6D18 /* InfoDataManager.swift */,
+				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
+				5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */,
+				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
+				5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */,
 			);
 			path = DataManagers;
 			sourceTree = "<group>";
@@ -617,15 +603,11 @@
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
+				56F1C7052D577BDB00EA03BD /* Delegates */,
 				56D557FD2D46C2850027A1FB /* DataManagers */,
-				56491FA029E66B6400E3431D /* Authentication */,
 				562C25A42CB9FE16001BF067 /* Models */,
 				56E0AD7A26AD88DA0090ACB6 /* Networking */,
 				562C259F2CB9F64B001BF067 /* NextcloudService */,
-				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
-				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
-				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
-				56491FA129E66C0E00E3431D /* Statistics */,
 				56491FA229E66C6000E3431D /* Users */,
 			);
 			path = "Nextcloud API";
@@ -710,6 +692,16 @@
 				56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		56F1C7052D577BDB00EA03BD /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
+				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
+				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
