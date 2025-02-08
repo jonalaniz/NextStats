@@ -139,3 +139,14 @@ class AddServerViewController: BaseTableViewController {
                                        object: nil)
     }
 }
+
+// MARK: - TableViewDelegate
+extension AddServerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+}
