@@ -552,7 +552,6 @@
 			children = (
 				564EAE082558CEA80090AFBB /* InfoViewController.swift */,
 				569EC31E25B4F7F600B955EC /* HeaderView.swift */,
-				56DB682526AEECAE0015CB04 /* Models */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -565,13 +564,6 @@
 				56C9596F2655E42F00BD3B06 /* InputCell.swift */,
 			);
 			path = "Add Server";
-			sourceTree = "<group>";
-		};
-		56DB682526AEECAE0015CB04 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
