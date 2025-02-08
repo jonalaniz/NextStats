@@ -11,17 +11,17 @@ import UIKit
 /// A view controller that displays a list of users.
 class UsersViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
-    let usersDataManager = NXUsersManager.shared
+    let dataManager = NXUsersManager.shared
     let loadingViewController = LoadingViewController()
 
     override func viewDidLoad() {
         delegate = self
-        dataSource = self
+        dataSource = dataManager
         tableStyle = .insetGrouped
         titleText = .localized(.users)
         super.viewDidLoad()
         toggleLoadingState(isLoading: true)
-        usersDataManager.fetchUsersData()
+        dataManager.fetchUsersData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,24 +72,10 @@ class UsersViewController: BaseTableViewController {
     }
 }
 
-extension UsersViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usersDataManager.usersCount()
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let userModel = usersDataManager.userCellModel(indexPath.row),
-              let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell
-        else { return UITableViewCell() }
-
-        cell.configureCell(with: userModel)
-
-        return cell
-    }
-
+extension UsersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let userModel = usersDataManager.userCellModel(indexPath.row) else { return }
-        let user = usersDataManager.user(id: userModel.userID)
+        guard let userModel = dataManager.userCellModel(indexPath.row) else { return }
+        let user = dataManager.user(id: userModel.userID)
         coordinator?.showUserView(for: user)
     }
 }

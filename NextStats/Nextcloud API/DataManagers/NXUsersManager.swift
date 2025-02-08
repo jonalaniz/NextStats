@@ -7,7 +7,7 @@
 //
 
 // swiftlint:disable identifier_name
-import Foundation
+import UIKit
 
 enum ResponseType {
     case deletion
@@ -15,7 +15,7 @@ enum ResponseType {
 }
 
 /// Facilitates the fetching, creation, deletion, and editing of Nextcloud Users
-class NXUsersManager {
+class NXUsersManager: NSObject {
     /// Returns singleton instance of `UserDataManager`
     static let shared = NXUsersManager()
 
@@ -31,7 +31,7 @@ class NXUsersManager {
         }
     }
 
-    private init() {}
+    private override init() {}
 
     func fetchUsersData() {
         if !users.isEmpty { users.removeAll() }
@@ -167,5 +167,21 @@ class NXUsersManager {
         DispatchQueue.main.async {
             self.errorHandler?.handleError(error)
         }
+    }
+}
+
+extension NXUsersManager: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return usersCount()
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let userModel = userCellModel(indexPath.row),
+              let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell
+        else { return UITableViewCell() }
+
+        cell.configureCell(with: userModel)
+
+        return cell
     }
 }
