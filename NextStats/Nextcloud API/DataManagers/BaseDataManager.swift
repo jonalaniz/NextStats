@@ -37,17 +37,4 @@ class BaseDataManager: NSObject {
     func notifyDataUpdated() {
         self.delegate?.dataUpdated()
     }
-
-    /// Notifies the delegate when a specific item is selected, providing its identifier and title.
-    ///
-    /// This method is useful for scenarios where user interaction triggers the need for delegate updates (e.g.,
-    /// selecting a mailbox or folder).
-    ///
-    /// - Parameters:
-    ///   - int: The identifier of the selected item.
-    ///   - title: The title of the selected item.
-    @MainActor
-    func controllerDidSelect(_ int: Int, title: String) {
-        self.delegate?.controllerDidSelect(int, title: title)
-    }
 }

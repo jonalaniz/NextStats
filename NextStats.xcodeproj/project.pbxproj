@@ -536,7 +536,6 @@
 			isa = PBXGroup;
 			children = (
 				56D557FE2D46C28F0027A1FB /* BaseDataManager.swift */,
-				56D558002D46C2EB0027A1FB /* DataManagerDelegate.swift */,
 				56A56EC32563C5A3005A6D18 /* InfoDataManager.swift */,
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
 				5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */,
@@ -663,6 +662,7 @@
 		56F1C7052D577BDB00EA03BD /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				56D558002D46C2EB0027A1FB /* DataManagerDelegate.swift */,
 				56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */,
 				56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */,
 				5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */,

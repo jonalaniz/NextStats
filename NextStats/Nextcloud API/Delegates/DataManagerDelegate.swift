@@ -10,6 +10,4 @@ import Foundation
 
 protocol DataManagerDelegate: AnyObject {
     func dataUpdated()
-    func controllerDidSelect(_ selection: Int, title: String)
-    func tableViewHeightUpdated()
 }

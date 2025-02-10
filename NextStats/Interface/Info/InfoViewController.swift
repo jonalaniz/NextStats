@@ -60,10 +60,8 @@ class InfoViewController: BaseTableViewController {
 extension InfoViewController: DataManagerDelegate {
     // This is called when IAP products have been gathered, only called once.
     func dataUpdated() {
-        tableView.insertSections(IndexSet(integer: InfoSection.support.rawValue), with: .fade)
+        tableView.reloadData()
     }
-
-    func controllerDidSelect(_ selection: Int, title: String) {}
 
     func tableViewHeightUpdated() {}
 }
