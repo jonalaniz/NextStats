@@ -25,17 +25,13 @@ class NXUsersManager: NSObject {
     private var userIDs = [String]()
     private var users = [User]()
     private(set) var server: NextServer! {
-        didSet {
-            userIDs.removeAll()
-            users.removeAll()
-        }
+        didSet { resetUserData() }
     }
 
     private override init() {}
 
     func fetchUsersData() {
-        if !users.isEmpty { users.removeAll() }
-        if !userIDs.isEmpty { userIDs.removeAll() }
+        resetUserData()
 
         Task {
             do {
@@ -93,6 +89,10 @@ class NXUsersManager: NSObject {
 
     }
 
+    func setServer(server: NextServer) {
+        self.server = server
+    }
+
     @MainActor
     private func processResponse(_ user: String, type: ResponseType, response: GenericResponse) {
         let meta = response.meta
@@ -119,40 +119,15 @@ class NXUsersManager: NSObject {
         self.delegate?.stateDidChange(.toggledUser)
     }
 
+    private func resetUserData() {
+        userIDs.removeAll()
+        users.removeAll()
+    }
+
     private func remove(user: String) {
         userIDs.removeAll(where: { $0 == user })
         users.removeAll(where: { $0.data.id == user })
         self.delegate?.stateDidChange(.deletedUser)
-    }
-
-    func setServer(server: NextServer) {
-        self.server = server
-    }
-
-    // TableView Helper Methods
-    func user(id: String) -> User {
-        return users.first(where: { $0.data.id == id })!
-    }
-
-    func userID(_ index: Int) -> String {
-        return userIDs[index]
-    }
-
-    func usersCount() -> Int {
-        return userIDs.count
-    }
-
-    func userCellModel(_ index: Int) -> UserCellModel? {
-        guard !users.isEmpty else {
-            return nil
-        }
-
-        let userData = users[index].data
-
-        return UserCellModel(userID: userData.id,
-                             displayName: userData.displayname ?? "N/A",
-                             email: userData.email ?? "N/A",
-                             enabled: userData.enabled)
     }
 
     @MainActor
@@ -174,5 +149,26 @@ extension NXUsersManager: UITableViewDataSource {
         cell.configureCell(with: userModel)
 
         return cell
+    }
+
+    func user(id: String) -> User {
+        return users.first(where: { $0.data.id == id })!
+    }
+
+    func usersCount() -> Int {
+        return userIDs.count
+    }
+
+    func userCellModel(_ index: Int) -> UserCellModel? {
+        guard !users.isEmpty else {
+            return nil
+        }
+
+        let userData = users[index].data
+
+        return UserCellModel(userID: userData.id,
+                             displayName: userData.displayname ?? "N/A",
+                             email: userData.email ?? "N/A",
+                             enabled: userData.enabled)
     }
 }
