@@ -92,15 +92,15 @@ extension UserViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let tableSection = UserDataSection(rawValue: indexPath.section)
+        guard let tableSection = UserSection(rawValue: indexPath.section)
         else { return 44 }
 
-        return tableSection.height()
+        return tableSection.height
     }
 
     func shouldHide(section: Int) -> Bool {
         guard
-            let tableSection = UserDataSection(rawValue: section),
+            let tableSection = UserSection(rawValue: section),
             tableSection == .mail
         else { return false }
 

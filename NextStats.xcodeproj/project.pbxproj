@@ -102,6 +102,7 @@
 		56A3188F2772804B00EAF1F2 /* NXStatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */; };
 		56A56EC42563C5A3005A6D18 /* InfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A56EC32563C5A3005A6D18 /* InfoDataManager.swift */; };
 		56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D22D5B4D48009DC223 /* InfoSection.swift */; };
+		56AAA3D52D5B579F009DC223 /* UserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D42D5B579F009DC223 /* UserSection.swift */; };
 		56B1413F267E7236002D66D8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Endpoint.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
 		56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */; };
@@ -243,6 +244,7 @@
 		56A56EC32563C5A3005A6D18 /* InfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDataManager.swift; sourceTree = "<group>"; };
 		56A8EFD0256AC84100AFC20C /* NextStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NextStats.entitlements; sourceTree = "<group>"; };
 		56AAA3D22D5B4D48009DC223 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
+		56AAA3D42D5B579F009DC223 /* UserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSection.swift; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+ErrorHandling.swift"; sourceTree = "<group>"; };
@@ -517,6 +519,14 @@
 			path = "User Managment";
 			sourceTree = "<group>";
 		};
+		56AAA3D62D5B581E009DC223 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				56AAA3D42D5B579F009DC223 /* UserSection.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		56BB28E426A7997C00F0D8DC /* Catalyst */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,6 +581,7 @@
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
+				56AAA3D62D5B581E009DC223 /* Enums */,
 				56F1C7052D577BDB00EA03BD /* Delegates */,
 				56D557FD2D46C2850027A1FB /* DataManagers */,
 				562C25A42CB9FE16001BF067 /* Models */,
@@ -904,6 +915,7 @@
 				5601D7F625E3199400993D31 /* UIApplication+AppVersion.swift in Sources */,
 				567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */,
 				5634EC3B2B6C4D8D00468AC0 /* NXUserFormatter.swift in Sources */,
+				56AAA3D52D5B579F009DC223 /* UserSection.swift in Sources */,
 				56C781A82AD8957200872988 /* AddServerHeaderView.swift in Sources */,
 				56557EE623C8B09A008CF684 /* SceneDelegate.swift in Sources */,
 				567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */,
