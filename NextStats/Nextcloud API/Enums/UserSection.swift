@@ -19,6 +19,7 @@ enum UserSection: Int, CaseIterable {
     }
 }
 
+// TODO: Delete this or find something useful for it
 enum MailType {
     case primary, additional
 }
