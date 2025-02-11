@@ -102,7 +102,7 @@ final class NextcloudService {
     }
 
     func fetchUsers(for server: NextServer) async throws -> Users {
-        let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .users)
+        let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .user)
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
 
@@ -132,7 +132,7 @@ final class NextcloudService {
     }
 
     func postUser(_ data: Data, in server: NextServer) async throws -> GenericResponse {
-        let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .users)
+        let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .user)
         var headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
         headers[Header.contentType.key()] = Header.contentType.value()
@@ -151,11 +151,10 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .user, path: path)
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
-        let httpMethod = type == .disable ? ServiceMethod.put : ServiceMethod.delete
 
         return try await apiManager.request(
             url: urlWithEndpoint.absoluteURL,
-            httpMethod: httpMethod,
+            httpMethod: type.httpMethod,
             body: nil,
             headers: headers,
             expectingReturnType: GenericResponse.self,

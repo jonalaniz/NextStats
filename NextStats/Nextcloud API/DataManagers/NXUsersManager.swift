@@ -40,48 +40,38 @@ class NXUsersManager: NSObject {
         Task {
             do {
                 let object = try await service.fetchUsers(for: server)
-
-                // Here we work with our captured users object
                 object.data.users.element.forEach { self.userIDs.append($0) }
 
                 for userID in userIDs {
-                    let user = try await service.fetchUser(userID, in: server)
-                    users.append(user)
+                    users.append(try await service.fetchUser(userID, in: server))
                 }
 
-                DispatchQueue.main.async {
-                    self.delegate?.stateDidChange(.usersLoaded)
-                }
+                await notifyDelegate(state: .usersLoaded)
             } catch {
                 guard let error = error as? APIManagerError else {
-                    handle(error: .somethingWentWrong(error: error))
+                    await handle(error: .somethingWentWrong(error: error))
                     return
                 }
 
-                handle(error: error)
+                await handle(error: error)
             }
         }
     }
 
     func toggle(user: String) {
         guard let userObject = users.first(where: { $0.data.id == user }) else { return }
-        let suffix: String
-        userObject.data.enabled ? (suffix = "\(user)/disable") : (suffix = "\(user)/enable")
+        let toggleType: ToggleType = userObject.data.enabled ? .disable : .enable
 
         Task {
             do {
-                let response = try await service.toggleUser(suffix, in: server, type: .disable)
-
-                DispatchQueue.main.async {
-                    self.processResponse(user, type: .toggle, response: response)
-                }
+                let response = try await service.toggleUser(toggleType.path(for: user), in: server, type: toggleType)
+                await processResponse(user, type: .toggle, response: response)
             } catch {
                 guard let error = error as? APIManagerError else {
-                    handle(error: .somethingWentWrong(error: error))
+                    await handle(error: .somethingWentWrong(error: error))
                     return
                 }
-
-                handle(error: error)
+                await handle(error: error)
             }
         }
 
@@ -91,22 +81,19 @@ class NXUsersManager: NSObject {
         Task {
             do {
                 let response = try await service.toggleUser(user, in: server, type: .delete)
-
-                DispatchQueue.main.async {
-                    self.processResponse(user, type: .deletion, response: response)
-                }
+                await processResponse(user, type: .deletion, response: response)
             } catch {
                 guard let error = error as? APIManagerError else {
-                    handle(error: .somethingWentWrong(error: error))
+                    await handle(error: .somethingWentWrong(error: error))
                     return
                 }
-
-                handle(error: error)
+                await handle(error: error)
             }
         }
 
     }
 
+    @MainActor
     private func processResponse(_ user: String, type: ResponseType, response: GenericResponse) {
         let meta = response.meta
         guard meta.statuscode == 100 else {
@@ -117,6 +104,11 @@ class NXUsersManager: NSObject {
         case .deletion: remove(user: user)
         case .toggle: updateToggleFor(user: user)
         }
+    }
+
+    @MainActor
+    private func notifyDelegate(state: NXUserManagerState) {
+        delegate?.stateDidChange(state)
     }
 
     private func updateToggleFor(user: String) {
@@ -163,10 +155,9 @@ class NXUsersManager: NSObject {
                              enabled: userData.enabled)
     }
 
+    @MainActor
     private func handle(error: APIManagerError) {
-        DispatchQueue.main.async {
-            self.errorHandler?.handleError(error)
-        }
+        errorHandler?.handleError(error)
     }
 }
 
