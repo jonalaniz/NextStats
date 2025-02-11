@@ -62,8 +62,6 @@ extension InfoViewController: DataManagerDelegate {
     func dataUpdated() {
         tableView.reloadData()
     }
-
-    func tableViewHeightUpdated() {}
 }
 
 extension InfoViewController: UITableViewDelegate {
@@ -77,7 +75,9 @@ extension InfoViewController: UITableViewDelegate {
 
         switch tableSection {
         case .icon: toggleIcon()
-        case .licenses: coordinator?.showWebView(urlString: dataManager.licenseURLFor(row: row))
+        case .licenses:
+            guard let license = License(rawValue: row) else { return }
+            coordinator?.showWebView(urlString: license.urlString)
         case .support: dataManager.buyProduct(row)
         default: return
         }

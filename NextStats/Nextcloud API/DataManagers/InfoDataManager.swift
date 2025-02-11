@@ -9,10 +9,6 @@
 import StoreKit
 import UIKit
 
-enum InfoSection: Int, CaseIterable {
-    case icon, development, translators, licenses, support
-}
-
 class InfoDataManager: NSObject {
     public static let shared = InfoDataManager()
     weak var delegate: DataManagerDelegate?
@@ -22,24 +18,6 @@ class InfoDataManager: NSObject {
         formatter.numberStyle = .currency
         return formatter
     }()
-
-    var sections: [String] = ["App Icon",
-                              .localized(.infoScreenDevHeader),
-                              .localized(.infoScreenLocaleHeader),
-                              .localized(.infoScreenLicenseHeader)]
-    let developerTitles: [String] = [.localized(.infoScreenDevTitle)]
-
-    let developerNames = ["Jon Alaniz"]
-    let translatorLanguages: [String] = [.localized(.infoScreenLocaleFrench),
-                                         .localized(.infoScreenLocaleGerman),
-                                         .localized(.infoScreenLocaleGerman),
-                                         .localized(.infoScreenLocaleTurkish)]
-    let translatorNames = ["Maxime Killinger",
-                           "Carina Pfaffelhuber",
-                           "@rakekniven",
-                           "Hüseyin Fahri Uzun"]
-    let licenses = ["MIT License",
-                    "GNU AGPLv3 License"]
 
     var products = [SKProduct]()
 
@@ -61,17 +39,6 @@ class InfoDataManager: NSObject {
         UIApplication.shared.setAlternateIconName(nil)
     }
 
-    func licenseURLFor(row: Int) -> String {
-        switch row {
-        case 0:
-            // NextStats MIT License URL
-            return "https://github.com/jonalaniz/NextStats/blob/main/LICENSE"
-        default:
-            // Nextcloud License URL
-            return "https://github.com/nextcloud/nextcloud.com/blob/master/LICENSE"
-        }
-    }
-
     func checkForProducts() {
         // Check if user can make payments
         guard IAPHelper.canMakePayments() else { return }
@@ -83,7 +50,6 @@ class InfoDataManager: NSObject {
 
             DispatchQueue.main.async {
                 self.products = unwrappedProducts
-                self.sections.append(.localized(.infoScreenSupportHeader))
                 self.delegate?.dataUpdated()
             }
         }
@@ -96,33 +62,34 @@ class InfoDataManager: NSObject {
 
 extension InfoDataManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        guard !products.isEmpty else { return InfoSection.allCases.count - 1 }
+        return InfoSection.allCases.count
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
+    func tableView(_ tableView: UITableView,
+                   titleForHeaderInSection section: Int) -> String? {
+        return InfoSection(rawValue: section)?.title
     }
 
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        switch InfoSection(rawValue: section) {
-        case .licenses: return .localized(.infoScreenLicenseDescription)
-        case .support: return .localized(.infoScreenSupportDescription)
-        default: return nil
-        }
+    func tableView(_ tableView: UITableView,
+                   titleForFooterInSection section: Int) -> String? {
+        return InfoSection(rawValue: section)?.footer
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         switch InfoSection(rawValue: section) {
         case .icon: return 1
-        case .development: return developerNames.count
-        case .translators: return translatorNames.count
-        case .licenses: return licenses.count
+        case .development: return Developer.allCases.count
+        case .translators: return Translator.allCases.count
+        case .licenses: return License.allCases.count
         case .support: return products.count
         default: return 0
         }
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let tableSection = InfoSection(rawValue: indexPath.section)
         else { return UITableViewCell() }
 
@@ -148,25 +115,31 @@ extension InfoDataManager: UITableViewDataSource {
     }
 
     private func developerCell(_ row: Int) -> UITableViewCell {
+        guard let developer = Developer(rawValue: row)
+        else { return UITableViewCell() }
         return configureCell(style: .value1,
                              reuseIdentifier: "DeveloperCell",
-                             text: developerTitles[row],
-                             secondaryText: developerNames[row],
+                             text: developer.title,
+                             secondaryText: developer.name,
                              isInteractive: false)
     }
 
     private func translationCell(_ row: Int) -> UITableViewCell {
+        guard let translator = Translator(rawValue: row)
+        else { return UITableViewCell() }
         return configureCell(style: .value1,
                              reuseIdentifier: "TranslationCell",
-                             text: translatorLanguages[row],
-                             secondaryText: translatorNames[row],
+                             text: translator.language,
+                             secondaryText: translator.name,
                              isInteractive: false)
     }
 
     private func licensesCell(_ row: Int) -> UITableViewCell {
+        guard let license = License(rawValue: row)
+        else { return UITableViewCell() }
         return configureCell(style: .default,
                              reuseIdentifier: "LicenseCell",
-                             text: licenses[row],
+                             text: license.title,
                              accessoryType: .disclosureIndicator)
     }
 

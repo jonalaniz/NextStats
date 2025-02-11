@@ -101,6 +101,7 @@
 		569F2CA826AC34D7001122F2 /* NXUsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 569F2CA726AC34D7001122F2 /* NXUsersManager.swift */; };
 		56A3188F2772804B00EAF1F2 /* NXStatsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */; };
 		56A56EC42563C5A3005A6D18 /* InfoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A56EC32563C5A3005A6D18 /* InfoDataManager.swift */; };
+		56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D22D5B4D48009DC223 /* InfoSection.swift */; };
 		56B1413F267E7236002D66D8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Endpoint.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
 		56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */; };
@@ -241,6 +242,7 @@
 		56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXStatsManager.swift; sourceTree = "<group>"; };
 		56A56EC32563C5A3005A6D18 /* InfoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDataManager.swift; sourceTree = "<group>"; };
 		56A8EFD0256AC84100AFC20C /* NextStats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NextStats.entitlements; sourceTree = "<group>"; };
+		56AAA3D22D5B4D48009DC223 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+ErrorHandling.swift"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				569EBB0C2ADBBCDA00BE5985 /* UserCellModel.swift */,
 				569F2CA526AC2EB5001122F2 /* Users.swift */,
 				56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */,
+				56AAA3D22D5B4D48009DC223 /* InfoSection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -888,6 +891,7 @@
 				56D3442E2CEC8C2900A5933B /* ToggleType.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
 				567D825F2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift in Sources */,
+				56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,
 				565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */,
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
