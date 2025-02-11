@@ -8,48 +8,19 @@
 
 import UIKit
 
-enum NewUserFields: Int, CaseIterable {
-    case name = 0, requiredFields, groups, subAdmin, quota
-
-    var rowCount: Int {
-        switch self {
-        case .name, .requiredFields: return 2
-        case .groups, .subAdmin, .quota: return 1
-        }
-    }
-
-    var headerTitle: String {
-        switch self {
-        case .name: return ""
-        case .requiredFields: return .localized(.requiredFields)
-        case .groups: return .localized(.groups)
-        case .subAdmin: return .localized(.setSubAdmin)
-        case .quota: return .localized(.quota)
-        }
-    }
-}
-
-enum NameField: Int, CaseIterable {
-    case username = 0, displayName
-}
-
-enum RequiredField: Int, CaseIterable {
-    case email = 0, password
-}
-
 extension NewUserCoordinator: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return NewUserFields.allCases.count
+        return NewUserSection.allCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tableSection = NewUserFields(rawValue: section)
+        guard let tableSection = NewUserSection(rawValue: section)
         else { return 0 }
-        return tableSection.rowCount
+        return tableSection.rows
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let tableSection = NewUserFields(rawValue: indexPath.section)
+        guard let tableSection = NewUserSection(rawValue: indexPath.section)
         else { return UITableViewCell() }
 
         switch tableSection {
@@ -68,58 +39,52 @@ extension NewUserCoordinator: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let section = NewUserFields(rawValue: section)
+        guard let section = NewUserSection(rawValue: section)
         else { return nil }
 
-        return section.headerTitle
-    }
-
-    func nameCellFor(_ field: NameField) -> InputCell {
-        switch field {
-        case .username:
-            return configureInputCell(
-                placeholder: .localized(.usernameRequired),
-                text: userFactory.userid,
-                type: .normal,
-                selector: #selector(updateUserid))
-        case .displayName:
-            return configureInputCell(
-                placeholder: .localized(.displayName),
-                text: userFactory.displayName,
-                type: .normal,
-                selector: #selector(updateDisplayName))
-        }
+        return section.header
     }
 
     @objc func updateUserid() {
         let indexPath = IndexPath(row: NameField.username.rawValue,
-                                  section: NewUserFields.name.rawValue)
+                                  section: NewUserSection.name.rawValue)
         userFactory.set(userid: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 
     @objc func updateDisplayName() {
         let indexPath = IndexPath(row: NameField.displayName.rawValue,
-                                  section: NewUserFields.name.rawValue)
+                                  section: NewUserSection.name.rawValue)
         userFactory.set(displayName: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 
-    func requiredCellFor(_ field: RequiredField) -> InputCell {
+    func nameCellFor(_ field: NameField) -> InputCell {
+        let (text, selector) =
         switch field {
-        case .password:
-            return configureInputCell(
-                placeholder: .localized(.password),
-                text: userFactory.password,
-                type: .password,
-                selector: #selector(updatePassword))
-        case .email:
-            return configureInputCell(
-                placeholder: .localized(.email),
-                text: userFactory.email,
-                type: .email,
-                selector: #selector(updateEmail))
+        case .username: (userFactory.userid, #selector(updateUserid))
+        case .displayName: (userFactory.displayName, #selector(updateDisplayName))
         }
+
+        return configureInputCell(
+            placeholder: field.placeholder,
+            text: text,
+            type: field.type,
+            selector: selector)
+    }
+
+    func requiredCellFor(_ field: RequiredField) -> InputCell {
+        let (text, selector) =
+        switch field {
+        case .password: (userFactory.password, #selector(updatePassword))
+        case .email: (userFactory.email, #selector(updateEmail))
+        }
+
+        return configureInputCell(
+            placeholder: field.placeholder,
+            text: text,
+            type: field.type,
+            selector: selector)
     }
 
     private func configureInputCell(placeholder: String,
@@ -138,14 +103,14 @@ extension NewUserCoordinator: UITableViewDataSource {
 
     @objc func updateEmail() {
         let indexPath = IndexPath(row: RequiredField.email.rawValue,
-                                  section: NewUserFields.requiredFields.rawValue)
+                                  section: NewUserSection.requiredFields.rawValue)
         userFactory.set(email: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }
 
     @objc func updatePassword() {
         let indexPath = IndexPath(row: RequiredField.password.rawValue,
-                                  section: NewUserFields.requiredFields.rawValue)
+                                  section: NewUserSection.requiredFields.rawValue)
         userFactory.set(password: getInputCell(at: indexPath)?.textField.text)
         checkRequirements()
     }

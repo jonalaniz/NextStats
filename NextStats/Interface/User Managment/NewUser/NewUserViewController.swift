@@ -54,7 +54,7 @@ extension NewUserViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard
-            let section = NewUserFields(rawValue: indexPath.section),
+            let section = NewUserSection(rawValue: indexPath.section),
             userFactory.groupsAvailable() != nil
         else { return }
 
