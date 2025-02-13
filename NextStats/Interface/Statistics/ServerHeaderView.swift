@@ -24,7 +24,6 @@ struct ServerHeaderViewConstants {
 }
 
 class ServerHeaderView: UIView {
-
     let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,13 +42,14 @@ class ServerHeaderView: UIView {
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 6
-
+        stackView.addGlow(opacity: 0.1)
         return stackView
     }()
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.addGlow()
 
         return imageView
     }()

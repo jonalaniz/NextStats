@@ -12,7 +12,7 @@ enum ProgressCellIcon {
     case storage, memory, swap
 }
 
-class ProgressCell: UITableViewCell {
+class ProgressCell: BaseTableViewCell {
     var iconLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false

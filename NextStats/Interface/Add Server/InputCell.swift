@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InputCell: UITableViewCell {
+class InputCell: BaseTableViewCell {
     var textField: UITextField!
 
     func setup() {

@@ -160,7 +160,7 @@ extension InfoDataManager: UITableViewDataSource {
                                secondaryText: String? = nil,
                                isInteractive: Bool = true,
                                accessoryType: UITableViewCell.AccessoryType = .none) -> UITableViewCell {
-        let cell = UITableViewCell(style: style, reuseIdentifier: reuseIdentifier)
+        let cell = BaseTableViewCell(style: style, reuseIdentifier: reuseIdentifier)
         cell.isUserInteractionEnabled = isInteractive
         cell.accessoryType = accessoryType
 

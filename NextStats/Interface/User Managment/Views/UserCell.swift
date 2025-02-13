@@ -13,7 +13,7 @@ import UIKit
 /// `UserCell` is responsible for displaying a user's display name, user ID, and their enabled/disabled status.
 /// It uses `defaultContentConfiguration()` to set up its appearance and supports single-line text truncation
 /// to prevent wrapping.
-class UserCell: UITableViewCell {
+class UserCell: BaseTableViewCell {
     /// The user model assigned to this cell.
     private(set) var user: UserCellModel!
 

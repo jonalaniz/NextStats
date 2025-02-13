@@ -85,7 +85,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func systemCell(row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        let cell = BaseTableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         guard
             let cellRow = SystemRow(rawValue: row),
@@ -179,7 +179,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func storageCell(row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        let cell = BaseTableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         guard let cellRow = StorageRow(rawValue: row)
         else { return cell }
@@ -215,7 +215,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func activityCell(row: Int) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "Cell")
+        let cell = BaseTableViewCell(style: .value1, reuseIdentifier: "Cell")
 
         guard let cellRow = ActivityRow(rawValue: row)
         else { return cell }

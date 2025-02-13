@@ -104,6 +104,8 @@
 		56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D22D5B4D48009DC223 /* InfoSection.swift */; };
 		56AAA3D52D5B579F009DC223 /* UserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D42D5B579F009DC223 /* UserSection.swift */; };
 		56AAA3D82D5B78C8009DC223 /* NewUserSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D72D5B78C8009DC223 /* NewUserSection.swift */; };
+		56AAA3DA2D5E18FE009DC223 /* UIView+BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3D92D5E18FE009DC223 /* UIView+BlurView.swift */; };
+		56AAA3DC2D5E19AA009DC223 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AAA3DB2D5E19AA009DC223 /* BaseTableViewCell.swift */; };
 		56B1413F267E7236002D66D8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B1413E267E7236002D66D8 /* Endpoint.swift */; };
 		56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B17E1023D681A9007C33B2 /* ServerCell.swift */; };
 		56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */; };
@@ -247,6 +249,8 @@
 		56AAA3D22D5B4D48009DC223 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		56AAA3D42D5B579F009DC223 /* UserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSection.swift; sourceTree = "<group>"; };
 		56AAA3D72D5B78C8009DC223 /* NewUserSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserSection.swift; sourceTree = "<group>"; };
+		56AAA3D92D5E18FE009DC223 /* UIView+BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+BlurView.swift"; sourceTree = "<group>"; };
+		56AAA3DB2D5E19AA009DC223 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		56B1413E267E7236002D66D8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		56B17E1023D681A9007C33B2 /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+ErrorHandling.swift"; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 				56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */,
 				563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */,
 				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
+				56AAA3D92D5E18FE009DC223 /* UIView+BlurView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -544,6 +549,7 @@
 			children = (
 				56D557792D432A860027A1FB /* BaseTableViewController.swift */,
 				56F1C6802D53606300EA03BD /* BaseViewController.swift */,
+				56AAA3DB2D5E19AA009DC223 /* BaseTableViewCell.swift */,
 			);
 			path = BaseClasses;
 			sourceTree = "<group>";
@@ -862,6 +868,7 @@
 				562C25A22CB9F6C0001BF067 /* NextcloudService.swift in Sources */,
 				56A3188F2772804B00EAF1F2 /* NXStatsManager.swift in Sources */,
 				56D558012D46C2EB0027A1FB /* DataManagerDelegate.swift in Sources */,
+				56AAA3DA2D5E18FE009DC223 /* UIView+BlurView.swift in Sources */,
 				5601D7B325E0E8DB00993D31 /* Coordinator.swift in Sources */,
 				564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */,
 				569F2C7926AAF61A001122F2 /* XMLEncodingStorage.swift in Sources */,
@@ -911,6 +918,7 @@
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */,
 				5671B6932B639D950026E4A0 /* ProgressCell.swift in Sources */,
+				56AAA3DC2D5E19AA009DC223 /* BaseTableViewCell.swift in Sources */,
 				5601D80625E31C4900993D31 /* String+Localized.swift in Sources */,
 				56E6834126B245A800C1E17C /* IAP Helper.swift in Sources */,
 				56C781A62AD7DF2200872988 /* TextFieldFactory.swift in Sources */,
