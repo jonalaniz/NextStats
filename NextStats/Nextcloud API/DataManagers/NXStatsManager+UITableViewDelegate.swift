@@ -8,61 +8,13 @@
 
 import UIKit
 
-// TODO: Move this out
-enum StatsSection: Int, CaseIterable {
-    case system = 0, memory, storage, activity
-
-    var rowHeight: CGFloat {
-        switch self {
-        case .memory: return 66
-        default: return 44
-        }
-    }
-}
-
-enum SystemRow: Int, CaseIterable {
-    case cpu, webServer, phpVersion, databaseVersion, databaseSize, localCache, distributedCache
-
-    var title: String {
-        switch self {
-        case .cpu: return "CPU"
-        case .webServer: return "Web Server"
-        case .phpVersion: return "PHP Version"
-        case .databaseVersion: return "Database Version"
-        case .databaseSize: return "Database Size"
-        case .localCache: return "Local Cache"
-        case .distributedCache: return "Distributed Cache"
-        }
-    }
-}
-
-enum MemoryRow: Int, CaseIterable {
-    case ram = 0, swap
-}
-
-enum StorageRow: Int, CaseIterable {
-    case space = 0, files
-}
-
-enum ActivityRow: Int, CaseIterable {
-    case last5 = 0, lastHour, lastDay, total
-}
-
 extension NXStatsManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return StatsSection.allCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tableSection = StatsSection(rawValue: section)
-        else { return 0 }
-
-        switch tableSection {
-        case .system: return SystemRow.allCases.count
-        case .memory: return MemoryRow.allCases.count
-        case .storage: return StorageRow.allCases.count
-        case .activity: return ActivityRow.allCases.count
-        }
+        return StatsSection(rawValue: section)?.rows ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,23 +30,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let tableSection = StatsSection(rawValue: section)
-        else { return nil }
-
-        switch tableSection {
-        case .system: return "Nextcloud \(versionNumber())"
-        case .memory: return "Memory"
-        case .storage: return "Storage"
-        case .activity: return "Active Users"
-        }
-    }
-
-    // MARK: - Helper Functions
-    private func versionNumber() -> String {
-        guard let number = stats.nextcloud?.system?.version
-        else { return "" }
-
-        return number
+        return StatsSection(rawValue: section)?.header(version: versionNumber())
     }
 
     private func systemCell(row: Int) -> UITableViewCell {
@@ -116,6 +52,46 @@ extension NXStatsManager: UITableViewDataSource {
         }
 
         return configureCell(text: cellRow.title, secondaryText: secondaryText)
+    }
+
+    private func memoryCell(row: Int) -> ProgressCell {
+        guard let cellRow = MemoryRow(rawValue: row)
+        else { return ProgressCell(free: 0, total: 0, type: .memory) }
+
+        let (free, total, type): (Int?, Int?, ProgressCellIcon) = {
+            switch cellRow {
+            case .ram: return (ram().0, ram().1, .memory)
+            case .swap: return (swap().0, swap().1, .swap)
+            }
+        }()
+
+        return ProgressCell(free: free ?? 0, total: total ?? 0, type: type)
+    }
+
+    private func storageCell(row: Int) -> UITableViewCell {
+        guard let cellRow = StorageRow(rawValue: row)
+        else { return UITableViewCell() }
+
+        let secondaryText: String = {
+            switch cellRow {
+            case .space: return freeSpace()
+            case .files: return numberOfFiles()
+            }
+        }()
+
+        return configureCell(text: cellRow.title, secondaryText: secondaryText)
+    }
+
+    private func activityCell(row: Int) -> UITableViewCell {
+        guard let cellRow = ActivityRow(rawValue: row)
+        else { return UITableViewCell() }
+
+        return configureCell(text: cellRow.title,
+                             secondaryText: activeUsers(for: cellRow))
+    }
+
+    private func versionNumber() -> String? {
+        return stats.nextcloud?.system?.version
     }
 
     private func cpuLoadAverages() -> String {
@@ -142,39 +118,11 @@ extension NXStatsManager: UITableViewDataSource {
 
         switch size {
         case .string(let string):
-            guard let intValue = Int(string)
-            else { return "N/A" }
-
+            guard let intValue = Int(string) else { return "N/A" }
             return Units(bytes: Double(intValue)).getReadableUnit()
         case .int(let int):
             return Units(bytes: Double(int)).getReadableUnit()
         }
-    }
-
-    private func memoryCell(row: Int) -> ProgressCell {
-        let cell: ProgressCell
-        let memory: (Int?, Int?)
-        let type: ProgressCellIcon
-        let cellRow = MemoryRow(rawValue: row)!
-
-        switch cellRow {
-        case .ram:
-            memory = ram()
-            type = .memory
-        case .swap:
-            memory = swap()
-            type = .swap
-        }
-
-        guard memory.0 != nil, memory.1 != nil
-        else {
-            cell = ProgressCell(free: 0, total: 0, type: type)
-            return cell
-        }
-
-        cell = ProgressCell(free: memory.0!, total: memory.1!, type: type)
-
-        return cell
     }
 
     private func ram() -> (Int?, Int?) {
@@ -189,33 +137,12 @@ extension NXStatsManager: UITableViewDataSource {
         return (free, total)
     }
 
-    private func storageCell(row: Int) -> UITableViewCell {
-        guard let cellRow = StorageRow(rawValue: row)
-        else { return UITableViewCell() }
-
-        switch cellRow {
-        case .space:
-            return configureCell(text: "Free Space",
-                                 secondaryText: freeSpace())
-        case .files:
-            return configureCell(text: "Number of Files",
-                                 secondaryText: numberOfFiles())
-        }
-    }
-
     private func freeSpace() -> String {
         guard let freeSpace = stats.nextcloud?.system?.freespace
-        else { return "N/A"}
-
-        let doubleFreeSpace = Double(freeSpace)
-
-        guard
-            !doubleFreeSpace.isNaN,
-            !doubleFreeSpace.isInfinite
         else { return "N/A" }
 
-        return Units(bytes: doubleFreeSpace).getReadableUnit()
-
+        let bytes = Double(freeSpace)
+        return bytes.isNaN || bytes.isInfinite ? "N/A" : Units(bytes: bytes).getReadableUnit()
     }
 
     private func numberOfFiles() -> String {
@@ -225,24 +152,7 @@ extension NXStatsManager: UITableViewDataSource {
         return String(number)
     }
 
-    private func activityCell(row: Int) -> UITableViewCell {
-        guard let cellRow = ActivityRow(rawValue: row)
-        else { return UITableViewCell() }
-
-        let text: String
-
-        switch cellRow {
-        case .last5: text = "Last 5 Minutes"
-        case .lastHour: text = "Last Hour"
-        case .lastDay: text = "Last Day"
-        case .total: text = "Total Users"
-        }
-
-        return configureCell(text: text,
-                             secondaryText: activityValue(for: cellRow))
-    }
-
-    private func activityValue(for row: ActivityRow) -> String {
+    private func activeUsers(for row: ActivityRow) -> String {
         guard
             let last5 = stats.activeUsers?.last5Minutes,
             let lastHour = stats.activeUsers?.last1Hour,
