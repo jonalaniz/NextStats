@@ -11,7 +11,7 @@ import UIKit
 enum SelectionType {
     case groups, subAdmin, quota
 }
-
+// TODO: This needs to become a BaseTableViewController
 /// Creates a TableView with one section, displays
 class SelectionViewController: UITableViewController {
     weak var delegate: SelectionViewDelegate?
@@ -53,14 +53,11 @@ class SelectionViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        var content = cell.defaultContentConfiguration()
-        content.text = selectable[indexPath.row]
-        cell.contentConfiguration = content
+        let selected = selections.contains(selectable[indexPath.row])
 
-        if selections.contains(selectable[indexPath.row]) { cell.accessoryType = .checkmark }
-
-        return cell
+        return BaseTableViewCell(style: .default,
+                                 text: selectable[indexPath.row],
+                                 accessoryType: selected ? .checkmark : .none)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

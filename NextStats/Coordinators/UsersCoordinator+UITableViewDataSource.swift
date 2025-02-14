@@ -55,12 +55,9 @@ extension UsersCoordinator: UITableViewDataSource {
         guard let emailAddresses = formatter.emailAddresses()
         else { return UITableViewCell() }
 
-        let cell = usersCell(style: .default, reuseIdentifier: "Cell", text: emailAddresses[row])
-        var content = cell.contentConfiguration as? UIListContentConfiguration
-        content?.textProperties.color = row == 0 ? .theme : .secondaryLabel
-        cell.contentConfiguration = content
-
-        return cell
+        return BaseTableViewCell(style: .default,
+                                 text: emailAddresses[row],
+                                 textColor: row == 0 ? .theme : .secondaryLabel)
     }
 
     func statusCell(_ row: Int) -> UITableViewCell {
@@ -76,10 +73,10 @@ extension UsersCoordinator: UITableViewDataSource {
         case .backend: secondaryText = formatter.backend()
         }
 
-        return usersCell(style: .value1,
-                         reuseIdentifier: "StatusCell",
-                         text: status.title,
-                         secondaryText: secondaryText)
+        return BaseTableViewCell(style: .value1,
+                                 reuseIdentifier: "StatusCell",
+                                 text: status.title,
+                                 secondaryText: secondaryText)
     }
 
     func capabilitiesCell(_ row: Int) -> UITableViewCell {
@@ -96,29 +93,10 @@ extension UsersCoordinator: UITableViewDataSource {
             formatter.canSetPassword() ? (accessoryType = .checkmark) : (secondaryText = .localized(.no))
         }
 
-        return usersCell(style: .value1,
-                         reuseIdentifier: "StatusCell",
-                         text: capability.title,
-                         secondaryText: secondaryText,
-                         accessoryType: accessoryType)
-    }
-
-    private func usersCell(style: UITableViewCell.CellStyle,
-                           reuseIdentifier: String,
-                           text: String,
-                           secondaryText: String? = nil,
-                           isInteractive: Bool = false,
-                           accessoryType: UITableViewCell.AccessoryType = .none) -> UITableViewCell {
-        let cell = BaseTableViewCell(style: style, reuseIdentifier: reuseIdentifier)
-        cell.isUserInteractionEnabled = isInteractive
-        cell.accessoryType = accessoryType
-
-        var content = cell.defaultContentConfiguration()
-        content.textProperties.color = .theme
-        content.secondaryTextProperties.color = .secondaryLabel
-        content.text = text
-        content.secondaryText = secondaryText
-        cell.contentConfiguration = content
-        return cell
+        return BaseTableViewCell(style: .value1,
+                                 reuseIdentifier: "StatusCell",
+                                 text: capability.title,
+                                 secondaryText: secondaryText,
+                                 accessoryType: accessoryType)
     }
 }

@@ -116,46 +116,31 @@ extension NewUserCoordinator: UITableViewDataSource {
     }
 
     func groupSelectionCell(for role: GroupRole) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        var content = cell.defaultContentConfiguration()
-
         guard userFactory.selectedGroupsFor(role: role).isEmpty else {
-            content.text = userFactory.selectedGroupsFor(role: role).joined(separator: ", ")
-            content.textProperties.color = .label
-            cell.contentConfiguration = content
-            cell.accessoryType = .disclosureIndicator
-
-            return cell
+            return BaseTableViewCell(style: .default,
+                                     text: userFactory.selectedGroupsFor(role: role).joined(separator: ", "),
+                                     accessoryType: .disclosureIndicator)
         }
 
         guard userFactory.groupsAvailable() != nil else {
-            content.text = .localized(.noGroups)
-            content.textProperties.color = .secondaryLabel
-            cell.contentConfiguration = content
-            cell.isUserInteractionEnabled = false
-
-            return cell
+            return BaseTableViewCell(style: .default,
+                                     text: .localized(.noGroups),
+                                     textColor: .secondaryLabel,
+                                     isInteractive: false)
         }
 
-        content.text = .localized(.selectGroups)
-        content.textProperties.color = .secondaryLabel
-        cell.contentConfiguration = content
-        cell.accessoryType = .disclosureIndicator
-
-        return cell
+        return BaseTableViewCell(style: .default,
+                                 text: .localized(.selectGroups),
+                                 textColor: .secondaryLabel,
+                                 accessoryType: .disclosureIndicator)
     }
 
     func quotaCell() -> UITableViewCell {
         let quota = userFactory.quotaType()
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        var content = cell.defaultContentConfiguration()
 
-        content.text = quota.rawValue
-        cell.contentConfiguration = content
-        cell.accessoryType = .disclosureIndicator
-
-        return cell
-
+        return BaseTableViewCell(style: .default,
+                                 text: quota.rawValue,
+                                 accessoryType: .disclosureIndicator)
     }
 
     private func getInputCell(at indexPath: IndexPath) -> InputCell? {
@@ -169,7 +154,6 @@ extension NewUserCoordinator: UITableViewDataSource {
 
     private func checkRequirements() {
         guard userFactory.requirementsMet() else { return }
-
         newUserViewController.navigationItem.rightBarButtonItem?.isEnabled = true
     }
 }
