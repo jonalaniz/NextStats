@@ -24,19 +24,10 @@ class InfoDataManager: NSObject {
     private override init() {}
 
     func toggleIcon() {
-        let icon = UIApplication.shared.alternateIconName
+        guard UIApplication.shared.supportsAlternateIcons else { return }
 
-        guard UIApplication.shared.supportsAlternateIcons else {
-            return
-        }
-
-        guard icon != nil else {
-            // Set the icon to `AppIcon-Light`
-            UIApplication.shared.setAlternateIconName("AppIcon-Light")
-            return
-        }
-
-        UIApplication.shared.setAlternateIconName(nil)
+        let lightIconIsSet = UIApplication.shared.alternateIconName != nil
+        UIApplication.shared.setAlternateIconName(lightIconIsSet ? nil : "AppIcon-Light")
     }
 
     func checkForProducts() {
