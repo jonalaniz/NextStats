@@ -37,9 +37,7 @@ class NXUserFormatter: NSObject {
         guard
             let user = user,
             let mainAddress = user.data.email
-        else {
-            return nil
-        }
+        else { return nil }
 
         var emails = [mainAddress]
 

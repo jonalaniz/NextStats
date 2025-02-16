@@ -27,13 +27,15 @@ class AddServerViewController: BaseTableViewController {
     }
 
     override func setupNavigationController() {
-        let nextButton = UIBarButtonItem(title: "Next",
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(nextButtonPressed))
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                           target: self,
-                                           action: #selector(cancelPressed))
+        let nextButton = UIBarButtonItem(
+            title: "Next",
+            style: .plain,
+            target: self,
+            action: #selector(nextButtonPressed))
+        let cancelButton = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(cancelPressed))
 
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = nextButton

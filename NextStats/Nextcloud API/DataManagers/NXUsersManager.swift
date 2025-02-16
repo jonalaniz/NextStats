@@ -76,8 +76,13 @@ class NXUsersManager: NSObject {
     func delete(user: String) {
         Task {
             do {
-                let response = try await service.toggleUser(user, in: server, type: .delete)
-                await processResponse(user, type: .deletion, response: response)
+                let response = try await service.toggleUser(
+                    user, in: server,
+                    type: .delete)
+                await processResponse(
+                    user,
+                    type: .deletion,
+                    response: response)
             } catch {
                 guard let error = error as? APIManagerError else {
                     await handle(error: .somethingWentWrong(error: error))
