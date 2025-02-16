@@ -147,8 +147,11 @@ extension NXUsersManager: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let userModel = userCellModel(indexPath.row),
-              let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell
+        guard
+            let userModel = userCellModel(indexPath.row),
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: UserCell.reuseIdentifier,
+                for: indexPath) as? UserCell
         else { return UITableViewCell() }
 
         cell.configureCell(with: userModel)
