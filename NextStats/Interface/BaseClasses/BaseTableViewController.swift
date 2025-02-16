@@ -38,7 +38,6 @@ class BaseTableViewController: UIViewController {
     private let backgroundView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "background")
-//        imageView.layer.opacity = 0.5
         return imageView
     }()
 
