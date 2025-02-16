@@ -53,7 +53,7 @@ class AddServerViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
+        tableView.register(InputCell.self, forCellReuseIdentifier: InputCell.reuseidentifier)
     }
 
     func updateLabel(with text: String) {

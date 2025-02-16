@@ -21,7 +21,7 @@ extension AddServerCoordinator: UITableViewDataSource {
         guard let field = LoginFields(rawValue: indexPath.row)
         else { return UITableViewCell() }
 
-        let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
+        let cell = InputCell(style: .default, reuseIdentifier: InputCell.reuseidentifier)
         configure(cell: cell, for: field)
         return cell
     }

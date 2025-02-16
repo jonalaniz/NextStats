@@ -91,7 +91,7 @@ extension NewUserCoordinator: UITableViewDataSource {
                                     text: String?,
                                     type: TextFieldType,
                                     selector: Selector) -> InputCell {
-        let cell = InputCell(style: .default, reuseIdentifier: "InputCell")
+        let cell = InputCell(style: .default, reuseIdentifier: InputCell.reuseidentifier)
         let textField = TextFieldFactory.textField(type: type, placeholder: placeholder)
         textField.text = text
         textField.addTarget(self, action: selector, for: .editingChanged)

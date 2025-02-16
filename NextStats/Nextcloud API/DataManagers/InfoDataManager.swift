@@ -100,7 +100,6 @@ extension InfoDataManager: UITableViewDataSource {
         let secondaryText = (light != nil) ? ("Light") : ("Default")
 
         return BaseTableViewCell(style: .value1,
-                                 reuseIdentifier: "IconCell",
                                  text: "App Icon Type",
                                  secondaryText: secondaryText)
     }
@@ -109,7 +108,6 @@ extension InfoDataManager: UITableViewDataSource {
         guard let developer = Developer(rawValue: row)
         else { return UITableViewCell() }
         return BaseTableViewCell(style: .value1,
-                                 reuseIdentifier: "DeveloperCell",
                                  text: developer.title,
                                  secondaryText: developer.name,
                                  isInteractive: false)
@@ -119,7 +117,6 @@ extension InfoDataManager: UITableViewDataSource {
         guard let translator = Translator(rawValue: row)
         else { return UITableViewCell() }
         return BaseTableViewCell(style: .value1,
-                                 reuseIdentifier: "TranslationCell",
                                  text: translator.language,
                                  secondaryText: translator.name,
                                  isInteractive: false)
@@ -129,7 +126,6 @@ extension InfoDataManager: UITableViewDataSource {
         guard let license = License(rawValue: row)
         else { return UITableViewCell() }
         return BaseTableViewCell(style: .default,
-                                 reuseIdentifier: "LicenseCell",
                                  text: license.title,
                                  accessoryType: .disclosureIndicator)
     }
@@ -140,7 +136,6 @@ extension InfoDataManager: UITableViewDataSource {
         let cost = formatter.string(from: product.price)
 
         return BaseTableViewCell(style: .value1,
-                                 reuseIdentifier: "SupportCell",
                                  text: product.localizedTitle,
                                  secondaryText: cost)
     }

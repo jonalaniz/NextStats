@@ -74,7 +74,6 @@ extension UsersCoordinator: UITableViewDataSource {
         }
 
         return BaseTableViewCell(style: .value1,
-                                 reuseIdentifier: "StatusCell",
                                  text: status.title,
                                  secondaryText: secondaryText)
     }
@@ -94,7 +93,6 @@ extension UsersCoordinator: UITableViewDataSource {
         }
 
         return BaseTableViewCell(style: .value1,
-                                 reuseIdentifier: "StatusCell",
                                  text: capability.title,
                                  secondaryText: secondaryText,
                                  accessoryType: accessoryType)

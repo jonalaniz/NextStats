@@ -14,7 +14,9 @@ extension MainCoordinator: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ServerCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: ServerCell.reuseIdentifier,
+            for: indexPath) as? ServerCell
         else { fatalError("DequeueReusableCell failed while casting") }
 
         cell.configure(with: serverManager.serverAt(indexPath.row))

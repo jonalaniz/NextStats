@@ -75,7 +75,7 @@ class ServerViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(ServerCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(ServerCell.self, forCellReuseIdentifier: ServerCell.reuseIdentifier)
     }
 
     @objc func addServerPressed() {

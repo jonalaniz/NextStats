@@ -49,7 +49,7 @@ class UsersViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(UserCell.self, forCellReuseIdentifier: "UserCell")
+        tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
     }
 
     func toggleLoadingState(isLoading: Bool) {

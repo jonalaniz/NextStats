@@ -20,8 +20,6 @@ class NewUserViewController: BaseTableViewController {
     }
 
     override func setupNavigationController() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-
         let cancel = UIBarButtonItem(barButtonSystemItem: .cancel,
                                      target: self,
                                      action: #selector(cancelPressed))
@@ -35,7 +33,7 @@ class NewUserViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(InputCell.self, forCellReuseIdentifier: "InputCell")
+        tableView.register(InputCell.self, forCellReuseIdentifier: InputCell.reuseidentifier)
     }
 
     @objc func cancelPressed() {

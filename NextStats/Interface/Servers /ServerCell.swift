@@ -15,6 +15,8 @@ enum ServerStatus {
 }
 
 class ServerCell: UITableViewCell {
+    static let reuseIdentifier = "ServerCell"
+
     private var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

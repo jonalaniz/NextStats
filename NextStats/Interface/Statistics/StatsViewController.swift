@@ -50,7 +50,7 @@ class StatsViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(ProgressCell.self, forCellReuseIdentifier: "MemoryCell")
+        tableView.register(ProgressCell.self, forCellReuseIdentifier: ProgressCell.reuseIdentifier)
     }
 
     func showLoadingView() {

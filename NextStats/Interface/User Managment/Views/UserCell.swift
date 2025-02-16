@@ -14,6 +14,7 @@ import UIKit
 /// It uses `defaultContentConfiguration()` to set up its appearance and supports single-line text truncation
 /// to prevent wrapping.
 class UserCell: BaseTableViewCell {
+    static let reuseIdentifier = "UserCell"
     /// The user model assigned to this cell.
     private(set) var user: UserCellModel!
 

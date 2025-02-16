@@ -33,7 +33,7 @@ class UserViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(ProgressCell.self, forCellReuseIdentifier: "QuotaCell")
+        tableView.register(ProgressCell.self, forCellReuseIdentifier: ProgressCell.reuseIdentifier)
     }
 
     func configureTitle() {

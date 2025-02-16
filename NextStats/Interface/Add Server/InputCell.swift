@@ -8,6 +8,8 @@
 import UIKit
 
 class InputCell: BaseTableViewCell {
+    static let reuseidentifier = "InputCell"
+
     var textField: UITextField!
 
     func setup() {

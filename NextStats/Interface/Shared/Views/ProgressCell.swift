@@ -13,6 +13,7 @@ enum ProgressCellIcon {
 }
 
 class ProgressCell: BaseTableViewCell {
+    static let reuseIdentifier = "ProgressCell"
     var iconLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,19 +39,19 @@ class ProgressCell: BaseTableViewCell {
         return progressView
     }()
 
-    init(reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+    init() {
+        super.init(style: .default, reuseIdentifier: ProgressCell.reuseIdentifier)
         setupView()
     }
 
     convenience init(quota: Quota) {
-        self.init(reuseIdentifier: "QuotaCell")
+        self.init()
         setProgress(with: quota)
         set(icon: .storage)
     }
 
     convenience init(free: Int, total: Int, type: ProgressCellIcon) {
-        self.init(reuseIdentifier: "MemoryCell")
+        self.init()
         set(icon: type)
         setProgress(free: free, total: total)
     }
