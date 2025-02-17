@@ -9,9 +9,11 @@
 import StoreKit
 import UIKit
 
+// swiftlint:disable weak_delegate
 class InfoViewController: BaseTableViewController {
     weak var coordinator: InfoCoordinator?
     let dataManager = InfoDataManager.shared
+    private var tableDelegate: InfoTableViewDelegate?
     var products = [SKProduct]()
 
     override func viewDidLoad() {
@@ -21,7 +23,8 @@ class InfoViewController: BaseTableViewController {
         tableViewHeaderView = HeaderView()
         dataManager.delegate = self
         dataSource = dataManager
-        delegate = self
+        tableDelegate = InfoTableViewDelegate(coordinator: coordinator, dataManager: dataManager)
+        delegate = tableDelegate
         super.viewDidLoad()
         setupNotifications()
     }
@@ -61,30 +64,5 @@ extension InfoViewController: DataManagerDelegate {
     // This is called when IAP products have been gathered, only called once.
     func dataUpdated() {
         tableView.reloadData()
-    }
-}
-
-extension InfoViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        guard let tableSection = InfoSection(rawValue: indexPath.section)
-        else { return }
-
-        let row = indexPath.row
-
-        switch tableSection {
-        case .icon: toggleIcon()
-        case .licenses:
-            guard let license = License(rawValue: row) else { return }
-            coordinator?.showWebView(urlString: license.urlString)
-        case .support: dataManager.buyProduct(row)
-        default: return
-        }
-    }
-
-    private func toggleIcon() {
-        dataManager.toggleIcon()
-        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
 }

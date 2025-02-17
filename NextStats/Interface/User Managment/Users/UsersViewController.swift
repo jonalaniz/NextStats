@@ -8,14 +8,20 @@
 
 import UIKit
 
+// swiftlint:disable weak_delegate
 /// A view controller that displays a list of users.
 class UsersViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
     let dataManager = NXUsersManager.shared
+    private var tableDelegate: UsersTableViewDelegate?
     let loadingViewController = LoadingViewController()
 
     override func viewDidLoad() {
-        delegate = self
+        tableDelegate = UsersTableViewDelegate(
+            coordinator: coordinator,
+            dataManager: dataManager)
+        delegate = tableDelegate
+
         dataSource = dataManager
         tableStyle = .insetGrouped
         titleText = .localized(.users)
@@ -26,6 +32,7 @@ class UsersViewController: BaseTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         // Deselect row when returning to view
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedRow, animated: true)
@@ -49,7 +56,8 @@ class UsersViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
+        tableView.register(UserCell.self,
+                           forCellReuseIdentifier: UserCell.reuseIdentifier)
     }
 
     func toggleLoadingState(isLoading: Bool) {
@@ -69,13 +77,5 @@ class UsersViewController: BaseTableViewController {
 
     @objc func showNewUserController() {
         coordinator?.showAddUserView()
-    }
-}
-
-extension UsersViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let userModel = dataManager.userCellModel(indexPath.row) else { return }
-        let user = dataManager.user(id: userModel.userID)
-        coordinator?.showUserView(for: user)
     }
 }

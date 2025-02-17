@@ -9,12 +9,15 @@
 import UIKit
 
 // swiftlint:disable identifier_name
+// swiftlint:disable weak_delegate
 class UserViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
     let dataManager = NXUserFormatter.shared
+    private var tableDelegate: UserTableViewDelegate?
 
     override func viewDidLoad() {
-        delegate = self
+        tableDelegate = UserTableViewDelegate(dataManager: dataManager)
+        delegate = tableDelegate
         tableStyle = .insetGrouped
         super.viewDidLoad()
     }
@@ -83,27 +86,5 @@ class UserViewController: BaseTableViewController {
 
     func deleteUser(action: UIAlertAction) {
         coordinator?.delete(user: dataManager.userID())
-    }
-}
-
-extension UserViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return shouldHide(section: section) ? CGFloat.leastNonzeroMagnitude : 20
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let tableSection = UserSection(rawValue: indexPath.section)
-        else { return 44 }
-
-        return tableSection.height
-    }
-
-    func shouldHide(section: Int) -> Bool {
-        guard
-            let tableSection = UserSection(rawValue: section),
-            tableSection == .mail
-        else { return false }
-
-        return dataManager.emailAddresses() == nil
     }
 }

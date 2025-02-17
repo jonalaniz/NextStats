@@ -8,8 +8,11 @@
 
 import UIKit
 
+// swiftlint:disable weak_delegate
 class ServerViewController: BaseTableViewController {
     weak var coordinator: MainCoordinator?
+
+    private var tableDelegate: ServerTableViewDelegate?
 
     let noServersViewController = NoServersViewController()
     let serverManager = NXServerManager.shared
@@ -17,7 +20,9 @@ class ServerViewController: BaseTableViewController {
     override func viewDidLoad() {
         titleText = "NextStats"
         tableStyle = isMacCatalyst() ? .plain : .insetGrouped
-        delegate = self
+        tableDelegate = ServerTableViewDelegate(coordinator: coordinator,
+                                                serverManager: serverManager)
+        delegate = tableDelegate
         dataSource = coordinator
         super.viewDidLoad()
         serverManager.delegate = coordinator
@@ -131,11 +136,5 @@ class ServerViewController: BaseTableViewController {
                                                                       trailing: 10.0)
 
         return UIBarButtonItem(customView: button)
-    }
-}
-
-extension ServerViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.showStatsView(for: serverManager.serverAt(indexPath.row))
     }
 }

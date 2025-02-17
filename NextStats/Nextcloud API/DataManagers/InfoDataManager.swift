@@ -28,6 +28,8 @@ class InfoDataManager: NSObject {
 
         let lightIconIsSet = UIApplication.shared.alternateIconName != nil
         UIApplication.shared.setAlternateIconName(lightIconIsSet ? nil : "AppIcon-Light")
+
+        delegate?.dataUpdated()
     }
 
     func checkForProducts() {

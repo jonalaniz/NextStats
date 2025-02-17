@@ -12,12 +12,15 @@ import UIKit
 class StatsViewController: BaseTableViewController {
     weak var coordinator: MainCoordinator?
 
+    private var tableDelegate = StatsTableViewDelegate()
+
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
     let dataManager = NXStatsManager.shared
     var serverInitialized = false
 
     override func viewDidLoad() {
+        delegate = tableDelegate
         tableStyle = .insetGrouped
         super.viewDidLoad()
         dataManager.delegate = self
@@ -59,10 +62,7 @@ class StatsViewController: BaseTableViewController {
     }
 
     func showTableView() {
-        if tableView.delegate == nil {
-            tableView.delegate = self
-            tableView.dataSource = dataManager
-        }
+        tableView.dataSource = dataManager
 
         tableView.isHidden = false
         loadingView.remove()
@@ -122,11 +122,5 @@ class StatsViewController: BaseTableViewController {
         userDataManager.setServer(server: dataManager.server!)
 
         coordinator?.showUsersView()
-    }
-}
-
-extension StatsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return StatsSection(rawValue: indexPath.section)?.rowHeight ?? 0
     }
 }

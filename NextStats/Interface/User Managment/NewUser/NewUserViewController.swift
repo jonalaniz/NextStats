@@ -8,14 +8,21 @@
 
 import UIKit
 
+// swiftlint:disable weak_delegate
 class NewUserViewController: BaseTableViewController {
     weak var coordinator: NewUserCoordinator?
     let userFactory = NXUserFactory.shared
 
+    // Value is not weak as to keep from immediatly deallocating
+    private var tableDelegate: NewUserTableViewDelegate?
+
     override func viewDidLoad() {
         titleText = .localized(.newUser)
         tableStyle = .insetGrouped
-        delegate = self
+        tableDelegate = NewUserTableViewDelegate(
+            coordinator: coordinator,
+            userFactory: userFactory)
+        delegate = tableDelegate
         super.viewDidLoad()
     }
 
@@ -42,27 +49,5 @@ class NewUserViewController: BaseTableViewController {
 
     @objc func donePressed() {
         coordinator?.createUser()
-    }
-}
-
-extension NewUserViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard
-            let section = NewUserSection(rawValue: indexPath.section),
-            userFactory.groupsAvailable() != nil
-        else { return }
-
-        switch section {
-        case .groups: coordinator?.showSelectionView(type: .groups)
-        case .subAdmin: coordinator?.showSelectionView(type: .subAdmin)
-        case .quota: coordinator?.showSelectionView(type: .quota)
-        default: return
-        }
-
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
