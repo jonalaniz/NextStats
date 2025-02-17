@@ -359,6 +359,21 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		5609386F2D630FD600DEAF40 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
+				564EAE082558CEA80090AFBB /* InfoViewController.swift */,
+				5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */,
+				56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */,
+				5646D68823CE0F750047876A /* ServerViewController.swift */,
+				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
+				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
+				562ED27926B5D8E800E4E1C5 /* UserViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		562C259F2CB9F64B001BF067 /* NextcloudService */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +407,7 @@
 		5647A6552BA653C0000D51F7 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				5609386F2D630FD600DEAF40 /* ViewControllers */,
 				56D557FC2D46C2090027A1FB /* BaseClasses */,
 				5609386E2D630E3F00DEAF40 /* TableViewCells */,
 				5609385F2D62FEF500DEAF40 /* TableViewDelegates */,
@@ -487,24 +503,6 @@
 			path = Localization;
 			sourceTree = "<group>";
 		};
-		567D82592BA7AF4E007BF135 /* Users */ = {
-			isa = PBXGroup;
-			children = (
-				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
-				562ED27926B5D8E800E4E1C5 /* UserViewController.swift */,
-			);
-			path = Users;
-			sourceTree = "<group>";
-		};
-		567D825A2BA7AF53007BF135 /* NewUser */ = {
-			isa = PBXGroup;
-			children = (
-				5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */,
-				567D82682BB1B2A4007BF135 /* QuotaType.swift */,
-			);
-			path = NewUser;
-			sourceTree = "<group>";
-		};
 		569F2C6626AAF61A001122F2 /* XMLParsing */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,8 +541,7 @@
 		569F2CA226AC2D1A001122F2 /* User Managment */ = {
 			isa = PBXGroup;
 			children = (
-				567D825A2BA7AF53007BF135 /* NewUser */,
-				567D82592BA7AF4E007BF135 /* Users */,
+				567D82682BB1B2A4007BF135 /* QuotaType.swift */,
 			);
 			path = "User Managment";
 			sourceTree = "<group>";
@@ -595,7 +592,6 @@
 		56DB681F26AEEBF60015CB04 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				564EAE082558CEA80090AFBB /* InfoViewController.swift */,
 				569EC31E25B4F7F600B955EC /* InfoHeaderView.swift */,
 			);
 			path = Info;
@@ -604,7 +600,6 @@
 		56DB682126AEEC400015CB04 /* Add Server */ = {
 			isa = PBXGroup;
 			children = (
-				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
 				56C781A72AD8957200872988 /* AddServerHeaderView.swift */,
 			);
 			path = "Add Server";
@@ -653,8 +648,6 @@
 		56E0AD8226ADAB810090ACB6 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */,
-				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
 				56B597A72CEDE1510060B42B /* StatsViewController+NXDataManagerDelegate.swift */,
 				56B597A92CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift */,
 				56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */,
@@ -666,7 +659,6 @@
 		56E0AD8726ADC01D0090ACB6 /* Servers  */ = {
 			isa = PBXGroup;
 			children = (
-				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */,
 			);
 			path = "Servers ";

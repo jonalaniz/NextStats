@@ -9,6 +9,7 @@
 import UIKit
 
 // swiftlint:disable identifier_name
+// swiftlint:disable weak_delegate
 class StatsViewController: BaseTableViewController {
     weak var coordinator: MainCoordinator?
 
