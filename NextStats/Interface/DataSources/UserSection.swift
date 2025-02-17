@@ -17,11 +17,15 @@ enum UserSection: Int, CaseIterable {
         default: return 44
         }
     }
-}
 
-// TODO: Delete this or find something useful for it
-enum MailType {
-    case primary, additional
+    func rows(mailCount: Int?) -> Int {
+        switch self {
+        case .mail: return mailCount ?? 0
+        case .quota: return 1
+        case .status: return Status.allCases.count
+        case .capabilities: return Capabilities.allCases.count
+        }
+    }
 }
 
 enum Status: Int, CaseIterable {

@@ -1,24 +1,25 @@
 //
-//  UsersCoordinator+UITableViewDataSource.swift
+//  UserDataSource.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 3/16/24.
-//  Copyright © 2024 Jon Alaniz. All rights reserved.
+//  Created by Jon Alaniz on 2/17/25.
+//  Copyright © 2025 Jon Alaniz. All rights reserved.
 //
 
 import UIKit
 
-extension UsersCoordinator: UITableViewDataSource {
+class UserDataSource: NSObject, UITableViewDataSource {
+    let formatter: NXUserFormatter
+
+    init(formatter: NXUserFormatter) {
+        self.formatter = formatter
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableSection = UserSection(rawValue: section)
         else { return 0 }
 
-        switch tableSection {
-        case .mail: return formatter.emailAddresses()?.count ?? 0
-        case .quota: return 1
-        case .status: return Status.allCases.count
-        case .capabilities: return Capabilities.allCases.count
-        }
+        return tableSection.rows(mailCount: formatter.emailAddresses()?.count)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
