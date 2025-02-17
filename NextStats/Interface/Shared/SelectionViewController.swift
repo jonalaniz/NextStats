@@ -12,7 +12,6 @@ enum SelectionType {
     case groups, subAdmin, quota
 }
 // TODO: This needs to become a BaseTableViewController
-/// Creates a TableView with one section, displays
 class SelectionViewController: UITableViewController {
     weak var delegate: SelectionViewDelegate?
     let selectionType: SelectionType
