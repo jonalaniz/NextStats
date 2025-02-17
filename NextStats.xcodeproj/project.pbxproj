@@ -22,6 +22,8 @@
 		560938692D63080200DEAF40 /* ServerTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938682D63080200DEAF40 /* ServerTableViewDelegate.swift */; };
 		5609386B2D630A5800DEAF40 /* InfoTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609386A2D630A5800DEAF40 /* InfoTableViewDelegate.swift */; };
 		5609386D2D630D3400DEAF40 /* UserTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609386C2D630D3400DEAF40 /* UserTableViewDelegate.swift */; };
+		560938712D63269200DEAF40 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938702D63269200DEAF40 /* TextFieldDelegate.swift */; };
+		560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938752D63271400DEAF40 /* AddServerDataSource.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */; };
 		562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */; };
@@ -53,7 +55,6 @@
 		5647A6442BA4023A000D51F7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6432BA4023A000D51F7 /* Groups.swift */; };
 		5647A6462BA4CD4B000D51F7 /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */; };
 		5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */; };
-		5647A64A2BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */; };
 		5647A6512BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6502BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */; };
@@ -175,6 +176,8 @@
 		560938682D63080200DEAF40 /* ServerTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTableViewDelegate.swift; sourceTree = "<group>"; };
 		5609386A2D630A5800DEAF40 /* InfoTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewDelegate.swift; sourceTree = "<group>"; };
 		5609386C2D630D3400DEAF40 /* UserTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewDelegate.swift; sourceTree = "<group>"; };
+		560938702D63269200DEAF40 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
+		560938752D63271400DEAF40 /* AddServerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerDataSource.swift; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationObject.swift; sourceTree = "<group>"; };
@@ -199,7 +202,6 @@
 		5647A6432BA4023A000D51F7 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 		5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddServerCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		5647A6502BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/Delegates/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
@@ -374,6 +376,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		560938742D63270000DEAF40 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
 		562C259F2CB9F64B001BF067 /* NextcloudService */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,6 +417,7 @@
 		5647A6552BA653C0000D51F7 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				560938742D63270000DEAF40 /* DataSources */,
 				5609386F2D630FD600DEAF40 /* ViewControllers */,
 				56D557FC2D46C2090027A1FB /* BaseClasses */,
 				5609386E2D630E3F00DEAF40 /* TableViewCells */,
@@ -641,6 +652,7 @@
 				56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */,
 				56557EF923CA6E89008CF684 /* WebViewController.swift */,
 				567D82642BB1305D007BF135 /* SelectionViewController.swift */,
+				560938702D63269200DEAF40 /* TextFieldDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -678,7 +690,6 @@
 			children = (
 				5601D7B225E0E8DB00993D31 /* Coordinator.swift */,
 				5601D7D025E10A8700993D31 /* AddServerCoordinator.swift */,
-				5647A6492BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift */,
 				565CDC0725E612C900028EA9 /* InfoCoordinator.swift */,
 				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
 				565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */,
@@ -845,13 +856,13 @@
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				560938672D6306AB00DEAF40 /* StatsTableViewDelegate.swift in Sources */,
 				569F2C7626AAF61A001122F2 /* XMLReferencingEncoder.swift in Sources */,
+				560938712D63269200DEAF40 /* TextFieldDelegate.swift in Sources */,
 				567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */,
 				569F2C7726AAF61A001122F2 /* EncodingErrorExtension.swift in Sources */,
 				5601D7D125E10A8700993D31 /* AddServerCoordinator.swift in Sources */,
 				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */,
 				56D5577A2D432A860027A1FB /* BaseTableViewController.swift in Sources */,
-				5647A64A2BA64444000D51F7 /* AddServerCoordinator+UITableViewDataSource.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				5647A6512BA64ADF000D51F7 /* UsersCoordinator+UITableViewDataSource.swift in Sources */,
 				569F2C7D26AAF61A001122F2 /* XMLDecodingStorage.swift in Sources */,
@@ -933,6 +944,7 @@
 				56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */,
 				5609386D2D630D3400DEAF40 /* UserTableViewDelegate.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,
+				560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */,
 				565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */,
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */,

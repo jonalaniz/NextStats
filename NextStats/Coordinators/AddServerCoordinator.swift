@@ -15,16 +15,17 @@ class AddServerCoordinator: NSObject, Coordinator {
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
     private let addServerVC: AddServerViewController
-    private let authenticator = NXAuthenticator()
+    private let authenticator: NXAuthenticator
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
+        self.authenticator = NXAuthenticator()
         addServerVC = AddServerViewController()
     }
 
     func start() {
         addServerVC.coordinator = self
-        addServerVC.dataSource = self
+        addServerVC.dataSource = AuthenticationDataSource(dataManager: authenticator)
         authenticator.delegate = self
         authenticator.errorHandler = self
 
@@ -64,10 +65,6 @@ class AddServerCoordinator: NSObject, Coordinator {
         navigationController.dismiss(animated: true, completion: nil)
         parentCoordinator?.childDidFinish(self)
     }
-
-    @objc func validateURL() {
-        addServerVC.checkURLField()
-    }
 }
 
 extension AddServerCoordinator: NXAuthenticationDelegate {
@@ -80,8 +77,8 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
         navigateToLoginPage(withURlString: loginURL)
     }
 
-    func urlEntered() {
-        addServerVC.checkURLField()
+    func urlEntered(isValid: Bool) {
+        isValid ? addServerVC.enableAuthentication() : addServerVC.updateLabel(with: .localized(.serverFormEnterAddress))
     }
 }
 

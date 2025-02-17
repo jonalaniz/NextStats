@@ -16,5 +16,5 @@ protocol NXAuthenticationDelegate: AnyObject {
     func didRecieve(loginURL: String)
 
     /// Called when url is entered and needs checking
-    func urlEntered()
+    func urlEntered(isValid: Bool)
 }

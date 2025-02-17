@@ -63,7 +63,7 @@ class AddServerViewController: BaseTableViewController {
         headerView.activityIndicatior.deactivate()
     }
 
-    private func hideStatusAndEnableNextButton() {
+    func enableAuthentication() {
         headerView.statusLabel.isHidden = true
         navigationItem.rightBarButtonItem?.isEnabled = true
     }
@@ -114,19 +114,6 @@ class AddServerViewController: BaseTableViewController {
         UIView.animate(withDuration: duration) {
             self.view.layoutIfNeeded()
         }
-    }
-
-    /// Enables the connect button when text is entered
-    func checkURLField() {
-        // Safely unwrap urlString
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell
-        else {
-            fatalError("Cannot cast cell as ServerInputCell")
-        }
-
-        guard let urlString = cell.textField.text else { return }
-
-        urlString.isEmpty ? updateLabel(with: .localized(.serverFormEnterAddress)) : hideStatusAndEnableNextButton()
     }
 
     private func subscribeToKeyboardNotifications() {

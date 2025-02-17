@@ -146,6 +146,11 @@ class NXAuthenticator: NSObject {
         shouldPoll = false
     }
 
+    @objc func validateURL(sender: UITextField) {
+        guard let urlString = sender.text else { return }
+        delegate?.urlEntered(isValid: !urlString.isEmpty)
+    }
+
     private func handle(error: APIManagerError) {
         DispatchQueue.main.async {
             self.errorHandler?.handleError(error)

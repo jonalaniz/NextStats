@@ -1,9 +1,9 @@
 //
-//  AddServerCoordinator+UITableViewDataSource.swift
+//  AddServerDataSource.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 3/16/24.
-//  Copyright © 2024 Jon Alaniz. All rights reserved.
+//  Created by Jon Alaniz on 2/17/25.
+//  Copyright © 2025 Jon Alaniz. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +12,16 @@ enum LoginFields: Int, CaseIterable {
     case name = 0, url
 }
 
-extension AddServerCoordinator: UITableViewDataSource {
+class AuthenticationDataSource: NSObject, UITableViewDataSource {
+    weak var textFieldDelegate: TextFieldDelegate?
+    let dataManager: NXAuthenticator
+
+    init(dataManager: NXAuthenticator) {
+        self.dataManager = dataManager
+        let delegate = TextFieldDelegate()
+        textFieldDelegate = delegate
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return LoginFields.allCases.count
     }
@@ -39,20 +48,13 @@ extension AddServerCoordinator: UITableViewDataSource {
         case .url:
             textField = TextFieldFactory.textField(type: .URL,
                                                    placeholder: .localized(.addScreenUrl))
-            textField.addTarget(self,
-                                action: #selector(validateURL),
+            textField.addTarget(dataManager,
+                                action: #selector(dataManager.validateURL),
                                 for: .editingChanged)
         }
 
-        textField.delegate = self
+        textField.delegate = textFieldDelegate
         cell.textField = textField
         cell.setup()
-    }
-}
-
-extension AddServerCoordinator: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 }
