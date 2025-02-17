@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum GroupRole {
-    case member, admin
-}
-
 class NXUserFactory: NSObject {
     public static let shared = NXUserFactory()
 

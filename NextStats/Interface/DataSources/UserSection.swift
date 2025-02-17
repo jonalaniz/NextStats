@@ -43,6 +43,10 @@ enum Status: Int, CaseIterable {
     }
 }
 
+enum GroupRole {
+    case member, admin
+}
+
 enum Capabilities: Int, CaseIterable {
     case displayName, password
 
