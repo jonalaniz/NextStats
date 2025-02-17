@@ -16,8 +16,8 @@ class BaseTableViewCell: UITableViewCell {
     /// Initializes a table view cell with the specified style and reuse identifier.
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
-        backgroundView = self.blurView
+        backgroundColor = .cellBackground
+        updateBlurEffect()
     }
 
     /// Convenience initializer for quickly configuring a `BaseTableViewCell` with common properties.
@@ -49,5 +49,20 @@ class BaseTableViewCell: UITableViewCell {
     /// Required initializer for decoding from a storyboard or nib. Not implemented for this class.
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            updateBlurEffect()
+        }
+    }
+
+    private func updateBlurEffect() {
+        if traitCollection.userInterfaceStyle == .dark {
+            backgroundView = self.blurView
+        } else {
+            backgroundView = nil
+        }
     }
 }
