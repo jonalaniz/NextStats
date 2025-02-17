@@ -17,6 +17,7 @@ class MainCoordinator: NSObject, Coordinator {
     let statsViewController: StatsViewController
 
     let serverManager = NXServerManager.shared
+    let serverDataSource: ServerDataSource
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -24,6 +25,7 @@ class MainCoordinator: NSObject, Coordinator {
         mainViewController = ServerViewController()
         statsViewController = StatsViewController()
         detailNavigationController = UINavigationController(rootViewController: SelectServerViewController())
+        serverDataSource = ServerDataSource(serverManager: serverManager)
     }
 
     // This is where we initialize the UISplitViewController
@@ -33,6 +35,7 @@ class MainCoordinator: NSObject, Coordinator {
 
         splitViewController.viewControllers = [mainNavigationController, detailNavigationController]
         mainViewController.coordinator = self
+        mainViewController.dataSource = serverDataSource
         statsViewController.coordinator = self
     }
 

@@ -23,7 +23,6 @@ class ServerViewController: BaseTableViewController {
         tableDelegate = ServerTableViewDelegate(coordinator: coordinator,
                                                 serverManager: serverManager)
         delegate = tableDelegate
-        dataSource = coordinator
         super.viewDidLoad()
         serverManager.delegate = coordinator
         serverManager.pingServers()

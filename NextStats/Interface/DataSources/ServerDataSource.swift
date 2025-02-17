@@ -1,14 +1,20 @@
 //
-//  MainCoordinator+UITableViewDataSource.swift
+//  ServerDataSource.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 3/29/24.
-//  Copyright © 2024 Jon Alaniz. All rights reserved.
+//  Created by Jon Alaniz on 2/17/25.
+//  Copyright © 2025 Jon Alaniz. All rights reserved.
 //
 
 import UIKit
 
-extension MainCoordinator: UITableViewDataSource {
+class ServerDataSource: NSObject, UITableViewDataSource {
+    let serverManager: NXServerManager
+
+    init(serverManager: NXServerManager) {
+        self.serverManager = serverManager
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return serverManager.serverCount()
     }
