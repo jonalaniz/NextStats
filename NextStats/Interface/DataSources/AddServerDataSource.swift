@@ -8,10 +8,6 @@
 
 import UIKit
 
-enum LoginFields: Int, CaseIterable {
-    case name = 0, url
-}
-
 class AuthenticationDataSource: NSObject, UITableViewDataSource {
     weak var textFieldDelegate: TextFieldDelegate?
     let dataManager: NXAuthenticator

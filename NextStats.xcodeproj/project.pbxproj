@@ -147,6 +147,7 @@
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 		56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */; };
 		56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */; };
+		56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DD2D63653A001E2294 /* LoginFields.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -300,6 +301,7 @@
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 		56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+MenuActions.swift"; sourceTree = "<group>"; };
 		56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserDataSource.swift; sourceTree = "<group>"; };
+		56FE82DD2D63653A001E2294 /* LoginFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFields.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,9 +381,9 @@
 		560938742D63270000DEAF40 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
+				56FE82DC2D636512001E2294 /* Enums */,
 				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
 				560938772D63409200DEAF40 /* UserDataSource.swift */,
-				56AAA3D42D5B579F009DC223 /* UserSection.swift */,
 				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 			);
 			path = DataSources;
@@ -560,15 +562,6 @@
 			path = "User Managment";
 			sourceTree = "<group>";
 		};
-		56AAA3D62D5B581E009DC223 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				56AAA3D72D5B78C8009DC223 /* NewUserSection.swift */,
-				5609385C2D5F816000DEAF40 /* StatsSection.swift */,
-			);
-			path = Enums;
-			sourceTree = "<group>";
-		};
 		56BB28E426A7997C00F0D8DC /* Catalyst */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,7 +614,6 @@
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
-				56AAA3D62D5B581E009DC223 /* Enums */,
 				56F1C7052D577BDB00EA03BD /* Delegates */,
 				56D557FD2D46C2850027A1FB /* DataManagers */,
 				562C25A42CB9FE16001BF067 /* Models */,
@@ -717,6 +709,17 @@
 				565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		56FE82DC2D636512001E2294 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				56FE82DD2D63653A001E2294 /* LoginFields.swift */,
+				56AAA3D72D5B78C8009DC223 /* NewUserSection.swift */,
+				5609385C2D5F816000DEAF40 /* StatsSection.swift */,
+				56AAA3D42D5B579F009DC223 /* UserSection.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -904,6 +907,7 @@
 				565EFE652BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoDataManager.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
+				56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */,
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
 				5652A2F7276489AE0050F5EB /* NXAuthenticator.swift in Sources */,
