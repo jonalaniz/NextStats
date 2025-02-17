@@ -20,7 +20,7 @@ class InfoViewController: BaseTableViewController {
         titleText = "Info"
         prefersLargeTitles = false
         tableStyle = .insetGrouped
-        tableViewHeaderView = HeaderView()
+        tableViewHeaderView = InfoHeaderView()
         dataManager.delegate = self
         dataSource = dataManager
         tableDelegate = InfoTableViewDelegate(coordinator: coordinator, dataManager: dataManager)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderView: UIView {
+class InfoHeaderView: UIView {
     let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
