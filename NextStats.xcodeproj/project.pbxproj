@@ -348,6 +348,17 @@
 			path = TableViewDelegates;
 			sourceTree = "<group>";
 		};
+		5609386E2D630E3F00DEAF40 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				56C9596F2655E42F00BD3B06 /* InputCell.swift */,
+				5671B6922B639D950026E4A0 /* ProgressCell.swift */,
+				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
+				569EBB0E2ADBC15900BE5985 /* UserCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		562C259F2CB9F64B001BF067 /* NextcloudService */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,26 +389,11 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		5647A64D2BA64A3C000D51F7 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				569EBB0E2ADBC15900BE5985 /* UserCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		5647A64E2BA64A54000D51F7 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				5671B6922B639D950026E4A0 /* ProgressCell.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		5647A6552BA653C0000D51F7 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
 				56D557FC2D46C2090027A1FB /* BaseClasses */,
+				5609386E2D630E3F00DEAF40 /* TableViewCells */,
 				5609385F2D62FEF500DEAF40 /* TableViewDelegates */,
 				56DB682126AEEC400015CB04 /* Add Server */,
 				56DB681F26AEEBF60015CB04 /* Info */,
@@ -549,7 +545,6 @@
 			children = (
 				567D825A2BA7AF53007BF135 /* NewUser */,
 				567D82592BA7AF4E007BF135 /* Users */,
-				5647A64D2BA64A3C000D51F7 /* Views */,
 			);
 			path = "User Managment";
 			sourceTree = "<group>";
@@ -611,7 +606,6 @@
 			children = (
 				56557EE723C8B09A008CF684 /* AddServerViewController.swift */,
 				56C781A72AD8957200872988 /* AddServerHeaderView.swift */,
-				56C9596F2655E42F00BD3B06 /* InputCell.swift */,
 			);
 			path = "Add Server";
 			sourceTree = "<group>";
@@ -648,7 +642,6 @@
 		56E0AD7D26ADA1F10090ACB6 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				5647A64E2BA64A54000D51F7 /* Views */,
 				56C781A52AD7DF2200872988 /* TextFieldFactory.swift */,
 				56E0AD7E26ADA20C0090ACB6 /* LoadingViewController.swift */,
 				56557EF923CA6E89008CF684 /* WebViewController.swift */,
@@ -673,7 +666,6 @@
 		56E0AD8726ADC01D0090ACB6 /* Servers  */ = {
 			isa = PBXGroup;
 			children = (
-				56B17E1023D681A9007C33B2 /* ServerCell.swift */,
 				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */,
 			);
