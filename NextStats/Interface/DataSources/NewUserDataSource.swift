@@ -1,14 +1,26 @@
 //
-//  NewUsersCoordinator+TableViewDataSource.swift
+//  NewUserDataSource.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 3/17/24.
-//  Copyright © 2024 Jon Alaniz. All rights reserved.
+//  Created by Jon Alaniz on 2/17/25.
+//  Copyright © 2025 Jon Alaniz. All rights reserved.
 //
 
 import UIKit
 
-extension NewUserCoordinator: UITableViewDataSource {
+class NewUserDataSource: NSObject, UITableViewDataSource {
+    let userFactory: NXUserFactory
+    weak var textFieldDelegate: TextFieldDelegate?
+
+    // Dictionary to hold textFields mapped to their indexPath
+    private var textFields: [IndexPath: UITextField] = [:]
+
+    init(userFactory: NXUserFactory) {
+        self.userFactory = userFactory
+        let delegate = TextFieldDelegate()
+        textFieldDelegate = delegate
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return NewUserSection.allCases.count
     }
@@ -27,11 +39,11 @@ extension NewUserCoordinator: UITableViewDataSource {
         case .name:
             guard let row = NameField(rawValue: indexPath.row)
             else { return UITableViewCell() }
-            return nameCellFor(row)
+            return nameCellFor(row, indexPath: indexPath)
         case .requiredFields:
             guard let row = RequiredField(rawValue: indexPath.row)
             else { return UITableViewCell() }
-            return requiredCellFor(row)
+            return requiredCellFor(row, indexPath: indexPath)
         case .groups: return groupSelectionCell(for: .member)
         case .subAdmin: return groupSelectionCell(for: .admin)
         case .quota: return quotaCell()
@@ -45,74 +57,51 @@ extension NewUserCoordinator: UITableViewDataSource {
         return section.header
     }
 
-    @objc func updateUserid() {
-        let indexPath = IndexPath(row: NameField.username.rawValue,
-                                  section: NewUserSection.name.rawValue)
-        userFactory.set(userid: getInputCell(at: indexPath)?.textField.text)
-        checkRequirements()
-    }
-
-    @objc func updateDisplayName() {
-        let indexPath = IndexPath(row: NameField.displayName.rawValue,
-                                  section: NewUserSection.name.rawValue)
-        userFactory.set(displayName: getInputCell(at: indexPath)?.textField.text)
-        checkRequirements()
-    }
-
-    func nameCellFor(_ field: NameField) -> InputCell {
-        let (text, selector) =
+    func nameCellFor(_ field: NameField, indexPath: IndexPath) -> InputCell {
+        let text =
         switch field {
-        case .username: (userFactory.userid, #selector(updateUserid))
-        case .displayName: (userFactory.displayName, #selector(updateDisplayName))
+        case .username: userFactory.userid
+        case .displayName: userFactory.displayName
         }
 
         return configureInputCell(
             placeholder: field.placeholder,
             text: text,
             type: field.type,
-            selector: selector)
+            indexPath: indexPath)
     }
 
-    func requiredCellFor(_ field: RequiredField) -> InputCell {
-        let (text, selector) =
+    func requiredCellFor(_ field: RequiredField, indexPath: IndexPath) -> InputCell {
+        let text =
         switch field {
-        case .password: (userFactory.password, #selector(updatePassword))
-        case .email: (userFactory.email, #selector(updateEmail))
+        case .password: userFactory.password
+        case .email: userFactory.email
         }
 
         return configureInputCell(
             placeholder: field.placeholder,
             text: text,
             type: field.type,
-            selector: selector)
+            indexPath: indexPath)
     }
 
     private func configureInputCell(placeholder: String,
                                     text: String?,
                                     type: TextFieldType,
-                                    selector: Selector) -> InputCell {
+                                    indexPath: IndexPath) -> InputCell {
         let cell = InputCell(style: .default, reuseIdentifier: InputCell.reuseidentifier)
         let textField = TextFieldFactory.textField(type: type, placeholder: placeholder)
+
         textField.text = text
-        textField.addTarget(self, action: selector, for: .editingChanged)
-        textField.delegate = self
+        textField.delegate = textFieldDelegate
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
+        // Store the textField with indexPath
+        textFields[indexPath] = textField
+
         cell.textField = textField
         cell.setup()
         return cell
-    }
-
-    @objc func updateEmail() {
-        let indexPath = IndexPath(row: RequiredField.email.rawValue,
-                                  section: NewUserSection.requiredFields.rawValue)
-        userFactory.set(email: getInputCell(at: indexPath)?.textField.text)
-        checkRequirements()
-    }
-
-    @objc func updatePassword() {
-        let indexPath = IndexPath(row: RequiredField.password.rawValue,
-                                  section: NewUserSection.requiredFields.rawValue)
-        userFactory.set(password: getInputCell(at: indexPath)?.textField.text)
-        checkRequirements()
     }
 
     func groupSelectionCell(for role: GroupRole) -> UITableViewCell {
@@ -143,24 +132,47 @@ extension NewUserCoordinator: UITableViewDataSource {
                                  accessoryType: .disclosureIndicator)
     }
 
-    private func getInputCell(at indexPath: IndexPath) -> InputCell? {
-        guard
-            let tableView = newUserViewController.tableView,
-            let cell = tableView.cellForRow(at: indexPath) as? InputCell
-        else { return nil }
+    @objc private func textFieldDidChange(_ sender: UITextField) {
+        // Find the indexPath for this textField
+        guard let indexPath = textFields.first(where: { $0.value == sender})?.key
+        else { return }
 
-        return cell
+        // Map indexPath.section to the NewUsersSection
+        guard let section = NewUserSection(rawValue: indexPath.section)
+        else { return }
+
+        switch section {
+        case .name: updateNameField(indexPath.row, with: sender.text)
+        case .requiredFields: updateRequiredField(indexPath.row, with: sender.text)
+        default: return
+        }
     }
 
-    private func checkRequirements() {
-        guard userFactory.requirementsMet() else { return }
-        newUserViewController.navigationItem.rightBarButtonItem?.isEnabled = true
-    }
-}
+    private func updateNameField(_ row: Int, with text: String?) {
+        // Map the row to a field
+        guard let field = NameField(rawValue: row),
+              let text = text
+        else { return }
 
-extension NewUserCoordinator: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        switch field {
+        case .username: userFactory.set(userid: text)
+        case .displayName: userFactory.set(displayName: text)
+        }
+
+        userFactory.checkRequirements()
+    }
+
+    private func updateRequiredField(_ row: Int, with text: String?) {
+        // Map the row to a field
+        guard let field = RequiredField(rawValue: row),
+              let text = text
+        else { return }
+
+        switch field {
+        case .email: userFactory.set(email: text)
+        case .password: userFactory.set(password: text)
+        }
+
+        userFactory.checkRequirements()
     }
 }

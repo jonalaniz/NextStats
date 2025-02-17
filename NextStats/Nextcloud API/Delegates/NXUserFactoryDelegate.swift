@@ -26,4 +26,5 @@ enum NXUserFactoryError {
 enum NXUserFactoryState {
     case userCreated(data: Data)
     case sucess
+    case ready
 }

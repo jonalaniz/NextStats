@@ -11,6 +11,8 @@ import UIKit
 // swiftlint:disable weak_delegate
 class NewUserViewController: BaseTableViewController {
     weak var coordinator: NewUserCoordinator?
+
+    // TODO: Move this outside of the controller and have the coordinator set the factory
     let userFactory = NXUserFactory.shared
 
     // Value is not weak as to keep from immediatly deallocating
@@ -49,5 +51,9 @@ class NewUserViewController: BaseTableViewController {
 
     @objc func donePressed() {
         coordinator?.createUser()
+    }
+
+    func enableNextButton() {
+        navigationItem.rightBarButtonItem?.isEnabled = true
     }
 }

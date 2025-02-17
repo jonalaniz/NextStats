@@ -80,7 +80,6 @@
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
 		567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82552BA7A710007BF135 /* NewUserCoordinator.swift */; };
-		567D825F2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */; };
 		567D82612BAA18C4007BF135 /* NXUserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82602BAA18C4007BF135 /* NXUserFactory.swift */; };
 		567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82642BB1305D007BF135 /* SelectionViewController.swift */; };
 		567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */; };
@@ -147,6 +146,7 @@
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 		56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */; };
+		56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,7 +232,6 @@
 		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567D82552BA7A710007BF135 /* NewUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserCoordinator.swift; sourceTree = "<group>"; };
-		567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+TableViewDataSource.swift"; sourceTree = "<group>"; };
 		567D82602BAA18C4007BF135 /* NXUserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactory.swift; sourceTree = "<group>"; };
 		567D82642BB1305D007BF135 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
 		567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
@@ -300,6 +299,7 @@
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 		56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+MenuActions.swift"; sourceTree = "<group>"; };
+		56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +382,7 @@
 				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
 				560938772D63409200DEAF40 /* UserDataSource.swift */,
 				56AAA3D42D5B579F009DC223 /* UserSection.swift */,
+				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -698,7 +699,6 @@
 				567D82552BA7A710007BF135 /* NewUserCoordinator.swift */,
 				565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */,
 				567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */,
-				567D825E2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift */,
 				569F2CA026AB2358001122F2 /* UsersCoordinator.swift */,
 				56C632E72BB908C2007B2032 /* UsersCoordinator+NXUserManagerDelegate.swift */,
 				56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */,
@@ -852,6 +852,7 @@
 			files = (
 				56E0AD8126ADA4360090ACB6 /* UIViewController+Child.swift in Sources */,
 				569F2CA826AC34D7001122F2 /* NXUsersManager.swift in Sources */,
+				56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */,
 				5601D7AF25E0E8D100993D31 /* MainCoordinator.swift in Sources */,
 				569F2C7826AAF61A001122F2 /* XMLEncoder.swift in Sources */,
 				560938672D6306AB00DEAF40 /* StatsTableViewDelegate.swift in Sources */,
@@ -940,7 +941,6 @@
 				5647A6412BA3FE77000D51F7 /* NewUser.swift in Sources */,
 				56D3442E2CEC8C2900A5933B /* ToggleType.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
-				567D825F2BAA186D007BF135 /* NewUsersCoordinator+TableViewDataSource.swift in Sources */,
 				56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */,
 				5609386D2D630D3400DEAF40 /* UserTableViewDelegate.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,

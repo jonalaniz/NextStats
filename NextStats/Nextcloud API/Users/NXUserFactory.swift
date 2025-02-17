@@ -71,10 +71,12 @@ class NXUserFactory: NSObject {
     }
 
     func set(email: String?) {
+        print("Email: \(email)")
         self.email = email
     }
 
     func set(password: String?) {
+        print("Password: \(password)")
         self.password = password
     }
 
@@ -138,9 +140,10 @@ class NXUserFactory: NSObject {
         reset()
     }
 
-    func requirementsMet() -> Bool {
-        guard let userid = userid, !userid.isEmpty else { return false }
-        return !(email?.isEmpty ?? true) || !(password?.isEmpty ?? true)
+    func checkRequirements() {
+        guard let userid = userid, !userid.isEmpty else { return }
+        let requirementsMet = !(email?.isEmpty ?? true) || !(password?.isEmpty ?? true)
+        if requirementsMet { delegate?.stateDidChange(.ready) }
     }
 
     private func reset() {

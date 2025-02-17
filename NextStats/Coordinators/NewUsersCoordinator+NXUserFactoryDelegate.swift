@@ -21,6 +21,7 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
             // Stop Spinner
             parentCoordinator?.updateUsers()
             popOverNavController.dismiss(animated: true)
+        case .ready: newUserViewController.enableNextButton()
         }
     }
 

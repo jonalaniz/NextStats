@@ -18,18 +18,20 @@ class NewUserCoordinator: NSObject, Coordinator {
     let popOverNavController = UINavigationController()
 
     let userFactory = NXUserFactory.shared
+    let newUserDataSource: NewUserDataSource
 
     init(splitViewController: UISplitViewController, navigationController: UINavigationController) {
         self.splitViewController = splitViewController
         self.navigaitonController = navigationController
         newUserViewController = NewUserViewController()
+        newUserDataSource = NewUserDataSource(userFactory: userFactory)
     }
 
     func start() {
         userFactory.delegate = self
         popOverNavController.viewControllers = [newUserViewController]
         newUserViewController.coordinator = self
-        newUserViewController.dataSource = self
+        newUserViewController.dataSource = newUserDataSource
         navigaitonController.present(popOverNavController, animated: true)
     }
 
