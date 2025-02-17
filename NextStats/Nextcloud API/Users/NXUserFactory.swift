@@ -71,12 +71,10 @@ class NXUserFactory: NSObject {
     }
 
     func set(email: String?) {
-        print("Email: \(email)")
         self.email = email
     }
 
     func set(password: String?) {
-        print("Password: \(password)")
         self.password = password
     }
 
