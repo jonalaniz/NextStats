@@ -103,6 +103,7 @@ extension InfoDataManager: UITableViewDataSource {
 
         return BaseTableViewCell(style: .value1,
                                  text: "App Icon Type",
+                                 textColor: .theme,
                                  secondaryText: secondaryText)
     }
 
