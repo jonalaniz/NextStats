@@ -33,7 +33,7 @@ final class NXStatsManager: NSObject {
         Task {
             do {
                 let object = try await service.fetchStatistics(for: server)
-                await format(statistics: object)
+                await check(object)
             } catch {
                 guard let error = error as? APIManagerError else {
                     errorHandler?.handleError(.somethingWentWrong(error: error))
@@ -44,8 +44,8 @@ final class NXStatsManager: NSObject {
         }
     }
 
-    @MainActor private func format(statistics: ServerStats) {
-        guard let data = statistics.ocs?.data
+    @MainActor private func check(_ object: ServerStats) {
+        guard let data = object.ocs?.data
         else {
             errorHandler?.handleError(.serializaitonFailed)
             return

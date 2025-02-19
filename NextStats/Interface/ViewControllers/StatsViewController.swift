@@ -18,6 +18,7 @@ class StatsViewController: BaseTableViewController {
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
     let dataManager = NXStatsManager.shared
+    var statsDataSource: StatsDataSource?
     var serverInitialized = false
 
     override func viewDidLoad() {
@@ -63,7 +64,8 @@ class StatsViewController: BaseTableViewController {
     }
 
     func showTableView() {
-        tableView.dataSource = dataManager
+        statsDataSource = StatsDataSource(dataManager: dataManager)
+        tableView.dataSource = statsDataSource
 
         tableView.isHidden = false
         loadingView.remove()

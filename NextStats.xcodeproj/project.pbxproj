@@ -14,7 +14,6 @@
 		5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */; };
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
-		5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */; };
 		5609385D2D5F816000DEAF40 /* StatsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609385C2D5F816000DEAF40 /* StatsSection.swift */; };
 		560938612D62FF0A00DEAF40 /* NewUserTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938602D62FF0A00DEAF40 /* NewUserTableViewDelegate.swift */; };
 		560938652D6301FE00DEAF40 /* UsersTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938642D6301FE00DEAF40 /* UsersTableViewDelegate.swift */; };
@@ -149,6 +148,7 @@
 		56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DD2D63653A001E2294 /* LoginFields.swift */; };
 		56FE82E02D637D27001E2294 /* ServerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DF2D637D27001E2294 /* ServerDataSource.swift */; };
 		56FE82E22D65D5CA001E2294 /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */; };
+		56FE82E42D660353001E2294 /* StatsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82E32D660353001E2294 /* StatsDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,7 +170,6 @@
 		5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Activate-Deactivate.swift"; sourceTree = "<group>"; };
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
-		5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NXStatsManager+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		5609385C2D5F816000DEAF40 /* StatsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsSection.swift; sourceTree = "<group>"; };
 		560938602D62FF0A00DEAF40 /* NewUserTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserTableViewDelegate.swift; sourceTree = "<group>"; };
 		560938642D6301FE00DEAF40 /* UsersTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -304,6 +303,7 @@
 		56FE82DD2D63653A001E2294 /* LoginFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFields.swift; sourceTree = "<group>"; };
 		56FE82DF2D637D27001E2294 /* ServerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDataSource.swift; sourceTree = "<group>"; };
 		56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
+		56FE82E32D660353001E2294 /* StatsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,12 +383,13 @@
 		560938742D63270000DEAF40 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
 				56FE82DC2D636512001E2294 /* Enums */,
+				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
 				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 				56FE82DF2D637D27001E2294 /* ServerDataSource.swift */,
 				560938772D63409200DEAF40 /* UserDataSource.swift */,
 				56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */,
+				56FE82E32D660353001E2294 /* StatsDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -593,7 +594,6 @@
 				56BCF6B32487CA8D0048B991 /* NXServerManager.swift */,
 				5652A2F6276489AE0050F5EB /* NXAuthenticator.swift */,
 				56A3188E2772804B00EAF1F2 /* NXStatsManager.swift */,
-				5602A2BB277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift */,
 				569F2CA726AC34D7001122F2 /* NXUsersManager.swift */,
 			);
 			path = DataManagers;
@@ -938,7 +938,6 @@
 				56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */,
 				56E0AD7F26ADA20C0090ACB6 /* LoadingViewController.swift in Sources */,
 				56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */,
-				5602A2BC277CCAB8004A60F0 /* NXStatsManager+UITableViewDelegate.swift in Sources */,
 				565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */,
 				567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */,
 				560938692D63080200DEAF40 /* ServerTableViewDelegate.swift in Sources */,
@@ -977,6 +976,7 @@
 				562C25912CB9F631001BF067 /* HeaderKeyValue.swift in Sources */,
 				562C25922CB9F631001BF067 /* APIManagerError.swift in Sources */,
 				562C25932CB9F631001BF067 /* Error+Description.swift in Sources */,
+				56FE82E42D660353001E2294 /* StatsDataSource.swift in Sources */,
 				56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */,
 				562C25942CB9F631001BF067 /* URLRequest+Headers.swift in Sources */,
 				562C25952CB9F631001BF067 /* Managable.swift in Sources */,

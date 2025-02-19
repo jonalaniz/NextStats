@@ -1,14 +1,20 @@
 //
-//  NXStatsManager+UITableViewDelegate.swift
+//  StatsDataSource.swift
 //  NextStats
 //
-//  Created by Jon Alaniz on 12/29/21.
-//  Copyright © 2021 Jon Alaniz.
+//  Created by Jon Alaniz on 2/19/25.
+//  Copyright © 2025 Jon Alaniz. All rights reserved.
 //
 
 import UIKit
 
-extension NXStatsManager: UITableViewDataSource {
+class StatsDataSource: NSObject, UITableViewDataSource {
+    let dataManager: NXStatsManager
+
+    init(dataManager: NXStatsManager) {
+        self.dataManager = dataManager
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return StatsSection.allCases.count
     }
@@ -36,15 +42,15 @@ extension NXStatsManager: UITableViewDataSource {
     private func systemCell(row: Int) -> UITableViewCell {
         guard
             let cellRow = SystemRow(rawValue: row),
-            let system = stats.nextcloud?.system
+            let system = dataManager.stats.nextcloud?.system
         else { return UITableViewCell() }
 
         let secondaryText: String
 
         switch cellRow {
         case .cpu: secondaryText = cpuLoadAverages()
-        case .webServer: secondaryText = stats.server?.webserver ?? "N/A"
-        case .phpVersion: secondaryText = stats.server?.php?.version ?? "N/A"
+        case .webServer: secondaryText = dataManager.stats.server?.webserver ?? "N/A"
+        case .phpVersion: secondaryText = dataManager.stats.server?.php?.version ?? "N/A"
         case .databaseVersion: secondaryText = databaseVersion()
         case .databaseSize: secondaryText = databaseSize()
         case .localCache: secondaryText = system.memcacheLocal ?? "N/A"
@@ -91,11 +97,11 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func versionNumber() -> String? {
-        return stats.nextcloud?.system?.version
+        return dataManager.stats.nextcloud?.system?.version
     }
 
     private func cpuLoadAverages() -> String {
-        guard let usageArray = stats.nextcloud?.system?.cpuload
+        guard let usageArray = dataManager.stats.nextcloud?.system?.cpuload
         else { return "N/A "}
 
         let stringArray = usageArray.map { String(format: "%.2f", $0) }
@@ -104,7 +110,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func databaseVersion() -> String {
-        guard let server = stats.server,
+        guard let server = dataManager.stats.server,
               let database = server.database?.type,
               let dbVersion = server.database?.version
         else { return "N/A" }
@@ -113,7 +119,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func databaseSize() -> String {
-        guard let size = stats.server?.database?.size
+        guard let size = dataManager.stats.server?.database?.size
         else { return "N/A" }
 
         switch size {
@@ -126,19 +132,19 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func ram() -> (Int?, Int?) {
-        let free = stats.nextcloud?.system?.memFree?.intValue
-        let total = stats.nextcloud?.system?.memTotal?.intValue
+        let free = dataManager.stats.nextcloud?.system?.memFree?.intValue
+        let total = dataManager.stats.nextcloud?.system?.memTotal?.intValue
         return (free, total)
     }
 
     private func swap() -> (Int?, Int?) {
-        let free = stats.nextcloud?.system?.swapFree?.intValue
-        let total = stats.nextcloud?.system?.swapTotal?.intValue
+        let free = dataManager.stats.nextcloud?.system?.swapFree?.intValue
+        let total = dataManager.stats.nextcloud?.system?.swapTotal?.intValue
         return (free, total)
     }
 
     private func freeSpace() -> String {
-        guard let freeSpace = stats.nextcloud?.system?.freespace
+        guard let freeSpace = dataManager.stats.nextcloud?.system?.freespace
         else { return "N/A" }
 
         let bytes = Double(freeSpace)
@@ -146,7 +152,7 @@ extension NXStatsManager: UITableViewDataSource {
     }
 
     private func numberOfFiles() -> String {
-        guard let number = stats.nextcloud?.storage?.numFiles
+        guard let number = dataManager.stats.nextcloud?.storage?.numFiles
         else { return "N/A" }
 
         return String(number)
@@ -154,10 +160,10 @@ extension NXStatsManager: UITableViewDataSource {
 
     private func activeUsers(for row: ActivityRow) -> String {
         guard
-            let last5 = stats.activeUsers?.last5Minutes,
-            let lastHour = stats.activeUsers?.last1Hour,
-            let lastDay = stats.activeUsers?.last24Hours,
-            let total = stats.nextcloud?.storage?.numUsers
+            let last5 = dataManager.stats.activeUsers?.last5Minutes,
+            let lastHour = dataManager.stats.activeUsers?.last1Hour,
+            let lastDay = dataManager.stats.activeUsers?.last24Hours,
+            let total = dataManager.stats.nextcloud?.storage?.numUsers
         else { return "N/A "}
 
         switch row {
