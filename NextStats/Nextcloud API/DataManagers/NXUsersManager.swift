@@ -22,7 +22,7 @@ class NXUsersManager: NSObject {
     weak var delegate: NXUserManagerDelegate?
     weak var errorHandler: ErrorHandling?
     private let service = NextcloudService.shared
-    private var userIDs = [String]()
+    private(set) var userIDs = [String]()
     private var users = [User]()
     private(set) var server: NextServer! {
         didSet { resetUserData() }
@@ -139,32 +139,9 @@ class NXUsersManager: NSObject {
     private func handle(error: APIManagerError) {
         errorHandler?.handleError(error)
     }
-}
-
-extension NXUsersManager: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usersCount()
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let userModel = userCellModel(indexPath.row),
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: UserCell.reuseIdentifier,
-                for: indexPath) as? UserCell
-        else { return UITableViewCell() }
-
-        cell.configureCell(with: userModel)
-
-        return cell
-    }
 
     func user(id: String) -> User {
         return users.first(where: { $0.data.id == id })!
-    }
-
-    func usersCount() -> Int {
-        return userIDs.count
     }
 
     func userCellModel(_ index: Int) -> UserCellModel? {

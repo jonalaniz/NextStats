@@ -22,7 +22,6 @@ class UsersViewController: BaseTableViewController {
             dataManager: dataManager)
         delegate = tableDelegate
 
-        dataSource = dataManager
         tableStyle = .insetGrouped
         titleText = .localized(.users)
         super.viewDidLoad()

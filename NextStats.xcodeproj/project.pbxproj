@@ -148,6 +148,7 @@
 		56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */; };
 		56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DD2D63653A001E2294 /* LoginFields.swift */; };
 		56FE82E02D637D27001E2294 /* ServerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DF2D637D27001E2294 /* ServerDataSource.swift */; };
+		56FE82E22D65D5CA001E2294 /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,6 +303,7 @@
 		56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserDataSource.swift; sourceTree = "<group>"; };
 		56FE82DD2D63653A001E2294 /* LoginFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFields.swift; sourceTree = "<group>"; };
 		56FE82DF2D637D27001E2294 /* ServerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDataSource.swift; sourceTree = "<group>"; };
+		56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,11 +383,12 @@
 		560938742D63270000DEAF40 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				56FE82DC2D636512001E2294 /* Enums */,
 				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
-				560938772D63409200DEAF40 /* UserDataSource.swift */,
+				56FE82DC2D636512001E2294 /* Enums */,
 				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 				56FE82DF2D637D27001E2294 /* ServerDataSource.swift */,
+				560938772D63409200DEAF40 /* UserDataSource.swift */,
+				56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -946,6 +949,7 @@
 				56D3442E2CEC8C2900A5933B /* ToggleType.swift in Sources */,
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
 				56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */,
+				56FE82E22D65D5CA001E2294 /* UsersDataSource.swift in Sources */,
 				5609386D2D630D3400DEAF40 /* UserTableViewDelegate.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,
 				560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */,

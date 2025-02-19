@@ -18,6 +18,7 @@ class UsersCoordinator: NSObject, Coordinator {
     let formatter = NXUserFormatter.shared
     let usersManager = NXUsersManager.shared
     let usersViewController: UsersViewController
+    let usersDataSource: UsersDataSource
     let userViewController: UserViewController
     let userDataSource: UserDataSource
 
@@ -26,12 +27,14 @@ class UsersCoordinator: NSObject, Coordinator {
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         usersViewController = UsersViewController()
+        usersDataSource = UsersDataSource(usersManager: usersManager)
         userViewController = UserViewController()
         userDataSource = UserDataSource(formatter: formatter)
     }
 
     func start() {
         usersViewController.coordinator = self
+        usersViewController.dataSource = usersDataSource
         usersManager.delegate = self
         usersManager.errorHandler = self
         navigationController.viewControllers = [usersViewController]
@@ -52,7 +55,6 @@ class UsersCoordinator: NSObject, Coordinator {
         userViewController.coordinator = self
         userViewController.dataManager.set(user)
         userViewController.dataSource = userDataSource
-        userViewController.setupView()
         navigationController.pushViewController(userViewController, animated: true)
     }
 

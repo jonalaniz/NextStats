@@ -89,7 +89,7 @@ class ServerHeaderView: UIView {
 
     let visitServerButton: UIButton = {
         let button = UIButton(configuration: .plain())
-        button.backgroundColor = .cellBackground                              
+        button.backgroundColor = .cellBackground
         button.layer.cornerRadius = 10
         button.sfSymbolWithText(symbol: "safari.fill",
                                 text: .localized(.serverHeaderVisit),
