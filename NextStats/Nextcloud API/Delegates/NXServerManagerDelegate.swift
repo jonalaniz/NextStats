@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum DataManagerStatus {
+    case ready
+    case loading
+    case dataUpdated
+    case error(Error)
+}
+
 protocol NXServerManagerDelegate: AnyObject {
     func deauthorizationFailed(server: NextServer)
     func serversDidChange(refresh: Bool)

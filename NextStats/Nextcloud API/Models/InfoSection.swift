@@ -28,6 +28,30 @@ enum InfoSection: Int, CaseIterable {
         default: return nil
         }
     }
+
+    var rows: Int {
+        switch self {
+        case .icon: return 1
+        case .development: return Developer.allCases.count
+        case .translators: return Translator.allCases.count
+        case .licenses: return License.allCases.count
+        case .support: return 0
+        }
+    }
+}
+
+enum Icon: Int, CaseIterable {
+    case iconType
+
+    var title: String {
+        switch self {
+        case .iconType: return "App Icon Type"
+        }
+    }
+
+    func detail(_ isLight: Bool) -> String {
+        return isLight ? "Light" : "Default"
+    }
 }
 
 enum Developer: Int, CaseIterable {

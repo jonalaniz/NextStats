@@ -9,5 +9,5 @@
 import Foundation
 
 protocol DataManagerDelegate: AnyObject {
-    func dataUpdated()
+    func stateDidChange(_ state: DataManagerStatus)
 }

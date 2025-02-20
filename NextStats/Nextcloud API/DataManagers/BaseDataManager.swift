@@ -34,5 +34,7 @@ class BaseDataManager: NSObject {
     /// This method must be called on the main thread using the `@MainActor` attribute to ensure UI updates
     /// are safe and synchronized.
     @MainActor
-    func notifyDataUpdated() {}
+    func notifyDelegate(_ state: DataManagerStatus) {
+        delegate?.stateDidChange(state)
+    }
 }

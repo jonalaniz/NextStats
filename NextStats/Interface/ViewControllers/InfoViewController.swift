@@ -61,8 +61,11 @@ class InfoViewController: BaseTableViewController {
 }
 
 extension InfoViewController: DataManagerDelegate {
-    // This is called when IAP products have been gathered, only called once.
-    func dataUpdated() {
-        tableView.reloadData()
+    func stateDidChange(_ state: DataManagerStatus) {
+        print("StateDidChange: \(state)")
+        switch state {
+        case .dataUpdated: tableView.reloadData()
+        default: break
+        }
     }
 }

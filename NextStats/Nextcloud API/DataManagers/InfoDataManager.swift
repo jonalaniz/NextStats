@@ -9,9 +9,8 @@
 import StoreKit
 import UIKit
 
-class InfoDataManager: NSObject {
+class InfoDataManager: BaseDataManager {
     public static let shared = InfoDataManager()
-    weak var delegate: DataManagerDelegate?
 
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -21,30 +20,29 @@ class InfoDataManager: NSObject {
 
     var products = [SKProduct]()
 
-    private override init() {}
+    private init() {}
 
-    func toggleIcon() {
+    @MainActor func toggleIcon() {
         guard UIApplication.shared.supportsAlternateIcons else { return }
+        let isLight = UIApplication.shared.alternateIconName != nil
 
-        let lightIconIsSet = UIApplication.shared.alternateIconName != nil
-        UIApplication.shared.setAlternateIconName(lightIconIsSet ? nil : "AppIcon-Light")
-
-        delegate?.dataUpdated()
+        UIApplication.shared.setAlternateIconName(isLight ? nil : "AppIcon-Light")
+        notifyDelegate(.dataUpdated)
     }
 
     func checkForProducts() {
         // Check if user can make payments
         guard IAPHelper.canMakePayments() else { return }
 
-        // If products can be reached, insert the IAP Section into the TableView
+        // Check for products and notify delegate if successful
         NextStatsProducts.store.requestProducts { [self] success, products in
-            guard success else { return }
-            guard let unwrappedProducts = products else { return }
+            guard
+                success,
+                let unwrappedProducts = products
+            else { return }
 
-            DispatchQueue.main.async {
-                self.products = unwrappedProducts
-                self.delegate?.dataUpdated()
-            }
+            self.products = unwrappedProducts
+            Task { await self.notifyDelegate(.dataUpdated) }
         }
     }
 
@@ -55,8 +53,7 @@ class InfoDataManager: NSObject {
 
 extension InfoDataManager: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard !products.isEmpty else { return InfoSection.allCases.count - 1 }
-        return InfoSection.allCases.count
+        return products.isEmpty ? InfoSection.allCases.count - 1 : InfoSection.allCases.count
     }
 
     func tableView(_ tableView: UITableView,
@@ -71,14 +68,10 @@ extension InfoDataManager: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        switch InfoSection(rawValue: section) {
-        case .icon: return 1
-        case .development: return Developer.allCases.count
-        case .translators: return Translator.allCases.count
-        case .licenses: return License.allCases.count
-        case .support: return products.count
-        default: return 0
-        }
+        guard let tableSection = InfoSection(rawValue: section)
+        else { return 0 }
+
+        return tableSection == .support ? products.count : tableSection.rows
     }
 
     func tableView(_ tableView: UITableView,
@@ -98,13 +91,11 @@ extension InfoDataManager: UITableViewDataSource {
     }
 
     private func iconCell() -> UITableViewCell {
-        let light = UIApplication.shared.alternateIconName
-        let secondaryText = (light != nil) ? ("Light") : ("Default")
-
+        let isLight = UIApplication.shared.alternateIconName != nil
         return BaseTableViewCell(style: .value1,
-                                 text: "App Icon Type",
+                                 text: Icon.iconType.title,
                                  textColor: .theme,
-                                 secondaryText: secondaryText)
+                                 secondaryText: Icon.iconType.detail(isLight))
     }
 
     private func developerCell(_ row: Int) -> UITableViewCell {
@@ -128,7 +119,7 @@ extension InfoDataManager: UITableViewDataSource {
     private func licensesCell(_ row: Int) -> UITableViewCell {
         guard let license = License(rawValue: row)
         else { return UITableViewCell() }
-        return BaseTableViewCell(style: .default,
+        return BaseTableViewCell(style: .value1,
                                  text: license.title,
                                  accessoryType: .disclosureIndicator)
     }
@@ -137,7 +128,6 @@ extension InfoDataManager: UITableViewDataSource {
         let product = products[row]
         formatter.locale = product.priceLocale
         let cost = formatter.string(from: product.price)
-
         return BaseTableViewCell(style: .value1,
                                  text: product.localizedTitle,
                                  secondaryText: cost)
