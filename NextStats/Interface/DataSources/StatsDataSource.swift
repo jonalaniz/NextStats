@@ -41,23 +41,23 @@ class StatsDataSource: NSObject, UITableViewDataSource {
 
     private func systemCell(row: Int) -> UITableViewCell {
         guard
-            let cellRow = SystemRow(rawValue: row),
+            let type = SystemRow(rawValue: row),
             let system = dataManager.stats.nextcloud?.system
         else { return UITableViewCell() }
 
-        let secondaryText: String
+        let secondaryText: String = {
+            switch type {
+            case .cpu: return cpuLoadAverages()
+            case .webServer: return dataManager.stats.server?.webserver ?? "N/A"
+            case .phpVersion: return dataManager.stats.server?.php?.version ?? "N/A"
+            case .databaseVersion: return databaseVersion()
+            case .databaseSize: return databaseSize()
+            case .localCache: return system.memcacheLocal ?? "N/A"
+            case .distributedCache: return system.memcacheDistributed ?? "N/A"
+            }
+        }()
 
-        switch cellRow {
-        case .cpu: secondaryText = cpuLoadAverages()
-        case .webServer: secondaryText = dataManager.stats.server?.webserver ?? "N/A"
-        case .phpVersion: secondaryText = dataManager.stats.server?.php?.version ?? "N/A"
-        case .databaseVersion: secondaryText = databaseVersion()
-        case .databaseSize: secondaryText = databaseSize()
-        case .localCache: secondaryText = system.memcacheLocal ?? "N/A"
-        case .distributedCache: secondaryText = system.memcacheDistributed ?? "N/A"
-        }
-
-        return configureCell(text: cellRow.title, secondaryText: secondaryText)
+        return configureCell(text: type.title, secondaryText: secondaryText)
     }
 
     private func memoryCell(row: Int) -> ProgressCell {
@@ -75,25 +75,20 @@ class StatsDataSource: NSObject, UITableViewDataSource {
     }
 
     private func storageCell(row: Int) -> UITableViewCell {
-        guard let cellRow = StorageRow(rawValue: row)
+        guard let type = StorageRow(rawValue: row)
         else { return UITableViewCell() }
 
-        let secondaryText: String = {
-            switch cellRow {
-            case .space: return freeSpace()
-            case .files: return numberOfFiles()
-            }
-        }()
+        let secondaryText = type == .space ? freeSpace() : numberOfFiles()
 
-        return configureCell(text: cellRow.title, secondaryText: secondaryText)
+        return configureCell(text: type.title, secondaryText: secondaryText)
     }
 
     private func activityCell(row: Int) -> UITableViewCell {
-        guard let cellRow = ActivityRow(rawValue: row)
+        guard let type = ActivityRow(rawValue: row)
         else { return UITableViewCell() }
 
-        return configureCell(text: cellRow.title,
-                             secondaryText: activeUsers(for: cellRow))
+        return configureCell(text: type.title,
+                             secondaryText: activeUsers(for: type))
     }
 
     private func versionNumber() -> String? {
@@ -104,18 +99,14 @@ class StatsDataSource: NSObject, UITableViewDataSource {
         guard let usageArray = dataManager.stats.nextcloud?.system?.cpuload
         else { return "N/A "}
 
-        let stringArray = usageArray.map { String(format: "%.2f", $0) }
-
-        return stringArray.joined(separator: ", ")
+        return usageArray.map { String(format: "%.2f", $0) }
+            .joined(separator: ", ")
     }
 
     private func databaseVersion() -> String {
-        guard let server = dataManager.stats.server,
-              let database = server.database?.type,
-              let dbVersion = server.database?.version
+        guard let database = dataManager.stats.server?.database
         else { return "N/A" }
-
-        return "\(database) \(dbVersion)"
+        return "\(database.type ?? "N/A") \(database.version ?? "")"
     }
 
     private func databaseSize() -> String {
