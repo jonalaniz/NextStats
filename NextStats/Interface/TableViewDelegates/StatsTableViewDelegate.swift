@@ -13,4 +13,3 @@ class StatsTableViewDelegate: NSObject, UITableViewDelegate {
         return StatsSection(rawValue: indexPath.section)?.rowHeight ?? 0
     }
 }
-
