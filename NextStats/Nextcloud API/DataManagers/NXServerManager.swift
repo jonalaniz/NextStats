@@ -77,7 +77,6 @@ class NXServerManager: NSObject {
         if fileManager.fileExists(atPath: path) {
             do {
                 try fileManager.removeItem(atPath: path)
-
             } catch {
                 print(error.localizedDescription)
             }
