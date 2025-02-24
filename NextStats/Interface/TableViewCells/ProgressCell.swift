@@ -10,6 +10,14 @@ import UIKit
 
 enum ProgressCellIcon {
     case storage, memory, swap
+
+    var image: UIImage? {
+        switch self {
+        case .storage: return UIImage(systemName: "internaldrive")
+        case .memory: return UIImage(systemName: "memorychip")
+        case .swap: return UIImage(systemName: "memorychip.fill")
+        }
+    }
 }
 
 class ProgressCell: BaseTableViewCell {
@@ -85,18 +93,21 @@ class ProgressCell: BaseTableViewCell {
     }
 
     private func set(icon: ProgressCellIcon) {
+        guard let image = icon.image else { return }
         let string = NSMutableAttributedString()
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.theme
+        ]
+        string.prefixSFSymbol(image, color: .theme)
 
+        let text: String
         switch icon {
-        case .storage:
-            string.prefixingSFSymbol("internaldrive", color: .theme)
-        case .memory:
-            string.prefixingSFSymbol("memorychip", color: .theme)
-            string.append(NSAttributedString(string: " RAM", attributes: [.foregroundColor: UIColor.theme]))
-        case .swap:
-            string.prefixingSFSymbol("memorychip.fill", color: .theme)
-            string.append(NSAttributedString(string: " Swap", attributes: [.foregroundColor: UIColor.theme]))
+        case .storage: text = ""
+        case .memory: text = " RAM"
+        case .swap: text = " Swap"
         }
+
+        string.append(NSAttributedString(string: text, attributes: attributes))
         iconLabel.attributedText = string
     }
 

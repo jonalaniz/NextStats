@@ -15,9 +15,13 @@ struct ServerHeaderViewConstants {
 
     static let userString: NSAttributedString = {
         let string = NSMutableAttributedString()
+        guard
+            let userIcon = ServerHeaderIcon.user.image,
+            let chevron = ServerHeaderIcon.chevron.image
+        else { return string }
         string.append(NSAttributedString(string: " " + .localized(.users) + " "))
-        string.prefixingSFSymbol("person.fill", color: .theme)
-        string.suffixingSFSymbol("chevron.right", color: .theme)
+        string.prefixSFSymbol(userIcon, color: .theme)
+        string.suffixSFSymbol(chevron, color: .theme)
 
         return string
     }()
@@ -87,6 +91,7 @@ class ServerHeaderView: UIView {
         return button
     }()
 
+    // TODO: Set this to use NSMutableAttributedString.suffixSFSymbol
     let visitServerButton: UIButton = {
         let button = UIButton(configuration: .plain())
         button.backgroundColor = .cellBackground

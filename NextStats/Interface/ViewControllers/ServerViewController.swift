@@ -112,28 +112,40 @@ class ServerViewController: BaseTableViewController {
     }
 
     private func createToolbarButton(image: String, text: String? = nil, action: Selector) -> UIBarButtonItem {
+        guard let image = UIImage(systemName: image)
+        else { return UIBarButtonItem() }
+
         let button = UIButton(configuration: .plain())
         button.addTarget(self, action: action, for: .touchUpInside)
+        button.imageView?.contentMode = .scaleAspectFit
+
+        var configuration = UIButton.Configuration.plain()
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10.0,
+                                                              leading: 10.0,
+                                                              bottom: 14.0,
+                                                              trailing: 10.0)
 
         if let text = text {
-            let attributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.theme,
-                .font: UIFont.boldSystemFont(ofSize: 16)
-            ]
-
-            let attributedString = NSMutableAttributedString()
-            attributedString.prefixingSFSymbol(image, color: .theme)
-            attributedString.append(NSAttributedString(string: " \(text)", attributes: attributes))
+            let attributedString = attributedString(text, image: image)
             button.setAttributedTitle(attributedString, for: .normal)
         } else {
-            button.setImage(UIImage(systemName: image), for: .normal)
+            button.setImage(image, for: .normal)
         }
 
-        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 10.0,
-                                                                      leading: 10.0,
-                                                                      bottom: 14.0,
-                                                                      trailing: 10.0)
-
+        button.configuration = configuration
         return UIBarButtonItem(customView: button)
+    }
+
+    private func attributedString(_ string: String, image: UIImage) -> NSMutableAttributedString {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.theme,
+            .font: UIFont.preferredFont(forTextStyle: .headline)
+        ]
+
+        let attributedString = NSMutableAttributedString()
+        attributedString.prefixSFSymbol(image, color: .theme)
+        attributedString.append(NSAttributedString(string: " \(string)", attributes: attributes))
+
+        return attributedString
     }
 }

@@ -9,20 +9,20 @@
 import UIKit
 
 extension NSMutableAttributedString {
-    func prefixingSFSymbol(_ symbol: String, color: UIColor) {
-        let attachment = NSTextAttachment()
-        attachment.image = UIImage(systemName: symbol)?.withTintColor(color)
-
-        let imageString = NSMutableAttributedString(attachment: attachment)
-
+    func prefixSFSymbol(_ image: UIImage, color: UIColor) {
+        let imageString = sfSymbolAttachedAttributedString(image, color: color)
         self.insert(imageString, at: 0)
     }
 
-    func suffixingSFSymbol(_ symbol: String, color: UIColor) {
-        let attachment = NSTextAttachment()
-        attachment.image = UIImage(systemName: symbol)?.withTintColor(color)
-
-        let imageString = NSMutableAttributedString(attachment: attachment)
+    func suffixSFSymbol(_ symbol: UIImage, color: UIColor) {
+        let imageString = sfSymbolAttachedAttributedString(symbol, color: color)
         self.append(imageString)
+    }
+
+    private func sfSymbolAttachedAttributedString(_ image: UIImage, color: UIColor) -> NSAttributedString {
+        let attachment = NSTextAttachment()
+        attachment.image = image.withTintColor(color)
+
+        return NSAttributedString(attachment: attachment)
     }
 }
