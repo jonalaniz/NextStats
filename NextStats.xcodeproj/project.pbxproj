@@ -70,7 +70,7 @@
 		565975C525567ECB0043C007 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C425567ECB0043C007 /* test.json */; };
 		565975C9255680130043C007 /* working.json in Resources */ = {isa = PBXBuildFile; fileRef = 565975C8255680130043C007 /* working.json */; };
 		565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565CDC0725E612C900028EA9 /* InfoCoordinator.swift */; };
-		565EFE652BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */; };
+		565EFE652BB5542A00100D94 /* NewUserCoordinator+NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE642BB5542A00100D94 /* NewUserCoordinator+NXUserFactoryDelegate.swift */; };
 		565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE662BB6007500100D94 /* NewUserStatusCode.swift */; };
 		565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */; };
 		565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */; };
@@ -80,7 +80,7 @@
 		567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82552BA7A710007BF135 /* NewUserCoordinator.swift */; };
 		567D82612BAA18C4007BF135 /* NXUserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82602BAA18C4007BF135 /* NXUserFactory.swift */; };
 		567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82642BB1305D007BF135 /* SelectionViewController.swift */; };
-		567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */; };
+		567D82672BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift */; };
 		567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82682BB1B2A4007BF135 /* QuotaType.swift */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
@@ -138,6 +138,7 @@
 		56E0AD8626ADC0180090ACB6 /* NoServersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */; };
 		56E6834126B245A800C1E17C /* IAP Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834026B245A800C1E17C /* IAP Helper.swift */; };
 		56E6834326B245AF00C1E17C /* NextStats Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E6834226B245AF00C1E17C /* NextStats Products.swift */; };
+		56E86F192D6BE8CE0067D245 /* SelectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E86F182D6BE8CE0067D245 /* SelectionType.swift */; };
 		56EFB6CE2BF5DEEF004F6A53 /* WipeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */; };
 		56F1C6812D53606300EA03BD /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F1C6802D53606300EA03BD /* BaseViewController.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
@@ -224,7 +225,7 @@
 		565975C425567ECB0043C007 /* test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		565975C8255680130043C007 /* working.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = working.json; sourceTree = "<group>"; };
 		565CDC0725E612C900028EA9 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
-		565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+NXUserFactoryDelegate.swift"; sourceTree = "<group>"; };
+		565EFE642BB5542A00100D94 /* NewUserCoordinator+NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUserCoordinator+NXUserFactoryDelegate.swift"; sourceTree = "<group>"; };
 		565EFE662BB6007500100D94 /* NewUserStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserStatusCode.swift; sourceTree = "<group>"; };
 		565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactoryDelegate.swift; sourceTree = "<group>"; };
 		565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainCoordinator+NXServerManagerDelegate.swift"; sourceTree = "<group>"; };
@@ -234,7 +235,7 @@
 		567D82552BA7A710007BF135 /* NewUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserCoordinator.swift; sourceTree = "<group>"; };
 		567D82602BAA18C4007BF135 /* NXUserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactory.swift; sourceTree = "<group>"; };
 		567D82642BB1305D007BF135 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
-		567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUsersCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
+		567D82662BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUserCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
 		567D82682BB1B2A4007BF135 /* QuotaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaType.swift; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -293,6 +294,7 @@
 		56E0AD8526ADC0180090ACB6 /* NoServersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoServersViewController.swift; sourceTree = "<group>"; };
 		56E6834026B245A800C1E17C /* IAP Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IAP Helper.swift"; sourceTree = "<group>"; };
 		56E6834226B245AF00C1E17C /* NextStats Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NextStats Products.swift"; sourceTree = "<group>"; };
+		56E86F182D6BE8CE0067D245 /* SelectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionType.swift; sourceTree = "<group>"; };
 		56EFB6CD2BF5DEEF004F6A53 /* WipeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WipeObject.swift; sourceTree = "<group>"; };
 		56F1C6802D53606300EA03BD /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
@@ -692,8 +694,8 @@
 				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
 				565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */,
 				567D82552BA7A710007BF135 /* NewUserCoordinator.swift */,
-				565EFE642BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift */,
-				567D82662BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift */,
+				565EFE642BB5542A00100D94 /* NewUserCoordinator+NXUserFactoryDelegate.swift */,
+				567D82662BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift */,
 				569F2CA026AB2358001122F2 /* UsersCoordinator.swift */,
 				56C632E72BB908C2007B2032 /* UsersCoordinator+NXUserManagerDelegate.swift */,
 				56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */,
@@ -721,6 +723,7 @@
 				56AAA3D72D5B78C8009DC223 /* NewUserSection.swift */,
 				5609385C2D5F816000DEAF40 /* StatsSection.swift */,
 				56AAA3D42D5B579F009DC223 /* UserSection.swift */,
+				56E86F182D6BE8CE0067D245 /* SelectionType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 				567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */,
 				563D542E2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift in Sources */,
 				5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */,
+				56E86F192D6BE8CE0067D245 /* SelectionType.swift in Sources */,
 				569F2C7B26AAF61A001122F2 /* XMLUnkeyedDecodingContainer.swift in Sources */,
 				569F2C9D26AB22B0001122F2 /* UsersViewController.swift in Sources */,
 				569EBB0F2ADBC15900BE5985 /* UserCell.swift in Sources */,
@@ -906,7 +910,7 @@
 				56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */,
 				56557EE423C8B09A008CF684 /* AppDelegate.swift in Sources */,
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
-				565EFE652BB5542A00100D94 /* NewUsersCoordinator+NXUserFactoryDelegate.swift in Sources */,
+				565EFE652BB5542A00100D94 /* NewUserCoordinator+NXUserFactoryDelegate.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoDataManager.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
 				56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */,
@@ -962,7 +966,7 @@
 				56C781A62AD7DF2200872988 /* TextFieldFactory.swift in Sources */,
 				569F2C7A26AAF61A001122F2 /* DecodingErrorExtension.swift in Sources */,
 				5601D7F625E3199400993D31 /* UIApplication+AppVersion.swift in Sources */,
-				567D82672BB14500007BF135 /* NewUsersCoordinator+SelectionViewDelegate.swift in Sources */,
+				567D82672BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift in Sources */,
 				5634EC3B2B6C4D8D00468AC0 /* NXUserFormatter.swift in Sources */,
 				56AAA3D52D5B579F009DC223 /* UserSection.swift in Sources */,
 				56AAA3D82D5B78C8009DC223 /* NewUserSection.swift in Sources */,
