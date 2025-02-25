@@ -169,6 +169,7 @@ class StatsDataSource: NSObject, UITableViewDataSource {
         return BaseTableViewCell(style: .value1,
                                  text: text,
                                  textColor: .theme,
-                                 secondaryText: secondaryText)
+                                 secondaryText: secondaryText,
+                                 isInteractive: false)
     }
 }
