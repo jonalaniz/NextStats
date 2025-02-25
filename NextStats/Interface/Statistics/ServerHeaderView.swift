@@ -8,25 +8,6 @@
 
 import UIKit
 
-struct ServerHeaderViewConstants {
-    static let headerHeight: Int = {
-        return 300
-    }()
-
-    static let userString: NSAttributedString = {
-        let string = NSMutableAttributedString()
-        guard
-            let userIcon = ServerHeaderIcon.user.image,
-            let chevron = ServerHeaderIcon.chevron.image
-        else { return string }
-        string.append(NSAttributedString(string: " " + .localized(.users) + " "))
-        string.prefixSFSymbol(userIcon, color: .theme)
-        string.suffixSFSymbol(chevron, color: .theme)
-
-        return string
-    }()
-}
-
 class ServerHeaderView: UIView {
     let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -76,41 +57,35 @@ class ServerHeaderView: UIView {
     }()
 
     let users: UIButton = {
-        let button = UIButton(configuration: .plain())
-        button.backgroundColor = .cellBackground
-        button.layer.cornerRadius = 10
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .cellBackground
+        config.cornerStyle = .medium
+        config.image = ServerHeaderIcon.user.image
+        config.title = .localized(.users)
+        config.baseForegroundColor = .theme
+        config.imagePadding = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 14, bottom: 13, trailing: 14)
 
-        button.setAttributedTitle(ServerHeaderViewConstants.userString, for: .normal)
-        button.setTitleColor(.theme, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        let insets = NSDirectionalEdgeInsets(top: 13.0,
-                                             leading: 14.0,
-                                             bottom: 13.0,
-                                             trailing: 14.0)
-        button.configuration?.contentInsets = insets
+        let button = UIButton(configuration: config, primaryAction: nil)
         return button
     }()
 
-    // TODO: Set this to use NSMutableAttributedString.suffixSFSymbol
     let visitServerButton: UIButton = {
-        let button = UIButton(configuration: .plain())
-        button.backgroundColor = .cellBackground
-        button.layer.cornerRadius = 10
-        button.sfSymbolWithText(symbol: "safari.fill",
-                                text: .localized(.serverHeaderVisit),
-                                color: .theme)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        let insets = NSDirectionalEdgeInsets(top: 13.0,
-                                             leading: 14.0,
-                                             bottom: 13.0,
-                                             trailing: 14.0)
-        button.configuration?.contentInsets = insets
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .cellBackground
+        config.cornerStyle = .medium
+        config.image = ServerHeaderIcon.safari.image
+        config.title = .localized(.serverHeaderVisit)
+        config.baseForegroundColor = .theme
+        config.imagePadding = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 14, bottom: 13, trailing: 14)
 
+        let button = UIButton(configuration: config, primaryAction: nil)
         return button
     }()
 
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 300, height: ServerHeaderViewConstants.headerHeight))
+        super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         setupView()
     }
 

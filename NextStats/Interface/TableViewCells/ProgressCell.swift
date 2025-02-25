@@ -98,6 +98,7 @@ class ProgressCell: BaseTableViewCell {
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.theme
         ]
+
         string.prefixSFSymbol(image, color: .theme)
 
         let text: String

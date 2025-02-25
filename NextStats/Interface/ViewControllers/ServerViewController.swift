@@ -112,40 +112,18 @@ class ServerViewController: BaseTableViewController {
     }
 
     private func createToolbarButton(image: String, text: String? = nil, action: Selector) -> UIBarButtonItem {
-        guard let image = UIImage(systemName: image)
-        else { return UIBarButtonItem() }
-
-        let button = UIButton(configuration: .plain())
+        let button = UIButton(type: .system)
         button.addTarget(self, action: action, for: .touchUpInside)
-        button.imageView?.contentMode = .scaleAspectFit
 
-        var configuration = UIButton.Configuration.plain()
-        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10.0,
-                                                              leading: 10.0,
-                                                              bottom: 14.0,
-                                                              trailing: 10.0)
-
-        if let text = text {
-            let attributedString = attributedString(text, image: image)
-            button.setAttributedTitle(attributedString, for: .normal)
-        } else {
-            button.setImage(image, for: .normal)
+        if let systemImage = UIImage(systemName: image) {
+            button.setImage(systemImage, for: .normal)
         }
 
-        button.configuration = configuration
+        if let text = text {
+            button.setTitle(" \(text)", for: .normal)
+            button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        }
+
         return UIBarButtonItem(customView: button)
-    }
-
-    private func attributedString(_ string: String, image: UIImage) -> NSMutableAttributedString {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.theme,
-            .font: UIFont.preferredFont(forTextStyle: .headline)
-        ]
-
-        let attributedString = NSMutableAttributedString()
-        attributedString.prefixSFSymbol(image, color: .theme)
-        attributedString.append(NSAttributedString(string: " \(string)", attributes: attributes))
-
-        return attributedString
     }
 }
