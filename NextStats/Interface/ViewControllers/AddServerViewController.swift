@@ -63,9 +63,10 @@ class AddServerViewController: BaseTableViewController {
         headerView.activityIndicatior.deactivate()
     }
 
-    func enableAuthentication() {
-        headerView.statusLabel.isHidden = true
-        navigationItem.rightBarButtonItem?.isEnabled = true
+    private func toggleAuthentication(enabled: Bool) {
+        if !enabled { updateLabel(with: .localized(.serverFormEnterAddress)) }
+        headerView.statusLabel.isHidden = enabled
+        navigationItem.rightBarButtonItem?.isEnabled = enabled
     }
 
     @objc func nextButtonPressed(_ sender: Any) {
@@ -126,5 +127,11 @@ class AddServerViewController: BaseTableViewController {
                                        selector: #selector(keyboardWillDismiss),
                                        name: UIResponder.keyboardWillHideNotification,
                                        object: nil)
+    }
+}
+
+extension AddServerViewController: AuthenticationDataSourceDelegate {
+    func didEnterURL(_ url: String) {
+        toggleAuthentication(enabled: !url.isEmpty)
     }
 }

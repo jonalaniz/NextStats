@@ -102,7 +102,6 @@ class ServerViewController: BaseTableViewController {
         tableView.refreshControl?.endRefreshing()
     }
 
-    // TODO: Make private
     // This is currently called by the coordinator, will need to be called from the datamanger eventually
     func updateUIBasedOnServerState() {
         let hasServers = serverManager.serverCount() > 0

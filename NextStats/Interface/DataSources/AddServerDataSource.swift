@@ -8,15 +8,14 @@
 
 import UIKit
 
-class AuthenticationDataSource: NSObject, UITableViewDataSource {
-    weak var textFieldDelegate: TextFieldDelegate?
-    let dataManager: NXAuthenticator
+protocol AuthenticationDataSourceDelegate: AnyObject {
+    func didEnterURL(_ url: String)
+}
 
-    init(dataManager: NXAuthenticator) {
-        self.dataManager = dataManager
-        let delegate = TextFieldDelegate()
-        textFieldDelegate = delegate
-    }
+// swiftlint:disable weak_delegate
+class AuthenticationDataSource: NSObject, UITableViewDataSource {
+    weak var delegate: AuthenticationDataSourceDelegate?
+    private let textFieldDelegate = TextFieldDelegate()
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return LoginFields.allCases.count
@@ -44,13 +43,17 @@ class AuthenticationDataSource: NSObject, UITableViewDataSource {
         case .url:
             textField = TextFieldFactory.textField(type: .URL,
                                                    placeholder: .localized(.addScreenUrl))
-            textField.addTarget(dataManager,
-                                action: #selector(dataManager.validateURL),
+            textField.addTarget(self,
+                                action: #selector(urlTextChanged),
                                 for: .editingChanged)
         }
 
         textField.delegate = textFieldDelegate
         cell.textField = textField
         cell.setup()
+    }
+
+    @objc private func urlTextChanged(_ sender: UITextField) {
+        delegate?.didEnterURL(sender.text ?? "")
     }
 }
