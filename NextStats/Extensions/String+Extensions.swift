@@ -21,11 +21,7 @@ extension String {
 
     /// Returns wether the string is an IP address
     func isValidIPAddress() -> Bool {
-        var testableString = self
-        if let index = testableString.range(of: ":") {
-          testableString.removeSubrange(index.lowerBound..<testableString.endIndex)
-        }
-
+        let testableString = self.components(separatedBy: ":").first ?? self
         let parts = testableString.components(separatedBy: ".")
         let nums = parts.compactMap { Int($0) }
         return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256 }.count == 4

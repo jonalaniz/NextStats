@@ -146,11 +146,6 @@ class NXAuthenticator: NSObject {
         shouldPoll = false
     }
 
-    @objc func validateURL(sender: UITextField) {
-        guard let urlString = sender.text else { return }
-        delegate?.urlEntered(isValid: !urlString.isEmpty)
-    }
-
     private func handle(error: APIManagerError) {
         DispatchQueue.main.async {
             self.errorHandler?.handleError(error)
@@ -159,7 +154,6 @@ class NXAuthenticator: NSObject {
 
     private func saveImage(to path: String) {
         do {
-            print("Image Path: \(path)")
             try serverImage?.pngData()?.write(to: URL(string: "file://\(path)")!)
         } catch {
             print("Error, image not saved ")
