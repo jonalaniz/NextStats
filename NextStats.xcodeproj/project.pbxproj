@@ -378,8 +378,8 @@
 				56E0AD8326ADABA90090ACB6 /* SelectServerViewController.swift */,
 				5646D68823CE0F750047876A /* ServerViewController.swift */,
 				56557EFF23CA89B9008CF684 /* StatsViewController.swift */,
-				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
 				562ED27926B5D8E800E4E1C5 /* UserViewController.swift */,
+				569F2C9C26AB22B0001122F2 /* UsersViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

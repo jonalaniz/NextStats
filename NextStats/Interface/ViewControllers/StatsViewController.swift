@@ -64,7 +64,7 @@ class StatsViewController: BaseTableViewController {
     }
 
     func showTableView() {
-        statsDataSource = StatsDataSource(dataManager: dataManager)
+        statsDataSource = StatsDataSource(dataProvider: dataManager)
         tableView.dataSource = statsDataSource
 
         tableView.isHidden = false

@@ -8,11 +8,15 @@
 
 import UIKit
 
-class StatsDataSource: NSObject, UITableViewDataSource {
-    let dataManager: NXStatsManager
+protocol NXStatsDataProvider {
+    var stats: DataClass? { get }
+}
 
-    init(dataManager: NXStatsManager) {
-        self.dataManager = dataManager
+class StatsDataSource: NSObject, UITableViewDataSource {
+    let dataProvider: NXStatsDataProvider
+
+    init(dataProvider: NXStatsDataProvider) {
+        self.dataProvider = dataProvider
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,22 +40,23 @@ class StatsDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return StatsSection(rawValue: section)?.header(version: versionNumber())
+        return StatsSection(rawValue: section)?.header(version: versionNumber)
     }
 
     private func systemCell(row: Int) -> UITableViewCell {
         guard
             let type = SystemRow(rawValue: row),
-            let system = dataManager.stats.nextcloud?.system
+            let server = dataProvider.stats?.server,
+            let system = dataProvider.stats?.nextcloud?.system
         else { return UITableViewCell() }
 
         let secondaryText: String = {
             switch type {
-            case .cpu: return cpuLoadAverages()
-            case .webServer: return dataManager.stats.server?.webserver ?? "N/A"
-            case .phpVersion: return dataManager.stats.server?.php?.version ?? "N/A"
-            case .databaseVersion: return databaseVersion()
-            case .databaseSize: return databaseSize()
+            case .cpu: return formattedCPULoad
+            case .webServer: return server.webserver ?? "N/A"
+            case .phpVersion: return server.php?.version ?? "N/A"
+            case .databaseVersion: return formattedDatabaseVersion
+            case .databaseSize: return formattedDatabaseSize
             case .localCache: return system.memcacheLocal ?? "N/A"
             case .distributedCache: return system.memcacheDistributed ?? "N/A"
             }
@@ -66,8 +71,8 @@ class StatsDataSource: NSObject, UITableViewDataSource {
 
         let (free, total, type): (Int?, Int?, ProgressCellIcon) = {
             switch cellRow {
-            case .ram: return (ram().0, ram().1, .memory)
-            case .swap: return (swap().0, swap().1, .swap)
+            case .ram: return (ram.0, ram.1, .memory)
+            case .swap: return (swap.0, swap.1, .swap)
             }
         }()
 
@@ -78,7 +83,7 @@ class StatsDataSource: NSObject, UITableViewDataSource {
         guard let type = StorageRow(rawValue: row)
         else { return UITableViewCell() }
 
-        let secondaryText = type == .space ? freeSpace() : numberOfFiles()
+        let secondaryText = type == .space ? formattedFreeSpace : formattedFileCount
 
         return configureCell(text: type.title, secondaryText: secondaryText)
     }
@@ -91,26 +96,26 @@ class StatsDataSource: NSObject, UITableViewDataSource {
                              secondaryText: activeUsers(for: type))
     }
 
-    private func versionNumber() -> String? {
-        return dataManager.stats.nextcloud?.system?.version
+    private var versionNumber: String? {
+        return dataProvider.stats?.nextcloud?.system?.version
     }
 
-    private func cpuLoadAverages() -> String {
-        guard let usageArray = dataManager.stats.nextcloud?.system?.cpuload
+    private var formattedCPULoad: String {
+        guard let usageArray = dataProvider.stats?.nextcloud?.system?.cpuload
         else { return "N/A "}
 
         return usageArray.map { String(format: "%.2f", $0) }
             .joined(separator: ", ")
     }
 
-    private func databaseVersion() -> String {
-        guard let database = dataManager.stats.server?.database
+    private var formattedDatabaseVersion: String {
+        guard let database = dataProvider.stats?.server?.database
         else { return "N/A" }
         return "\(database.type ?? "N/A") \(database.version ?? "")"
     }
 
-    private func databaseSize() -> String {
-        guard let size = dataManager.stats.server?.database?.size
+    private var formattedDatabaseSize: String {
+        guard let size = dataProvider.stats?.server?.database?.size
         else { return "N/A" }
 
         switch size {
@@ -122,28 +127,28 @@ class StatsDataSource: NSObject, UITableViewDataSource {
         }
     }
 
-    private func ram() -> (Int?, Int?) {
-        let free = dataManager.stats.nextcloud?.system?.memFree?.intValue
-        let total = dataManager.stats.nextcloud?.system?.memTotal?.intValue
+    private var ram: (Int?, Int?) {
+        let free = dataProvider.stats?.nextcloud?.system?.memFree?.intValue
+        let total = dataProvider.stats?.nextcloud?.system?.memTotal?.intValue
         return (free, total)
     }
 
-    private func swap() -> (Int?, Int?) {
-        let free = dataManager.stats.nextcloud?.system?.swapFree?.intValue
-        let total = dataManager.stats.nextcloud?.system?.swapTotal?.intValue
+    private var swap: (Int?, Int?) {
+        let free = dataProvider.stats?.nextcloud?.system?.swapFree?.intValue
+        let total = dataProvider.stats?.nextcloud?.system?.swapTotal?.intValue
         return (free, total)
     }
 
-    private func freeSpace() -> String {
-        guard let freeSpace = dataManager.stats.nextcloud?.system?.freespace
+    private var formattedFreeSpace: String {
+        guard let freeSpace = dataProvider.stats?.nextcloud?.system?.freespace
         else { return "N/A" }
 
         let bytes = Double(freeSpace)
         return bytes.isNaN || bytes.isInfinite ? "N/A" : Units(bytes: bytes).getReadableUnit()
     }
 
-    private func numberOfFiles() -> String {
-        guard let number = dataManager.stats.nextcloud?.storage?.numFiles
+    private var formattedFileCount: String {
+        guard let number = dataProvider.stats?.nextcloud?.storage?.numFiles
         else { return "N/A" }
 
         return String(number)
@@ -151,10 +156,10 @@ class StatsDataSource: NSObject, UITableViewDataSource {
 
     private func activeUsers(for row: ActivityRow) -> String {
         guard
-            let last5 = dataManager.stats.activeUsers?.last5Minutes,
-            let lastHour = dataManager.stats.activeUsers?.last1Hour,
-            let lastDay = dataManager.stats.activeUsers?.last24Hours,
-            let total = dataManager.stats.nextcloud?.storage?.numUsers
+            let last5 = dataProvider.stats?.activeUsers?.last5Minutes,
+            let lastHour = dataProvider.stats?.activeUsers?.last1Hour,
+            let lastDay = dataProvider.stats?.activeUsers?.last24Hours,
+            let total = dataProvider.stats?.nextcloud?.storage?.numUsers
         else { return "N/A "}
 
         switch row {
