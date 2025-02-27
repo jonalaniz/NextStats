@@ -12,11 +12,12 @@ class SelectionViewController: UITableViewController {
     weak var delegate: SelectionViewDelegate?
     let selectionType: SelectionType
     var selectable: [String]
-    var selections = Set<String>()
+    var selections: Set<String>
 
-    init(data: [String], type: SelectionType) {
+    init(data: [String], type: SelectionType, selections: [String]?) {
         self.selectable = data
         self.selectionType = type
+        self.selections = Set(selections ?? [])
         super.init(style: .insetGrouped)
     }
 

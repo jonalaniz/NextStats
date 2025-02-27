@@ -13,7 +13,7 @@ class NewUserCoordinator: NSObject, Coordinator {
 
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
-    var navigaitonController: UINavigationController
+    var navigationController: UINavigationController
     let newUserViewController: NewUserViewController
     let popOverNavController = UINavigationController()
 
@@ -22,7 +22,7 @@ class NewUserCoordinator: NSObject, Coordinator {
 
     init(splitViewController: UISplitViewController, navigationController: UINavigationController) {
         self.splitViewController = splitViewController
-        self.navigaitonController = navigationController
+        self.navigationController = navigationController
         newUserViewController = NewUserViewController()
         newUserDataSource = NewUserDataSource(userFactory: userFactory)
     }
@@ -32,7 +32,7 @@ class NewUserCoordinator: NSObject, Coordinator {
         popOverNavController.viewControllers = [newUserViewController]
         newUserViewController.coordinator = self
         newUserViewController.dataSource = newUserDataSource
-        navigaitonController.present(popOverNavController, animated: true)
+        navigationController.present(popOverNavController, animated: true)
     }
 
     func dismiss() {
@@ -43,21 +43,35 @@ class NewUserCoordinator: NSObject, Coordinator {
     func showSelectionView(type: SelectionType) {
         guard let groups = userFactory.groupsAvailable() else { return }
         let selectionView: SelectionViewController
+        let selections = getSelections(for: type)
 
         switch type {
-        case .groups: selectionView = SelectionViewController(data: groups, type: .groups)
-        case .subAdmin: selectionView = SelectionViewController(data: groups, type: .subAdmin)
+        case .groups, .subAdmin:
+            selectionView = SelectionViewController(
+                data: groups,
+                type: type,
+                selections: selections)
         case .quota:
-            let array = QuotaType.allCases.map { $0.rawValue }
-            selectionView = SelectionViewController(data: array, type: .quota)
-            selectionView.selections.insert(userFactory.quotaType().rawValue)
+            selectionView = SelectionViewController(
+                data: QuotaType.allCases.map(\.rawValue),
+                type: .quota,
+                selections: selections)
         }
 
         selectionView.delegate = self
         popOverNavController.pushViewController(selectionView, animated: true)
     }
 
+    private func getSelections(for type: SelectionType) -> [String]? {
+        switch type {
+        case .groups: return userFactory.selectedGroupsFor(role: .member)
+        case .subAdmin: return userFactory.selectedGroupsFor(role: .admin)
+        case .quota: return [userFactory.quotaType().rawValue]
+        }
+    }
+
     func createUser() {
         userFactory.createUser()
     }
+
 }
