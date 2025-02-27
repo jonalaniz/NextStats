@@ -96,7 +96,7 @@ class NXUserFactory: NSObject {
                               email: email,
                               groups: memberOf,
                               subAdmin: adminOf,
-                              quota: quota.stringValue())
+                              quota: quota.string)
 
         do {
             let data = try JSONEncoder().encode(newUser)

@@ -14,7 +14,7 @@ enum QuotaType: String, CaseIterable {
     case fiveGB = "5 GB"
     case tenGB = "10 GB"
 
-    func stringValue() -> String? {
+    var string: String? {
         switch self {
         case .defaultQuota: return nil
         case .oneGB: return "1073741824"
