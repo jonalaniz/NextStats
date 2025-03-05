@@ -83,7 +83,7 @@
 // MARK: - ServerHeaderView
 
 /* Text = "Visit Server" */
-"server.header.visit" = "Visit Server";
+"server.header.visit" = "Visit";
 
 // MARK: - Info View
 
