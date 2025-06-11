@@ -10,9 +10,7 @@ import UIKit
 
 extension URLRequest {
     mutating func addHeaders(from headers: [String: String]) {
-        for header in headers {
-            self.addValue(header.value, forHTTPHeaderField: header.key)
-        }
+        headers.forEach { self.addValue($0.value, forHTTPHeaderField: $0.key) }
     }
 
     mutating func setUserAgent() {

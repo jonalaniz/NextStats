@@ -13,6 +13,8 @@ import UIKit
 /// `BaseTableViewController` handles the common setup of table views, navigation controllers,
 /// and toolbars, allowing subclasses to focus on their specific functionality.
 class BaseTableViewController: UIViewController {
+    // MARK: - Properties
+
     /// The main table view for the view controller.
     var tableView: UITableView!
 
@@ -56,7 +58,7 @@ class BaseTableViewController: UIViewController {
         registerCells()
     }
 
-    // MARK: - Setup Methods
+    // MARK: - Configuration
 
     /// Configures the initial view setup, including setting the navigation title.
     func setupView() {

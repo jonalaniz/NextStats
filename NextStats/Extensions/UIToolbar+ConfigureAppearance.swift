@@ -15,6 +15,8 @@ extension UIToolbar {
 
         let appearance = UIToolbarAppearance()
 
+        if #available(iOS 26, *) { return }
+
         if #available(iOS 15.0, *) {
             appearance.configureWithOpaqueBackground()
             self.standardAppearance = appearance

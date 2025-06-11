@@ -9,6 +9,8 @@
 import UIKit
 
 class ServerHeaderView: UIView {
+    // MARK: - Properties
+
     let mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,6 +86,8 @@ class ServerHeaderView: UIView {
         return button
     }()
 
+    // MARK: Lifecycle
+
     init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         setupView()
@@ -93,6 +97,8 @@ class ServerHeaderView: UIView {
         super.init(coder: coder)
         setupView()
     }
+
+    // MARK: - Configuration
 
     private func setupView() {
         mainStackView.addArrangedSubview(imageView)
@@ -118,5 +124,4 @@ class ServerHeaderView: UIView {
         addressLabel.text = address
         imageView.image = image
     }
-
 }

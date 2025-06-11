@@ -11,10 +11,15 @@ import UIKit
 
 // swiftlint:disable weak_delegate
 class InfoViewController: BaseTableViewController {
+    // MARK: - Properties
+
+    private let dataManager = InfoDataManager.shared
+
     weak var coordinator: InfoCoordinator?
-    let dataManager = InfoDataManager.shared
+    private var products = [SKProduct]()
     private var tableDelegate: InfoTableViewDelegate?
-    var products = [SKProduct]()
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         titleText = "Info"
@@ -23,11 +28,16 @@ class InfoViewController: BaseTableViewController {
         tableViewHeaderView = InfoHeaderView()
         dataManager.delegate = self
         dataSource = dataManager
-        tableDelegate = InfoTableViewDelegate(coordinator: coordinator, dataManager: dataManager)
+        tableDelegate = InfoTableViewDelegate(
+            coordinator: coordinator,
+            dataManager: dataManager
+        )
         delegate = tableDelegate
         super.viewDidLoad()
         setupNotifications()
     }
+
+    // MARK: - Configuration
 
     override func setupNavigationController() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -36,33 +46,41 @@ class InfoViewController: BaseTableViewController {
             action: #selector(dismissController))
     }
 
-    @objc func dismissController() {
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(thank),
+            name: .IAPHelperPurchaseNotification,
+            object: nil
+        )
+    }
+
+    // MARK: - Actions
+
+    @objc private func dismissController() {
         coordinator?.didFinish()
         dismiss(animated: true, completion: nil)
     }
 
-    @objc func thank() {
-        let thankAC = UIAlertController(title: .localized(.iapThank),
-                                        message: .localized(.iapThankDescription),
-                                        preferredStyle: .alert)
-        thankAC.addAction((UIAlertAction(title: "Continue",
-                                         style: .default,
-                                         handler: nil)))
+    @objc private func thank() {
+        let thankAC = UIAlertController(
+            title: .localized(.iapThank),
+            message: .localized(.iapThankDescription),
+            preferredStyle: .alert
+        )
+        thankAC.addAction((UIAlertAction(
+            title: "Continue",
+            style: .default,
+            handler: nil))
+        )
         present(thankAC, animated: true)
-    }
-
-    private func setupNotifications() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(thank),
-                                       name: .IAPHelperPurchaseNotification,
-                                       object: nil)
     }
 }
 
+// MARK: - DataManagerDelegate
+
 extension InfoViewController: DataManagerDelegate {
     func stateDidChange(_ state: DataManagerStatus) {
-        print("StateDidChange: \(state)")
         switch state {
         case .dataUpdated: tableView.reloadData()
         default: break

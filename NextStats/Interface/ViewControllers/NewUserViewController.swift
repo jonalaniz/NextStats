@@ -10,11 +10,11 @@ import UIKit
 
 // swiftlint:disable weak_delegate
 class NewUserViewController: BaseTableViewController {
+    // MARK: - Properties
+
+    private let userFactory = NXUserFactory.shared
+
     weak var coordinator: NewUserCoordinator?
-
-    let userFactory = NXUserFactory.shared
-
-    // Value is not weak as to keep from immediatly deallocating
     private var tableDelegate: NewUserTableViewDelegate?
 
     override func viewDidLoad() {

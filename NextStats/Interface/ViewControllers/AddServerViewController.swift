@@ -9,21 +9,38 @@
 import UIKit
 
 class AddServerViewController: BaseTableViewController {
-    weak var coordinator: AddServerCoordinator?
+    // MARK: - Properties
 
     let headerView = AddServerHeaderView()
     private var tableViewBottomConstraint: NSLayoutConstraint?
 
+    weak var coordinator: AddServerCoordinator?
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
+        prefersLargeTitles = false
         tableViewHeaderView = headerView
         tableStyle = .insetGrouped
         titleText = .localized(.addScreenTitle)
         super.viewDidLoad()
-        subscribeToKeyboardNotifications()
+        setupKeyboardNotifications()
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    deinit { NotificationCenter.default.removeObserver(self) }
+
+    // MARK: - Configuration
+
+    private func setupKeyboardNotifications() {
+        subscribeTo(
+            UIResponder.keyboardWillShowNotification,
+            with: #selector(keyboardWillShow)
+        )
+
+        subscribeTo(
+            UIResponder.keyboardWillHideNotification,
+            with: #selector(keyboardWillDismiss)
+        )
     }
 
     override func setupNavigationController() {
@@ -47,26 +64,23 @@ class AddServerViewController: BaseTableViewController {
         tableView.alwaysBounceVertical = false
         tableView.rowHeight = 44
         tableView.sectionHeaderHeight = 28
-
-        tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        tableViewBottomConstraint = tableView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor
+        )
         tableViewBottomConstraint?.isActive = true
     }
 
     override func registerCells() {
-        tableView.register(InputCell.self, forCellReuseIdentifier: InputCell.reuseidentifier)
+        tableView.register(
+            InputCell.self,
+            forCellReuseIdentifier: InputCell.reuseidentifier
+        )
     }
 
-    func updateLabel(with text: String) {
-        navigationItem.rightBarButtonItem?.isEnabled = false
-        headerView.statusLabel.isHidden = false
-        headerView.statusLabel.text = text
-        headerView.activityIndicatior.deactivate()
-    }
+    // MARK: - Actions
 
-    private func toggleAuthentication(enabled: Bool) {
-        if !enabled { updateLabel(with: .localized(.serverFormEnterAddress)) }
-        headerView.statusLabel.isHidden = enabled
-        navigationItem.rightBarButtonItem?.isEnabled = enabled
+    @objc func cancelPressed() {
+        coordinator?.dismiss()
     }
 
     @objc func nextButtonPressed(_ sender: Any) {
@@ -83,12 +97,24 @@ class AddServerViewController: BaseTableViewController {
 
         let name = nicknameCell.textField.text?.isEmpty == false ? nicknameCell.textField.text! : "Server"
         coordinator?.requestAuthorization(with: urlString, named: name)
-
     }
 
-    @objc func cancelPressed() {
-        coordinator?.dismiss()
+    // MARK: - UI Updates
+
+    func updateLabel(with text: String) {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        headerView.statusLabel.isHidden = false
+        headerView.statusLabel.text = text
+        headerView.activityIndicatior.deactivate()
     }
+
+    private func toggleAuthentication(enabled: Bool) {
+        if !enabled { updateLabel(with: .localized(.serverFormEnterAddress)) }
+        headerView.statusLabel.isHidden = enabled
+        navigationItem.rightBarButtonItem?.isEnabled = enabled
+    }
+
+    // MARK: - Keyboard Handling
 
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard
@@ -117,18 +143,18 @@ class AddServerViewController: BaseTableViewController {
         }
     }
 
-    private func subscribeToKeyboardNotifications() {
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillShow),
-                                       name: UIResponder.keyboardWillShowNotification,
-                                       object: nil)
-        notificationCenter.addObserver(self,
-                                       selector: #selector(keyboardWillDismiss),
-                                       name: UIResponder.keyboardWillHideNotification,
-                                       object: nil)
+    // MARK: - Helper Methods
+    private func subscribeTo(_ name: Notification.Name, with selector: Selector) {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: selector,
+            name: name,
+            object: nil
+        )
     }
 }
+
+// MARK: - AuthenticationDataSourceDelegate
 
 extension AddServerViewController: AuthenticationDataSourceDelegate {
     func didEnterURL(_ url: String) {

@@ -9,14 +9,19 @@
 import UIKit
 
 class AddServerCoordinator: NSObject, Coordinator {
+    // MARK: - Properties
+
     weak var parentCoordinator: MainCoordinator?
 
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
-    var navigationController = UINavigationController()
+    private var navigationController = UINavigationController()
+
     private let addServerVC: AddServerViewController
     private let authenticator: NXAuthenticator
     private let dataSource: AuthenticationDataSource
+
+    // MARK: - Lifecycle
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -36,6 +41,8 @@ class AddServerCoordinator: NSObject, Coordinator {
         splitViewController.present(navigationController, animated: true, completion: nil)
     }
 
+    // MARK: - Navigation
+
     private func navigateToLoginPage(withURlString urlString: String) {
         let webVC = WebViewController()
         webVC.coordinator = self
@@ -44,6 +51,8 @@ class AddServerCoordinator: NSObject, Coordinator {
         addServerVC.headerView.activityIndicatior.deactivate()
         navigationController.pushViewController(webVC, animated: true)
     }
+
+    // MARK: - Helper Methods
 
     func requestAuthorization(with urlString: String, named name: String) {
         // Cancel polling endpoint in case it is running from previous attempt
@@ -70,6 +79,8 @@ class AddServerCoordinator: NSObject, Coordinator {
     }
 }
 
+// MARK: - NXAuthenticationDelegate
+
 extension AddServerCoordinator: NXAuthenticationDelegate {
     func didCapture(server: NextServer) {
         parentCoordinator?.addServer(server)
@@ -80,6 +91,8 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
         navigateToLoginPage(withURlString: loginURL)
     }
 }
+
+// MARK: - ErrorHandling
 
 extension AddServerCoordinator: ErrorHandling {
     func handleError(_ error: APIManagerError) {

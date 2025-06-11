@@ -9,12 +9,16 @@
 import UIKit
 
 class InfoCoordinator: NSObject, Coordinator {
-    weak var parentCoordinator: MainCoordinator?
+    // MARK: - Properties
+    private let dataManager = InfoDataManager.shared
+    private let infoVC = InfoViewController()
 
-    let infoVC = InfoViewController()
+    weak var parentCoordinator: MainCoordinator?
     var childCoordinators = [Coordinator]()
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
+
+    // MARK: - Lifecycle
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -25,8 +29,10 @@ class InfoCoordinator: NSObject, Coordinator {
 
         navigationController.viewControllers = [infoVC]
         splitViewController.present(navigationController, animated: true)
-        infoVC.dataManager.checkForProducts()
+        dataManager.checkForProducts()
     }
+
+    // MARK: - Navigation
 
     func showWebView(urlString: String) {
         let webVC = WebViewController()
@@ -34,6 +40,8 @@ class InfoCoordinator: NSObject, Coordinator {
 
         navigationController.pushViewController(webVC, animated: true)
     }
+
+    // MARK: - Helper Methods
 
     func didFinish() {
         parentCoordinator?.childDidFinish(self)
