@@ -28,7 +28,7 @@ class ServerHeaderView: UIView {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
-        stackView.spacing = 6
+        stackView.spacing = 12
         stackView.addGlow(opacity: 0.1)
         return stackView
     }()

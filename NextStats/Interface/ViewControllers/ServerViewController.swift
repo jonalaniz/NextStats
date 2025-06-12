@@ -10,12 +10,15 @@ import UIKit
 
 // swiftlint:disable weak_delegate
 class ServerViewController: BaseTableViewController {
-    weak var coordinator: MainCoordinator?
-
-    private var tableDelegate: ServerTableViewDelegate?
+    // MARK: - Properties
 
     let noServersViewController = NoServersViewController()
     let serverManager = NXServerManager.shared
+
+    weak var coordinator: MainCoordinator?
+    private var tableDelegate: ServerTableViewDelegate?
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         titleText = "NextStats"
@@ -39,10 +42,7 @@ class ServerViewController: BaseTableViewController {
         }
     }
 
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: true)
-        tableView.setEditing(editing, animated: true)
-    }
+    // MARK: - Configuration
 
     override func setupNavigationController() {
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
@@ -82,6 +82,8 @@ class ServerViewController: BaseTableViewController {
         tableView.register(ServerCell.self, forCellReuseIdentifier: ServerCell.reuseIdentifier)
     }
 
+    // MARK: - Actions
+
     @objc func addServerPressed() {
         coordinator?.showAddServerView()
     }
@@ -102,13 +104,21 @@ class ServerViewController: BaseTableViewController {
         tableView.refreshControl?.endRefreshing()
     }
 
-    // This is currently called by the coordinator, will need to be called from the datamanger eventually
+    // MARK: - UI Updates
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.setEditing(editing, animated: true)
+    }
+
     func updateUIBasedOnServerState() {
         let hasServers = serverManager.serverCount() > 0
         tableView.isHidden = !hasServers
         noServersViewController.view.isHidden = hasServers
         navigationItem.rightBarButtonItem = hasServers ? editButtonItem : nil
     }
+
+    // MARK: - Helper Methods
 
     private func createToolbarButton(image: String, text: String? = nil, action: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .system)
