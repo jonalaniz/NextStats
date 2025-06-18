@@ -27,7 +27,6 @@
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */; };
 		562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */; };
-		562C258F2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258A2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift */; };
 		562C25902CB9F631001BF067 /* ServiceMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258C2CB9F631001BF067 /* ServiceMethod.swift */; };
 		562C25912CB9F631001BF067 /* HeaderKeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25892CB9F631001BF067 /* HeaderKeyValue.swift */; };
 		562C25922CB9F631001BF067 /* APIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25872CB9F631001BF067 /* APIManagerError.swift */; };
@@ -35,7 +34,6 @@
 		562C25942CB9F631001BF067 /* URLRequest+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */; };
 		562C25952CB9F631001BF067 /* Managable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258B2CB9F631001BF067 /* Managable.swift */; };
 		562C25962CB9F631001BF067 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25862CB9F631001BF067 /* APIManager.swift */; };
-		562C25972CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258A2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift */; };
 		562C25982CB9F631001BF067 /* ServiceMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258C2CB9F631001BF067 /* ServiceMethod.swift */; };
 		562C25992CB9F631001BF067 /* HeaderKeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25892CB9F631001BF067 /* HeaderKeyValue.swift */; };
 		562C259A2CB9F631001BF067 /* APIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25872CB9F631001BF067 /* APIManagerError.swift */; };
@@ -190,7 +188,6 @@
 		562C25872CB9F631001BF067 /* APIManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManagerError.swift; sourceTree = "<group>"; };
 		562C25882CB9F631001BF067 /* Error+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Description.swift"; sourceTree = "<group>"; };
 		562C25892CB9F631001BF067 /* HeaderKeyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderKeyValue.swift; sourceTree = "<group>"; };
-		562C258A2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+StatusCodeChecker.swift"; sourceTree = "<group>"; };
 		562C258B2CB9F631001BF067 /* Managable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managable.swift; sourceTree = "<group>"; };
 		562C258C2CB9F631001BF067 /* ServiceMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMethod.swift; sourceTree = "<group>"; };
 		562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Headers.swift"; sourceTree = "<group>"; };
@@ -639,7 +636,6 @@
 				562C25872CB9F631001BF067 /* APIManagerError.swift */,
 				562C25882CB9F631001BF067 /* Error+Description.swift */,
 				562C25892CB9F631001BF067 /* HeaderKeyValue.swift */,
-				562C258A2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift */,
 				562C258B2CB9F631001BF067 /* Managable.swift */,
 				562C258C2CB9F631001BF067 /* ServiceMethod.swift */,
 				562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */,
@@ -979,7 +975,6 @@
 				567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */,
 				567D82612BAA18C4007BF135 /* NXUserFactory.swift in Sources */,
 				5652A2F527647FE90050F5EB /* LoginObject.swift in Sources */,
-				562C258F2CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift in Sources */,
 				562C25902CB9F631001BF067 /* ServiceMethod.swift in Sources */,
 				562C25912CB9F631001BF067 /* HeaderKeyValue.swift in Sources */,
 				562C25922CB9F631001BF067 /* APIManagerError.swift in Sources */,
@@ -998,7 +993,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				565975BB25567DF70043C007 /* NextStatsTests.swift in Sources */,
-				562C25972CB9F631001BF067 /* HTTPURLResponse+StatusCodeChecker.swift in Sources */,
 				562C25982CB9F631001BF067 /* ServiceMethod.swift in Sources */,
 				562C25992CB9F631001BF067 /* HeaderKeyValue.swift in Sources */,
 				562C259A2CB9F631001BF067 /* APIManagerError.swift in Sources */,

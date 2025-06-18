@@ -7,19 +7,24 @@
 
 import Foundation
 
-// swiftlint:disable function_parameter_count
 protocol Managable {
-    func request<T: Codable>(url: URL,
-                             httpMethod: ServiceMethod,
-                             body: Data?,
-                             headers: [String: String]?,
-                             expectingReturnType: T.Type,
-                             legacyType: Bool
+    func requestDecodable<T: Codable>(url: URL,
+                                      httpMethod: ServiceMethod,
+                                      body: Data?,
+                                      headers: [String: String]?,
+                                      isOCSRequest: Bool
     ) async throws -> T
 
-    func genericRequest(url: URL,
-                        httpMethod: ServiceMethod,
-                        body: Data?,
-                        headers: [String: String]?
-    ) async throws -> Data
+    func requestImageData(
+        url: URL,
+        httpMethod: ServiceMethod,
+        body: Data?,
+        headers: [String: String]?
+    ) async throws -> Data 
+
+    func request(url: URL,
+                 httpMethod: ServiceMethod,
+                 body: Data?,
+                 headers: [String: String]?
+    ) async throws
 }

@@ -110,7 +110,7 @@ class NXServerManager: NSObject {
 
         Task {
             do {
-                _ = try await service.fetchData(from: url)
+                try await service.ping(url)
                 self.setOnlineStatus(at: index, to: .online)
             } catch {
                 guard let error = error as? APIManagerError else {

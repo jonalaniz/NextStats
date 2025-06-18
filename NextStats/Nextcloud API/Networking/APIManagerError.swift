@@ -17,7 +17,7 @@ enum APIManagerError: Error {
     case invalidResponse(response: HTTPURLResponse)
     case invalidURL
     case maintenance
-    case serializaitonFailed
+    case serializaitonFailed(error: Error)
     case somethingWentWrong(error: Error)
 
     var localizedDescription: String {
@@ -32,8 +32,8 @@ enum APIManagerError: Error {
             return .localized(.serverFormEnterValidAddress)
         case .maintenance:
             return .localized(.maintenanceDescription)
-        case .serializaitonFailed:
-            return .localized(.failedToSerializeResponse)
+        case .serializaitonFailed(let error):
+            return error.localizedDescription
         case .somethingWentWrong(let error):
             return error.localizedDescription
         }

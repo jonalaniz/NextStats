@@ -98,7 +98,7 @@ class NXAuthenticator: NSObject {
     private func checkForCustomImage(at url: URL) {
         Task {
             do {
-                let image = try await UIImage(data: service.fetchData(from: url))
+                let image = try await UIImage(data: service.fetchImageData(from: url))
                 self.serverImage = image
             } catch {
                 return
@@ -114,7 +114,8 @@ class NXAuthenticator: NSObject {
             let username = object.loginName,
             let password = object.appPassword
         else {
-            handle(error: .serializaitonFailed)
+//            handle(error: )
+            // TODO: Error.ServerDataEmpty
             return
         }
 

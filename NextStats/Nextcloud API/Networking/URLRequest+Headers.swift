@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 extension URLRequest {
-    mutating func addHeaders(from headers: [String: String]) {
-        headers.forEach { self.addValue($0.value, forHTTPHeaderField: $0.key) }
+    mutating func addHeaders(from headers: [String: String]?) {
+        if let headers = headers {
+            headers.forEach { self.addValue($0.value, forHTTPHeaderField: $0.key) }
+        }
     }
 
     mutating func setUserAgent() {

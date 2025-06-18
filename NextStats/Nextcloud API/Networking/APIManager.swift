@@ -8,53 +8,90 @@
 import Foundation
 
 final class APIManager: Managable {
-    public internal(set) var session = URLSession.shared
+    // MARK: - Singleton
 
     static let shared: Managable = APIManager()
-
     private init() {}
 
-    func genericRequest(url: URL,
-                        httpMethod: ServiceMethod,
-                        body: Data? = nil,
-                        headers: [String: String]?
-    ) async throws -> Data {
-        do {
-            var request = URLRequest(url: url)
-            request.httpMethod = httpMethod.rawValue
+    // MARK: - Properties
 
-            if let body = body, httpMethod != .get {
-                request.httpBody = body
-            }
+    public internal(set) var session = URLSession.shared
 
-            if let unwrappedHeaders = headers {
-                request.addHeaders(from: unwrappedHeaders)
-            }
+    // MARK: - URL Requests
 
-            request.setUserAgent()
-
-            let (data, response) = try await session.data(for: request)
-
-            guard let response = response as? HTTPURLResponse else {
-                throw APIManagerError.conversionFailedToHTTPURLResponse
-            }
-
-            try response.statusCodeChecker()
-
-            return data
-
-        } catch {
-            throw APIManagerError.somethingWentWrong(error: error)
-        }
+    /// Performs a network request that does not return a decoded response.
+    ///
+    /// Use this method for HTTP requests like `DELETE` that do not return data to be decoded.
+    ///
+    /// - Parameters:
+    ///   - url: The endpoint URL.
+    ///   - httpMethod: The HTTP method to use (e.g., `.get`, `.post`, `.delete`).
+    ///   - body: The HTTP request body as `Data`, if any.
+    ///   - headers: Optional headers to include in the request.
+    /// - Throws: An `APIManagerError` if the response is invalid or another error occurs.
+    func request(url: URL,
+                 httpMethod: ServiceMethod,
+                 body: Data?,
+                 headers: [String: String]?
+    ) async throws {
+        let request = buildRequest(
+            url: url,
+            httpMethod: httpMethod,
+            body: body,
+            headers: headers
+        )
+        let (data, response) = try await session.data(for: request)
+        try validateResponse(data: data, response: response)
     }
 
-    func request<T>(url: URL,
-                    httpMethod: ServiceMethod,
-                    body: Data?,
-                    headers: [String: String]?,
-                    expectingReturnType: T.Type,
-                    legacyType: Bool = false
-    ) async throws -> T where T: Decodable, T: Encodable {
+    func requestDecodable<T>(url: URL,
+                             httpMethod: ServiceMethod,
+                             body: Data?,
+                             headers: [String: String]?,
+                             isOCSRequest: Bool = false
+    ) async throws -> T where T: Decodable {
+        let request = buildRequest(
+            url: url,
+            httpMethod: httpMethod,
+            body: body,
+            headers: headers
+        )
+
+        let (data, response) = try await session.data(for: request)
+        return try await self.handleResponse(
+            data: data,
+            response: response,
+            legacy: isOCSRequest
+        )
+    }
+
+    func requestImageData(
+        url: URL,
+        httpMethod: ServiceMethod,
+        body: Data?,
+        headers: [String: String]?
+    ) async throws -> Data {
+        let request = buildRequest(
+            url: url,
+            httpMethod: httpMethod,
+            body: body,
+            headers: headers
+        )
+
+        let (data, response) = try await session.data(for: request)
+        try validateImageResponse(data: data, response: response)
+
+        return data
+    }
+
+    // MARK: - Helper Methods
+
+    private func buildRequest(
+        url: URL,
+        httpMethod: ServiceMethod,
+        body: Data?,
+        headers: [String: String]?
+    ) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
 
@@ -62,48 +99,76 @@ final class APIManager: Managable {
             request.httpBody = body
         }
 
-        if let unwrappedHeaders = headers {
-            request.addHeaders(from: unwrappedHeaders)
-        }
-
+        request.addHeaders(from: headers)
         request.setUserAgent()
 
-        guard !legacyType else {
-            return try await self.legacyResponseHandler(session.data(for: request))
+        return request
+    }
+
+    private func validateImageResponse(data: Data, response: URLResponse) throws {
+        try validateResponse(data: data, response: response)
+        guard
+            let httpResponse = response as? HTTPURLResponse,
+            let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
+            contentType.starts(with: "image/")
+        else {
+            // TODO: Error.invalidImage
+            throw APIManagerError.configurationMissing
+        }
+    }
+
+    /// Validates the HTTP response and throws errors for non-success status codes.
+    ///
+    /// - Parameters:
+    ///   - data: The raw response data.
+    ///   - response: The URL response object.
+    /// - Throws: An `APIManagerError` if response is not `HTTPURLResponse`, or the status code is not in the 2xx range.
+    private func validateResponse(data: Data, response: URLResponse) throws {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIManagerError.conversionFailedToHTTPURLResponse
         }
 
-        return try await self.responseHandler(session.data(for: request))
+        let statusCode = httpResponse.statusCode
+
+        // TODO: We can try casting Data as API Error
+
+        // Check for Maintenance mode header
+        guard httpResponse.value(forHTTPHeaderField: Header.maintenance.key()) == nil
+        else { throw APIManagerError.maintenance }
+
+        // Throw statusCode error
+        guard (200...299).contains(statusCode) else {
+            // TODO: Here we add the known API Errors (Create API Error)
+            throw APIManagerError.invalidResponse(response: httpResponse)
+        }
     }
 
     /// Decodes responses in JSON for modern requests
-    func responseHandler<T: Codable>(_ dataWithResponse: (data: Data, response: URLResponse)) async throws -> T {
-        guard let response = dataWithResponse.response as? HTTPURLResponse else {
-            throw APIManagerError.conversionFailedToHTTPURLResponse
-        }
-
-        try response.statusCodeChecker()
+    /// Decodes responses in XML for OCS-API Requests
+    private func handleResponse<T: Decodable>(data: Data, response: URLResponse, legacy: Bool) async throws -> T {
+        try validateResponse(data: data, response: response)
 
         do {
-            return try JSONDecoder().decode(T.self, from: dataWithResponse.data)
+            if legacy {
+                return try decodeXML(data)
+            } else {
+                return try decodeJSON(data)
+            }
         } catch {
-            print(error)
-            throw APIManagerError.serializaitonFailed
+            throw APIManagerError.serializaitonFailed(error: error)
         }
     }
 
-    /// Decodes responses in XML for OCS-API Requests
-    func legacyResponseHandler<T: Codable>(_ dataWithResponse: (data: Data, response: URLResponse)) async throws -> T {
-        guard let response = dataWithResponse.response as? HTTPURLResponse else {
-            throw APIManagerError.conversionFailedToHTTPURLResponse
-        }
+    /// Decodes raw data into a specified `Decodable` type.
+    ///
+    /// - Parameter data: The data to decode.
+    /// - Returns: A decoded instance of type `T`.
+    /// - Throws: A decoding error if the data cannot be decoded.
+    private func decodeJSON<T: Decodable>(_ data: Data) throws -> T {
+        return try JSONDecoder().decode(T.self, from: data)
+    }
 
-        try response.statusCodeChecker()
-
-        do {
-            return try XMLDecoder().decode(T.self, from: dataWithResponse.data)
-        } catch {
-            print(error)
-            throw APIManagerError.serializaitonFailed
-        }
+    private func decodeXML<T: Decodable>(_ data: Data) throws -> T {
+        return try XMLDecoder().decode(T.self, from: data)
     }
 }

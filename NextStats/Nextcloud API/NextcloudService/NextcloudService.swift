@@ -22,53 +22,46 @@ final class NextcloudService {
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: .delete,
             body: nil,
             headers: headers,
-            expectingReturnType: GenericResponse.self,
-            legacyType: true
+            isOCSRequest: true
         )
     }
 
     func fetchAuthenticationData(url: URL) async throws -> AuthenticationObject {
         let urlWithEndpoint = try buildURL(url, with: .login)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: .post,
             body: nil,
             headers: nil,
-            expectingReturnType: AuthenticationObject.self,
-            legacyType: false
+            isOCSRequest: false
         )
     }
 
     /// Generic fetch request that takes only a URL, returns data
-    func fetchData(from url: URL) async throws -> Data {
-        let request = URLRequest(url: url)
-        let (data, response) = try await session.data(for: request)
-
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIManagerError.invalidURL
-        }
-
-        try httpResponse.statusCodeChecker()
-
-        return data
+    func fetchImageData(from url: URL) async throws -> Data {
+        return try await apiManager.requestImageData(
+            url: url,
+            httpMethod: .get,
+            body: nil,
+            headers: nil
+        )
     }
 
     func fetchLoginObject(from url: URL, with token: String) async throws -> LoginObject {
         let body = "token=\(token)".data(using: .utf8)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: url,
             httpMethod: .post,
             body: body,
             headers: nil,
-            expectingReturnType: LoginObject.self,
-            legacyType: false
+            isOCSRequest: false
         )
     }
 
@@ -77,13 +70,12 @@ final class NextcloudService {
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: false)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: .get,
             body: nil,
             headers: headers,
-            expectingReturnType: ServerStats.self,
-            legacyType: false
+            isOCSRequest: false
         )
     }
 
@@ -91,13 +83,12 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .groups)
         let headers = buildHeaders(authorization: server.authenticationString(), ocsApiRequest: true)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint,
             httpMethod: .get,
             body: nil,
             headers: headers,
-            expectingReturnType: GroupsObject.self,
-            legacyType: true
+            isOCSRequest: true
         )
     }
 
@@ -106,13 +97,12 @@ final class NextcloudService {
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint,
             httpMethod: .get,
             body: nil,
             headers: headers,
-            expectingReturnType: Users.self,
-            legacyType: true
+            isOCSRequest: true
         )
     }
 
@@ -121,14 +111,17 @@ final class NextcloudService {
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: .get,
             body: nil,
             headers: headers,
-            expectingReturnType: User.self,
-            legacyType: true
+            isOCSRequest: true
         )
+    }
+
+    func ping(_ url: URL) async throws {
+        return try await apiManager.request(url: url, httpMethod: .get, body: nil, headers: nil)
     }
 
     func postUser(_ data: Data, in server: NextServer) async throws -> GenericResponse {
@@ -137,13 +130,12 @@ final class NextcloudService {
                                    ocsApiRequest: true)
         headers[Header.contentType.key()] = Header.contentType.value()
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: .post,
             body: data,
             headers: headers,
-            expectingReturnType: GenericResponse.self,
-            legacyType: true
+            isOCSRequest: true
         )
     }
 
@@ -152,13 +144,12 @@ final class NextcloudService {
         let headers = buildHeaders(authorization: server.authenticationString(),
                                    ocsApiRequest: true)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: type.httpMethod,
             body: nil,
             headers: headers,
-            expectingReturnType: GenericResponse.self,
-            legacyType: true
+            isOCSRequest: true
         )
     }
 
@@ -166,13 +157,12 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .wipeCheck)
         let body = "token=\(server.password)".data(using: .utf8)
 
-        return try await apiManager.request(
+        return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
             httpMethod: .post,
             body: body,
             headers: nil,
-            expectingReturnType: WipeObject.self,
-            legacyType: false
+            isOCSRequest: false
         )
     }
 
@@ -180,11 +170,12 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(string: server.URLString, endpoint: .wipeCheck)
         let body = "token=\(server.password)".data(using: .utf8)
 
-        _ = try await apiManager.genericRequest(url: urlWithEndpoint,
-                                                httpMethod: .post,
-                                                body: body,
-                                                headers: nil)
-
+        try await apiManager.request(
+            url: urlWithEndpoint,
+            httpMethod: .post,
+            body: body,
+            headers: nil
+        )
     }
 
     // MARK: - Utilities

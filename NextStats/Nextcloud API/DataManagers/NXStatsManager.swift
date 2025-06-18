@@ -47,7 +47,8 @@ final class NXStatsManager: NSObject, NXStatsDataProvider {
     @MainActor private func check(_ object: ServerStats) {
         guard let data = object.ocs?.data
         else {
-            errorHandler?.handleError(.serializaitonFailed)
+            // TODO: Error.DataEmpty
+//            errorHandler?.handleError(.serializaitonFailed)
             return
         }
 
