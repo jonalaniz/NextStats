@@ -10,37 +10,12 @@ import UIKit
 
 extension UsersCoordinator: ErrorHandling {
     func handleError(_ error: APIManagerError) {
-        switch error {
-        case .configurationMissing:
-            showErrorAndReturn(title: .localized(.errorTitle), description: error.localizedDescription)
-        case .conversionFailedToHTTPURLResponse:
-            showErrorAndReturn(title: .localized(.missingResponse),
-                               description: error.localizedDescription)
-        case .invalidResponse(response: _):
-            showErrorAndReturn(title: "Unexpected Response",
-                               description: error.localizedDescription)
-        case .invalidURL:
-            showErrorAndReturn(title: .localized(.errorTitle),
-                               description: error.localizedDescription)
-        case .maintenance:
-            showErrorAndReturn(title: .localized(.maintenanceMode),
-                               description: error.localizedDescription)
-        case .serializaitonFailed:
-            showErrorAndReturn(title: .localized(.errorTitle),
-                               description: error.localizedDescription)
-        case .somethingWentWrong(error: let error):
-            showErrorAndReturn(title: .localized(.errorTitle),
-                      description: error.localizedDescription)
+        let errorAC = ErrorPresenter.shared.errorAlertController(for: error, with: dismissView)
+        DispatchQueue.main.async {
+            self.usersViewController.loadingViewController.remove()
+            self.usersViewController.tableView.isHidden = true
+            self.usersViewController.present(errorAC, animated: true)
         }
-    }
-
-    private func showErrorAndReturn(title: String, description: String) {
-        let errorAC = UIAlertController(title: title,
-                                        message: description,
-                                        preferredStyle: .alert)
-        errorAC.addAction(UIAlertAction(title: .localized(.statsActionContinue),
-                                        style: .default,
-                                        handler: dismissView))
     }
 
     private func dismissView(action: UIAlertAction) {

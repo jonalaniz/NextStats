@@ -96,6 +96,6 @@ extension AddServerCoordinator: NXAuthenticationDelegate {
 
 extension AddServerCoordinator: ErrorHandling {
     func handleError(_ error: APIManagerError) {
-        addServerVC.updateLabel(with: error.localizedDescription)
+        addServerVC.updateLabel(with: error.description)
     }
 }

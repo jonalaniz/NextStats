@@ -20,7 +20,7 @@ protocol Managable {
         httpMethod: ServiceMethod,
         body: Data?,
         headers: [String: String]?
-    ) async throws -> Data 
+    ) async throws -> Data
 
     func request(url: URL,
                  httpMethod: ServiceMethod,

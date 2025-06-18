@@ -30,14 +30,12 @@
 		562C25902CB9F631001BF067 /* ServiceMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258C2CB9F631001BF067 /* ServiceMethod.swift */; };
 		562C25912CB9F631001BF067 /* HeaderKeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25892CB9F631001BF067 /* HeaderKeyValue.swift */; };
 		562C25922CB9F631001BF067 /* APIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25872CB9F631001BF067 /* APIManagerError.swift */; };
-		562C25932CB9F631001BF067 /* Error+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25882CB9F631001BF067 /* Error+Description.swift */; };
 		562C25942CB9F631001BF067 /* URLRequest+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */; };
 		562C25952CB9F631001BF067 /* Managable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258B2CB9F631001BF067 /* Managable.swift */; };
 		562C25962CB9F631001BF067 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25862CB9F631001BF067 /* APIManager.swift */; };
 		562C25982CB9F631001BF067 /* ServiceMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258C2CB9F631001BF067 /* ServiceMethod.swift */; };
 		562C25992CB9F631001BF067 /* HeaderKeyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25892CB9F631001BF067 /* HeaderKeyValue.swift */; };
 		562C259A2CB9F631001BF067 /* APIManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25872CB9F631001BF067 /* APIManagerError.swift */; };
-		562C259B2CB9F631001BF067 /* Error+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25882CB9F631001BF067 /* Error+Description.swift */; };
 		562C259C2CB9F631001BF067 /* URLRequest+Headers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258D2CB9F631001BF067 /* URLRequest+Headers.swift */; };
 		562C259D2CB9F631001BF067 /* Managable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C258B2CB9F631001BF067 /* Managable.swift */; };
 		562C259E2CB9F631001BF067 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562C25862CB9F631001BF067 /* APIManager.swift */; };
@@ -53,6 +51,7 @@
 		5647A6442BA4023A000D51F7 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6432BA4023A000D51F7 /* Groups.swift */; };
 		5647A6462BA4CD4B000D51F7 /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */; };
 		5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */; };
+		564E5D412E02C11E007F9747 /* ErrorPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564E5D402E02C11E007F9747 /* ErrorPresentor.swift */; };
 		564EAE092558CEA80090AFBB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564EAE082558CEA80090AFBB /* InfoViewController.swift */; };
 		5650A6F3267C03E4008A1BDB /* NXDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */; };
 		565130D9268BD7D3008FE8D4 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565130D8268BD7D3008FE8D4 /* Units.swift */; };
@@ -186,7 +185,6 @@
 		562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+SFSymbols.swift"; sourceTree = "<group>"; };
 		562C25862CB9F631001BF067 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		562C25872CB9F631001BF067 /* APIManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManagerError.swift; sourceTree = "<group>"; };
-		562C25882CB9F631001BF067 /* Error+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Description.swift"; sourceTree = "<group>"; };
 		562C25892CB9F631001BF067 /* HeaderKeyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderKeyValue.swift; sourceTree = "<group>"; };
 		562C258B2CB9F631001BF067 /* Managable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managable.swift; sourceTree = "<group>"; };
 		562C258C2CB9F631001BF067 /* ServiceMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMethod.swift; sourceTree = "<group>"; };
@@ -203,6 +201,7 @@
 		5647A6432BA4023A000D51F7 /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		5647A6452BA4CD4B000D51F7 /* NewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 		5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		564E5D402E02C11E007F9747 /* ErrorPresentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentor.swift; sourceTree = "<group>"; };
 		564EAE082558CEA80090AFBB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		5650A6F2267C03E4008A1BDB /* NXDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NXDataManagerDelegate.swift; path = "NextStats/Nextcloud API/Delegates/NXDataManagerDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		565130D8268BD7D3008FE8D4 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
@@ -464,6 +463,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		564E5D3F2E02C102007F9747 /* ErrorHandling */ = {
+			isa = PBXGroup;
+			children = (
+				564E5D402E02C11E007F9747 /* ErrorPresentor.swift */,
+			);
+			path = ErrorHandling;
+			sourceTree = "<group>";
+		};
 		56557ED723C8B09A008CF684 = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +626,7 @@
 		56DBC1352932EF11002A306B /* Nextcloud API */ = {
 			isa = PBXGroup;
 			children = (
+				564E5D3F2E02C102007F9747 /* ErrorHandling */,
 				56F1C7052D577BDB00EA03BD /* Delegates */,
 				56D557FD2D46C2850027A1FB /* DataManagers */,
 				562C25A42CB9FE16001BF067 /* Models */,
@@ -634,7 +642,6 @@
 			children = (
 				562C25862CB9F631001BF067 /* APIManager.swift */,
 				562C25872CB9F631001BF067 /* APIManagerError.swift */,
-				562C25882CB9F631001BF067 /* Error+Description.swift */,
 				562C25892CB9F631001BF067 /* HeaderKeyValue.swift */,
 				562C258B2CB9F631001BF067 /* Managable.swift */,
 				562C258C2CB9F631001BF067 /* ServiceMethod.swift */,
@@ -917,6 +924,7 @@
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
 				5652A2F7276489AE0050F5EB /* NXAuthenticator.swift in Sources */,
 				567168122D6CFE3600B7CA5A /* ServerHeaderIcon.swift in Sources */,
+				564E5D412E02C11E007F9747 /* ErrorPresentor.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoint.swift in Sources */,
 				5609385D2D5F816000DEAF40 /* StatsSection.swift in Sources */,
 				56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */,
@@ -978,7 +986,6 @@
 				562C25902CB9F631001BF067 /* ServiceMethod.swift in Sources */,
 				562C25912CB9F631001BF067 /* HeaderKeyValue.swift in Sources */,
 				562C25922CB9F631001BF067 /* APIManagerError.swift in Sources */,
-				562C25932CB9F631001BF067 /* Error+Description.swift in Sources */,
 				56FE82E42D660353001E2294 /* StatsDataSource.swift in Sources */,
 				56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */,
 				562C25942CB9F631001BF067 /* URLRequest+Headers.swift in Sources */,
@@ -996,7 +1003,6 @@
 				562C25982CB9F631001BF067 /* ServiceMethod.swift in Sources */,
 				562C25992CB9F631001BF067 /* HeaderKeyValue.swift in Sources */,
 				562C259A2CB9F631001BF067 /* APIManagerError.swift in Sources */,
-				562C259B2CB9F631001BF067 /* Error+Description.swift in Sources */,
 				562C259C2CB9F631001BF067 /* URLRequest+Headers.swift in Sources */,
 				562C259D2CB9F631001BF067 /* Managable.swift in Sources */,
 				562C259E2CB9F631001BF067 /* APIManager.swift in Sources */,

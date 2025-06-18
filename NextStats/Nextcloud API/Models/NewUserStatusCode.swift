@@ -18,6 +18,7 @@
 
 import Foundation
 
+// TODO: Implement these codes
 enum NewUserStatusCode: Int {
     case successful = 100
     case invalidData = 101

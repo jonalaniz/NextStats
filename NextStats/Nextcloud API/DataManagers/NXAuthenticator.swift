@@ -114,8 +114,7 @@ class NXAuthenticator: NSObject {
             let username = object.loginName,
             let password = object.appPassword
         else {
-//            handle(error: )
-            // TODO: Error.ServerDataEmpty
+            handle(error: .dataEmpty)
             return
         }
 

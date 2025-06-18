@@ -112,8 +112,7 @@ final class APIManager: Managable {
             let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
             contentType.starts(with: "image/")
         else {
-            // TODO: Error.invalidImage
-            throw APIManagerError.configurationMissing
+            throw APIManagerError.invalidDataType
         }
     }
 
@@ -130,15 +129,15 @@ final class APIManager: Managable {
 
         let statusCode = httpResponse.statusCode
 
-        // TODO: We can try casting Data as API Error
-
         // Check for Maintenance mode header
         guard httpResponse.value(forHTTPHeaderField: Header.maintenance.key()) == nil
         else { throw APIManagerError.maintenance }
 
         // Throw statusCode error
         guard (200...299).contains(statusCode) else {
-            // TODO: Here we add the known API Errors (Create API Error)
+            if statusCode == 401 || statusCode == 403 {
+                throw APIManagerError.unauthorized
+            }
             throw APIManagerError.invalidResponse(response: httpResponse)
         }
     }
