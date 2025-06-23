@@ -7,18 +7,26 @@
 //
 
 import UIKit
+/// Coordinator responsible for managing the flow of creating a new user..
+final class NewUserCoordinator: NSObject, Coordinator {
+    // MARK: - Coordinator
 
-class NewUserCoordinator: NSObject, Coordinator {
     weak var parentCoordinator: UsersCoordinator?
-
     var childCoordinators = [Coordinator]()
-    var splitViewController: UISplitViewController
-    var navigationController: UINavigationController
-    let newUserViewController: NewUserViewController
-    let popOverNavController = UINavigationController()
+
+    // MARK: - Dependencies
 
     let userFactory = NXUserFactory.shared
-    let newUserDataSource: NewUserDataSource
+    private let newUserDataSource: NewUserDataSource
+
+    // MARK: - View Controllers
+
+    let newUserViewController: NewUserViewController
+    let popOverNavController = UINavigationController()
+    private let navigationController: UINavigationController
+    var splitViewController: UISplitViewController
+
+    // MARK: - Initialization
 
     init(splitViewController: UISplitViewController, navigationController: UINavigationController) {
         self.splitViewController = splitViewController
@@ -26,6 +34,8 @@ class NewUserCoordinator: NSObject, Coordinator {
         newUserViewController = NewUserViewController()
         newUserDataSource = NewUserDataSource(userFactory: userFactory)
     }
+
+    // MARK: - Coordinator Lifecycle
 
     func start() {
         userFactory.delegate = self
@@ -35,13 +45,16 @@ class NewUserCoordinator: NSObject, Coordinator {
         navigationController.present(popOverNavController, animated: true)
     }
 
-    func dismiss() {
+    func didFinish() {
         popOverNavController.dismiss(animated: true)
         parentCoordinator?.childDidFinish(self)
     }
 
+    // MARK: - Navigation
+
     func showSelectionView(type: SelectionType) {
-        guard let groups = userFactory.groupsAvailable() else { return }
+        guard let groups = userFactory.groupsAvailable()
+        else { return }
         let selectionView: SelectionViewController
         let selections = getSelections(for: type)
 
@@ -62,6 +75,14 @@ class NewUserCoordinator: NSObject, Coordinator {
         popOverNavController.pushViewController(selectionView, animated: true)
     }
 
+    // MARK: - Actions
+
+    func createUser() {
+        userFactory.createUser()
+    }
+
+    // MARK: - Helper Methods
+
     private func getSelections(for type: SelectionType) -> [String]? {
         switch type {
         case .groups: return userFactory.selectedGroupsFor(role: .member)
@@ -69,9 +90,4 @@ class NewUserCoordinator: NSObject, Coordinator {
         case .quota: return [userFactory.quotaType().rawValue]
         }
     }
-
-    func createUser() {
-        userFactory.createUser()
-    }
-
 }

@@ -9,7 +9,6 @@
 import StoreKit
 import UIKit
 
-// swiftlint:disable weak_delegate
 class InfoViewController: BaseTableViewController {
     // MARK: - Properties
 

@@ -8,21 +8,29 @@
 
 import UIKit
 
+/// Coordinator responsible for managing and viewing users.
 class UsersCoordinator: NSObject, Coordinator {
-    weak var parentCoordinator: MainCoordinator?
+    // MARK: - Coordinator
 
+    weak var parentCoordinator: MainCoordinator?
     var childCoordinators = [Coordinator]()
-    var splitViewController: UISplitViewController
-    var navigationController = UINavigationController()
+
+    // MARK: - Dependencies
 
     let formatter = NXUserFormatter.shared
     let usersManager = NXUsersManager.shared
+    let userFactory = NXUserFactory.shared
+
+    // MARK: - View Controllers
+
     let usersViewController: UsersViewController
     let usersDataSource: UsersDataSource
     let userViewController: UserViewController
-    let userDataSource: UserDataSource
+    private let userDataSource: UserDataSource
+    var splitViewController: UISplitViewController
+    var navigationController = UINavigationController()
 
-    let newUserController = NXUserFactory.shared
+    // MARK: - Initialization
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -32,6 +40,8 @@ class UsersCoordinator: NSObject, Coordinator {
         userDataSource = UserDataSource(formatter: formatter)
     }
 
+    // MARK: - Coordinator Lifecycle
+
     func start() {
         usersViewController.coordinator = self
         usersViewController.dataSource = usersDataSource
@@ -39,13 +49,18 @@ class UsersCoordinator: NSObject, Coordinator {
         usersManager.errorHandler = self
         navigationController.viewControllers = [usersViewController]
 
-        splitViewController.present(navigationController, animated: true)
-        newUserController.getGroups(for: usersManager.server)
+        splitViewController.present(
+            navigationController,
+            animated: true
+        )
+        userFactory.getGroups(for: usersManager.server)
     }
 
     func showAddUserView() {
-        let child = NewUserCoordinator(splitViewController: splitViewController,
-                                       navigationController: navigationController)
+        let child = NewUserCoordinator(
+            splitViewController: splitViewController,
+            navigationController: navigationController
+        )
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
@@ -56,19 +71,6 @@ class UsersCoordinator: NSObject, Coordinator {
         userViewController.dataManager.set(user)
         userViewController.dataSource = userDataSource
         navigationController.pushViewController(userViewController, animated: true)
-    }
-
-    func updateUsers() {
-        usersViewController.toggleLoadingState(isLoading: true)
-        usersManager.fetchUsersData()
-    }
-
-    func delete(user: String) {
-        usersManager.delete(user: user)
-    }
-
-    func toggle(user: String) {
-        usersManager.toggle(user: user)
     }
 
     func childDidFinish(_ child: Coordinator?) {
@@ -88,5 +90,20 @@ class UsersCoordinator: NSObject, Coordinator {
         }
 
         parentCoordinator?.childDidFinish(self)
+    }
+
+    // MARK: - Actions
+
+    func updateUsers() {
+        usersViewController.toggleLoadingState(isLoading: true)
+        usersManager.fetchUsersData()
+    }
+
+    func delete(user: String) {
+        usersManager.delete(user: user)
+    }
+
+    func toggle(user: String) {
+        usersManager.toggle(user: user)
     }
 }

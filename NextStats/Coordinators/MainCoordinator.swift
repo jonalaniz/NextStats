@@ -8,53 +8,81 @@
 
 import UIKit
 
+/// Main Coordinator  responsible for selecting, editing, and viewing servers.
 class MainCoordinator: NSObject, Coordinator {
+    // MARK: - Coordinator
+
     var childCoordinators = [Coordinator]()
-    var splitViewController: UISplitViewController
+
+    // MARK: - Dependencies
+
+    let statsViewController: StatsViewController
+    let serverManager = NXServerManager.shared
+    let serverDataSource: ServerDataSource
+
+    // MARK: - View Controllers
 
     let mainViewController: ServerViewController
     let detailNavigationController: UINavigationController
-    let statsViewController: StatsViewController
+    var splitViewController: UISplitViewController
 
-    let serverManager = NXServerManager.shared
-    let serverDataSource: ServerDataSource
+    // MARK: - Initialization
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
 
         mainViewController = ServerViewController()
         statsViewController = StatsViewController()
-        detailNavigationController = UINavigationController(rootViewController: SelectServerViewController())
-        serverDataSource = ServerDataSource(serverManager: serverManager)
+        detailNavigationController = UINavigationController(
+            rootViewController: SelectServerViewController()
+        )
+        serverDataSource = ServerDataSource(
+            serverManager: serverManager
+        )
     }
+
+    // MARK: - Coordinator Lifecycle
 
     // This is where we initialize the UISplitViewController
     func start() {
         // Initialize our SplitView
-        let mainNavigationController = UINavigationController(rootViewController: mainViewController)
+        let mainNavigationController = UINavigationController(
+            rootViewController: mainViewController
+        )
 
-        splitViewController.viewControllers = [mainNavigationController, detailNavigationController]
+        splitViewController.viewControllers = [
+            mainNavigationController,
+            detailNavigationController
+        ]
         mainViewController.coordinator = self
         mainViewController.dataSource = serverDataSource
         statsViewController.coordinator = self
     }
 
+    // MARK: - Navigation
+
     func showAddServerView() {
-        let child = AddServerCoordinator(splitViewController: splitViewController)
+        let child = AddServerCoordinator(
+            splitViewController: splitViewController
+        )
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
     }
 
     func showInfoView() {
-        let child = InfoCoordinator(splitViewController: splitViewController)
+        let child = InfoCoordinator(
+            splitViewController: splitViewController
+        )
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
     }
 
     func showUsersView() {
-        let child = UsersCoordinator(splitViewController: splitViewController)
+        let child = UsersCoordinator(
+            splitViewController: splitViewController
+        )
         child.parentCoordinator = self
         childCoordinators.append(child)
         child.start()
@@ -65,10 +93,13 @@ class MainCoordinator: NSObject, Coordinator {
             detailNavigationController.viewControllers = [statsViewController]
         }
 
-        guard let navigationController = statsViewController.navigationController else { return }
+        guard let navigationController = statsViewController.navigationController
+        else { return }
         statsViewController.serverSelected(server)
         splitViewController.showDetailViewController(navigationController, sender: nil)
     }
+
+    // MARK: - Helper Methods
 
     /// Destroy the addServerCoordinator object and refresh the ServerViewController
     func addServer(_ server: NextServer) {

@@ -12,7 +12,6 @@ protocol AuthenticationDataSourceDelegate: AnyObject {
     func didEnterURL(_ url: String)
 }
 
-// swiftlint:disable weak_delegate
 class AuthenticationDataSource: NSObject, UITableViewDataSource {
     weak var delegate: AuthenticationDataSourceDelegate?
     private let textFieldDelegate = TextFieldDelegate()

@@ -80,7 +80,7 @@ class AddServerViewController: BaseTableViewController {
     // MARK: - Actions
 
     @objc func cancelPressed() {
-        coordinator?.dismiss()
+        coordinator?.didFinish()
     }
 
     @objc func nextButtonPressed(_ sender: Any) {

@@ -45,7 +45,7 @@ class NewUserViewController: BaseTableViewController {
     }
 
     @objc func cancelPressed() {
-        coordinator?.dismiss()
+        coordinator?.didFinish()
     }
 
     @objc func donePressed() {

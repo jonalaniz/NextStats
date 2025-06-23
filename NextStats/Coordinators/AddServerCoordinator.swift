@@ -8,20 +8,25 @@
 
 import UIKit
 
-class AddServerCoordinator: NSObject, Coordinator {
-    // MARK: - Properties
+/// Coordinator responsible for managing the flow of adding a new server.
+final class AddServerCoordinator: NSObject, Coordinator {
+    // MARK: - Coordinator
 
     weak var parentCoordinator: MainCoordinator?
-
     var childCoordinators = [Coordinator]()
-    var splitViewController: UISplitViewController
-    private var navigationController = UINavigationController()
 
-    private let addServerVC: AddServerViewController
+    // MARK: - Dependencies
+
     private let authenticator: NXAuthenticator
     private let dataSource: AuthenticationDataSource
 
-    // MARK: - Lifecycle
+    // MARK: - View Controllers
+
+    private let addServerVC: AddServerViewController
+    private let navigationController = UINavigationController()
+    var splitViewController: UISplitViewController
+
+    // MARK: - Initialization
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
@@ -29,6 +34,8 @@ class AddServerCoordinator: NSObject, Coordinator {
         addServerVC = AddServerViewController()
         dataSource = AuthenticationDataSource()
     }
+
+    // MARK: - Coordinator Lifecycle
 
     func start() {
         addServerVC.coordinator = self
@@ -39,6 +46,11 @@ class AddServerCoordinator: NSObject, Coordinator {
 
         navigationController.viewControllers = [addServerVC]
         splitViewController.present(navigationController, animated: true, completion: nil)
+    }
+
+    func didFinish() {
+        navigationController.dismiss(animated: true, completion: nil)
+        parentCoordinator?.childDidFinish(self)
     }
 
     // MARK: - Navigation
@@ -52,7 +64,7 @@ class AddServerCoordinator: NSObject, Coordinator {
         navigationController.pushViewController(webVC, animated: true)
     }
 
-    // MARK: - Helper Methods
+    // MARK: - Actions
 
     func requestAuthorization(with urlString: String, named name: String) {
         // Cancel polling endpoint in case it is running from previous attempt
@@ -72,11 +84,6 @@ class AddServerCoordinator: NSObject, Coordinator {
         // Cancel polling endpoint
         authenticator.cancelAuthorization()
     }
-
-    func dismiss() {
-        navigationController.dismiss(animated: true, completion: nil)
-        parentCoordinator?.childDidFinish(self)
-    }
 }
 
 // MARK: - NXAuthenticationDelegate
@@ -84,7 +91,7 @@ class AddServerCoordinator: NSObject, Coordinator {
 extension AddServerCoordinator: NXAuthenticationDelegate {
     func didCapture(server: NextServer) {
         parentCoordinator?.addServer(server)
-        dismiss()
+        didFinish()
     }
 
     func didRecieve(loginURL: String) {
