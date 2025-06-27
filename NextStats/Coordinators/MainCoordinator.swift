@@ -103,7 +103,7 @@ class MainCoordinator: NSObject, Coordinator {
         guard let navigationController = statsViewController.navigationController
         else { return }
         statsDataManager.server = server
-        statsViewController.serverSelected(server)
+        statsViewController.updateUIFor(server)
         splitViewController.showDetailViewController(navigationController, sender: nil)
     }
 
@@ -130,6 +130,17 @@ class MainCoordinator: NSObject, Coordinator {
         serverManager.renameServer(server, to: name) { newServer in
             statsDataManager.server = newServer
         }
+    }
+
+    // MARK: - Mac Catalyst actions
+
+    @objc func addServerClicked() {
+        showAddServerView()
+    }
+
+    @objc func menuClicked() {
+        guard statsDataManager.server != nil else { return }
+        statsViewController.menuTapped()
     }
 
     // MARK: - Helper Methods
