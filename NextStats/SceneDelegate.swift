@@ -30,6 +30,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
             windowScene.sizeRestrictions?.maximumSize = maximumSize
         }
 
+        // Set the coordinator
+        toolbarDelegate.coordinator = coordinator
+
         // Create toolbar
         let toolbar = NSToolbar(identifier: "main")
         toolbar.delegate = toolbarDelegate
