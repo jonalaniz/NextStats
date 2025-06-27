@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ServerStatsDataSource: NSObject, UITableViewDataSource {
+final class StatisticsDataSource: NSObject, BaseDataSource {
     var sections = [TableSection]()
 
     func numberOfSections(in tableView: UITableView) -> Int {

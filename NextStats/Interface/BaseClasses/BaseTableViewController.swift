@@ -92,7 +92,6 @@ class BaseTableViewController: UIViewController {
         activateFullScreenConstraints(for: tableView)
     }
 
-    // Override this funciton to
     func registerCells() {}
 
     // MARK: - Utility Methods

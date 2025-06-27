@@ -16,14 +16,15 @@ class MainCoordinator: NSObject, Coordinator {
 
     // MARK: - Dependencies
 
-    let statsViewController: StatsViewController
     let serverManager = NXServerManager.shared
     let serverDataSource: ServerDataSource
+    let statsDataManager = NXStatsManager.shared
 
     // MARK: - View Controllers
 
     let mainViewController: ServerViewController
     let detailNavigationController: UINavigationController
+    let statsViewController: StatsViewController
     var splitViewController: UISplitViewController
 
     // MARK: - Initialization
@@ -57,6 +58,8 @@ class MainCoordinator: NSObject, Coordinator {
         mainViewController.coordinator = self
         mainViewController.dataSource = serverDataSource
         statsViewController.coordinator = self
+        statsDataManager.delegate = self
+        statsDataManager.errorHandler = self
     }
 
     // MARK: - Navigation
@@ -80,10 +83,14 @@ class MainCoordinator: NSObject, Coordinator {
     }
 
     func showUsersView() {
+        guard let server = statsDataManager.server
+        else { return }
+
         let child = UsersCoordinator(
             splitViewController: splitViewController
         )
         child.parentCoordinator = self
+        child.set(server)
         childCoordinators.append(child)
         child.start()
     }
@@ -95,11 +102,45 @@ class MainCoordinator: NSObject, Coordinator {
 
         guard let navigationController = statsViewController.navigationController
         else { return }
+        statsDataManager.server = server
         statsViewController.serverSelected(server)
         splitViewController.showDetailViewController(navigationController, sender: nil)
     }
 
+    // MARK: - Server Manager Methods
+    func checkWipeStatus() {
+        guard let server  = statsDataManager.server
+        else { return }
+        serverManager.checkWipeStatus(server: server)
+    }
+
+    func delete() {
+        guard let server = statsDataManager.server
+        else { return }
+        serverManager.remove(server, refresh: true)
+    }
+
+    func reload() {
+        statsDataManager.reload()
+    }
+
+    func rename(_ name: String) {
+        guard let server = statsDataManager.server
+        else { return }
+        serverManager.renameServer(server, to: name) { newServer in
+            statsDataManager.server = newServer
+        }
+    }
+
     // MARK: - Helper Methods
+
+    func openInSafari() {
+        guard
+            let urlString = statsDataManager.server?.friendlyURL,
+            let url = URL(string: urlString)
+        else { return }
+        UIApplication.shared.open(url)
+    }
 
     /// Destroy the addServerCoordinator object and refresh the ServerViewController
     func addServer(_ server: NextServer) {
@@ -111,5 +152,22 @@ class MainCoordinator: NSObject, Coordinator {
         for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
             childCoordinators.remove(at: index)
         }
+    }
+}
+
+extension MainCoordinator: NXDataManagerDelegate {
+    func stateDidChange(_ state: NXDataManagerState) {
+        switch state {
+        case .fetchingData:
+            statsViewController.showLoadingView()
+        case .dataCaptured(let sections):
+            statsViewController.updateDataSource(with: sections)
+        }
+    }
+}
+
+extension MainCoordinator: ErrorHandling {
+    func handleError(_ error: APIManagerError) {
+        // fuck piss and shit
     }
 }

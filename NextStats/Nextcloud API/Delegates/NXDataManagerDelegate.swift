@@ -8,11 +8,10 @@
 import Foundation
 
 protocol NXDataManagerDelegate: AnyObject {
-    func stateDidChange(_ dataManagerState: NXDataManagerState)
+    func stateDidChange(_ state: NXDataManagerState)
 }
 
 enum NXDataManagerState {
     case fetchingData
-    case parsingData
     case dataCaptured(_ sections: [TableSection])
 }

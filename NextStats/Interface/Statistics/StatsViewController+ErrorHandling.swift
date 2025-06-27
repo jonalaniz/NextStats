@@ -20,8 +20,7 @@ extension StatsViewController: ErrorHandling {
     }
 
     private func checkWipeStatus() {
-        guard let server = dataManager.server else { return }
-        coordinator?.serverManager.checkWipeStatus(server: server)
+        coordinator?.checkWipeStatus()
     }
 
     func dismissView(action: UIAlertAction! = nil) {

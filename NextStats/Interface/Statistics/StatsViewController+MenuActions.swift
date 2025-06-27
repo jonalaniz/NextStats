@@ -84,22 +84,13 @@ extension StatsViewController {
     }
 
     func renameServer(_ name: String) {
-        guard let server = dataManager.server else { return }
         headerView.nameLabel.text = name
         tableView.tableHeaderView = headerView
-
-        let manager = NXServerManager.shared
-
-        manager.renameServer(server, to: name) { newServer in
-            dataManager.server = newServer
-        }
+        coordinator?.rename(name)
     }
 
     func delete() {
-        guard let server = dataManager.server else { return }
-        let manager = NXServerManager.shared
-        manager.remove(server, renaming: false, refresh: true)
-
+        coordinator?.delete()
         dismissView(action: nil)
     }
 }

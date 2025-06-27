@@ -94,6 +94,10 @@ class UsersCoordinator: NSObject, Coordinator {
 
     // MARK: - Actions
 
+    func set(_ server: NextServer) {
+        usersManager.setServer(server: server)
+    }
+
     func updateUsers() {
         usersViewController.toggleLoadingState(isLoading: true)
         usersManager.fetchUsersData()
