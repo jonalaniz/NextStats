@@ -8,9 +8,24 @@
 
 import Foundation
 
+/// Represents the different sections of a stats table view.
 enum StatsSection: Int, CaseIterable {
-    case system, memory, storage, activity
+    /// The system section, displaying general system information.
+    case system
 
+    /// The memory section, showing memory-related metrics.
+    case memory
+
+    /// The storage section, detailing storage usage and capacity.
+    case storage
+
+    /// The activity section, indicating user activity statistics.
+    case activity
+
+    /// The row height for the section.
+    ///
+    /// - Returns: A `CGFloat` value representing the row height for cells in this section.
+    ///            Memory rows are taller to accommodate progress views.
     var rowHeight: CGFloat {
         switch self {
         case .memory: return 66
@@ -18,6 +33,9 @@ enum StatsSection: Int, CaseIterable {
         }
     }
 
+    /// The number of rows associated with this section.
+    ///
+    /// - Returns: The count of rows defined by the associated enum for this section.
     var rows: Int {
         switch self {
         case .system: return SystemRow.allCases.count
@@ -27,56 +45,16 @@ enum StatsSection: Int, CaseIterable {
         }
     }
 
+    /// Returns the localized header title for the section.
+    ///
+    /// - Parameter version: An optional version string, used for system section headers.
+    /// - Returns: A string to be used as the section header title.
     func header(version: String?) -> String {
         switch self {
         case .system: return "System" + (version.map { " (\($0))" } ?? "")
         case .memory: return "Memory"
         case .storage: return "Storage"
         case .activity: return "Activity"
-        }
-    }
-}
-
-enum SystemRow: Int, CaseIterable {
-    case cpu, webServer, phpVersion, databaseVersion, databaseSize, localCache, distributedCache
-
-    var title: String {
-        switch self {
-        case .cpu: return "CPU"
-        case .webServer: return "Web Server"
-        case .phpVersion: return "PHP Version"
-        case .databaseVersion: return "Database Version"
-        case .databaseSize: return "Database Size"
-        case .localCache: return "Local Cache"
-        case .distributedCache: return "Distributed Cache"
-        }
-    }
-}
-
-enum MemoryRow: Int, CaseIterable {
-    case ram, swap
-}
-
-enum StorageRow: Int, CaseIterable {
-    case space, files
-
-    var title: String {
-        switch self {
-        case .space: return "Free Space"
-        case .files: return "Number of Files"
-        }
-    }
-}
-
-enum ActivityRow: Int, CaseIterable {
-    case last5, lastHour, lastDay, total
-
-    var title: String {
-        switch self {
-        case .last5: return "Last 5 Minutes"
-        case .lastHour: return "Last Hour"
-        case .lastDay: return "Last Day"
-        case .total: return "Total"
         }
     }
 }

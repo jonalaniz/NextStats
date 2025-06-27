@@ -15,7 +15,8 @@ extension StatsViewController: NXDataManagerDelegate {
             showLoadingView()
         case .parsingData:
             print("Parsing Data")
-        case .dataCaptured:
+        case .dataCaptured(let sections):
+            statsDataSource.sections = sections
             showTableView()
         }
     }

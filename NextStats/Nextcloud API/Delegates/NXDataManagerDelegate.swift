@@ -14,5 +14,5 @@ protocol NXDataManagerDelegate: AnyObject {
 enum NXDataManagerState {
     case fetchingData
     case parsingData
-    case dataCaptured
+    case dataCaptured(_ sections: [TableSection])
 }

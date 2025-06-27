@@ -18,11 +18,15 @@ class StatsViewController: BaseTableViewController {
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
     let dataManager = NXStatsManager.shared
-    var statsDataSource: StatsDataSource?
+
+    // TODO: This needs to be changed to the BaseTableViewController
+    let statsDataSource = ServerStatsDataSource()
+
     var serverInitialized = false
 
     override func viewDidLoad() {
         delegate = tableDelegate
+//        dataSource = ServerStatsDataSource()
         tableStyle = .insetGrouped
         super.viewDidLoad()
         dataManager.delegate = self
@@ -30,6 +34,12 @@ class StatsViewController: BaseTableViewController {
 
         add(loadingView)
         tableView.isHidden = true
+    }
+
+    override func setupTableView() {
+        super.setupTableView()
+        // TODO: This will be removed when refactoring BaseTableViewController
+        tableView.dataSource = statsDataSource
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -64,9 +74,6 @@ class StatsViewController: BaseTableViewController {
     }
 
     func showTableView() {
-        statsDataSource = StatsDataSource(dataProvider: dataManager)
-        tableView.dataSource = statsDataSource
-
         tableView.isHidden = false
         loadingView.remove()
         tableView.reloadData()
@@ -77,9 +84,10 @@ class StatsViewController: BaseTableViewController {
         dataManager.server = newServer
         serverInitialized = true
 
-        headerView.setupHeaderWith(name: newServer.name,
-                                   address: newServer.friendlyURL,
-                                   image: newServer.serverImage())
+        headerView.setupHeaderWith(
+            name: newServer.name,
+            address: newServer.friendlyURL,
+            image: newServer.serverImage())
         headerView.users.addTarget(self,
                                    action: #selector(userManagementPressed),
                                    for: .touchUpInside)
