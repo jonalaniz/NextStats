@@ -105,11 +105,15 @@ final class APIManager: Managable {
         return request
     }
 
-    private func validateImageResponse(data: Data, response: URLResponse) throws {
+    private func validateImageResponse(
+        data: Data, response: URLResponse
+    ) throws {
         try validateResponse(data: data, response: response)
         guard
             let httpResponse = response as? HTTPURLResponse,
-            let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
+            let contentType = httpResponse.value(
+                forHTTPHeaderField: "Content-Type"
+            ),
             contentType.starts(with: "image/")
         else {
             throw APIManagerError.invalidDataType
@@ -122,19 +126,25 @@ final class APIManager: Managable {
     ///   - data: The raw response data.
     ///   - response: The URL response object.
     /// - Throws: An `APIManagerError` if response is not `HTTPURLResponse`, or the status code is not in the 2xx range.
-    private func validateResponse(data: Data, response: URLResponse) throws {
-        guard let httpResponse = response as? HTTPURLResponse else {
+    private func validateResponse(
+        data: Data, response: URLResponse
+    ) throws {
+        guard let httpResponse = response as? HTTPURLResponse
+        else {
             throw APIManagerError.conversionFailedToHTTPURLResponse
         }
 
         let statusCode = httpResponse.statusCode
 
         // Check for Maintenance mode header
-        guard httpResponse.value(forHTTPHeaderField: Header.maintenance.key()) == nil
+        guard httpResponse.value(
+            forHTTPHeaderField: Header.maintenance.key()
+        ) == nil
         else { throw APIManagerError.maintenance }
 
         // Throw statusCode error
-        guard (200...299).contains(statusCode) else {
+        guard (200...299).contains(statusCode)
+        else {
             if statusCode == 401 || statusCode == 403 {
                 throw APIManagerError.unauthorized
             }
@@ -144,7 +154,9 @@ final class APIManager: Managable {
 
     /// Decodes responses in JSON for modern requests
     /// Decodes responses in XML for OCS-API Requests
-    private func handleResponse<T: Decodable>(data: Data, response: URLResponse, legacy: Bool) async throws -> T {
+    private func handleResponse<T: Decodable>(
+        data: Data, response: URLResponse, legacy: Bool
+    ) async throws -> T {
         try validateResponse(data: data, response: response)
 
         do {
@@ -163,11 +175,15 @@ final class APIManager: Managable {
     /// - Parameter data: The data to decode.
     /// - Returns: A decoded instance of type `T`.
     /// - Throws: A decoding error if the data cannot be decoded.
-    private func decodeJSON<T: Decodable>(_ data: Data) throws -> T {
+    private func decodeJSON<T: Decodable>(
+        _ data: Data
+    ) throws -> T {
         return try JSONDecoder().decode(T.self, from: data)
     }
 
-    private func decodeXML<T: Decodable>(_ data: Data) throws -> T {
+    private func decodeXML<T: Decodable>(
+        _ data: Data
+    ) throws -> T {
         return try XMLDecoder().decode(T.self, from: data)
     }
 }
