@@ -27,21 +27,32 @@ final class StatisticsDataSource: NSObject, BaseDataSource {
         let cellData = sections[indexPath.section].rows[indexPath.row]
 
         if let progressData = cellData.progressData {
-            return progressCell(with: progressData)
+            return makeProgressCell(tableView, data: progressData)
         }
 
-        return BaseTableViewCell(
-            style: cellData.style,
-            text: cellData.title,
-            secondaryText: cellData.secondaryText
-        )
+        return makeCell(tableView, data: cellData)
     }
 
-    private func progressCell(with data: ProgressCellData) -> ProgressCell {
-        return ProgressCell(
+    func makeCell(_ tableView: UITableView, data: TableRow) -> StatsCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: StatsCell.reuseIdentifier
+        ) as? StatsCell
+        else { fatalError("Failed to dequeue StatsCell") }
+
+        cell.configureCell(with: data)
+        return cell
+    }
+
+    func makeProgressCell(_ tableView: UITableView, data: ProgressCellData) -> ProgressCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: ProgressCell.reuseIdentifier
+        ) as? ProgressCell
+        else { fatalError("Failed ot dequeue ProgressCell") }
+        cell.configure(
             free: data.free,
             total: data.total,
             type: data.type
         )
+        return cell
     }
 }

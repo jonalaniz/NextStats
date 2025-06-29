@@ -9,30 +9,31 @@
 import UIKit
 
 class StatsViewController: BaseDataTableViewController {
+    // MARK: - Coordinator
+
     weak var coordinator: MainCoordinator?
+
+    // MARK: - Properties
+    let dataSource = StatisticsDataSource()
+
+    // MARK: - Views
 
     let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
 
-    var serverInitialized = false
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         delegate = self
-        dataSource = StatisticsDataSource()
         tableStyle = .insetGrouped
         super.viewDidLoad()
 
         add(loadingView)
         tableView.isHidden = true
+        tableView.dataSource = dataSource
     }
 
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if action == #selector(reload) || action == #selector(openInSafari) {
-            return serverInitialized
-        }
-
-        return super.canPerformAction(action, withSender: sender)
-    }
+    // MARK: - Setup
 
     override func setupNavigationController() {
         let moreButton = UIBarButtonItem(
@@ -54,27 +55,18 @@ class StatsViewController: BaseDataTableViewController {
 
     override func registerCells() {
         tableView.register(
+            StatsCell.self,
+            forCellReuseIdentifier: StatsCell.reuseIdentifier
+            )
+        tableView.register(
             ProgressCell.self,
             forCellReuseIdentifier: ProgressCell.reuseIdentifier
         )
     }
 
-    func showLoadingView() {
-        guard let tableView = tableView else { return }
-        tableView.isHidden = true
-        add(loadingView)
-    }
+    // MARK: - UI Configuration
 
-    func showTableView() {
-        tableView.isHidden = false
-        loadingView.remove()
-        tableView.reloadData()
-    }
-
-    /// Initializes server variable with selected server and updates UI
-    func serverSelected(_ newServer: NextServer) {
-        // This is currently called from the MainCoordinator.
-        // We need to decouple the DataManager from the ViewController
+    func updateUIFor(_ newServer: NextServer) {
         headerView.setupHeaderWith(
             name: newServer.name,
             address: newServer.friendlyURL,
@@ -92,39 +84,44 @@ class StatsViewController: BaseDataTableViewController {
         tableViewHeaderView = headerView
     }
 
+    func updateDataSource(with sections: [TableSection]) {
+        dataSource.sections = sections
+        showTableView()
+    }
+
+    // MARK: - Visibility
+
+    func showLoadingView() {
+        guard let tableView = tableView else { return }
+        tableView.isHidden = true
+        add(loadingView)
+    }
+
+    private func showTableView() {
+        tableView.isHidden = false
+        loadingView.remove()
+        tableView.reloadData()
+    }
+
+    // MARK: - Actions
+
+    override func canPerformAction(
+        _ action: Selector, withSender sender: Any?
+    ) -> Bool {
+        let validActions: [Selector] = [
+            #selector(reload), #selector(openInSafari)
+        ]
+        return validActions.contains(action) && (
+            dataSource.sections.isEmpty == false
+        )
+    }
+
     @objc func openInSafari() {
         coordinator?.openInSafari()
     }
 
     @objc func menuTapped() {
-        let alertController = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.statsActionRename),
-                style: .default,
-                handler: showRenameSheet)
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.statsActionDelete),
-                style: .destructive,
-                handler: delete)
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.statsActionCancel),
-                style: .cancel)
-        )
-
-        if #available(iOS 16.0, *) {
-            alertController.popoverPresentationController?.sourceItem = self.navigationItem.rightBarButtonItem
-        } else {
-            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-        }
+        let alertController = makeAlertController()
         present(alertController, animated: true)
     }
 
@@ -136,9 +133,36 @@ class StatsViewController: BaseDataTableViewController {
         coordinator?.showUsersView()
     }
 
-    func updateDataSource(with sections: [TableSection]) {
-        dataSource.sections = sections
-        showTableView()
+    // MARK: - Helper Methods
+
+    private func makeAlertController() -> UIAlertController {
+        let alert = UIAlertController(
+            title: nil, message: nil, preferredStyle: .actionSheet
+        )
+        alert.addAction(UIAlertAction(
+            title: .localized(.statsActionRename),
+            style: .default,
+            handler: showRenameSheet
+        ))
+        alert.addAction(UIAlertAction(
+            title: .localized(.statsActionDelete),
+            style: .destructive,
+            handler: delete
+        ))
+        alert.addAction(UIAlertAction(
+            title: .localized(.statsActionCancel),
+            style: .cancel
+        ))
+
+        let popover = alert.popoverPresentationController
+
+        if #available(iOS 16.0, *) {
+            popover?.sourceItem = navigationItem.rightBarButtonItem
+        } else {
+            popover?.barButtonItem = navigationItem.rightBarButtonItem
+        }
+
+        return alert
     }
 }
 
