@@ -8,11 +8,12 @@
 import Foundation
 
 protocol Managable {
-    func requestDecodable<T: Codable>(url: URL,
-                                      httpMethod: ServiceMethod,
-                                      body: Data?,
-                                      headers: [String: String]?,
-                                      isOCSRequest: Bool
+    func requestDecodable<T: Codable>(
+        url: URL,
+        httpMethod: ServiceMethod,
+        body: Data?,
+        headers: [String: String]?,
+        isOCSRequest: Bool
     ) async throws -> T
 
     func requestImageData(
@@ -22,9 +23,10 @@ protocol Managable {
         headers: [String: String]?
     ) async throws -> Data
 
-    func request(url: URL,
-                 httpMethod: ServiceMethod,
-                 body: Data?,
-                 headers: [String: String]?
+    func request(
+        url: URL,
+        httpMethod: ServiceMethod,
+        body: Data?,
+        headers: [String: String]?
     ) async throws
 }
