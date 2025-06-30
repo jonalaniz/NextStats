@@ -6,11 +6,11 @@
 //  Copyright © 2017 Shawn Moore. All rights reserved.
 //
 
-// swiftlint:disable all
 import Foundation
 
 // MARK: - Decoding Storage
 
+// swiftlint:disable:next type_name
 internal struct _XMLDecodingStorage {
     // MARK: Properties
 
@@ -30,7 +30,10 @@ internal struct _XMLDecodingStorage {
     }
 
     internal var topContainer: Any {
-        precondition(!self.containers.isEmpty, "Empty container stack.")
+        precondition(
+            !self.containers.isEmpty,
+            "Empty container stack."
+        )
         return self.containers.last!
     }
 
@@ -39,8 +42,10 @@ internal struct _XMLDecodingStorage {
     }
 
     internal mutating func popContainer() {
-        precondition(!self.containers.isEmpty, "Empty container stack.")
+        precondition(
+            !self.containers.isEmpty,
+            "Empty container stack."
+        )
         self.containers.removeLast()
     }
 }
-

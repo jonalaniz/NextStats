@@ -32,16 +32,24 @@ struct NextServer: Codable, Equatable {
     }
 
     func authenticationString() -> String {
-        let credentials = "\(username):\(password)".data(using: .utf8)!.base64EncodedString()
+        let credentials = Data(
+            "\(username):\(password)".utf8
+        ).base64EncodedString()
         let authenticationString = "Basic \(credentials)"
 
         return authenticationString
     }
 
     func imagePath() -> String {
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let documentsDirectory = FileManager.default.urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        ).first!
 
-        return documentsDirectory.appendingPathComponent("\(friendlyURL).png", isDirectory: true).path
+        return documentsDirectory.appendingPathComponent(
+            "\(friendlyURL).png",
+            isDirectory: true
+        ).path
     }
 
     func serverImage() -> UIImage {

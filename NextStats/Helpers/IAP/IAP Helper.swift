@@ -8,7 +8,6 @@
 
 import StoreKit
 
-// swiftlint:disable identifier_name
 public typealias ProductIdentifier = String
 public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products: [SKProduct]?) -> Void
 
@@ -31,12 +30,13 @@ open class IAPHelper: NSObject {
 
 // MARK: - StoreKit API
 extension IAPHelper {
-
     public func requestProducts(_ completionHandler: @escaping ProductsRequestCompletionHandler) {
         productsRequest?.cancel()
         productsRequestCompletionHandler = completionHandler
 
-        productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
+        productsRequest = SKProductsRequest(
+            productIdentifiers: productIdentifiers
+        )
         productsRequest!.delegate = self
         productsRequest!.start()
     }
@@ -63,11 +63,15 @@ extension IAPHelper {
 // MARK: - SKPRoductsRequestDelegate
 
 extension IAPHelper: SKProductsRequestDelegate {
-
-    public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+    public func productsRequest(
+        _ request: SKProductsRequest,
+        didReceive response: SKProductsResponse
+    ) {
         print("Loaded list of products...")
 
         var products = response.products
+
+        // swiftlint:disable:next identifier_name
         products.sort(by: { (p0, p1) -> Bool in
             return p0.price.floatValue < p1.price.floatValue
         })
@@ -80,7 +84,9 @@ extension IAPHelper: SKProductsRequestDelegate {
         }
     }
 
-    public func request(_ request: SKRequest, didFailWithError error: Error) {
+    public func request(
+        _ request: SKRequest, didFailWithError error: Error
+    ) {
         print("Failed to load list of products")
         print("Error: \(error.localizedDescription)")
 
@@ -96,7 +102,10 @@ extension IAPHelper: SKProductsRequestDelegate {
 
 // MARK: - SKPaymentTransactionObserver
 extension IAPHelper: SKPaymentTransactionObserver {
-    public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    public func paymentQueue(
+        _ queue: SKPaymentQueue,
+        updatedTransactions transactions: [SKPaymentTransaction]
+    ) {
         for transaction in transactions {
             switch transaction.transactionState {
             case .purchased:
@@ -119,7 +128,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
     }
 
     private func restore(transaction: SKPaymentTransaction) {
-        guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
+        guard let productIdentifier = transaction.original?.payment.productIdentifier
+        else { return }
 
         print("Restore... \(productIdentifier)")
         deliverPurchaseNotificationFor(identifier: productIdentifier)
@@ -143,6 +153,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
 
         purchasedProductIdentifiers.insert(identifier)
         UserDefaults.standard.set(true, forKey: identifier)
-        NotificationCenter.default.post(name: .IAPHelperPurchaseNotification, object: identifier)
+        NotificationCenter.default.post(
+            name: .IAPHelperPurchaseNotification, object: identifier
+        )
     }
 }

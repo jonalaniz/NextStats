@@ -6,14 +6,11 @@
 //  Copyright © 2017 Shawn Moore. All rights reserved.
 //
 
-// swiftlint:disable all
 import Foundation
 
-//===----------------------------------------------------------------------===//
 // Shared Key Types
-//===----------------------------------------------------------------------===//
-
-internal struct _XMLKey : CodingKey {
+// swiftlint:disable:next type_name
+internal struct _XMLKey: CodingKey {
     public var stringValue: String
     public var intValue: Int?
 
@@ -26,7 +23,7 @@ internal struct _XMLKey : CodingKey {
         self.stringValue = "\(intValue)"
         self.intValue = intValue
     }
-    
+
     public init(stringValue: String, intValue: Int?) {
         self.stringValue = stringValue
         self.intValue = intValue
@@ -39,5 +36,3 @@ internal struct _XMLKey : CodingKey {
 
     internal static let `super` = _XMLKey(stringValue: "super")!
 }
-
-
