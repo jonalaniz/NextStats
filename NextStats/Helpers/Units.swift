@@ -8,42 +8,47 @@
 //  Modified by Jon Alaniz on 1/8/21.
 //
 
-public struct Units {
+struct Units {
+    private let bytes: Double
+    private let kilobyte = 1024.0
+    private let megabyte = 1024.0 * 1024.0
+    private let gigabyte = 1024.0 * 1024.0 * 1024.0
+    private let terabyte = 1024.0 * 1024.0 * 1024.0 * 1024.0
 
-    public let bytes: Double
+    private var kilobytes: Double { return bytes / kilobyte }
+    private var megabytes: Double { return bytes / megabyte }
+    private var gigabytes: Double { return bytes / gigabyte }
+    private var terabytes: Double { return bytes / terabyte }
 
-    public var kilobytes: Double {
-        return bytes / 1_024
+    var readableUnit: String {
+        switch bytes {
+        case 0 ..< kilobyte: return "\(bytes)Bytes"
+        case kilobyte ..< megabyte: return "\(format(kilobytes))KB"
+        case megabyte ..< gigabyte: return "\(format(megabytes))MB"
+        case gigabyte ..< terabyte: return "\(format(gigabytes))GB"
+        default: return "\(format(terabytes))TB"
+        }
     }
 
-    public var megabytes: Double {
-        return kilobytes / 1_024
-    }
-
-    public var gigabytes: Double {
-        return megabytes / 1_024
-    }
-
-    public init(bytes: Double) {
+    init(bytes: Double) {
         self.bytes = bytes
     }
 
-    public init(kilobytes: Double) {
-        self.bytes = kilobytes * 1024
+    init(bytes: Int) {
+        self.bytes = Double(bytes)
     }
 
-    public func getReadableUnit() -> String {
-        switch bytes {
-        case 0..<1_024:
-            return "\(bytes)Bytes"
-        case 1_024..<(1_024 * 1_024):
-            return "\(String(format: "%.1f", kilobytes))KB"
-        case 1_024..<(1_024 * 1_024 * 1_024):
-            return "\(String(format: "%.1f", megabytes))MB"
-        case (1_024 * 1_024 * 1_024)...Double.greatestFiniteMagnitude:
-            return "\(String(format: "%.1f", gigabytes))GB"
-        default:
-            return "\(bytes)Bytes"
-        }
+    init(kilobytes: Int) {
+        self.bytes = Double(kilobytes) * kilobyte
+    }
+
+    init(kilobytes: Double) {
+        self.bytes = kilobytes * kilobyte
+    }
+
+    private func format(_ value: Double) -> String {
+        return value.truncatingRemainder(dividingBy: 1) == 0
+            ? String(format: "%.0f", value)
+            : String(format: "%.1f", value)
     }
 }

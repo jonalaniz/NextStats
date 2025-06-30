@@ -17,3 +17,9 @@ enum NXUserManagerState {
     case toggledUser
     case usersLoaded
 }
+
+protocol UsersManagerDelegate: AnyObject {
+    func userDeleted(_ user: UserCellModel)
+    func usersLoaded(_ users: [UserCellModel])
+    func toggledUser(with id: String)
+}
