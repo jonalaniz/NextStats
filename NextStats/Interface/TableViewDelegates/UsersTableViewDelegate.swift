@@ -17,6 +17,10 @@ class UsersTableViewDelegate: NSObject, UITableViewDelegate {
         self.dataManager = dataManager
     }
 
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let userModel = dataManager.userCellModel(indexPath.row) else { return }
         let user = dataManager.user(id: userModel.userID)

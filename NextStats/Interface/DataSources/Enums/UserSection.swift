@@ -9,13 +9,45 @@
 import Foundation
 
 enum UserSection: Int, CaseIterable {
-    case mail = 0, quota, status, capabilities
+    case mail
+    case quota
+    case status
+    case capabilities
 
-    var height: CGFloat {
+    var rowHeight: CGFloat {
         switch self {
         case .quota: return 66
         default: return 44
         }
+    }
+
+    func header(emails: [String]?, quota: QuotaContainer?) -> String {
+        switch self {
+        case .mail: return headerFor(emails)
+        case .quota: return headerFor(quota)
+        case .status: return .localized(.status)
+        case .capabilities: return .localized(.capabilities)
+        }
+    }
+
+    private func headerFor(_ addresses: [String]?) -> String {
+        guard addresses != nil
+        else { return .localized(.usersNoEmail) }
+        return .localized(.usersEmail)
+    }
+
+    private func headerFor(_ quota: QuotaContainer?) -> String {
+        var string = ""
+        guard let quota = quota else { return string }
+
+        switch quota {
+        case .int(let int):
+            (int > 0) ? (string = .localized(.quota)) : (string = .localized(.quotaUnlimited))
+        case .string(let quotaString):
+            string = quotaString
+        }
+
+        return string
     }
 
     func rows(mailCount: Int?) -> Int {

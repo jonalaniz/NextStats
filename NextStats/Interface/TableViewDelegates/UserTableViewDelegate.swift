@@ -23,7 +23,7 @@ class UserTableViewDelegate: NSObject, UITableViewDelegate {
         guard let tableSection = UserSection(rawValue: indexPath.section)
         else { return 44 }
 
-        return tableSection.height
+        return tableSection.rowHeight
     }
 
     func shouldHide(section: Int) -> Bool {
