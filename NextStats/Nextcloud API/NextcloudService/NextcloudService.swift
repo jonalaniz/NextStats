@@ -10,7 +10,7 @@ import Foundation
 
 final class NextcloudService {
 
-    // MARK : - Singleton
+    // MARK: - Singleton
 
     static let shared = NextcloudService()
     private init() {}
@@ -21,7 +21,7 @@ final class NextcloudService {
     private let session = URLSession(configuration: .default)
 
     // MARK: - Public API
-    
+
     func deauthorize(
         server: NextServer
     ) async throws -> GenericResponse {
@@ -70,7 +70,7 @@ final class NextcloudService {
     func fetchLoginObject(
         from url: URL, with token: String
     ) async throws -> LoginObject {
-        let body = "token=\(token)".data(using: .utf8)
+        let body = Data("token=\(token)".utf8)
 
         return try await apiManager.requestDecodable(
             url: url,
@@ -215,9 +215,7 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(
             string: server.URLString, endpoint: .wipeCheck
         )
-        let body = "token=\(server.password)".data(
-            using: .utf8
-        )
+        let body = Data("token=\(server.password)".utf8)
 
         return try await apiManager.requestDecodable(
             url: urlWithEndpoint.absoluteURL,
@@ -232,9 +230,7 @@ final class NextcloudService {
         let urlWithEndpoint = try buildURLFrom(
             string: server.URLString, endpoint: .wipeCheck
         )
-        let body = "token=\(server.password)".data(
-            using: .utf8
-        )
+        let body = Data("token=\(server.password)".utf8)
 
         try await apiManager.request(
             url: urlWithEndpoint,
