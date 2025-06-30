@@ -26,13 +26,14 @@ class BaseTableViewCell: UITableViewCell {
     ///   - textColor: The color of the text, defaulting to `.label`.
     ///   - isInteractive: A boolean indicating whether the cell is interactive, defaulting to `true`.
     ///   - accessoryType: The accessory type (e.g., `.none`, `.disclosureIndicator`), defaulting to `.none`.
-    convenience init(style: UITableViewCell.CellStyle,
-                     text: String,
-                     textColor: UIColor = .label,
-                     secondaryText: String? = nil,
-                     secondaryTextColor: UIColor = .secondaryLabel,
-                     isInteractive: Bool = true,
-                     accessoryType: UITableViewCell.AccessoryType = .none) {
+    convenience init(
+        style: UITableViewCell.CellStyle,
+        text: String,
+        textColor: UIColor = .label,
+        secondaryText: String? = nil,
+        secondaryTextColor: UIColor = .secondaryLabel,
+        isInteractive: Bool = true,
+        accessoryType: UITableViewCell.AccessoryType = .none) {
         self.init(style: style, reuseIdentifier: BaseTableViewCell.baseReuseIdentifier)
         var content = defaultContentConfiguration()
         content.text = text
