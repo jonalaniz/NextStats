@@ -38,6 +38,6 @@ enum StorageRow: Int, TitledSection {
             let bytes = Double(exactly: int),
             bytes.isFinite
         else { return "N/A" }
-        return Units(bytes: bytes).getReadableUnit()
+        return Units(bytes: bytes).readableUnit
     }
 }

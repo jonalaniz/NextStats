@@ -80,9 +80,9 @@ enum SystemRow: Int, TitledSection {
         switch size {
         case .string(let string):
             guard let intValue = Int(string) else { return "N/A" }
-            return Units(bytes: Double(intValue)).getReadableUnit()
+            return Units(bytes: intValue).readableUnit
         case .int(let int):
-            return Units(bytes: Double(int)).getReadableUnit()
+            return Units(bytes: int).readableUnit
         }
     }
 
