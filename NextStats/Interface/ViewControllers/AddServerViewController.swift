@@ -85,8 +85,12 @@ class AddServerViewController: BaseTableViewController {
 
     @objc func nextButtonPressed(_ sender: Any) {
         guard
-            let urlCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? InputCell,
-            let nicknameCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? InputCell
+            let urlCell = tableView.cellForRow(
+                at: IndexPath(row: 1, section: 0)
+            ) as? InputCell,
+            let nicknameCell = tableView.cellForRow(
+                at: IndexPath(row: 0, section: 0)
+            ) as? InputCell
         else { fatalError("Cannot cast cell as InputCell") }
 
         guard let urlString = urlCell.textField.text
@@ -96,7 +100,9 @@ class AddServerViewController: BaseTableViewController {
         }
 
         let name = nicknameCell.textField.text?.isEmpty == false ? nicknameCell.textField.text! : "Server"
-        coordinator?.requestAuthorization(with: urlString, named: name)
+        coordinator?.requestAuthorization(
+            with: urlString, named: name
+        )
     }
 
     // MARK: - UI Updates

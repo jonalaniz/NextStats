@@ -8,7 +8,6 @@
 
 import UIKit
 
-// swiftlint:disable weak_delegate
 class NewUserViewController: BaseTableViewController {
     // MARK: - Properties
 
@@ -28,12 +27,16 @@ class NewUserViewController: BaseTableViewController {
     }
 
     override func setupNavigationController() {
-        let cancel = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                     target: self,
-                                     action: #selector(cancelPressed))
-        let done = UIBarButtonItem(barButtonSystemItem: .done,
-                                   target: self,
-                                   action: #selector(donePressed))
+        let cancel = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(cancelPressed)
+        )
+        let done = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(donePressed)
+        )
 
         navigationItem.leftBarButtonItem = cancel
         navigationItem.rightBarButtonItem = done
@@ -41,7 +44,10 @@ class NewUserViewController: BaseTableViewController {
     }
 
     override func registerCells() {
-        tableView.register(InputCell.self, forCellReuseIdentifier: InputCell.reuseidentifier)
+        tableView.register(
+            InputCell.self,
+            forCellReuseIdentifier: InputCell.reuseidentifier
+        )
     }
 
     @objc func cancelPressed() {

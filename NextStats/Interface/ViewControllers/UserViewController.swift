@@ -8,8 +8,6 @@
 
 import UIKit
 
-// swiftlint:disable identifier_name
-// swiftlint:disable weak_delegate
 class UserViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
     let dataManager = NXUserFormatter.shared
@@ -28,44 +26,66 @@ class UserViewController: BaseTableViewController {
     }
 
     override func setupNavigationController() {
-        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(menuTapped))
+        let moreButton = UIBarButtonItem(
+            image: UIImage(systemName: "ellipsis.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(menuTapped)
+        )
         navigationItem.rightBarButtonItem = moreButton
     }
 
     override func registerCells() {
-        tableView.register(ProgressCell.self, forCellReuseIdentifier: ProgressCell.reuseIdentifier)
+        tableView.register(
+            ProgressCell.self, forCellReuseIdentifier: ProgressCell.reuseIdentifier
+        )
     }
 
     func configureTitle() {
         title = dataManager.title()
         guard let enabled = dataManager.user?.data.enabled else { return }
 
+        let navigationBar = navigationController?.navigationBar
         let color: UIColor = enabled ? .theme : .systemGray
-        let attributes = [NSAttributedString.Key.foregroundColor: color]
-        navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        let attributes = [
+            NSAttributedString.Key.foregroundColor: color
+        ]
+        navigationBar?.titleTextAttributes = attributes
+        navigationBar?.largeTitleTextAttributes = attributes
     }
 
     @objc func menuTapped() {
         let ableTitle: String = dataManager.enabled() ? .localized(.disable) : .localized(.enable)
 
-        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: ableTitle,
-                                   style: .default,
-                                   handler: toggleAbility))
-        ac.addAction(UIAlertAction(title: .localized(.delete),
-                                   style: .destructive,
-                                   handler: showScareSheet))
-        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel), style: .cancel))
+        let alertController = UIAlertController(
+            title: nil, message: nil, preferredStyle: .actionSheet
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: ableTitle,
+                style: .default,
+                handler: toggleAbility
+            )
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: .localized(.delete),
+                style: .destructive,
+                handler: showScareSheet)
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: .localized(.statsActionCancel),
+                style: .cancel
+            )
+        )
+        let popover = alertController.popoverPresentationController
         if #available(iOS 16.0, *) {
-            ac.popoverPresentationController?.sourceItem = self.navigationItem.rightBarButtonItem
+            popover?.sourceItem = navigationItem.rightBarButtonItem
         } else {
-            ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            popover?.barButtonItem = navigationItem.rightBarButtonItem
         }
-        present(ac, animated: true)
+        present(alertController, animated: true)
     }
 
     func toggleAbility(action: UIAlertAction) {
@@ -73,15 +93,24 @@ class UserViewController: BaseTableViewController {
     }
 
     func showScareSheet(action: UIAlertAction) {
-        let ac = UIAlertController(title: .localized(.deleteUser),
-                                   message: "\(String.localized(.deleteUserMessage)) \(dataManager.userID())",
-                                   preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: .localized(.delete),
-                                   style: .destructive,
-                                   handler: deleteUser))
-        ac.addAction(UIAlertAction(title: .localized(.statsActionCancel), style: .cancel))
+        let alertController = UIAlertController(
+            title: .localized(.deleteUser),
+            message: "\(String.localized(.deleteUserMessage)) \(dataManager.userID())",
+            preferredStyle: .alert)
+        alertController.addAction(
+            UIAlertAction(
+                title: .localized(.delete),
+                style: .destructive,
+                handler: deleteUser)
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: .localized(.statsActionCancel),
+                style: .cancel
+            )
+        )
 
-        present(ac, animated: true)
+        present(alertController, animated: true)
     }
 
     func deleteUser(action: UIAlertAction) {

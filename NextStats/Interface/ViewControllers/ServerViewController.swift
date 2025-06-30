@@ -8,7 +8,6 @@
 
 import UIKit
 
-// swiftlint:disable weak_delegate
 class ServerViewController: BaseTableViewController {
     // MARK: - Properties
 
@@ -23,8 +22,10 @@ class ServerViewController: BaseTableViewController {
     override func viewDidLoad() {
         titleText = "NextStats"
         tableStyle = isMacCatalyst() ? .plain : .insetGrouped
-        tableDelegate = ServerTableViewDelegate(coordinator: coordinator,
-                                                serverManager: serverManager)
+        tableDelegate = ServerTableViewDelegate(
+            coordinator: coordinator,
+            serverManager: serverManager
+        )
         delegate = tableDelegate
         super.viewDidLoad()
         serverManager.delegate = coordinator
@@ -45,13 +46,16 @@ class ServerViewController: BaseTableViewController {
     // MARK: - Configuration
 
     override func setupNavigationController() {
+        let navigationBar = navigationController?.navigationBar
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
-        navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        navigationBar?.titleTextAttributes = attributes
+        navigationBar?.largeTitleTextAttributes = attributes
         navigationController?.toolbar.configureAppearance()
 
         if isMacCatalyst() {
-            navigationController?.setNavigationBarHidden(true, animated: true)
+            navigationController?.setNavigationBarHidden(
+                true, animated: true
+            )
         } else {
             navigationController?.isToolbarHidden = false
         }
@@ -68,18 +72,26 @@ class ServerViewController: BaseTableViewController {
     }
 
     override func setupToolbar() {
-        let addServerButtonView = createToolbarButton(image: "externaldrive.fill.badge.plus",
-                                                      text: .localized(.serverAddButton),
-                                                      action: #selector(addServerPressed))
+        let addServerButtonView = createToolbarButton(
+            image: "externaldrive.fill.badge.plus",
+            text: .localized(.serverAddButton),
+            action: #selector(addServerPressed))
 
-        let aboutButtonView = createToolbarButton(image: "info.circle.fill",
-                                                  action: #selector(infoButtonPressed))
+        let aboutButtonView = createToolbarButton(
+            image: "info.circle.fill",
+            action: #selector(infoButtonPressed)
+        )
 
-        toolbarItems = [addServerButtonView, .flexibleSpace(), aboutButtonView]
+        toolbarItems = [
+            addServerButtonView, .flexibleSpace(), aboutButtonView
+        ]
     }
 
     override func registerCells() {
-        tableView.register(ServerCell.self, forCellReuseIdentifier: ServerCell.reuseIdentifier)
+        tableView.register(
+            ServerCell.self,
+            forCellReuseIdentifier: ServerCell.reuseIdentifier
+        )
     }
 
     // MARK: - Actions
@@ -90,12 +102,6 @@ class ServerViewController: BaseTableViewController {
 
     @objc func infoButtonPressed() {
         coordinator?.showInfoView()
-    }
-
-    @objc func menuTapped() {
-        guard coordinator?.statsViewController.serverInitialized != false
-        else { return }
-        coordinator?.statsViewController.menuTapped()
     }
 
     @objc func refresh() {
@@ -120,7 +126,9 @@ class ServerViewController: BaseTableViewController {
 
     // MARK: - Helper Methods
 
-    private func createToolbarButton(image: String, text: String? = nil, action: Selector) -> UIBarButtonItem {
+    private func createToolbarButton(
+        image: String, text: String? = nil, action: Selector
+    ) -> UIBarButtonItem {
         let button = UIButton(type: .system)
         button.addTarget(self, action: action, for: .touchUpInside)
 
@@ -130,7 +138,9 @@ class ServerViewController: BaseTableViewController {
 
         if let text = text {
             button.setTitle(" \(text)", for: .normal)
-            button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+            button.titleLabel?.font = .preferredFont(
+                forTextStyle: .headline
+            )
         }
 
         return UIBarButtonItem(customView: button)
