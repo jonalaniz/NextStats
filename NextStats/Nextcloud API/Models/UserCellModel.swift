@@ -13,4 +13,13 @@ struct UserCellModel {
     let displayName: String
     let email: String
     let enabled: Bool
+
+    func toggled() -> UserCellModel {
+        return UserCellModel(
+            userID: self.userID,
+            displayName: self.displayName,
+            email: self.email,
+            enabled: !self.enabled
+        )
+    }
 }
