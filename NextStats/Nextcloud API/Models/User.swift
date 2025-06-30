@@ -8,7 +8,6 @@
 
 import Foundation
 
-// swiftlint:disable identifier_name
 struct User: Codable {
     let meta: Meta
     var data: UserDataStruct
@@ -57,23 +56,40 @@ struct UserDataStruct: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.storageLocation = try? container.decode(String.self, forKey: .storageLocation)
-        self.id = try container.decode(String.self, forKey: .id)
-        self.lastLogin = try? container.decode(Int.self, forKey: .lastLogin)
-        self.backend = try? container.decode(String.self, forKey: .backend)
-        self.subadmin = try? container.decode(SubAdmin.self, forKey: .subadmin)
-        self.quota = try container.decode(Quota.self, forKey: .quota)
-        self.email = try? container.decode(String.self, forKey: .email)
-        self.additionalMail = try? container.decode(AdditionalMail.self, forKey: .additionalMail)
-        self.displayname = try? container.decode(String.self, forKey: .displayname)
-        self.phone = try? container.decode(Int.self, forKey: .phone)
-        self.address = try? container.decode(String.self, forKey: .address)
-        self.website = try? container.decode(String.self, forKey: .website)
-        self.twitter = try? container.decode(String.self, forKey: .twitter)
-        self.groups = try? container.decode(Groups.self, forKey: .groups)
-        self.language = try? container.decode(String.self, forKey: .language)
-        self.locale = try? container.decode(String.self, forKey: .locale)
-        self.backendCapabilities = try container.decode(BackendCapabilities.self, forKey: .backendCapabilities)
+        self.storageLocation = try? container.decode(
+            String.self, forKey: .storageLocation)
+        self.id = try container.decode(
+            String.self, forKey: .id)
+        self.lastLogin = try? container.decode(
+            Int.self, forKey: .lastLogin)
+        self.backend = try? container.decode(
+            String.self, forKey: .backend)
+        self.subadmin = try? container.decode(
+            SubAdmin.self, forKey: .subadmin)
+        self.quota = try container.decode(
+            Quota.self, forKey: .quota)
+        self.email = try? container.decode(
+            String.self, forKey: .email)
+        self.additionalMail = try? container.decode(
+            AdditionalMail.self, forKey: .additionalMail)
+        self.displayname = try? container.decode(
+            String.self, forKey: .displayname)
+        self.phone = try? container.decode(
+            Int.self, forKey: .phone)
+        self.address = try? container.decode(
+            String.self, forKey: .address)
+        self.website = try? container.decode(
+            String.self, forKey: .website)
+        self.twitter = try? container.decode(
+            String.self, forKey: .twitter)
+        self.groups = try? container.decode(
+            Groups.self, forKey: .groups)
+        self.language = try? container.decode(
+            String.self, forKey: .language)
+        self.locale = try? container.decode(
+            String.self, forKey: .locale)
+        self.backendCapabilities = try container.decode(
+            BackendCapabilities.self, forKey: .backendCapabilities)
 
         if let enabled = try? container.decode(Bool.self, forKey: .enabled) {
             self.enabled = enabled
@@ -111,9 +127,13 @@ enum QuotaContainer: Codable {
             return
         }
 
-        throw DecodingError.typeMismatch(ElementContainer.self,
-                                         DecodingError.Context(codingPath: decoder.codingPath,
-                                                               debugDescription: "Group type mismatch"))
+        throw DecodingError.typeMismatch(
+            ElementContainer.self,
+            DecodingError.Context(
+                codingPath: decoder.codingPath,
+                debugDescription: "Group type mismatch"
+            )
+        )
     }
 
     func encode(to encoder: Encoder) throws {
@@ -151,9 +171,12 @@ enum ElementContainer: Codable {
             return
         }
 
-        throw DecodingError.typeMismatch(ElementContainer.self,
-                                         DecodingError.Context(codingPath: decoder.codingPath,
-                                                               debugDescription: "Group type mismatch"))
+        throw DecodingError.typeMismatch(
+            ElementContainer.self,
+            DecodingError.Context(
+                codingPath: decoder.codingPath,
+                debugDescription: "Group type mismatch")
+        )
     }
 
     func encode(to encoder: Encoder) throws {
