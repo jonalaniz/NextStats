@@ -33,18 +33,6 @@ enum StatsSection: Int, CaseIterable {
         }
     }
 
-    /// The number of rows associated with this section.
-    ///
-    /// - Returns: The count of rows defined by the associated enum for this section.
-    var rows: Int {
-        switch self {
-        case .system: return SystemRow.allCases.count
-        case .memory: return MemoryRow.allCases.count
-        case .storage: return StorageRow.allCases.count
-        case .activity: return ActivityRow.allCases.count
-        }
-    }
-
     /// Returns the localized header title for the section.
     ///
     /// - Parameter version: An optional version string, used for system section headers.
