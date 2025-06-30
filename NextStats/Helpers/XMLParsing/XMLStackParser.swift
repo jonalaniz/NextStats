@@ -8,7 +8,6 @@
 
 import Foundation
 
-// swiftlint:disable all
 public struct XMLHeader {
     /// the XML standard that the produced document conforms to.
     var version: Double?
@@ -52,6 +51,7 @@ public struct XMLHeader {
     }
 }
 
+// swiftlint:disable:next type_name
 internal class _XMLElement {
     static let attributesKey = "___ATTRIBUTES"
     static let escapedCharacterSet = [("&", "&amp"), ("<", "&lt;"), (">", "&gt;"), ( "'", "&apos;"), ("\"", "&quot;")]
@@ -302,6 +302,7 @@ extension String {
     }
 }
 
+// swiftlint:disable:next type_name
 internal class _XMLStackParser: NSObject, XMLParserDelegate {
     var root: _XMLElement?
     var stack = [_XMLElement]()
@@ -406,3 +407,4 @@ internal class _XMLStackParser: NSObject, XMLParserDelegate {
         print(parseError)
     }
 }
+// swiftlint:disable:this file_length

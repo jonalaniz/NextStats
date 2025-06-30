@@ -6,12 +6,7 @@
 //  Copyright © 2017 Shawn Moore. All rights reserved.
 //
 
-// swiftlint:disable all
 import Foundation
-
-//===----------------------------------------------------------------------===//
-// Error Utilities
-//===----------------------------------------------------------------------===//
 
 internal extension DecodingError {
     /// Returns a `.typeMismatch` error describing the expected type.
@@ -21,6 +16,7 @@ internal extension DecodingError {
     /// - parameter reality: The value that was encountered instead of the expected type.
     /// - returns: A `DecodingError` with the appropriate path and debug description.
     static func _typeMismatch(at path: [CodingKey], expectation: Any.Type, reality: Any) -> DecodingError {
+        // swiftlint:disable:previous identifier_name
         let description = "Expected to decode \(expectation) but found \(_typeDescription(of: reality)) instead."
         return .typeMismatch(expectation, Context(codingPath: path, debugDescription: description))
     }
@@ -31,20 +27,22 @@ internal extension DecodingError {
     /// - returns: A string describing `value`.
     /// - precondition: `value` is one of the types below.
     static func _typeDescription(of value: Any) -> String {
+        // swiftlint:disable:previous identifier_name
         if value is NSNull {
             return "a null value"
-        } else if value is NSNumber /* FIXME: If swift-corelibs-foundation isn't updated to use NSNumber, this check will be necessary: || value is Int || value is Double */ {
+
+        } else if value is NSNumber {
+            // FIXME: If swift-corelibs-foundation isn't updated to use NSNumber,
+            // this check will be necessary: || value is Int || value is Double
             return "a number"
         } else if value is String {
             return "a string/data"
         } else if value is [Any] {
             return "an array"
-        } else if value is [String : Any] {
+        } else if value is [String: Any] {
             return "a dictionary"
         } else {
             return "\(type(of: value))"
         }
     }
 }
-
-
