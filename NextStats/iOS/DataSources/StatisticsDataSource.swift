@@ -33,11 +33,11 @@ final class StatisticsDataSource: NSObject, BaseDataSource {
         return makeCell(tableView, data: cellData)
     }
 
-    func makeCell(_ tableView: UITableView, data: TableRow) -> StatsCell {
+    func makeCell(_ tableView: UITableView, data: TableRow) -> GenericCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: StatsCell.reuseIdentifier
-        ) as? StatsCell
-        else { fatalError("Failed to dequeue StatsCell") }
+            withIdentifier: GenericCell.reuseIdentifier
+        ) as? GenericCell
+        else { fatalError("Failed to dequeue GenericCell") }
 
         cell.configureCell(with: data)
         return cell

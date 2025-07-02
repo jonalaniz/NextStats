@@ -39,7 +39,8 @@ enum StatsSection: Int, CaseIterable {
     /// - Returns: A string to be used as the section header title.
     func header(version: String?) -> String {
         switch self {
-        case .system: return "System" + (version.map { " (\($0))" } ?? "")
+        case .system:
+            return "System" + (version.map { " (\($0))" } ?? "")
         case .memory: return "Memory"
         case .storage: return "Storage"
         case .activity: return "Activity"

@@ -54,14 +54,19 @@ enum UserSection: Int, CaseIterable {
         switch self {
         case .mail: return mailCount ?? 0
         case .quota: return 1
-        case .status: return Status.allCases.count
+        case .status: return StatusRow.allCases.count
         case .capabilities: return Capabilities.allCases.count
         }
     }
 }
 
-enum Status: Int, CaseIterable {
-    case groups, subadmin, language, lastLogin, location, backend
+enum StatusRow: Int, TitledSection {
+    case groups
+    case subadmin
+    case language
+    case lastLogin
+    case location
+    case backend
 
     var title: String {
         switch self {
@@ -73,19 +78,45 @@ enum Status: Int, CaseIterable {
         case .backend: return .localized(.backend)
         }
     }
+
+    func rowData(_ userData: UserDataStruct) -> String {
+        switch self {
+        case .groups: return elementText(userData.groups?.element)
+        case .subadmin: return elementText(userData.subadmin?.element)
+        case .language: return fallbackText(userData.language)
+        case .lastLogin: return userData.formattedLastLoginDate
+        case .location: return fallbackText(userData.storageLocation)
+        case .backend: return fallbackText(userData.backend)
+        }
+    }
+
+    private func fallbackText(_ string: String?) -> String {
+        return string ?? "N/A"
+    }
+
+    private func elementText(_ element: ElementContainer?) -> String {
+        return fallbackText(element?.asJoinedString())
+    }
 }
 
 enum GroupRole {
     case member, admin
 }
 
-enum Capabilities: Int, CaseIterable {
+enum Capabilities: Int, TitledSection {
     case displayName, password
 
     var title: String {
         switch self {
         case .displayName: return .localized(.setDisplayName)
         case .password: return .localized(.setPassword)
+        }
+    }
+
+    func rowData(_ capabilities: BackendCapabilities) -> Bool {
+        switch self {
+        case .displayName: return capabilities.setDisplayName ?? false
+        case .password: return capabilities.setPassword ?? false
         }
     }
 }

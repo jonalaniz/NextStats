@@ -1,5 +1,5 @@
 //
-//  NXUserManagerDelegate.swift
+//  UsersManagerDelegate.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 3/30/24.
@@ -7,16 +7,6 @@
 //
 
 import Foundation
-
-protocol NXUserManagerDelegate: AnyObject {
-    func stateDidChange(_ state: NXUserManagerState)
-}
-
-enum NXUserManagerState {
-    case deletedUser
-    case toggledUser
-    case usersLoaded
-}
 
 protocol UsersManagerDelegate: AnyObject {
     func userDeleted(_ user: UserCellModel)

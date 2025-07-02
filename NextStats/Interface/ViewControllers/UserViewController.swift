@@ -10,18 +10,18 @@ import UIKit
 
 class UserViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
-    let dataManager = NXUserFormatter.shared
+    let userDataSource = StatisticsDataSource()
     private var tableDelegate: UserTableViewDelegate?
+    private var user: User?
 
     override func viewDidLoad() {
-        tableDelegate = UserTableViewDelegate(dataManager: dataManager)
         delegate = tableDelegate
         tableStyle = .insetGrouped
         super.viewDidLoad()
+        tableView.dataSource = userDataSource
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        configureTitle()
         tableView.reloadData()
     }
 
@@ -37,14 +37,17 @@ class UserViewController: BaseTableViewController {
 
     override func registerCells() {
         tableView.register(
+            GenericCell.self,
+            forCellReuseIdentifier: GenericCell.reuseIdentifier
+        )
+        tableView.register(
             ProgressCell.self, forCellReuseIdentifier: ProgressCell.reuseIdentifier
         )
     }
 
-    func configureTitle() {
-        title = dataManager.title()
-        guard let enabled = dataManager.user?.data.enabled else { return }
-
+    func set(_ user: User, sections: [TableSection]) {
+        title = user.data.displayname
+        let enabled = user.data.enabled
         let navigationBar = navigationController?.navigationBar
         let color: UIColor = enabled ? .theme : .systemGray
         let attributes = [
@@ -52,10 +55,14 @@ class UserViewController: BaseTableViewController {
         ]
         navigationBar?.titleTextAttributes = attributes
         navigationBar?.largeTitleTextAttributes = attributes
+
+        // TableView Part
+        userDataSource.sections = sections
     }
 
     @objc func menuTapped() {
-        let ableTitle: String = dataManager.enabled() ? .localized(.disable) : .localized(.enable)
+        guard let user = user else { return }
+        let ableTitle: String = user.data.enabled ? .localized(.disable) : .localized(.enable)
 
         let alertController = UIAlertController(
             title: nil, message: nil, preferredStyle: .actionSheet
@@ -89,13 +96,15 @@ class UserViewController: BaseTableViewController {
     }
 
     func toggleAbility(action: UIAlertAction) {
-        coordinator?.toggle(user: dataManager.userID())
+        guard let user = user else { return }
+        coordinator?.toggle(user: user.data.id)
     }
 
     func showScareSheet(action: UIAlertAction) {
+        guard let user = user else { return }
         let alertController = UIAlertController(
             title: .localized(.deleteUser),
-            message: "\(String.localized(.deleteUserMessage)) \(dataManager.userID())",
+            message: "\(String.localized(.deleteUserMessage)) \(user.data.id)",
             preferredStyle: .alert)
         alertController.addAction(
             UIAlertAction(
@@ -114,6 +123,7 @@ class UserViewController: BaseTableViewController {
     }
 
     func deleteUser(action: UIAlertAction) {
-        coordinator?.delete(user: dataManager.userID())
+        guard let user = user else { return }
+        coordinator?.delete(user: user.data.id)
     }
 }

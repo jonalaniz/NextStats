@@ -13,19 +13,22 @@ enum ProgressCellIcon {
 
     var image: UIImage? {
         switch self {
-        case .storage: return UIImage(systemName: "internaldrive")
-        case .memory: return UIImage(systemName: "memorychip")
-        case .swap: return UIImage(systemName: "memorychip.fill")
+        case .storage:
+            return UIImage(systemName: "internaldrive")
+        case .memory:
+            return UIImage(systemName: "memorychip")
+        case .swap:
+            return UIImage(systemName: "memorychip.fill")
         }
     }
 }
 
 class ProgressCell: BaseTableViewCell {
     static let reuseIdentifier = "ProgressCell"
+
     var iconLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-
         return label
     }()
 
@@ -35,7 +38,6 @@ class ProgressCell: BaseTableViewCell {
         label.text = "No data available"
         label.textAlignment = .right
         label.textColor = .secondaryLabel
-
         return label
     }()
 
@@ -43,26 +45,30 @@ class ProgressCell: BaseTableViewCell {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .theme
-
         return progressView
     }()
 
-    init() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: ProgressCell.reuseIdentifier)
         setupView()
     }
 
-    convenience init(quota: Quota) {
-        self.init()
-        setProgress(with: quota)
-        set(icon: .storage)
-    }
+//    init() {
+//        super.init(
+//            style: .default,
+//            reuseIdentifier: ProgressCell.reuseIdentifier
+//        )
+//
+//        setupView()
+//    }
 
-    convenience init(free: Int, total: Int, type: ProgressCellIcon) {
-        self.init()
-        set(icon: type)
-        setProgress(free: free, total: total)
-    }
+//    convenience init(quota: Quota) {
+//        self.init()
+//    }
+//
+//    convenience init(free: Int, total: Int, type: ProgressCellIcon) {
+//        self.init()
+//    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -75,20 +81,39 @@ class ProgressCell: BaseTableViewCell {
         contentView.addSubview(progressView)
 
         NSLayoutConstraint.activate([
-            iconLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            iconLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            iconLabel.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 100),
-            iconLabel.bottomAnchor.constraint(equalTo: progressView.topAnchor),
+            iconLabel.topAnchor.constraint(
+                equalTo: contentView.topAnchor),
+            iconLabel.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 16),
+            iconLabel.trailingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 100),
+            iconLabel.bottomAnchor.constraint(
+                equalTo: progressView.topAnchor),
 
-            detailLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            detailLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            detailLabel.bottomAnchor.constraint(equalTo: progressView.topAnchor),
+            detailLabel.topAnchor.constraint(
+                equalTo: contentView.topAnchor),
+            detailLabel.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 16),
+            detailLabel.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16),
+            detailLabel.bottomAnchor.constraint(
+                equalTo: progressView.topAnchor),
 
-            progressView.heightAnchor.constraint(equalToConstant: 4),
-            progressView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            progressView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            progressView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            progressView.heightAnchor.constraint(
+                equalToConstant: 4),
+            progressView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -16),
+            progressView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 16),
+            progressView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16)
         ])
     }
 
@@ -108,52 +133,66 @@ class ProgressCell: BaseTableViewCell {
         case .swap: text = " Swap"
         }
 
-        string.append(NSAttributedString(string: text, attributes: attributes))
+        string.append(
+            NSAttributedString(
+                string: text, attributes: attributes
+            )
+        )
         iconLabel.attributedText = string
     }
 
-    private func setProgress(free: Int, total: Int) {
+    func configure(free: Int, total: Int, type: ProgressCellIcon) {
         let used = total - free
-        let usedString = Units(kilobytes: Double(used)).getReadableUnit()
-        let totalString = Units(kilobytes: Double(total)).getReadableUnit()
+        let usedString = Units(kilobytes: used).readableUnit
+        let totalString = Units(kilobytes: total).readableUnit
         let label = "\(usedString) of \(totalString) Used"
 
+        set(icon: type)
         detailLabel.text = label
 
         let progress = Float(used) / Float(total)
         progressView.progress = progress
     }
 
-    private func setProgress(with quota: Quota) {
-        switch quota.quota {
-        case .int(let int):
-            guard
-                let progressFloat = quota.relative,
-                let used = quota.used,
-                let total = quota.total
-            else { return }
+    func configure(title: String, free: Int, total: Int, type: ProgressCellIcon) {
+        set(icon: type)
+        detailLabel.text = title
 
-            let usedString = Units(bytes: Double(used)).getReadableUnit()
-            let totalString = Units(bytes: Double(total)).getReadableUnit()
+        let used = total - free
+        let progress = Float(used) / Float(total)
+        progressView.progress = progress
+    }
 
-            var quotaString = ""
+    // TODO: This will be deleted.
+    func configure(with quota: Quota) {
+        set(icon: .storage)
+        guard
+            case let .int(value) = quota.quota,
+            let progressFloat = quota.relative,
+            let used = quota.used,
+            let total = quota.total
+        else { return }
 
-            // Check if there is a quota
-            if int < 0 {
-                // Negative quotas mean no quota (Unlimited).
-                quotaString = "\(usedString) of \(totalString) Used"
-            } else {
-                let quotaUnit = Units(bytes: Double(int))
-                quotaString = "\(usedString) of \(quotaUnit.getReadableUnit())"
-            }
+        // Format used and total sizes
+        let usedString = Units(bytes: used).readableUnit
+        let totalString = Units(bytes: total).readableUnit
 
-            detailLabel.text = quotaString
+        var quotaString = ""
 
-            // Nextcloud gives a literal representation of the percentage
-            // 0.3 = 0.3% in this case
-            let correctedProgress = Float(progressFloat / 100)
-            progressView.progress = correctedProgress
-        default: return
+        // Check if there is a quota
+        if value < 0 {
+            // Negative quotas mean no quota (Unlimited).
+            quotaString = "\(usedString) of \(totalString) Used"
+        } else {
+            let quotaUnit = Units(bytes: value).readableUnit
+            quotaString = "\(usedString) of \(quotaUnit)"
         }
+
+        detailLabel.text = quotaString
+
+        // Nextcloud gives a literal representation of the percentage
+        // 0.3 = 0.3% in this case
+        let correctedProgress = Float(progressFloat / 100)
+        progressView.progress = correctedProgress
     }
 }

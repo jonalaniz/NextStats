@@ -33,6 +33,17 @@ struct UserDataStruct: Codable {
     let locale: String?
     let backendCapabilities: BackendCapabilities
 
+    var formattedLastLoginDate: String {
+        guard let dateInt = lastLogin else { return "N/A" }
+        let correctedDateInt = dateInt / 1000
+        let date = Date(
+            timeIntervalSince1970: TimeInterval(correctedDateInt)
+        )
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        return dateFormatter.string(from: date)
+    }
+
     enum CodingKeys: String, CodingKey {
         case enabled
         case storageLocation
@@ -177,6 +188,14 @@ enum ElementContainer: Codable {
                 codingPath: decoder.codingPath,
                 debugDescription: "Group type mismatch")
         )
+    }
+
+    func asJoinedString() -> String {
+        switch self {
+        case .string(let string): return string
+        case .stringArray(let array):
+            return array.joined(separator: ", ")
+        }
     }
 
     func encode(to encoder: Encoder) throws {

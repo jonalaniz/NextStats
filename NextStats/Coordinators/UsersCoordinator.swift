@@ -24,9 +24,7 @@ class UsersCoordinator: NSObject, Coordinator {
     // MARK: - View Controllers
 
     let usersViewController: UsersViewController
-    let usersDataSource: UsersDataSource
     let userViewController: UserViewController
-    private let userDataSource: UserDataSource
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
 
@@ -35,16 +33,13 @@ class UsersCoordinator: NSObject, Coordinator {
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         usersViewController = UsersViewController()
-        usersDataSource = UsersDataSource(usersManager: usersManager)
         userViewController = UserViewController()
-        userDataSource = UserDataSource(formatter: formatter)
     }
 
     // MARK: - Coordinator Lifecycle
 
     func start() {
         usersViewController.coordinator = self
-        usersViewController.dataSource = usersDataSource
         usersManager.delegate = self
         usersManager.errorHandler = self
         navigationController.viewControllers = [usersViewController]
@@ -67,9 +62,9 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func showUserView(for user: User) {
+        let sections = formatter.buildTableData(for: user)
         userViewController.coordinator = self
-        userViewController.dataManager.set(user)
-        userViewController.dataSource = userDataSource
+        userViewController.set(user, sections: sections)
         navigationController.pushViewController(userViewController, animated: true)
     }
 
@@ -99,7 +94,7 @@ class UsersCoordinator: NSObject, Coordinator {
     }
 
     func updateUsers() {
-        usersViewController.toggleLoadingState(isLoading: true)
+        usersViewController.showLoadingView()
         usersManager.fetchUsersData()
     }
 
@@ -109,5 +104,25 @@ class UsersCoordinator: NSObject, Coordinator {
 
     func toggle(user: String) {
         usersManager.toggle(user: user)
+    }
+}
+
+// MARK: UsersManagerDelegate
+
+extension UsersCoordinator: UsersManagerDelegate {
+    func userDeleted(_ user: UserCellModel) {
+        usersViewController.tableView.reloadData()
+        navigationController.popViewController(animated: true)
+        print("coomer")
+    }
+
+    func usersLoaded(_ users: [UserCellModel]) {
+        usersViewController.updateDataSource(with: users)
+    }
+
+    func toggledUser(with id: String) {
+//        usersViewController.toggleUser(with: id)
+//        userViewController.dataManager.user?.data.enabled.toggle()
+//        userViewController.setTitle()
     }
 }

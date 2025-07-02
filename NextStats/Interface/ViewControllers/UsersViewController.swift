@@ -8,24 +8,30 @@
 
 import UIKit
 
-// swiftlint:disable weak_delegate
 /// A view controller that displays a list of users.
-class UsersViewController: BaseTableViewController {
+class UsersViewController: BaseDataTableViewController {
     weak var coordinator: UsersCoordinator?
     let dataManager = NXUsersManager.shared
     private var tableDelegate: UsersTableViewDelegate?
-    let loadingViewController = LoadingViewController()
+
+    // MARK: - Properties
+    let dataSource = UsersDataSource()
+
+    // MARK: - Views
+    let loadingView = LoadingViewController()
 
     override func viewDidLoad() {
         tableDelegate = UsersTableViewDelegate(
             coordinator: coordinator,
-            dataManager: dataManager)
+            dataManager: dataManager
+        )
         delegate = tableDelegate
 
         tableStyle = .insetGrouped
         titleText = .localized(.users)
         super.viewDidLoad()
-        toggleLoadingState(isLoading: true)
+        tableView.dataSource = dataSource
+        showLoadingView()
         dataManager.fetchUsersData()
     }
 
@@ -39,34 +45,48 @@ class UsersViewController: BaseTableViewController {
     }
 
     override func setupNavigationController() {
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
-        navigationController?.navigationBar.titleTextAttributes = attributes
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        let attributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.theme
+        ]
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.titleTextAttributes = attributes
+        navigationBar?.largeTitleTextAttributes = attributes
 
-        let dismissButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                            target: self,
-                                            action: #selector(dismissController))
-        let newUserButton = UIBarButtonItem(barButtonSystemItem: .add,
-                                            target: self,
-                                            action: #selector(showNewUserController))
+        let dismissButton = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(dismissController)
+        )
+        let newUserButton = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(showNewUserController)
+        )
         navigationItem.leftBarButtonItem = dismissButton
         navigationItem.rightBarButtonItem = newUserButton
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
     override func registerCells() {
-        tableView.register(UserCell.self,
-                           forCellReuseIdentifier: UserCell.reuseIdentifier)
+        tableView.register(
+            UserCell.self,
+            forCellReuseIdentifier: UserCell.reuseIdentifier
+        )
     }
 
-    func toggleLoadingState(isLoading: Bool) {
-        tableView.isHidden = isLoading
+    // MARK: - Visibility
 
-        if isLoading { add(loadingViewController) } else {
-            navigationItem.rightBarButtonItem?.isEnabled = true
-            tableView.reloadData()
-            loadingViewController.remove()
-        }
+    func showLoadingView() {
+        guard let tableView = tableView else { return }
+        tableView.isHidden = true
+        add(loadingView)
+    }
+
+    private func showTableView() {
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        tableView.isHidden = false
+        loadingView.remove()
+        tableView.reloadData()
     }
 
     @objc func dismissController() {
@@ -76,5 +96,15 @@ class UsersViewController: BaseTableViewController {
 
     @objc func showNewUserController() {
         coordinator?.showAddUserView()
+    }
+
+    func toggleUser(with id: String) {
+        dataSource.toggleUser(with: id)
+        tableView.reloadData()
+    }
+
+    func updateDataSource(with rows: [UserCellModel]) {
+        dataSource.rows = rows
+        showTableView()
     }
 }

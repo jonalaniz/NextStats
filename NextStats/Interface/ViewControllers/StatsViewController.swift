@@ -55,8 +55,8 @@ class StatsViewController: BaseDataTableViewController {
 
     override func registerCells() {
         tableView.register(
-            StatsCell.self,
-            forCellReuseIdentifier: StatsCell.reuseIdentifier
+            GenericCell.self,
+            forCellReuseIdentifier: GenericCell.reuseIdentifier
             )
         tableView.register(
             ProgressCell.self,

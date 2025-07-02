@@ -1,5 +1,5 @@
 //
-//  StatsCell.swift
+//  GenericCell.swift
 //  NextStats
 //
 //  Created by Jon Alaniz on 6/29/25.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-class StatsCell: BaseTableViewCell {
-    static let reuseIdentifier = "StatsCell"
+class GenericCell: BaseTableViewCell {
+    static let reuseIdentifier = "GenericCell"
 
     override init(
         style: UITableViewCell.CellStyle,
         reuseIdentifier: String?) {
         super.init(
             style: .value1,
-            reuseIdentifier: StatsCell.reuseIdentifier
+            reuseIdentifier: GenericCell.reuseIdentifier
         )
     }
 
@@ -30,6 +30,9 @@ class StatsCell: BaseTableViewCell {
         configuration.text = cellData.title
         configuration.textProperties.color = .theme
         configuration.secondaryText = cellData.secondaryText
+        configuration.secondaryTextProperties.color = .secondaryLabel
         contentConfiguration = configuration
+        accessoryType = cellData.accessoryType
+        isUserInteractionEnabled = false
     }
 }

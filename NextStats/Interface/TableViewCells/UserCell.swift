@@ -15,34 +15,35 @@ import UIKit
 /// to prevent wrapping.
 class UserCell: BaseTableViewCell {
     static let reuseIdentifier = "UserCell"
-    /// The user model assigned to this cell.
-    private(set) var user: UserCellModel!
 
-    /// Returns the localized enabled/disabled status text.
-    private var statusText: String {
-        return user?.enabled == true ? .localized(.enabled) : .localized(.disabled)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?) {
+        super.init(
+            style: .subtitle,
+            reuseIdentifier: UserCell.reuseIdentifier
+        )
     }
 
-    /// Configures the cell with a user model.
-    func configureCell(with user: UserCellModel) {
-        self.user = user
-        setup()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    /// Sets up the UI content configuration for the cell
-    private func setup() {
-        guard let user = user else { return }
-
-        var content = defaultContentConfiguration()
-        content.text = "\(user.displayName) (\(user.userID))"
-        content.textProperties.numberOfLines = 1
-        content.textProperties.lineBreakMode = .byTruncatingTail
-        content.secondaryText = statusText
+    func configure(with user: UserCellModel) {
+        var config = defaultContentConfiguration()
+        config.text = "\(user.displayName) (\(user.userID))"
+        config.textProperties.numberOfLines = 1
+        config.textProperties.lineBreakMode = .byTruncatingTail
+        config.secondaryText = statusText(user.enabled)
 
         let color: UIColor = user.enabled ? .theme : .secondaryLabel
-        content.secondaryTextProperties.color = color
+        config.secondaryTextProperties.color = color
 
-        contentConfiguration = content
+        contentConfiguration = config
         accessoryType = .disclosureIndicator
+    }
+
+    private func statusText(_ status: Bool) -> String {
+        return status == true ? .localized(.enabled) : .localized(.disabled)
     }
 }

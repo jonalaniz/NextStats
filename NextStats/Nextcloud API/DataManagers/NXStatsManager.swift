@@ -99,11 +99,12 @@ final class NXStatsManager: NSObject {
         )
 
         // Send Data
-        let tableSections = [
-            systemSection, memorySection, storageSection, activitySection
-        ]
-
-        delegate?.stateDidChange(.dataCaptured(tableSections))
+        delegate?.stateDidChange(.dataCaptured([
+            systemSection,
+            memorySection,
+            storageSection,
+            activitySection
+        ]))
     }
 
     private func systemSection(for stats: DataClass) -> [TableRow] {

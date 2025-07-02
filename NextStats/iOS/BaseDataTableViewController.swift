@@ -12,7 +12,6 @@ class BaseDataTableViewController: UIViewController {
     weak var delegate: UITableViewDelegate?
 
     var tableView: UITableView!
-    var dataSource: BaseDataSource!
     var titleText: String?
     var tableStyle: UITableView.Style = .plain
     var tableViewHeaderView: UIView?
@@ -51,7 +50,6 @@ class BaseDataTableViewController: UIViewController {
         tableView.backgroundColor = .systemBackground
         tableView.backgroundView = backgroundView
         tableView.delegate = delegate
-        tableView.dataSource = dataSource
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(tableView)

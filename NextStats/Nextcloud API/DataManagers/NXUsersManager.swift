@@ -6,7 +6,6 @@
 //  Copyright © 2021 Jon Alaniz.
 //
 
-// swiftlint:disable identifier_name
 import UIKit
 
 enum ResponseType {
@@ -19,7 +18,7 @@ class NXUsersManager: NSObject {
     /// Returns singleton instance of `UserDataManager`
     static let shared = NXUsersManager()
 
-    weak var delegate: NXUserManagerDelegate?
+    weak var delegate: UsersManagerDelegate?
     weak var errorHandler: ErrorHandling?
     private let service = NextcloudService.shared
     private(set) var userIDs = [String]()
@@ -42,7 +41,7 @@ class NXUsersManager: NSObject {
                     users.append(try await service.fetchUser(userID, in: server))
                 }
 
-                await notifyDelegate(state: .usersLoaded)
+                await buildTableData()
             } catch {
                 guard let error = error as? APIManagerError else {
                     await handle(error: .somethingWentWrong(error: error))
@@ -54,14 +53,37 @@ class NXUsersManager: NSObject {
         }
     }
 
+    @MainActor private func buildTableData() {
+        // Create rows
+        let rows = users.map {
+            UserCellModel(
+                userID: $0.data.id,
+                displayName: $0.data.displayname ?? "N/A",
+                email: $0.data.email ?? "N/A",
+                enabled: $0.data.enabled
+            )
+        }
+        delegate?.usersLoaded(rows)
+    }
+
     func toggle(user: String) {
-        guard let userObject = users.first(where: { $0.data.id == user }) else { return }
+        guard let userObject = users.first(
+            where: { $0.data.id == user }
+        ) else { return }
         let toggleType: ToggleType = userObject.data.enabled ? .disable : .enable
 
         Task {
             do {
-                let response = try await service.toggleUser(toggleType.path(for: user), in: server, type: toggleType)
-                await processResponse(user, type: .toggle, response: response)
+                let response = try await service.toggleUser(
+                    toggleType.path(for: user),
+                    in: server,
+                    type: toggleType
+                )
+                await processResponse(
+                    user,
+                    type: .toggle,
+                    response: response
+                )
             } catch {
                 guard let error = error as? APIManagerError else {
                     await handle(error: .somethingWentWrong(error: error))
@@ -111,17 +133,13 @@ class NXUsersManager: NSObject {
         }
     }
 
-    @MainActor
-    private func notifyDelegate(state: NXUserManagerState) {
-        delegate?.stateDidChange(state)
-    }
-
     private func updateToggleFor(user: String) {
         if let index = users.firstIndex(where: { $0.data.id
             == user }) {
+            let userID = users[index].data.id
             users[index].data.enabled.toggle()
+            delegate?.toggledUser(with: userID)
         }
-        self.delegate?.stateDidChange(.toggledUser)
     }
 
     private func resetUserData() {
@@ -132,7 +150,8 @@ class NXUsersManager: NSObject {
     private func remove(user: String) {
         userIDs.removeAll(where: { $0 == user })
         users.removeAll(where: { $0.data.id == user })
-        self.delegate?.stateDidChange(.deletedUser)
+        // TODO: Add this back
+//        self.delegate?.stateDidChange(.deletedUser)
     }
 
     @MainActor
@@ -151,9 +170,11 @@ class NXUsersManager: NSObject {
 
         let userData = users[index].data
 
-        return UserCellModel(userID: userData.id,
-                             displayName: userData.displayname ?? "N/A",
-                             email: userData.email ?? "N/A",
-                             enabled: userData.enabled)
+        return UserCellModel(
+            userID: userData.id,
+            displayName: userData.displayname ?? "N/A",
+            email: userData.email ?? "N/A",
+            enabled: userData.enabled
+        )
     }
 }
