@@ -10,8 +10,9 @@ import Foundation
 
 // MARK: Decoding Containers
 
-// swiftlint:disable all
+// swiftlint:disable:next type_body_length
 internal struct _XMLKeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainerProtocol {
+    // swiftlint:disable:previous type_name
     typealias Key = K
 
     // MARK: Properties
@@ -514,7 +515,9 @@ internal struct _XMLKeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainer
                 key,
                 DecodingError.Context(
                     codingPath: self.codingPath,
-                    debugDescription: "Cannot get \(KeyedDecodingContainer<NestedKey>.self) -- no value found for key \"\(key.stringValue)\""
+                    debugDescription:
+                        // swiftlint:disable:next line_length
+                        "Cannot get \(KeyedDecodingContainer<NestedKey>.self) -- no value found for key \"\(key.stringValue)\""
                 )
             )
         }
@@ -540,7 +543,8 @@ internal struct _XMLKeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainer
                 key,
                 DecodingError.Context(
                     codingPath: self.codingPath,
-                    debugDescription: "Cannot get UnkeyedDecodingContainer -- no value found for key \"\(key.stringValue)\""
+                    debugDescription:
+                        "Cannot get UnkeyedDecodingContainer -- no value found for key \"\(key.stringValue)\""
                 )
             )
         }
@@ -568,3 +572,4 @@ internal struct _XMLKeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainer
         return try _superDecoder(forKey: key)
     }
 }
+// swiftlint:disable:this file_length

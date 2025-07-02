@@ -7,7 +7,7 @@
 //
 
 import Foundation
-// swiftlint:disable all
+
 /// `XMLEncoder` facilitates the encoding of `Encodable` values into XML.
 open class XMLEncoder {
     // MARK: Options
@@ -124,6 +124,7 @@ open class XMLEncoder {
         /// If the result of the conversion is a duplicate key, then only one value will be present in the result.
         case custom((_ codingPath: [CodingKey]) -> CodingKey)
 
+        // swiftlint:disable:next identifier_name
         internal static func _convertToSnakeCase(_ stringKey: String) -> String {
             guard !stringKey.isEmpty else { return stringKey }
 
@@ -226,6 +227,7 @@ open class XMLEncoder {
 
     /// Options set on the top-level encoder to pass down the encoding hierarchy.
     internal struct _Options {
+        // swiftlint:disable:previous type_name
         let dateEncodingStrategy: DateEncodingStrategy
         let dataEncodingStrategy: DataEncodingStrategy
         let nonConformingFloatEncodingStrategy: NonConformingFloatEncodingStrategy
@@ -324,6 +326,7 @@ open class XMLEncoder {
     }
 }
 
+// swiftlint:disable:next type_name
 internal class _XMLEncoder: Encoder {
     // MARK: Properties
 
@@ -428,7 +431,8 @@ internal class _XMLEncoder: Encoder {
 
 // MARK: - Encoding Containers
 
-fileprivate struct _XMLKeyedEncodingContainer<K: CodingKey>: KeyedEncodingContainerProtocol {
+// swiftlint:disable:next type_body_length
+private struct _XMLKeyedEncodingContainer<K: CodingKey>: KeyedEncodingContainerProtocol {
     typealias Key = K
 
     // MARK: Properties
@@ -1088,12 +1092,16 @@ extension _XMLEncoder {
     // appropriate overload, which is not what we want.
     fileprivate func box_<T: Encodable>(_ value: T) throws -> NSObject? {
         if T.self == Date.self || T.self == NSDate.self {
+            // swiftlint:disable:next force_cast
             return try self.box((value as! Date))
         } else if T.self == Data.self || T.self == NSData.self {
+            // swiftlint:disable:next force_cast
             return try self.box((value as! Data))
         } else if T.self == URL.self || T.self == NSURL.self {
+            // swiftlint:disable:next force_cast
             return self.box((value as! URL).absoluteString)
         } else if T.self == Decimal.self || T.self == NSDecimalNumber.self {
+            // swiftlint:disable:next force_cast
             return (value as! NSDecimalNumber)
         }
 

@@ -288,20 +288,6 @@ internal class _XMLElement {
     }
 }
 
-extension String {
-    func escape(
-        _ characterSet: [(character: String, escapedCharacter: String)]
-    ) -> String {
-        var string = self
-
-        for set in characterSet {
-            string = string.replacingOccurrences(of: set.character, with: set.escapedCharacter, options: .literal)
-        }
-
-        return string
-    }
-}
-
 // swiftlint:disable:next type_name
 internal class _XMLStackParser: NSObject, XMLParserDelegate {
     var root: _XMLElement?
@@ -407,4 +393,3 @@ internal class _XMLStackParser: NSObject, XMLParserDelegate {
         print(parseError)
     }
 }
-// swiftlint:disable:this file_length
