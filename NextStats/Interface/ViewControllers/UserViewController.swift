@@ -11,11 +11,10 @@ import UIKit
 class UserViewController: BaseTableViewController {
     weak var coordinator: UsersCoordinator?
     let userDataSource = StatisticsDataSource()
-    private var tableDelegate: UserTableViewDelegate?
     private var user: User?
 
     override func viewDidLoad() {
-        delegate = tableDelegate
+        delegate = self
         tableStyle = .insetGrouped
         super.viewDidLoad()
         tableView.dataSource = userDataSource
@@ -125,5 +124,25 @@ class UserViewController: BaseTableViewController {
     func deleteUser(action: UIAlertAction) {
         guard let user = user else { return }
         coordinator?.delete(user: user.data.id)
+    }
+}
+
+extension UserViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Get number of sections
+        let sections = tableView.numberOfSections
+
+        if sections == UserSection.allCases.count {
+            return height(for: indexPath.section)
+        } else {
+            return height(for: indexPath.section + 1)
+        }
+    }
+
+    private func height(for section: Int) -> CGFloat {
+        guard let tableSection = UserSection(rawValue: section)
+        else { return 44 }
+
+        return tableSection.rowHeight
     }
 }

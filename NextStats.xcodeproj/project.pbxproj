@@ -19,7 +19,6 @@
 		560938652D6301FE00DEAF40 /* UsersTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938642D6301FE00DEAF40 /* UsersTableViewDelegate.swift */; };
 		560938692D63080200DEAF40 /* ServerTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938682D63080200DEAF40 /* ServerTableViewDelegate.swift */; };
 		5609386B2D630A5800DEAF40 /* InfoTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609386A2D630A5800DEAF40 /* InfoTableViewDelegate.swift */; };
-		5609386D2D630D3400DEAF40 /* UserTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609386C2D630D3400DEAF40 /* UserTableViewDelegate.swift */; };
 		560938712D63269200DEAF40 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938702D63269200DEAF40 /* TextFieldDelegate.swift */; };
 		560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938752D63271400DEAF40 /* AddServerDataSource.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
@@ -184,7 +183,6 @@
 		560938642D6301FE00DEAF40 /* UsersTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewDelegate.swift; sourceTree = "<group>"; };
 		560938682D63080200DEAF40 /* ServerTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTableViewDelegate.swift; sourceTree = "<group>"; };
 		5609386A2D630A5800DEAF40 /* InfoTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewDelegate.swift; sourceTree = "<group>"; };
-		5609386C2D630D3400DEAF40 /* UserTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewDelegate.swift; sourceTree = "<group>"; };
 		560938702D63269200DEAF40 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		560938752D63271400DEAF40 /* AddServerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerDataSource.swift; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -368,7 +366,6 @@
 				560938602D62FF0A00DEAF40 /* NewUserTableViewDelegate.swift */,
 				560938682D63080200DEAF40 /* ServerTableViewDelegate.swift */,
 				560938642D6301FE00DEAF40 /* UsersTableViewDelegate.swift */,
-				5609386C2D630D3400DEAF40 /* UserTableViewDelegate.swift */,
 			);
 			path = TableViewDelegates;
 			sourceTree = "<group>";
@@ -1054,7 +1051,6 @@
 				569F2CA126AB2358001122F2 /* UsersCoordinator.swift in Sources */,
 				56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */,
 				56FE82E22D65D5CA001E2294 /* UsersDataSource.swift in Sources */,
-				5609386D2D630D3400DEAF40 /* UserTableViewDelegate.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,
 				560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */,
 				565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */,
