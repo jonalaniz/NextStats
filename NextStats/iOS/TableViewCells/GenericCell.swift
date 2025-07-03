@@ -15,7 +15,7 @@ class GenericCell: BaseTableViewCell {
         style: UITableViewCell.CellStyle,
         reuseIdentifier: String?) {
         super.init(
-            style: .value1,
+            style: .subtitle,
             reuseIdentifier: GenericCell.reuseIdentifier
         )
     }
@@ -31,8 +31,10 @@ class GenericCell: BaseTableViewCell {
         configuration.textProperties.color = .theme
         configuration.secondaryText = cellData.secondaryText
         configuration.secondaryTextProperties.color = .secondaryLabel
+        configuration.secondaryTextProperties.numberOfLines = 0
+        configuration.secondaryTextProperties.lineBreakMode = .byCharWrapping
         contentConfiguration = configuration
         accessoryType = cellData.accessoryType
-        isUserInteractionEnabled = false
+        selectionStyle = .none
     }
 }

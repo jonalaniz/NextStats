@@ -17,7 +17,7 @@ enum UserSection: Int, CaseIterable {
     var rowHeight: CGFloat {
         switch self {
         case .quota: return 66
-        default: return 44
+        default: return 52
         }
     }
 
