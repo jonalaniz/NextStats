@@ -24,7 +24,7 @@ class UsersCoordinator: NSObject, Coordinator {
     // MARK: - View Controllers
 
     let usersViewController: UsersViewController
-    let userViewController: UserViewController
+    let userViewController: UserDetailsViewController
     var splitViewController: UISplitViewController
     var navigationController = UINavigationController()
 
@@ -33,7 +33,7 @@ class UsersCoordinator: NSObject, Coordinator {
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         usersViewController = UsersViewController()
-        userViewController = UserViewController()
+        userViewController = UserDetailsViewController()
     }
 
     // MARK: - Coordinator Lifecycle

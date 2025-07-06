@@ -1,6 +1,6 @@
 //
-//  UserViewController.swift
-//  UserViewController
+//  UserDetailsViewController.swift
+//  UserDetailsViewController
 //
 //  Created by Jon Alaniz on 7/31/21.
 //  Copyright © 2021 Jon Alaniz.
@@ -8,13 +8,14 @@
 
 import UIKit
 
-class UserViewController: BaseTableViewController {
+/// A view controller that displays a the user details.
+class UserDetailsViewController: BaseDataTableViewController {
     // MARK: - Coordinator
 
     weak var coordinator: UsersCoordinator?
 
     // MARK: - Properties
-    let userDataSource = StatisticsDataSource()
+    let dataSource = StatisticsDataSource()
     private var user: User?
 
     // MARK: - Lifecycle
@@ -23,7 +24,7 @@ class UserViewController: BaseTableViewController {
         delegate = self
         tableStyle = .insetGrouped
         super.viewDidLoad()
-        tableView.dataSource = userDataSource
+        tableView.dataSource = dataSource
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +65,7 @@ class UserViewController: BaseTableViewController {
         navigationBar?.largeTitleTextAttributes = attributes
 
         // TableView Part
-        userDataSource.sections = sections
+        dataSource.sections = sections
     }
 
     @objc func menuTapped() {
@@ -135,7 +136,7 @@ class UserViewController: BaseTableViewController {
     }
 }
 
-extension UserViewController: UITableViewDelegate {
+extension UserDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // Get number of sections
         let sections = tableView.numberOfSections
