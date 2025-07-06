@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UsersDataSource: NSObject, UITableViewDataSource {
+final class UsersDataSource: NSObject, UITableViewDataSource {
     var rows = [UserCellModel]()
 
     func tableView(

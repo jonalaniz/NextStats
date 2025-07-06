@@ -10,29 +10,28 @@ import UIKit
 
 /// A view controller that displays a list of users.
 class UsersViewController: BaseDataTableViewController {
+    // MARK: - Coordinator
+
     weak var coordinator: UsersCoordinator?
-    let dataManager = NXUsersManager.shared
-    private var tableDelegate: UsersTableViewDelegate?
 
     // MARK: - Properties
+
     let dataSource = UsersDataSource()
 
     // MARK: - Views
+
     let loadingView = LoadingViewController()
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
-        tableDelegate = UsersTableViewDelegate(
-            coordinator: coordinator,
-            dataManager: dataManager
-        )
-        delegate = tableDelegate
+        delegate = self
 
         tableStyle = .insetGrouped
         titleText = .localized(.users)
         super.viewDidLoad()
         tableView.dataSource = dataSource
         showLoadingView()
-        dataManager.fetchUsersData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +42,8 @@ class UsersViewController: BaseDataTableViewController {
             tableView.deselectRow(at: selectedRow, animated: true)
         }
     }
+
+    // MARK: - Setup
 
     override func setupNavigationController() {
         let attributes = [
@@ -106,5 +107,17 @@ class UsersViewController: BaseDataTableViewController {
     func updateDataSource(with rows: [UserCellModel]) {
         dataSource.rows = rows
         showTableView()
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension UsersViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        coordinator?.showUserView(for: indexPath.row)
     }
 }

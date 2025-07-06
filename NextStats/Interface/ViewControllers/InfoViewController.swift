@@ -16,7 +16,6 @@ class InfoViewController: BaseTableViewController {
 
     weak var coordinator: InfoCoordinator?
     private var products = [SKProduct]()
-    private var tableDelegate: InfoTableViewDelegate?
 
     // MARK: - Lifecycle
 
@@ -27,11 +26,7 @@ class InfoViewController: BaseTableViewController {
         tableViewHeaderView = InfoHeaderView()
         dataManager.delegate = self
         dataSource = dataManager
-        tableDelegate = InfoTableViewDelegate(
-            coordinator: coordinator,
-            dataManager: dataManager
-        )
-        delegate = tableDelegate
+        delegate = self
         super.viewDidLoad()
         setupNotifications()
     }
@@ -83,6 +78,27 @@ extension InfoViewController: DataManagerDelegate {
         switch state {
         case .dataUpdated: tableView.reloadData()
         default: break
+        }
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension InfoViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let tableSection = InfoSection(rawValue: indexPath.section)
+        else { return }
+
+        let row = indexPath.row
+
+        switch tableSection {
+        case .icon: dataManager.toggleIcon()
+        case .licenses:
+            guard let license = License(rawValue: row) else { return }
+            coordinator?.showWebView(urlString: license.urlString)
+        case .support: dataManager.buyProduct(row)
+        default: return
         }
     }
 }

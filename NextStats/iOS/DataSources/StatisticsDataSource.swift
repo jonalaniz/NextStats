@@ -19,11 +19,17 @@ final class StatisticsDataSource: NSObject, BaseDataSource {
         return sections[section].rows.count
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(
+        _ tableView: UITableView,
+        titleForHeaderInSection section: Int
+    ) -> String? {
         return sections[section].title
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cellData = sections[indexPath.section].rows[indexPath.row]
 
         if let progressData = cellData.progressData {
@@ -33,7 +39,9 @@ final class StatisticsDataSource: NSObject, BaseDataSource {
         return makeCell(tableView, data: cellData)
     }
 
-    func makeCell(_ tableView: UITableView, data: TableRow) -> GenericCell {
+    func makeCell(
+        _ tableView: UITableView, data: TableRow
+    ) -> GenericCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: GenericCell.reuseIdentifier
         ) as? GenericCell

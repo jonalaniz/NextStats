@@ -15,18 +15,13 @@ class ServerViewController: BaseTableViewController {
     let serverManager = NXServerManager.shared
 
     weak var coordinator: MainCoordinator?
-    private var tableDelegate: ServerTableViewDelegate?
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         titleText = "NextStats"
         tableStyle = isMacCatalyst() ? .plain : .insetGrouped
-        tableDelegate = ServerTableViewDelegate(
-            coordinator: coordinator,
-            serverManager: serverManager
-        )
-        delegate = tableDelegate
+        delegate = self
         super.viewDidLoad()
         serverManager.delegate = coordinator
         serverManager.pingServers()
@@ -144,5 +139,13 @@ class ServerViewController: BaseTableViewController {
         }
 
         return UIBarButtonItem(customView: button)
+    }
+}
+
+// MARK: - UITableViewController
+
+extension ServerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        coordinator?.showStatsView(for: serverManager.serverAt(indexPath.row))
     }
 }

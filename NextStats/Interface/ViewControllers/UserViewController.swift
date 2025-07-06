@@ -9,9 +9,15 @@
 import UIKit
 
 class UserViewController: BaseTableViewController {
+    // MARK: - Coordinator
+
     weak var coordinator: UsersCoordinator?
+
+    // MARK: - Properties
     let userDataSource = StatisticsDataSource()
     private var user: User?
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         delegate = self
@@ -23,6 +29,8 @@ class UserViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
+
+    // MARK: - Setup
 
     override func setupNavigationController() {
         let moreButton = UIBarButtonItem(
