@@ -48,6 +48,7 @@ class UsersCoordinator: NSObject, Coordinator {
             navigationController,
             animated: true
         )
+        usersManager.fetchUsersData()
         userFactory.getGroups(for: usersManager.server)
     }
 
@@ -61,7 +62,9 @@ class UsersCoordinator: NSObject, Coordinator {
         child.start()
     }
 
-    func showUserView(for user: User) {
+    func showUserView(for userIndex: Int) {
+        guard let userModel = usersManager.userCellModel(userIndex) else { return }
+        let user = usersManager.user(id: userModel.userID)
         let sections = formatter.buildTableData(for: user)
         userViewController.coordinator = self
         userViewController.set(user, sections: sections)
