@@ -42,7 +42,6 @@ class BaseDataTableViewController: UIViewController {
     func setupToolbar() {}
 
     func setupTableView() {
-        print("TableView setting up")
         tableView = UITableView(frame: .zero, style: tableStyle)
         if let tableViewHeaderView = tableViewHeaderView {
             tableView.tableHeaderView = tableViewHeaderView

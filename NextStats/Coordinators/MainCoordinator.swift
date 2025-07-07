@@ -22,7 +22,7 @@ final class MainCoordinator: NSObject, Coordinator {
 
     // MARK: - View Controllers
 
-    private let mainViewController: ServerViewController
+    let mainViewController: ServerViewController
     let detailNavigationController: UINavigationController
     private let statsViewController: StatsViewController
     var splitViewController: UISplitViewController

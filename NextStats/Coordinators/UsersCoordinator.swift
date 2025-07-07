@@ -23,7 +23,7 @@ final class UsersCoordinator: NSObject, Coordinator {
 
     // MARK: - View Controllers
 
-    private let usersViewController: UsersViewController
+    let usersViewController: UsersViewController
     private let userDetailsController: UserDetailsViewController
     private var navigationController = UINavigationController()
     var splitViewController: UISplitViewController

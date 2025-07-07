@@ -14,12 +14,13 @@ class StatsViewController: BaseDataTableViewController {
     weak var coordinator: MainCoordinator?
 
     // MARK: - Properties
-    let dataSource = StatisticsDataSource()
+
+    private let dataSource = StatisticsDataSource()
 
     // MARK: - Views
 
-    let loadingView = LoadingViewController()
     let headerView = ServerHeaderView()
+    let loadingView = LoadingViewController()
 
     // MARK: - Lifecycle
 
@@ -33,7 +34,7 @@ class StatsViewController: BaseDataTableViewController {
         tableView.dataSource = dataSource
     }
 
-    // MARK: - Setup
+    // MARK: - Configurtion
 
     override func setupNavigationController() {
         let moreButton = UIBarButtonItem(
@@ -64,7 +65,7 @@ class StatsViewController: BaseDataTableViewController {
         )
     }
 
-    // MARK: - UI Configuration
+    // MARK: - UI Updates
 
     func updateUIFor(_ newServer: NextServer) {
         headerView.setupHeaderWith(
