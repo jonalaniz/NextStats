@@ -18,7 +18,6 @@ final class AddServerCoordinator: NSObject, Coordinator {
     // MARK: - Dependencies
 
     private let authenticator: NXAuthenticator
-    private let dataSource: AuthenticationDataSource
 
     // MARK: - View Controllers
 
@@ -32,16 +31,12 @@ final class AddServerCoordinator: NSObject, Coordinator {
         self.splitViewController = splitViewController
         self.authenticator = NXAuthenticator()
         addServerVC = AddServerViewController()
-        dataSource = AuthenticationDataSource()
     }
 
     // MARK: - Coordinator Lifecycle
 
     func start() {
         addServerVC.coordinator = self
-        addServerVC.dataSource = dataSource
-        // TODO: Move datasource ot the AddServerVC
-        dataSource.delegate = addServerVC
         authenticator.delegate = self
         authenticator.errorHandler = self
 

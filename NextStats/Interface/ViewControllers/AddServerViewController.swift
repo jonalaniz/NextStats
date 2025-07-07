@@ -8,13 +8,19 @@
 
 import UIKit
 
-class AddServerViewController: BaseTableViewController {
-    // MARK: - Properties
-
-    let headerView = AddServerHeaderView()
-    private var tableViewBottomConstraint: NSLayoutConstraint?
+class AddServerViewController: BaseDataTableViewController {
+    // MARK: - Cordinator
 
     weak var coordinator: AddServerCoordinator?
+
+    // MARK: - Properties
+
+    private let dataSource = AuthenticationDataSource()
+    private var tableViewBottomConstraint: NSLayoutConstraint?
+
+    // MARK: - Views
+
+    let headerView = AddServerHeaderView()
 
     // MARK: - Lifecycle
 
@@ -23,6 +29,7 @@ class AddServerViewController: BaseTableViewController {
         tableViewHeaderView = headerView
         tableStyle = .insetGrouped
         titleText = .localized(.addScreenTitle)
+        dataSource.delegate = self
         super.viewDidLoad()
         setupKeyboardNotifications()
     }
@@ -61,6 +68,7 @@ class AddServerViewController: BaseTableViewController {
 
     override func setupTableView() {
         super.setupTableView()
+        tableView.dataSource = dataSource
         tableView.alwaysBounceVertical = false
         tableView.rowHeight = 44
         tableView.sectionHeaderHeight = 28
@@ -75,6 +83,21 @@ class AddServerViewController: BaseTableViewController {
             InputCell.self,
             forCellReuseIdentifier: InputCell.reuseidentifier
         )
+    }
+
+    // MARK: - UI Updates
+
+    func updateLabel(with text: String) {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        headerView.statusLabel.isHidden = false
+        headerView.statusLabel.text = text
+        headerView.activityIndicatior.deactivate()
+    }
+
+    private func toggleAuthentication(enabled: Bool) {
+        if !enabled { updateLabel(with: .localized(.serverFormEnterAddress)) }
+        headerView.statusLabel.isHidden = enabled
+        navigationItem.rightBarButtonItem?.isEnabled = enabled
     }
 
     // MARK: - Actions
@@ -103,21 +126,6 @@ class AddServerViewController: BaseTableViewController {
         coordinator?.requestAuthorization(
             with: urlString, named: name
         )
-    }
-
-    // MARK: - UI Updates
-
-    func updateLabel(with text: String) {
-        navigationItem.rightBarButtonItem?.isEnabled = false
-        headerView.statusLabel.isHidden = false
-        headerView.statusLabel.text = text
-        headerView.activityIndicatior.deactivate()
-    }
-
-    private func toggleAuthentication(enabled: Bool) {
-        if !enabled { updateLabel(with: .localized(.serverFormEnterAddress)) }
-        headerView.statusLabel.isHidden = enabled
-        navigationItem.rightBarButtonItem?.isEnabled = enabled
     }
 
     // MARK: - Keyboard Handling
@@ -150,6 +158,7 @@ class AddServerViewController: BaseTableViewController {
     }
 
     // MARK: - Helper Methods
+
     private func subscribeTo(_ name: Notification.Name, with selector: Selector) {
         NotificationCenter.default.addObserver(
             self,

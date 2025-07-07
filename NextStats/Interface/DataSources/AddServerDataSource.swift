@@ -15,14 +15,20 @@ protocol AuthenticationDataSourceDelegate: AnyObject {
 class AuthenticationDataSource: NSObject, UITableViewDataSource {
     weak var delegate: AuthenticationDataSourceDelegate?
     private let textFieldDelegate = TextFieldDelegate()
+    var url: String?
+    var name: String?
 
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return LoginFields.allCases.count
     }
 
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         guard let field = LoginFields(rawValue: indexPath.row)
         else { return UITableViewCell() }
 
@@ -34,8 +40,10 @@ class AuthenticationDataSource: NSObject, UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView,
-                   titleForFooterInSection section: Int) -> String? {
+    func tableView(
+        _ tableView: UITableView,
+        titleForFooterInSection section: Int
+    ) -> String? {
         return .localized(.addScreenLabel)
     }
 
@@ -45,23 +53,33 @@ class AuthenticationDataSource: NSObject, UITableViewDataSource {
         case .name:
             textField = TextFieldFactory.textField(
                 type: .normal,
-                placeholder: .localized(.addScreenNickname))
+                placeholder: .localized(.addScreenNickname)
+            )
         case .url:
             textField = TextFieldFactory.textField(
                 type: .URL,
-                placeholder: .localized(.addScreenUrl))
-            textField.addTarget(
-                self,
-                action: #selector(urlTextChanged),
-                for: .editingChanged)
+                placeholder: .localized(.addScreenUrl)
+            )
         }
-
+        textField.addTarget(
+            self,
+            action: #selector(urlTextChanged),
+            for: .editingChanged
+        )
+        textField.tag = field.rawValue
         textField.delegate = textFieldDelegate
         cell.textField = textField
         cell.setup()
     }
 
     @objc private func urlTextChanged(_ sender: UITextField) {
-        delegate?.didEnterURL(sender.text ?? "")
+        guard let field = LoginFields(rawValue: sender.tag)
+        else { return }
+        switch field {
+        case .name: name = sender.text
+        case .url:
+            url = sender.text
+            delegate?.didEnterURL(sender.text ?? "")
+        }
     }
 }
