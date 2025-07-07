@@ -40,12 +40,16 @@ final class AddServerCoordinator: NSObject, Coordinator {
     func start() {
         addServerVC.coordinator = self
         addServerVC.dataSource = dataSource
+        // TODO: Move datasource ot the AddServerVC
         dataSource.delegate = addServerVC
         authenticator.delegate = self
         authenticator.errorHandler = self
 
         navigationController.viewControllers = [addServerVC]
-        splitViewController.present(navigationController, animated: true, completion: nil)
+        splitViewController.present(
+            navigationController,
+            animated: true
+        )
     }
 
     func didFinish() {

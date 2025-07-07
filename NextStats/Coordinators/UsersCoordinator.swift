@@ -9,7 +9,7 @@
 import UIKit
 
 /// Coordinator responsible for managing and viewing users.
-class UsersCoordinator: NSObject, Coordinator {
+final class UsersCoordinator: NSObject, Coordinator {
     // MARK: - Coordinator
 
     weak var parentCoordinator: MainCoordinator?
@@ -17,23 +17,23 @@ class UsersCoordinator: NSObject, Coordinator {
 
     // MARK: - Dependencies
 
-    let formatter = NXUserFormatter.shared
+    private let formatter = NXUserFormatter.shared
     let usersManager = NXUsersManager.shared
-    let userFactory = NXUserFactory.shared
+    private let userFactory = NXUserFactory.shared
 
     // MARK: - View Controllers
 
-    let usersViewController: UsersViewController
-    let userViewController: UserDetailsViewController
+    private let usersViewController: UsersViewController
+    private let userDetailsController: UserDetailsViewController
+    private var navigationController = UINavigationController()
     var splitViewController: UISplitViewController
-    var navigationController = UINavigationController()
 
     // MARK: - Initialization
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
         usersViewController = UsersViewController()
-        userViewController = UserDetailsViewController()
+        userDetailsController = UserDetailsViewController()
     }
 
     // MARK: - Coordinator Lifecycle
@@ -52,6 +52,27 @@ class UsersCoordinator: NSObject, Coordinator {
         userFactory.getGroups(for: usersManager.server)
     }
 
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
+            childCoordinators.remove(at: index)
+        }
+    }
+
+    func didFinish() {
+        guard
+            let detailNavigationController = parentCoordinator?.detailNavigationController
+        else { return }
+
+        for (index, viewController) in detailNavigationController.viewControllers.enumerated()
+        where viewController === userDetailsController || viewController === usersViewController {
+            detailNavigationController.viewControllers.remove(at: index)
+        }
+
+        parentCoordinator?.childDidFinish(self)
+    }
+
+    // MARK: - Navigation
+
     func showAddUserView() {
         let child = NewUserCoordinator(
             splitViewController: splitViewController,
@@ -66,28 +87,9 @@ class UsersCoordinator: NSObject, Coordinator {
         guard let userModel = usersManager.userCellModel(userIndex) else { return }
         let user = usersManager.user(id: userModel.userID)
         let sections = formatter.buildTableData(for: user)
-        userViewController.coordinator = self
-        userViewController.set(user, sections: sections)
-        navigationController.pushViewController(userViewController, animated: true)
-    }
-
-    func childDidFinish(_ child: Coordinator?) {
-        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
-            childCoordinators.remove(at: index)
-        }
-    }
-
-    func didFinish() {
-        guard
-            let detailNavigationController = parentCoordinator?.detailNavigationController
-        else { return }
-
-        for (index, viewController) in detailNavigationController.viewControllers.enumerated()
-        where viewController === userViewController || viewController === usersViewController {
-            detailNavigationController.viewControllers.remove(at: index)
-        }
-
-        parentCoordinator?.childDidFinish(self)
+        userDetailsController.coordinator = self
+        userDetailsController.set(user, sections: sections)
+        navigationController.pushViewController(userDetailsController, animated: true)
     }
 
     // MARK: - Actions

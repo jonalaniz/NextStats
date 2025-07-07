@@ -9,22 +9,22 @@
 import UIKit
 
 /// Main Coordinator  responsible for selecting, editing, and viewing servers.
-class MainCoordinator: NSObject, Coordinator {
+final class MainCoordinator: NSObject, Coordinator {
     // MARK: - Coordinator
 
     var childCoordinators = [Coordinator]()
 
     // MARK: - Dependencies
 
-    let serverManager = NXServerManager.shared
-    let serverDataSource: ServerDataSource
-    let statsDataManager = NXStatsManager.shared
+    private let serverManager = NXServerManager.shared
+    private let serverDataSource: ServerDataSource
+    private let statsDataManager = NXStatsManager.shared
 
     // MARK: - View Controllers
 
-    let mainViewController: ServerViewController
+    private let mainViewController: ServerViewController
     let detailNavigationController: UINavigationController
-    let statsViewController: StatsViewController
+    private let statsViewController: StatsViewController
     var splitViewController: UISplitViewController
 
     // MARK: - Initialization
@@ -60,6 +60,12 @@ class MainCoordinator: NSObject, Coordinator {
         statsViewController.coordinator = self
         statsDataManager.delegate = self
         statsDataManager.errorHandler = self
+    }
+
+    func childDidFinish(_ child: Coordinator?) {
+        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
+            childCoordinators.remove(at: index)
+        }
     }
 
     // MARK: - Navigation
@@ -157,12 +163,6 @@ class MainCoordinator: NSObject, Coordinator {
     func addServer(_ server: NextServer) {
         serverManager.add(server)
         mainViewController.refresh()
-    }
-
-    func childDidFinish(_ child: Coordinator?) {
-        for (index, coordinator) in childCoordinators.enumerated() where coordinator === child {
-            childCoordinators.remove(at: index)
-        }
     }
 }
 

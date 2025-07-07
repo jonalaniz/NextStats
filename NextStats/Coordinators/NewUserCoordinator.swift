@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 /// Coordinator responsible for managing the flow of creating a new user..
 final class NewUserCoordinator: NSObject, Coordinator {
     // MARK: - Coordinator
