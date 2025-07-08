@@ -15,12 +15,16 @@ class NewUserViewController: BaseTableViewController {
 
     weak var coordinator: NewUserCoordinator?
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         titleText = .localized(.newUser)
         tableStyle = .insetGrouped
         delegate = self
         super.viewDidLoad()
     }
+
+    // MARK: - Configuration
 
     override func setupNavigationController() {
         let cancel = UIBarButtonItem(

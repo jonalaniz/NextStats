@@ -53,23 +53,6 @@ class ProgressCell: BaseTableViewCell {
         setupView()
     }
 
-//    init() {
-//        super.init(
-//            style: .default,
-//            reuseIdentifier: ProgressCell.reuseIdentifier
-//        )
-//
-//        setupView()
-//    }
-
-//    convenience init(quota: Quota) {
-//        self.init()
-//    }
-//
-//    convenience init(free: Int, total: Int, type: ProgressCellIcon) {
-//        self.init()
-//    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -161,38 +144,5 @@ class ProgressCell: BaseTableViewCell {
         let used = total - free
         let progress = Float(used) / Float(total)
         progressView.progress = progress
-    }
-
-    // TODO: This will be deleted.
-    func configure(with quota: Quota) {
-        set(icon: .storage)
-        guard
-            case let .int(value) = quota.quota,
-            let progressFloat = quota.relative,
-            let used = quota.used,
-            let total = quota.total
-        else { return }
-
-        // Format used and total sizes
-        let usedString = Units(bytes: used).readableUnit
-        let totalString = Units(bytes: total).readableUnit
-
-        var quotaString = ""
-
-        // Check if there is a quota
-        if value < 0 {
-            // Negative quotas mean no quota (Unlimited).
-            quotaString = "\(usedString) of \(totalString) Used"
-        } else {
-            let quotaUnit = Units(bytes: value).readableUnit
-            quotaString = "\(usedString) of \(quotaUnit)"
-        }
-
-        detailLabel.text = quotaString
-
-        // Nextcloud gives a literal representation of the percentage
-        // 0.3 = 0.3% in this case
-        let correctedProgress = Float(progressFloat / 100)
-        progressView.progress = correctedProgress
     }
 }
