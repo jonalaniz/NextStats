@@ -121,7 +121,11 @@ class NXUsersManager: NSObject {
     }
 
     @MainActor
-    private func processResponse(_ user: String, type: ResponseType, response: GenericResponse) {
+    private func processResponse(
+        _ user: String,
+        type: ResponseType,
+        response: GenericResponse
+    ) {
         let meta = response.meta
         guard meta.statuscode == 100 else {
             return
@@ -133,11 +137,14 @@ class NXUsersManager: NSObject {
         }
     }
 
-    private func updateToggleFor(user: String) {
-        if let index = users.firstIndex(where: { $0.data.id
-            == user }) {
+    @MainActor private func updateToggleFor(user: String) {
+        if let index = users.firstIndex(
+            where: { $0.data.id
+            == user }
+        ) {
             let userID = users[index].data.id
             users[index].data.enabled.toggle()
+            buildTableData()
             delegate?.toggledUser(with: userID)
         }
     }

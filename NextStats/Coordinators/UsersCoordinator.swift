@@ -118,7 +118,6 @@ extension UsersCoordinator: UsersManagerDelegate {
     func userDeleted(_ user: UserCellModel) {
         usersViewController.tableView.reloadData()
         navigationController.popViewController(animated: true)
-        print("coomer")
     }
 
     func usersLoaded(_ users: [UserCellModel]) {
@@ -126,8 +125,8 @@ extension UsersCoordinator: UsersManagerDelegate {
     }
 
     func toggledUser(with id: String) {
-//        usersViewController.toggleUser(with: id)
-//        userViewController.dataManager.user?.data.enabled.toggle()
-//        userViewController.setTitle()
+        // TODO: Reload UsersViewController
+        // TODO: Toggle User in UserDetailView
+        userDetailsController.toggleUser()
     }
 }

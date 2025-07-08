@@ -29,6 +29,7 @@ class UserDetailsViewController: BaseDataTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+        setNavigationBarColor()
     }
 
     // MARK: - Setup
@@ -55,7 +56,15 @@ class UserDetailsViewController: BaseDataTableViewController {
 
     func set(_ user: User, sections: [TableSection]) {
         title = user.data.displayname
-        let enabled = user.data.enabled
+        self.user = user
+
+        // TableView Part
+        dataSource.sections = sections
+    }
+
+    private func setNavigationBarColor() {
+        guard let enabled = user?.data.enabled else { return }
+        print(enabled)
         let navigationBar = navigationController?.navigationBar
         let color: UIColor = enabled ? .theme : .systemGray
         let attributes = [
@@ -63,9 +72,6 @@ class UserDetailsViewController: BaseDataTableViewController {
         ]
         navigationBar?.titleTextAttributes = attributes
         navigationBar?.largeTitleTextAttributes = attributes
-
-        // TableView Part
-        dataSource.sections = sections
     }
 
     @objc func menuTapped() {
@@ -133,6 +139,11 @@ class UserDetailsViewController: BaseDataTableViewController {
     func deleteUser(action: UIAlertAction) {
         guard let user = user else { return }
         coordinator?.delete(user: user.data.id)
+    }
+
+    func toggleUser() {
+        user?.data.enabled.toggle()
+        setNavigationBarColor()
     }
 }
 
