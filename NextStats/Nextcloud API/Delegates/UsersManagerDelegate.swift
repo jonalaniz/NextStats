@@ -9,7 +9,7 @@
 import Foundation
 
 protocol UsersManagerDelegate: AnyObject {
-    func userDeleted(_ user: UserCellModel)
+    func userDeleted()
     func usersLoaded(_ users: [UserCellModel])
     func toggledUser(with id: String)
 }

@@ -154,11 +154,11 @@ class NXUsersManager: NSObject {
         users.removeAll()
     }
 
-    private func remove(user: String) {
+    @MainActor private func remove(user: String) {
         userIDs.removeAll(where: { $0 == user })
         users.removeAll(where: { $0.data.id == user })
-        // TODO: Add this back
-//        self.delegate?.stateDidChange(.deletedUser)
+        buildTableData()
+        delegate?.userDeleted()
     }
 
     @MainActor

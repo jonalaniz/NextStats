@@ -115,7 +115,7 @@ final class UsersCoordinator: NSObject, Coordinator {
 // MARK: UsersManagerDelegate
 
 extension UsersCoordinator: UsersManagerDelegate {
-    func userDeleted(_ user: UserCellModel) {
+    func userDeleted() {
         usersViewController.tableView.reloadData()
         navigationController.popViewController(animated: true)
     }
@@ -125,8 +125,6 @@ extension UsersCoordinator: UsersManagerDelegate {
     }
 
     func toggledUser(with id: String) {
-        // TODO: Reload UsersViewController
-        // TODO: Toggle User in UserDetailView
         userDetailsController.toggleUser()
     }
 }
