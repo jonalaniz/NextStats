@@ -37,6 +37,7 @@ class NXUserFactory: NSObject {
         }
     }
 
+    // TODO: - Make this more descriptive, groupsAvailable doesn't make sense
     func groupsAvailable() -> [String]? {
         guard let container = groupsObject?.data.groups.element
         else { return nil }

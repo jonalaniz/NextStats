@@ -40,7 +40,9 @@ final class NewUserCoordinator: NSObject, Coordinator {
 
     func start() {
         userFactory.delegate = self
-        popOverNavController.viewControllers = [newUserViewController]
+        popOverNavController.viewControllers = [
+            newUserViewController
+        ]
         newUserViewController.coordinator = self
         newUserViewController.dataSource = newUserDataSource
         navigationController.present(popOverNavController, animated: true)
@@ -82,6 +84,18 @@ final class NewUserCoordinator: NSObject, Coordinator {
         userFactory.createUser()
     }
 
+    func selectionMade(in section: NewUserSection) {
+        guard userFactory.groupsAvailable() != nil else { return }
+
+        // Only groups/subadmin/quota have segues, ignore other sections
+        switch section {
+        case .groups: showSelectionView(type: .groups)
+        case .subAdmin: showSelectionView(type: .subAdmin)
+        case .quota: showSelectionView(type: .quota)
+        default: break
+        }
+    }
+
     // MARK: - Helper Methods
 
     private func getSelections(for type: SelectionType) -> [String]? {
@@ -90,5 +104,85 @@ final class NewUserCoordinator: NSObject, Coordinator {
         case .subAdmin: return userFactory.selectedGroupsFor(role: .admin)
         case .quota: return [userFactory.quotaType().rawValue]
         }
+    }
+}
+
+// MARK: - NXUserFactoryDelegate
+
+extension NewUserCoordinator: NXUserFactoryDelegate {
+    func stateDidChange(_ state: NXUserFactoryState) {
+        switch state {
+        case .userCreated(let data):
+            guard let server = parentCoordinator?.usersManager.server
+            else { return }
+
+            userFactory.postUser(data: data, to: server)
+            // Show a spinner or something
+        case .sucess:
+            // Stop Spinner
+            parentCoordinator?.updateUsers()
+            popOverNavController.dismiss(animated: true)
+        case .ready: newUserViewController.enableNextButton()
+        }
+    }
+
+    func error(_ error: NXUserFactoryErrorType) {
+        // Stop spinner
+        switch error {
+        case .application(let error):
+            handleFactoryError(error)
+        case .network:
+            break
+        case .server(let code, let status, let message):
+            handleServerError(code: code, status: status, message: message)
+        }
+    }
+
+    private func handleFactoryError(_ error: NXUserFactoryError) {
+        switch error {
+        case .unableToEncodeData:
+            showError(title: .localized(.internalError),
+                      description: .localized(.unableToEncodeData),
+                      handler: nil)
+        }
+    }
+
+    private func handleServerError(code: Int, status: String, message: String) {
+        guard let statusCode = NewUserStatusCode(rawValue: code)
+        else {
+            showError(title: status, description: message, handler: dismissView)
+            return
+        }
+
+        switch statusCode {
+        case .successful: dismissView()
+        case .inviteCannotBeSent:
+            showError(title: status,
+                      description: description,
+                      handler: dismissView)
+        default: showError(title: status, description: message, handler: nil)
+
+        }
+    }
+
+    private func showError(title: String, description: String, handler: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(
+            title: title.capitalized,
+            message: description,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: .localized(.statsActionContinue),
+            style: .default,
+            handler: handler)
+        )
+        DispatchQueue.main.async {
+            self.newUserViewController.present(alert, animated: true)
+        }
+    }
+
+    private func dismissView(action: UIAlertAction! = nil) {
+        parentCoordinator?.updateUsers()
+        popOverNavController.dismiss(animated: true)
     }
 }

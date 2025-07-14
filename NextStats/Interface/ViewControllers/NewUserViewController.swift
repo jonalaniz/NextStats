@@ -11,8 +11,6 @@ import UIKit
 class NewUserViewController: BaseTableViewController {
     // MARK: - Properties
 
-    private let userFactory = NXUserFactory.shared
-
     weak var coordinator: NewUserCoordinator?
 
     // MARK: - Lifecycle
@@ -63,23 +61,22 @@ class NewUserViewController: BaseTableViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension NewUserViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard
-            let section = NewUserSection(rawValue: indexPath.section),
-            userFactory.groupsAvailable() != nil
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        guard let section = NewUserSection(
+            rawValue: indexPath.section)
         else { return }
 
-        switch section {
-        case .groups: coordinator?.showSelectionView(type: .groups)
-        case .subAdmin: coordinator?.showSelectionView(type: .subAdmin)
-        case .quota: coordinator?.showSelectionView(type: .quota)
-        default: return
-        }
+        coordinator?.selectionMade(in: section)
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
