@@ -44,7 +44,7 @@ enum NameField: Int, CaseIterable {
     }
 }
 
-enum RequiredField: Int, CaseIterable {
+enum RequiredCell: Int, CaseIterable {
     case email, password
 
     var placeholder: String {

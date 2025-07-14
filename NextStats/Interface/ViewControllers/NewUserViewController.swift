@@ -64,7 +64,9 @@ class NewUserViewController: BaseTableViewController {
 // MARK: - UITableViewDelegate
 
 extension NewUserViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView, heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 44
     }
 
@@ -72,8 +74,8 @@ extension NewUserViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        guard let section = NewUserSection(
-            rawValue: indexPath.section)
+        guard
+            let section = NewUserSection(rawValue: indexPath.section)
         else { return }
 
         coordinator?.selectionMade(in: section)

@@ -13,16 +13,14 @@ class NXUserFactory: NSObject {
 
     weak var delegate: NXUserFactoryDelegate?
 
-    let service = NextcloudService.shared
+    private let service = NextcloudService.shared
+    private var builder = UserBuilder()
     private var groupsObject: GroupsObject?
 
-    private(set) var userid: String?
-    private(set) var displayName: String?
-    private(set) var email: String?
-    private(set) var password: String?
-    private var memberOf = [String]()
-    private var adminOf = [String]()
-    private var quota: QuotaType = .defaultQuota
+    var displayName: String? { return builder.displayName }
+    var email: String? { return builder.email }
+    var password: String? { return builder.password }
+    var userid: String? { return builder.userid }
 
     private override init() {}
 
@@ -32,13 +30,12 @@ class NXUserFactory: NSObject {
                 let object = try await service.fetchGroups(for: server)
                 self.groupsObject = object
             } catch {
-                print(error)
+                delegate?.error(.network(.somethingWentWrong(error: error)))
             }
         }
     }
 
-    // TODO: - Make this more descriptive, groupsAvailable doesn't make sense
-    func groupsAvailable() -> [String]? {
+    func availableGroupNames() -> [String]? {
         guard let container = groupsObject?.data.groups.element
         else { return nil }
 
@@ -50,59 +47,52 @@ class NXUserFactory: NSObject {
 
     func selectedGroupsFor(role: GroupRole) -> [String] {
         switch role {
-        case .member: return memberOf
-        case .admin: return adminOf
+        case .member: return builder.groups ?? [String]()
+        case .admin: return builder.subAdmin ?? [String]()
         }
     }
 
     func quotaType() -> QuotaType {
-        return quota
+        return builder.quota
     }
 
     func set(userid: String?) {
-        self.userid = userid
+        builder.userid = userid
     }
 
     func set(displayName: String?) {
-        self.displayName = displayName
+        builder.displayName = displayName
     }
 
     func set(email: String?) {
-        self.email = email
+        builder.email = email
     }
 
     func set(password: String?) {
-        self.password = password
+        builder.password = password
     }
 
     func set(groups: [String]) {
-        memberOf = groups
+        builder.groups = groups
     }
 
     func set(adminOf groups: [String]) {
-        adminOf = groups
+        builder.subAdmin = groups
     }
 
     func set(quota: String) {
-        guard let selectedQuota = QuotaType(rawValue: quota)
+        guard let selectedQuota = QuotaType(displayName: quota)
         else { return }
-
-        self.quota = selectedQuota
+        builder.quota = selectedQuota
     }
 
     func createUser() {
-        let newUser = NewUser(userid: userid!,
-                              password: password,
-                              displayName: displayName,
-                              email: email,
-                              groups: memberOf,
-                              subAdmin: adminOf,
-                              quota: quota.string)
-
         do {
+            let newUser = try builder.build()
             let data = try JSONEncoder().encode(newUser)
             delegate?.stateDidChange(.userCreated(data: data))
         } catch {
+            // TODO: Consolidate errors
             handle(error: .application(.unableToEncodeData))
         }
     }
@@ -132,24 +122,12 @@ class NXUserFactory: NSObject {
             return
         }
         delegate?.stateDidChange(.sucess)
-        reset()
+        builder.reset()
     }
 
     func checkRequirements() {
-        guard let userid = userid, !userid.isEmpty else { return }
-        let requirementsMet = !(email?.isEmpty ?? true) || !(password?.isEmpty ?? true)
-        if requirementsMet { delegate?.stateDidChange(.ready) }
-    }
-
-    private func reset() {
-        userid = nil
-        displayName = nil
-        email = nil
-        password = nil
-        groupsObject = nil
-        memberOf.removeAll()
-        adminOf.removeAll()
-        quota = .defaultQuota
+        if builder.isValid { delegate?.stateDidChange(.readyToBuild)
+        }
     }
 
     private func handle(error: NXUserFactoryErrorType) {

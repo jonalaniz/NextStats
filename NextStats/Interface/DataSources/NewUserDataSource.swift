@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: Refactor this shit
 class NewUserDataSource: NSObject, UITableViewDataSource {
     let userFactory: NXUserFactory
     weak var textFieldDelegate: TextFieldDelegate?
@@ -41,7 +42,7 @@ class NewUserDataSource: NSObject, UITableViewDataSource {
             else { return UITableViewCell() }
             return nameCellFor(row, indexPath: indexPath)
         case .requiredFields:
-            guard let row = RequiredField(rawValue: indexPath.row)
+            guard let row = RequiredCell(rawValue: indexPath.row)
             else { return UITableViewCell() }
             return requiredCellFor(row, indexPath: indexPath)
         case .groups: return groupSelectionCell(for: .member)
@@ -58,8 +59,7 @@ class NewUserDataSource: NSObject, UITableViewDataSource {
     }
 
     func nameCellFor(_ field: NameField, indexPath: IndexPath) -> InputCell {
-        let text =
-        switch field {
+        let text = switch field {
         case .username: userFactory.userid
         case .displayName: userFactory.displayName
         }
@@ -71,9 +71,8 @@ class NewUserDataSource: NSObject, UITableViewDataSource {
             indexPath: indexPath)
     }
 
-    func requiredCellFor(_ field: RequiredField, indexPath: IndexPath) -> InputCell {
-        let text =
-        switch field {
+    func requiredCellFor(_ field: RequiredCell, indexPath: IndexPath) -> InputCell {
+        let text = switch field {
         case .password: userFactory.password
         case .email: userFactory.email
         }
@@ -85,10 +84,12 @@ class NewUserDataSource: NSObject, UITableViewDataSource {
             indexPath: indexPath)
     }
 
-    private func configureInputCell(placeholder: String,
-                                    text: String?,
-                                    type: TextFieldType,
-                                    indexPath: IndexPath) -> InputCell {
+    private func configureInputCell(
+        placeholder: String,
+        text: String?,
+        type: TextFieldType,
+        indexPath: IndexPath
+    ) -> InputCell {
         let cell = InputCell(style: .default, reuseIdentifier: InputCell.reuseidentifier)
         let textField = TextFieldFactory.textField(type: type, placeholder: placeholder)
 
@@ -106,35 +107,45 @@ class NewUserDataSource: NSObject, UITableViewDataSource {
 
     func groupSelectionCell(for role: GroupRole) -> UITableViewCell {
         guard userFactory.selectedGroupsFor(role: role).isEmpty else {
-            return BaseTableViewCell(style: .default,
-                                     text: userFactory.selectedGroupsFor(role: role).joined(separator: ", "),
-                                     accessoryType: .disclosureIndicator)
+            return BaseTableViewCell(
+                style: .default,
+                text: userFactory.selectedGroupsFor(role: role).joined(separator: ", "),
+                accessoryType: .disclosureIndicator
+            )
         }
 
-        guard userFactory.groupsAvailable() != nil else {
-            return BaseTableViewCell(style: .default,
-                                     text: .localized(.noGroups),
-                                     textColor: .secondaryLabel,
-                                     isInteractive: false)
+        guard userFactory.availableGroupNames() != nil else {
+            return BaseTableViewCell(
+                style: .default,
+                text: .localized(.noGroups),
+                textColor: .secondaryLabel,
+                isInteractive: false
+            )
         }
 
-        return BaseTableViewCell(style: .default,
-                                 text: .localized(.selectGroups),
-                                 textColor: .secondaryLabel,
-                                 accessoryType: .disclosureIndicator)
+        return BaseTableViewCell(
+            style: .default,
+            text: .localized(.selectGroups),
+            textColor: .secondaryLabel,
+            accessoryType: .disclosureIndicator
+        )
     }
 
     func quotaCell() -> UITableViewCell {
         let quota = userFactory.quotaType()
 
-        return BaseTableViewCell(style: .default,
-                                 text: quota.rawValue,
-                                 accessoryType: .disclosureIndicator)
+        return BaseTableViewCell(
+            style: .default,
+            text: quota.displayName,
+            accessoryType: .disclosureIndicator
+        )
     }
 
     @objc private func textFieldDidChange(_ sender: UITextField) {
         // Find the indexPath for this textField
-        guard let indexPath = textFields.first(where: { $0.value == sender})?.key
+        guard let indexPath = textFields.first(
+            where: { $0.value == sender}
+        )?.key
         else { return }
 
         // Map indexPath.section to the NewUsersSection
@@ -164,7 +175,7 @@ class NewUserDataSource: NSObject, UITableViewDataSource {
 
     private func updateRequiredField(_ row: Int, with text: String?) {
         // Map the row to a field
-        guard let field = RequiredField(rawValue: row),
+        guard let field = RequiredCell(rawValue: row),
               let text = text
         else { return }
 

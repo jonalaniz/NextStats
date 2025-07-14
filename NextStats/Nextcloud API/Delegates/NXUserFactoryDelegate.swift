@@ -19,12 +19,19 @@ enum NXUserFactoryErrorType {
     case server(code: Int, status: String, message: String)
 }
 
-enum NXUserFactoryError {
+enum NXUserFactoryError: Error {
     case unableToEncodeData
+    case missingRequiredFields(RequiredField)
+}
+
+enum RequiredField {
+    case userId
+    case email
+    case password
 }
 
 enum NXUserFactoryState {
     case userCreated(data: Data)
     case sucess
-    case ready
+    case readyToBuild
 }

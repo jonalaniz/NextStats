@@ -45,10 +45,14 @@ class SelectionViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let isSelected = selections.contains(selectable[indexPath.row])
-        return BaseTableViewCell(style: .default,
-                                 text: selectable[indexPath.row],
-                                 accessoryType: isSelected ? .checkmark : .none)
+        let isSelected = selections.contains(
+            selectable[indexPath.row]
+        )
+        return BaseTableViewCell(
+            style: .default,
+            text: selectable[indexPath.row],
+            accessoryType: isSelected ? .checkmark : .none
+        )
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -57,7 +61,9 @@ class SelectionViewController: UITableViewController {
         // If selectionType is quota, only one item is selectable
         guard selectionType != .quota else {
             selections = [selectedItem]
-            navigationController?.popViewController(animated: true)
+            navigationController?.popViewController(
+                animated: true
+            )
             return
         }
 
@@ -67,7 +73,9 @@ class SelectionViewController: UITableViewController {
             selections.insert(selectedItem)
         }
 
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        tableView.reloadRows(
+            at: [indexPath], with: .automatic
+        )
     }
 }
 
