@@ -381,7 +381,6 @@
 			children = (
 				56FE82DC2D636512001E2294 /* Enums */,
 				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
-				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 				56FE82DF2D637D27001E2294 /* ServerDataSource.swift */,
 			);
 			path = DataSources;
@@ -538,9 +537,10 @@
 		5698BF062E09D9FE0029DDC5 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
+				56F23EEB2E0E686100B3052B /* BaseDataSource.swift */,
+				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 				5698BF072E09DA110029DDC5 /* StatisticsDataSource.swift */,
 				56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */,
-				56F23EEB2E0E686100B3052B /* BaseDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
