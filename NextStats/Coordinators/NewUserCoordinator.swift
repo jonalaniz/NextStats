@@ -33,7 +33,7 @@ final class NewUserCoordinator: NSObject, Coordinator {
         self.splitViewController = splitViewController
         self.navigationController = navigationController
         newUserViewController = NewUserViewController()
-        newUserDataSource = NewUserDataSource(userFactory: userFactory)
+        newUserDataSource = NewUserDataSource()
     }
 
     // MARK: - Coordinator Lifecycle
@@ -100,8 +100,8 @@ final class NewUserCoordinator: NSObject, Coordinator {
 
     private func getSelections(for type: SelectionType) -> [String]? {
         switch type {
-        case .groups: return userFactory.selectedGroupsFor(role: .member)
-        case .subAdmin: return userFactory.selectedGroupsFor(role: .admin)
+        case .groups: return userFactory.selectedGroupsFor(.member)
+        case .subAdmin: return userFactory.selectedGroupsFor(.admin)
         case .quota: return [userFactory.quotaType().displayName]
         }
     }

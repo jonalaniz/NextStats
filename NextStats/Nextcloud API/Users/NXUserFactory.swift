@@ -45,10 +45,14 @@ class NXUserFactory: NSObject {
         }
     }
 
-    func selectedGroupsFor(role: GroupRole) -> [String] {
+    func selectedGroupsStringFor(_ role: GroupRole) -> String? {
+        return selectedGroupsFor(role)?.joined(separator: ", ")
+    }
+
+    func selectedGroupsFor(_ role: GroupRole) -> [String]? {
         switch role {
-        case .member: return builder.groups ?? [String]()
-        case .admin: return builder.subAdmin ?? [String]()
+        case .member: return builder.groups
+        case .admin: return builder.subAdmin
         }
     }
 

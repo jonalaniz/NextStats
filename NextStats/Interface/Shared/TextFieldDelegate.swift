@@ -9,6 +9,10 @@
 import UIKit
 
 class TextFieldDelegate: NSObject, UITextFieldDelegate {
+    static let shared = TextFieldDelegate()
+
+    private override init() {}
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
