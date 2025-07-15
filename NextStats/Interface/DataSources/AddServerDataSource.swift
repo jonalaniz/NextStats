@@ -12,9 +12,9 @@ protocol AuthenticationDataSourceDelegate: AnyObject {
     func didEnterURL(_ url: String)
 }
 
-class AuthenticationDataSource: NSObject, UITableViewDataSource {
+final class AuthenticationDataSource: NSObject, UITableViewDataSource {
     weak var delegate: AuthenticationDataSourceDelegate?
-    private let textFieldDelegate = TextFieldDelegate()
+    private let textFieldDelegate = TextFieldDelegate.shared
     var url: String?
     var name: String?
 
@@ -29,7 +29,9 @@ class AuthenticationDataSource: NSObject, UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let field = LoginFields(rawValue: indexPath.row)
+        guard let field = LoginFields(
+            rawValue: indexPath.row
+        )
         else { return UITableViewCell() }
 
         let cell = InputCell(
