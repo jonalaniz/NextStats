@@ -37,9 +37,7 @@ final class MainCoordinator: NSObject, Coordinator {
         detailNavigationController = UINavigationController(
             rootViewController: SelectServerViewController()
         )
-        serverDataSource = ServerDataSource(
-            serverManager: serverManager
-        )
+        serverDataSource = ServerDataSource()
     }
 
     // MARK: - Coordinator Lifecycle
