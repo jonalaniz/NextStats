@@ -9,22 +9,30 @@
 import UIKit
 
 final class ServerDataSource: NSObject, UITableViewDataSource {
-    let serverManager: NXServerManager
-
-    init(serverManager: NXServerManager) {
-        self.serverManager = serverManager
-    }
+    let serverManager = NXServerManager.shared
 
     func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
+        _ tableView: UITableView, numberOfRowsInSection section: Int
     ) -> Int {
         return serverManager.serverCount()
     }
 
     func tableView(
         _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            let row = indexPath.row
+            serverManager.remove(
+                serverManager.serverAt(row), refresh: false
+            )
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+
+    func tableView(
+        _ tableView: UITableView, cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: ServerCell.reuseIdentifier,
@@ -35,17 +43,5 @@ final class ServerDataSource: NSObject, UITableViewDataSource {
         cell.configure(with: serverManager.serverAt(indexPath.row))
 
         return cell
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath
-    ) {
-        if editingStyle == .delete {
-            let row = indexPath.row
-            serverManager.remove(serverManager.serverAt(row), refresh: false)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
     }
 }
