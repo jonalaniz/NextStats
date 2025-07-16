@@ -6,6 +6,7 @@
 //  Copyright © 2017 Shawn Moore. All rights reserved.
 //
 
+// swiftlint:disable:next blanket_disable_command
 // swiftlint:disable all
 import Foundation
 

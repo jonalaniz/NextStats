@@ -74,7 +74,9 @@ enum APIManagerError: Error {
         case .invalidDataType: .localized(.invalidData)
         case .invalidURL: .localized(.errorTitle)
         case .maintenance: .localized(.maintenanceMode)
+            // swiftlint:disable:next empty_enum_arguments
         case .serializaitonFailed(_): .localized(.errorTitle)
+            // swiftlint:disable:next empty_enum_arguments
         case .somethingWentWrong(_): .localized(.errorTitle)
         case .unauthorized: "You are unauthorized to access this Server"
         }

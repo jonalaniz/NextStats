@@ -32,6 +32,7 @@ internal extension DecodingError {
             return "a null value"
 
         } else if value is NSNumber {
+            // swiftlint:disable:next todo
             // FIXME: If swift-corelibs-foundation isn't updated to use NSNumber,
             // this check will be necessary: || value is Int || value is Double
             return "a number"
