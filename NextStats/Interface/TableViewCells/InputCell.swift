@@ -12,6 +12,13 @@ class InputCell: BaseTableViewCell {
 
     var textField: UITextField!
 
+    convenience init(style: UITableViewCell.CellStyle) {
+        self.init(
+            style: style,
+            reuseIdentifier: InputCell.reuseidentifier
+        )
+    }
+
     func setup() {
         self.selectionStyle = .none
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -19,10 +26,14 @@ class InputCell: BaseTableViewCell {
         contentView.addSubview(textField)
 
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: contentView.topAnchor),
-            textField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            textField.topAnchor.constraint(
+                equalTo: contentView.topAnchor),
+            textField.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor),
+            textField.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor),
+            textField.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor)
         ])
     }
 }

@@ -12,8 +12,6 @@ final class NewUserDataSource: NSObject, UITableViewDataSource {
     let userFactory = NXUserFactory.shared
     var textFieldDelegate = TextFieldDelegate.shared
 
-    // MARK: - UITableViewDataSource
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return NewUserSection.allCases.count
     }
@@ -48,7 +46,7 @@ final class NewUserDataSource: NSObject, UITableViewDataSource {
     // MARK: - Cell Creation
 
     private func makeInputCell(for userItem: NewUserItem) -> InputCell {
-        let cell = InputCell(style: .default, reuseIdentifier: InputCell.reuseidentifier)
+        let cell = InputCell(style: .default)
         let textField = TextFieldFactory.textField(
             type: userItem.type,
             placeholder: userItem.placeholder

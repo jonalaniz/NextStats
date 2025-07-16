@@ -16,7 +16,7 @@
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
 		5609385D2D5F816000DEAF40 /* StatsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609385C2D5F816000DEAF40 /* StatsSection.swift */; };
 		560938712D63269200DEAF40 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938702D63269200DEAF40 /* TextFieldDelegate.swift */; };
-		560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938752D63271400DEAF40 /* AddServerDataSource.swift */; };
+		560938762D63271400DEAF40 /* AuthenticationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938752D63271400DEAF40 /* AuthenticationDataSource.swift */; };
 		561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989125A85C2D00A8FE6D /* ServerStats.swift */; };
 		561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */; };
 		562043CE27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562043CD27A5E659002D45E1 /* NSMutableAttributedString+SFSymbols.swift */; };
@@ -149,7 +149,7 @@
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 		56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */; };
 		56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */; };
-		56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DD2D63653A001E2294 /* LoginFields.swift */; };
+		56FE82DE2D63653A001E2294 /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DD2D63653A001E2294 /* LoginItem.swift */; };
 		56FE82E02D637D27001E2294 /* ServerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DF2D637D27001E2294 /* ServerDataSource.swift */; };
 		56FE82E22D65D5CA001E2294 /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */; };
 /* End PBXBuildFile section */
@@ -175,7 +175,7 @@
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5609385C2D5F816000DEAF40 /* StatsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsSection.swift; sourceTree = "<group>"; };
 		560938702D63269200DEAF40 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
-		560938752D63271400DEAF40 /* AddServerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddServerDataSource.swift; sourceTree = "<group>"; };
+		560938752D63271400DEAF40 /* AuthenticationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDataSource.swift; sourceTree = "<group>"; };
 		5610C2C2268F0E00003F2335 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		561B989125A85C2D00A8FE6D /* ServerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerStats.swift; sourceTree = "<group>"; };
 		561B989725A85C9E00A8FE6D /* AuthenticationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationObject.swift; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 		56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+MenuActions.swift"; sourceTree = "<group>"; };
 		56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserDataSource.swift; sourceTree = "<group>"; };
-		56FE82DD2D63653A001E2294 /* LoginFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFields.swift; sourceTree = "<group>"; };
+		56FE82DD2D63653A001E2294 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
 		56FE82DF2D637D27001E2294 /* ServerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDataSource.swift; sourceTree = "<group>"; };
 		56FE82E12D65D5CA001E2294 /* UsersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -380,7 +380,6 @@
 			isa = PBXGroup;
 			children = (
 				56FE82DC2D636512001E2294 /* Enums */,
-				560938752D63271400DEAF40 /* AddServerDataSource.swift */,
 				56FE82DF2D637D27001E2294 /* ServerDataSource.swift */,
 			);
 			path = DataSources;
@@ -537,6 +536,7 @@
 		5698BF062E09D9FE0029DDC5 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
+				560938752D63271400DEAF40 /* AuthenticationDataSource.swift */,
 				56F23EEB2E0E686100B3052B /* BaseDataSource.swift */,
 				56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */,
 				5698BF072E09DA110029DDC5 /* StatisticsDataSource.swift */,
@@ -784,7 +784,7 @@
 		56FE82DC2D636512001E2294 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				56FE82DD2D63653A001E2294 /* LoginFields.swift */,
+				56FE82DD2D63653A001E2294 /* LoginItem.swift */,
 				56AAA3D72D5B78C8009DC223 /* NewUserSection.swift */,
 				5609385C2D5F816000DEAF40 /* StatsSection.swift */,
 				56AAA3D42D5B579F009DC223 /* UserSection.swift */,
@@ -983,7 +983,7 @@
 				56B17E1123D681A9007C33B2 /* ServerCell.swift in Sources */,
 				56A56EC42563C5A3005A6D18 /* InfoDataManager.swift in Sources */,
 				5646D68923CE0F750047876A /* ServerViewController.swift in Sources */,
-				56FE82DE2D63653A001E2294 /* LoginFields.swift in Sources */,
+				56FE82DE2D63653A001E2294 /* LoginItem.swift in Sources */,
 				569F2C7E26AAF61A001122F2 /* XMLDecoder.swift in Sources */,
 				561B989825A85C9E00A8FE6D /* AuthenticationObject.swift in Sources */,
 				5652A2F7276489AE0050F5EB /* NXAuthenticator.swift in Sources */,
@@ -1025,7 +1025,7 @@
 				56AAA3D32D5B4D48009DC223 /* InfoSection.swift in Sources */,
 				56FE82E22D65D5CA001E2294 /* UsersDataSource.swift in Sources */,
 				565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */,
-				560938762D63271400DEAF40 /* AddServerDataSource.swift in Sources */,
+				560938762D63271400DEAF40 /* AuthenticationDataSource.swift in Sources */,
 				565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */,
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */,
