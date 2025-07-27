@@ -29,7 +29,7 @@ final class AddServerCoordinator: NSObject, Coordinator {
 
     init(splitViewController: UISplitViewController) {
         self.splitViewController = splitViewController
-        self.authenticator = NXAuthenticator()
+        self.authenticator = NXAuthenticator.shared
         addServerVC = AddServerViewController()
     }
 
