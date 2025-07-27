@@ -11,7 +11,7 @@ import Foundation
 /// Facilitates the fetching and parsing of OCS objects into NextStat objects
 final class NXStatsManager: NSObject {
     /// Returns the shared `StatisticsDataManager` instance
-    public static let shared = NXStatsManager()
+    static let shared = NXStatsManager()
 
     private let service = NextcloudService.shared
 
