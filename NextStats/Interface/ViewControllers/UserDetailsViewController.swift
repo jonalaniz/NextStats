@@ -160,9 +160,6 @@ extension UserDetailsViewController: UITableViewDelegate {
     }
 
     private func height(for section: Int) -> CGFloat {
-        guard let tableSection = UserSection(rawValue: section)
-        else { return 44 }
-
-        return tableSection.rowHeight
+        return UserSection(rawValue: section)?.rowHeight ?? UITableView.automaticDimension
     }
 }

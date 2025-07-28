@@ -14,10 +14,10 @@ enum UserSection: Int, CaseIterable {
     case status
     case capabilities
 
-    var rowHeight: CGFloat {
+    var rowHeight: CGFloat? {
         switch self {
         case .quota: return 66
-        default: return 52
+        default: return nil
         }
     }
 

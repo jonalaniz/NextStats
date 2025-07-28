@@ -113,10 +113,6 @@ class UsersViewController: BaseDataTableViewController {
 // MARK: - UITableViewDelegate
 
 extension UsersViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 52
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         coordinator?.showUserView(for: indexPath.row)
     }

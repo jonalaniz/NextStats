@@ -26,10 +26,10 @@ enum StatsSection: Int, CaseIterable {
     ///
     /// - Returns: A `CGFloat` value representing the row height for cells in this section.
     ///            Memory rows are taller to accommodate progress views.
-    var rowHeight: CGFloat {
+    var rowHeight: CGFloat? {
         switch self {
         case .memory: return 66
-        default: return 44
+        default: return nil
         }
     }
 

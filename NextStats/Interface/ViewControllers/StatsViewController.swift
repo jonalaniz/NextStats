@@ -176,6 +176,6 @@ extension StatsViewController: UITableViewDelegate {
     ) -> CGFloat {
         return StatsSection(
             rawValue: indexPath.section
-        )?.rowHeight ?? 0
+        )?.rowHeight ?? UITableView.automaticDimension
     }
 }
