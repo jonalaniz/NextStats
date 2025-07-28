@@ -151,7 +151,7 @@ final class MainCoordinator: NSObject, Coordinator {
 
     func openInSafari() {
         guard
-            let urlString = statsDataManager.server?.friendlyURL,
+            let urlString = statsDataManager.server?.URLString,
             let url = URL(string: urlString)
         else { return }
         UIApplication.shared.open(url)
