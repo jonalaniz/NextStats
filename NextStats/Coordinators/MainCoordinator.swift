@@ -10,6 +10,7 @@ import UIKit
 
 /// Main Coordinator  responsible for selecting, editing, and viewing servers.
 final class MainCoordinator: NSObject, Coordinator {
+    
     // MARK: - Coordinator
 
     var childCoordinators = [Coordinator]()
