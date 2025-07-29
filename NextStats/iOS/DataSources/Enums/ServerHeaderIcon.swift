@@ -20,4 +20,12 @@ enum ServerHeaderIcon {
         case .user: return UIImage(systemName: "person.fill")
         }
     }
+
+    var name: String {
+        switch self {
+        case .chevron: "chevron.right"
+        case .safari: "safari.fill"
+        case .user: "person.fill"
+        }
+    }
 }
