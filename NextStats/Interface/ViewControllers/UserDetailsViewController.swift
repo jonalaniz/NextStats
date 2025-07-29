@@ -10,11 +10,13 @@ import UIKit
 
 /// A view controller that displays a the user details.
 class UserDetailsViewController: BaseDataTableViewController {
+    
     // MARK: - Coordinator
 
     weak var coordinator: UsersCoordinator?
 
     // MARK: - Properties
+
     let dataSource = StatisticsDataSource()
     private var user: User?
 
@@ -63,8 +65,8 @@ class UserDetailsViewController: BaseDataTableViewController {
     }
 
     private func setNavigationBarColor() {
-        guard let enabled = user?.data.enabled else { return }
-        print(enabled)
+        guard let enabled = user?.data.enabled
+        else { return }
         let navigationBar = navigationController?.navigationBar
         let color: UIColor = enabled ? .theme : .systemGray
         let attributes = [

@@ -10,6 +10,7 @@ import UIKit
 
 /// A view controller that displays a list of users.
 class UsersViewController: BaseDataTableViewController {
+
     // MARK: - Coordinator
 
     weak var coordinator: UsersCoordinator?
