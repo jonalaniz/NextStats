@@ -9,6 +9,7 @@
 import UIKit
 
 class ServerHeaderView: UIView {
+
     // MARK: - Properties
 
     let mainStackView: UIStackView = {
@@ -89,7 +90,7 @@ class ServerHeaderView: UIView {
     // MARK: Lifecycle
 
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        super.init(frame: .zero)
         setupView()
     }
 
@@ -104,9 +105,12 @@ class ServerHeaderView: UIView {
         mainStackView.addArrangedSubview(imageView)
         mainStackView.addArrangedSubview(nameLabel)
         mainStackView.addArrangedSubview(addressLabel)
-        mainStackView.addArrangedSubview(buttonStackView)
-        buttonStackView.addArrangedSubview(users)
-        buttonStackView.addArrangedSubview(visitServerButton)
+
+        if !SystemVersion.isiOS26 {
+            mainStackView.addArrangedSubview(buttonStackView)
+            buttonStackView.addArrangedSubview(users)
+            buttonStackView.addArrangedSubview(visitServerButton)
+        }
 
         addSubview(mainStackView)
 

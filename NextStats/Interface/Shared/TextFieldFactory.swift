@@ -15,6 +15,8 @@ enum TextFieldType {
 class TextFieldFactory {
     static func textField(type: TextFieldType, placeholder: String) -> UITextField {
         let textField = UITextField()
+        textField.font = .preferredFont(forTextStyle: .body)
+        textField.adjustsFontForContentSizeCategory = true
         textField.placeholder = placeholder
         textField.returnKeyType = .done
 

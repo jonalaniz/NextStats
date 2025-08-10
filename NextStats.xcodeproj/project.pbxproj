@@ -14,6 +14,7 @@
 		5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */; };
 		5601D80225E31AA000993D31 /* WKWebView+Cookies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */; };
 		5601D80625E31C4900993D31 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5601D80525E31C4900993D31 /* String+Localized.swift */; };
+		560547D72E3938E600B8649C /* SystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560547D62E3938E600B8649C /* SystemVersion.swift */; };
 		5609385D2D5F816000DEAF40 /* StatsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609385C2D5F816000DEAF40 /* StatsSection.swift */; };
 		560938712D63269200DEAF40 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938702D63269200DEAF40 /* TextFieldDelegate.swift */; };
 		560938762D63271400DEAF40 /* AuthenticationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560938752D63271400DEAF40 /* AuthenticationDataSource.swift */; };
@@ -173,6 +174,7 @@
 		5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIActivityIndicatorView+Activate-Deactivate.swift"; sourceTree = "<group>"; };
 		5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Cookies.swift"; sourceTree = "<group>"; };
 		5601D80525E31C4900993D31 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		560547D62E3938E600B8649C /* SystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemVersion.swift; sourceTree = "<group>"; };
 		5609385C2D5F816000DEAF40 /* StatsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsSection.swift; sourceTree = "<group>"; };
 		560938702D63269200DEAF40 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		560938752D63271400DEAF40 /* AuthenticationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationDataSource.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				565130D8268BD7D3008FE8D4 /* Units.swift */,
 				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
 				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
+				560547D62E3938E600B8649C /* SystemVersion.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -962,6 +965,7 @@
 				569F2C8026AAF61A001122F2 /* XMLKey.swift in Sources */,
 				56E0AD8626ADC0180090ACB6 /* NoServersViewController.swift in Sources */,
 				56F23EE52E0E594400B3052B /* TableSection.swift in Sources */,
+				560547D72E3938E600B8649C /* SystemVersion.swift in Sources */,
 				5601D7FC25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift in Sources */,
 				562C25A22CB9F6C0001BF067 /* NextcloudService.swift in Sources */,
 				56A3188F2772804B00EAF1F2 /* NXStatsManager.swift in Sources */,

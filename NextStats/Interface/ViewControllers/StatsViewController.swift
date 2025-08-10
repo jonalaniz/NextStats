@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// A view controller that displays the statistics of the corresponding Nextcloud Server
 class StatsViewController: BaseDataTableViewController {
     // MARK: - Coordinator
 
@@ -28,7 +29,6 @@ class StatsViewController: BaseDataTableViewController {
         delegate = self
         tableStyle = .insetGrouped
         super.viewDidLoad()
-
         add(loadingView)
         tableView.isHidden = true
         tableView.dataSource = dataSource
@@ -51,7 +51,30 @@ class StatsViewController: BaseDataTableViewController {
             self.navigationController?.setNavigationBarHidden(
                 true, animated: true
             )
+        } else {
+            navigationController?.isNavigationBarHidden = false
         }
+    }
+
+    override func setupToolbar() {
+        guard SystemVersion.isiOS26 else { return }
+        let usersButtonView = createToolbarButton(
+            image: ServerHeaderIcon.user.name,
+            text: .localized(.users),
+            action: #selector(userManagementPressed)
+        )
+        let visitButtonView = createToolbarButton(
+            image: ServerHeaderIcon.safari.name,
+            action: #selector(openInSafari)
+        )
+
+        toolbarItems = [
+            .flexibleSpace(),
+            usersButtonView,
+            .fixedSpace(10),
+            visitButtonView
+        ]
+        navigationController?.isToolbarHidden = false
     }
 
     override func registerCells() {
@@ -82,6 +105,9 @@ class StatsViewController: BaseDataTableViewController {
             action: #selector(openInSafari),
             for: .touchUpInside
         )
+        headerView.frame.size.height = headerView.systemLayoutSizeFitting(
+            UIView.layoutFittingCompressedSize
+        ).height
         tableViewHeaderView = headerView
     }
 
@@ -135,6 +161,26 @@ class StatsViewController: BaseDataTableViewController {
     }
 
     // MARK: - Helper Methods
+
+    private func createToolbarButton(
+        image: String, text: String? = nil, action: Selector
+    ) -> UIBarButtonItem {
+        let button = UIButton(type: .system)
+        button.addTarget(self, action: action, for: .touchUpInside)
+
+        if let systemImage = UIImage(systemName: image) {
+            button.setImage(systemImage, for: .normal)
+        }
+
+        if let text = text {
+            button.setTitle(" \(text)", for: .normal)
+            button.titleLabel?.font = .preferredFont(
+                forTextStyle: .headline
+            )
+        }
+
+        return UIBarButtonItem(customView: button)
+    }
 
     private func makeAlertController() -> UIAlertController {
         let alert = UIAlertController(
