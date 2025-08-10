@@ -52,6 +52,7 @@ class AddServerHeaderView: UIView {
         super.init(coder: coder)
         setupView()
     }
+
     func setupView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         activityIndicatior.translatesAutoresizingMaskIntoConstraints = false
