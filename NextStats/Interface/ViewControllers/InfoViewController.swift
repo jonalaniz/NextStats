@@ -25,10 +25,10 @@ class InfoViewController: BaseTableViewController {
         tableStyle = .insetGrouped
         tableViewHeaderView = InfoHeaderView()
         dataManager.delegate = self
-        dataSource = dataManager
         delegate = self
         super.viewDidLoad()
         setupNotifications()
+        tableView.dataSource = dataManager
     }
 
     // MARK: - Configuration

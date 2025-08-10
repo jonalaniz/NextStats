@@ -9,8 +9,8 @@
 import UIKit
 
 /// A view controller that displays a the user details.
-class UserDetailsViewController: BaseDataTableViewController {
-    
+class UserDetailsViewController: BaseTableViewController {
+
     // MARK: - Coordinator
 
     weak var coordinator: UsersCoordinator?

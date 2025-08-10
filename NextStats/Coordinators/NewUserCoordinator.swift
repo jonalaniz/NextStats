@@ -18,7 +18,6 @@ final class NewUserCoordinator: NSObject, Coordinator {
     // MARK: - Dependencies
 
     let userFactory = NXUserFactory.shared
-    private let newUserDataSource: NewUserDataSource
 
     // MARK: - View Controllers
 
@@ -33,7 +32,6 @@ final class NewUserCoordinator: NSObject, Coordinator {
         self.splitViewController = splitViewController
         self.navigationController = navigationController
         newUserViewController = NewUserViewController()
-        newUserDataSource = NewUserDataSource()
     }
 
     // MARK: - Coordinator Lifecycle
@@ -44,7 +42,6 @@ final class NewUserCoordinator: NSObject, Coordinator {
             newUserViewController
         ]
         newUserViewController.coordinator = self
-        newUserViewController.dataSource = newUserDataSource
         navigationController.present(popOverNavController, animated: true)
     }
 

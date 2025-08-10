@@ -121,7 +121,6 @@
 		56D3442C2CEC61B200A5933B /* GenericResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D3442B2CEC61B200A5933B /* GenericResponse.swift */; };
 		56D3442E2CEC8C2900A5933B /* ToggleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D3442D2CEC8C2900A5933B /* ToggleType.swift */; };
 		56D4ACE92BB9DD5E00C640EB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */; };
-		56D5577A2D432A860027A1FB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D557792D432A860027A1FB /* BaseTableViewController.swift */; };
 		56D557FF2D46C28F0027A1FB /* BaseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D557FE2D46C28F0027A1FB /* BaseDataManager.swift */; };
 		56D558012D46C2EB0027A1FB /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56D558002D46C2EB0027A1FB /* DataManagerDelegate.swift */; };
 		56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */; };
@@ -143,7 +142,7 @@
 		56F23EE72E0E595200B3052B /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23EE62E0E595200B3052B /* TableRow.swift */; };
 		56F23EE92E0E595F00B3052B /* ProgressCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23EE82E0E595F00B3052B /* ProgressCellData.swift */; };
 		56F23EEC2E0E686100B3052B /* BaseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23EEB2E0E686100B3052B /* BaseDataSource.swift */; };
-		56F23EEE2E0E694200B3052B /* BaseDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23EED2E0E694200B3052B /* BaseDataTableViewController.swift */; };
+		56F23EEE2E0E694200B3052B /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23EED2E0E694200B3052B /* BaseTableViewController.swift */; };
 		56F23FA92E11203600B3052B /* GenericCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23FA82E11203600B3052B /* GenericCell.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
 		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
@@ -282,7 +281,6 @@
 		56D3442B2CEC61B200A5933B /* GenericResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericResponse.swift; sourceTree = "<group>"; };
 		56D3442D2CEC8C2900A5933B /* ToggleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleType.swift; sourceTree = "<group>"; };
 		56D4ACE82BB9DD5E00C640EB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		56D557792D432A860027A1FB /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		56D557FE2D46C28F0027A1FB /* BaseDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataManager.swift; sourceTree = "<group>"; };
 		56D558002D46C2EB0027A1FB /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerDelegate.swift; sourceTree = "<group>"; };
 		56DBC1362932EFC1002A306B /* NXAuthenticationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NXAuthenticationDelegate.swift; sourceTree = "<group>"; };
@@ -304,7 +302,7 @@
 		56F23EE62E0E595200B3052B /* TableRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRow.swift; sourceTree = "<group>"; };
 		56F23EE82E0E595F00B3052B /* ProgressCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCellData.swift; sourceTree = "<group>"; };
 		56F23EEB2E0E686100B3052B /* BaseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataSource.swift; sourceTree = "<group>"; };
-		56F23EED2E0E694200B3052B /* BaseDataTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDataTableViewController.swift; sourceTree = "<group>"; };
+		56F23EED2E0E694200B3052B /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		56F23FA82E11203600B3052B /* GenericCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCell.swift; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
 		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
@@ -607,8 +605,7 @@
 			isa = PBXGroup;
 			children = (
 				56F1C6802D53606300EA03BD /* BaseViewController.swift */,
-				56D557792D432A860027A1FB /* BaseTableViewController.swift */,
-				56F23EED2E0E694200B3052B /* BaseDataTableViewController.swift */,
+				56F23EED2E0E694200B3052B /* BaseTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -937,7 +934,6 @@
 				565CDC0825E612C900028EA9 /* InfoCoordinator.swift in Sources */,
 				569F2C7F26AAF61A001122F2 /* ISO8601DateFormatter.swift in Sources */,
 				56F23EDA2E0E558D00B3052B /* TitledSection.swift in Sources */,
-				56D5577A2D432A860027A1FB /* BaseTableViewController.swift in Sources */,
 				561B989225A85C2D00A8FE6D /* ServerStats.swift in Sources */,
 				569F2C7D26AAF61A001122F2 /* XMLDecodingStorage.swift in Sources */,
 				56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */,
@@ -987,7 +983,7 @@
 				564E5D412E02C11E007F9747 /* ErrorPresentor.swift in Sources */,
 				56F23FA92E11203600B3052B /* GenericCell.swift in Sources */,
 				56B1413F267E7236002D66D8 /* Endpoint.swift in Sources */,
-				56F23EEE2E0E694200B3052B /* BaseDataTableViewController.swift in Sources */,
+				56F23EEE2E0E694200B3052B /* BaseTableViewController.swift in Sources */,
 				5609385D2D5F816000DEAF40 /* StatsSection.swift in Sources */,
 				56DBC1372932EFC1002A306B /* NXAuthenticationDelegate.swift in Sources */,
 				562ED27C26B5E9B100E4E1C5 /* User.swift in Sources */,

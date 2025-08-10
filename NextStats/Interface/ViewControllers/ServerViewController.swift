@@ -9,12 +9,19 @@
 import UIKit
 
 class ServerViewController: BaseTableViewController {
-    // MARK: - Properties
-
-    let noServersViewController = NoServersViewController()
-    let serverManager = NXServerManager.shared
+    // MARK: - Coordinator
 
     weak var coordinator: MainCoordinator?
+
+    // MARK: - Properties
+
+    // TODO: Remove this serverManager
+    private let serverManager = NXServerManager.shared
+    private let dataSource = ServerDataSource()
+
+    // MARK: - Views
+
+    let noServersViewController = NoServersViewController()
 
     // MARK: - Lifecycle
 
@@ -23,8 +30,11 @@ class ServerViewController: BaseTableViewController {
         tableStyle = isMacCatalyst() ? .plain : .insetGrouped
         delegate = self
         super.viewDidLoad()
+        // TODO: WHY THE FUCK IS THIS HERE AND NOT IN THE COORDINATOR
         serverManager.delegate = coordinator
+
         serverManager.pingServers()
+        tableView.dataSource = dataSource
         add(noServersViewController)
         coordinator?.serversDidChange(refresh: false)
     }

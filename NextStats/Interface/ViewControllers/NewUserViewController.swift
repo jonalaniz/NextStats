@@ -9,9 +9,13 @@
 import UIKit
 
 class NewUserViewController: BaseTableViewController {
-    // MARK: - Properties
+    // MARK: - Coordinator
 
     weak var coordinator: NewUserCoordinator?
+
+    // MARK: - Properties
+
+    let dataSource = NewUserDataSource()
 
     // MARK: - Lifecycle
 
@@ -41,6 +45,13 @@ class NewUserViewController: BaseTableViewController {
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
+    override func setupTableView() {
+        super.setupTableView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.dataSource = dataSource
+    }
+
     override func registerCells() {
         tableView.register(
             InputCell.self,
@@ -64,11 +75,6 @@ class NewUserViewController: BaseTableViewController {
 // MARK: - UITableViewDelegate
 
 extension NewUserViewController: UITableViewDelegate {
-    func tableView(
-        _ tableView: UITableView, heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
-        return 44
-    }
 
     func tableView(
         _ tableView: UITableView,

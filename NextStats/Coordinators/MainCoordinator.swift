@@ -10,7 +10,7 @@ import UIKit
 
 /// Main Coordinator  responsible for selecting, editing, and viewing servers.
 final class MainCoordinator: NSObject, Coordinator {
-    
+
     // MARK: - Coordinator
 
     var childCoordinators = [Coordinator]()
@@ -55,7 +55,6 @@ final class MainCoordinator: NSObject, Coordinator {
             detailNavigationController
         ]
         mainViewController.coordinator = self
-        mainViewController.dataSource = serverDataSource
         statsViewController.coordinator = self
         statsDataManager.delegate = self
         statsDataManager.errorHandler = self

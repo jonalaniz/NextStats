@@ -25,15 +25,26 @@ class InputCell: BaseTableViewCell {
 
         contentView.addSubview(textField)
 
+        let padding: CGFloat = 12.0
+        let sidePadding: CGFloat = 2.0
+
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(
-                equalTo: contentView.topAnchor),
+                equalTo: contentView.topAnchor,
+                constant: padding
+            ),
             textField.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor),
+                equalTo: contentView.bottomAnchor,
+                constant: -padding
+            ),
             textField.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor),
+                equalTo: contentView.leadingAnchor,
+                constant: sidePadding
+            ),
             textField.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor)
+                equalTo: contentView.trailingAnchor,
+                constant: -sidePadding
+            )
         ])
     }
 }

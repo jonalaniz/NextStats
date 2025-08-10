@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view controller that displays a list of users.
-class UsersViewController: BaseDataTableViewController {
+class UsersViewController: BaseTableViewController {
 
     // MARK: - Coordinator
 

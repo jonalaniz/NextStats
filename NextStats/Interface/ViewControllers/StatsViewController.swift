@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view controller that displays the statistics of the corresponding Nextcloud Server
-class StatsViewController: BaseDataTableViewController {
+class StatsViewController: BaseTableViewController {
     // MARK: - Coordinator
 
     weak var coordinator: MainCoordinator?
