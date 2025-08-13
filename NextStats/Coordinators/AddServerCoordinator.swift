@@ -58,8 +58,7 @@ final class AddServerCoordinator: NSObject, Coordinator {
         let webVC = WebViewController()
         webVC.coordinator = self
         webVC.passedURLString = urlString
-
-        addServerVC.headerView.activityIndicatior.deactivate()
+        addServerVC.showIndicator(false)
         navigationController.pushViewController(webVC, animated: true)
     }
 
@@ -75,8 +74,7 @@ final class AddServerCoordinator: NSObject, Coordinator {
 
         let url = URL(string: urlString)!
         authenticator.requestAuthenticationObject(at: url, named: name)
-
-        addServerVC.headerView.activityIndicatior.activate()
+        addServerVC.showIndicator(true)
     }
 
     func cancelAuthentication() {

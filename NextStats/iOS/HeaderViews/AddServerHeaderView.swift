@@ -9,7 +9,7 @@
 import UIKit
 
 class AddServerHeaderView: UIView {
-    let padding: CGFloat = {
+    private let padding: CGFloat = {
         if UIDevice.current.userInterfaceIdiom == .pad {
             return 200
         } else {
@@ -17,21 +17,22 @@ class AddServerHeaderView: UIView {
         }
     }()
 
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "nextcloud-drive-connect"))
         imageView.contentMode = .scaleAspectFit
 
         return imageView
     }()
 
-    let activityIndicatior: UIActivityIndicatorView = {
+    private let indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
         indicator.style = .medium
 
         return indicator
     }()
 
-    let statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let label = UILabel()
         label.isHidden = true
         label.textColor = .themeRed
@@ -53,25 +54,40 @@ class AddServerHeaderView: UIView {
         setupView()
     }
 
-    func setupView() {
+    private func setupView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatior.translatesAutoresizingMaskIntoConstraints = false
+        indicator.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(imageView)
-        addSubview(activityIndicatior)
+        addSubview(indicator)
         addSubview(statusLabel)
 
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            activityIndicatior.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicatior.centerYAnchor.constraint(equalTo: bottomAnchor, constant: -21),
+            indicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: bottomAnchor, constant: -21),
             statusLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             statusLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12),
             statusLabel.heightAnchor.constraint(equalToConstant: 14)
         ])
+    }
+
+    func updateLabel(with text: String) {
+        statusLabel.isHidden = false
+        statusLabel.text = text
+        indicator.deactivate()
+    }
+
+    func enableIndicator(_ enabled: Bool) {
+        guard indicator.isAnimating == enabled else { return }
+        if enabled {
+            indicator.startAnimating()
+        } else {
+            indicator.stopAnimating()
+        }
     }
 }

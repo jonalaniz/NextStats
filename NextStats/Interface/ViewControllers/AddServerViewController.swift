@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddServerViewController: BaseTableViewController {
+final class AddServerViewController: BaseTableViewController {
     // MARK: - Cordinator
 
     weak var coordinator: AddServerCoordinator?
@@ -20,7 +20,7 @@ class AddServerViewController: BaseTableViewController {
 
     // MARK: - Views
 
-    let headerView = AddServerHeaderView()
+    private let headerView = AddServerHeaderView()
 
     // MARK: - Lifecycle
 
@@ -89,14 +89,19 @@ class AddServerViewController: BaseTableViewController {
 
     func updateLabel(with text: String) {
         navigationItem.rightBarButtonItem?.isEnabled = false
-        headerView.statusLabel.isHidden = false
-        headerView.statusLabel.text = text
-        headerView.activityIndicatior.deactivate()
+        headerView.updateLabel(with: text)
+    }
+
+    func showIndicator(_ show: Bool) {
+        headerView.enableIndicator(show)
     }
 
     private func toggleAuthentication(enabled: Bool) {
-        if !enabled { updateLabel(with: .localized(.serverFormEnterAddress)) }
-        headerView.statusLabel.isHidden = enabled
+        if !enabled {
+            updateLabel(with: .localized(.serverFormEnterAddress))
+        } else {
+            showIndicator(enabled)
+        }
         navigationItem.rightBarButtonItem?.isEnabled = enabled
     }
 
