@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServerViewController: BaseTableViewController {
+final class ServerViewController: BaseTableViewController {
     // MARK: - Coordinator
 
     weak var coordinator: MainCoordinator?

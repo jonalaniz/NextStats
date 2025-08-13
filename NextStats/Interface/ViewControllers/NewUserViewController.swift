@@ -8,14 +8,14 @@
 
 import UIKit
 
-class NewUserViewController: BaseTableViewController {
+final class NewUserViewController: BaseTableViewController {
     // MARK: - Coordinator
 
     weak var coordinator: NewUserCoordinator?
 
     // MARK: - Properties
 
-    let dataSource = NewUserDataSource()
+    private let dataSource = NewUserDataSource()
 
     // MARK: - Lifecycle
 
@@ -75,7 +75,6 @@ class NewUserViewController: BaseTableViewController {
 // MARK: - UITableViewDelegate
 
 extension NewUserViewController: UITableViewDelegate {
-
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath

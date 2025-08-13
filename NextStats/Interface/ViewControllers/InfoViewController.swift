@@ -9,12 +9,14 @@
 import StoreKit
 import UIKit
 
-class InfoViewController: BaseTableViewController {
+final class InfoViewController: BaseTableViewController {
+    // MARK: - Coordinator
+
+    weak var coordinator: InfoCoordinator?
+
     // MARK: - Properties
 
     private let dataManager = InfoDataManager.shared
-
-    weak var coordinator: InfoCoordinator?
     private var products = [SKProduct]()
 
     // MARK: - Lifecycle
