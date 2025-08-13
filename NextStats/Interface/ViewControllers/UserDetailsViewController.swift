@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view controller that displays a the user details.
-class UserDetailsViewController: BaseTableViewController {
+final class UserDetailsViewController: BaseTableViewController {
 
     // MARK: - Coordinator
 
@@ -148,6 +148,8 @@ class UserDetailsViewController: BaseTableViewController {
         setNavigationBarColor()
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension UserDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
