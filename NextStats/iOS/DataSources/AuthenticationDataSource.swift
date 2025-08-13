@@ -74,9 +74,9 @@ final class AuthenticationDataSource: NSObject, UITableViewDataSource {
 
         switch item {
         case .name: name = text
-        case .url: url = text
+        case .url:
+            url = text
+            delegate?.didEnterURL(url ?? "")
         }
-
-        delegate?.didEnterURL(url ?? "")
     }
 }
