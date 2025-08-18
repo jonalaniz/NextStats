@@ -38,7 +38,7 @@ final class UserDetailsViewController: BaseTableViewController {
 
     override func setupNavigationController() {
         let moreButton = UIBarButtonItem(
-            image: UIImage(systemName: "ellipsis.circle"),
+            image: SFSymbol.ellipsisCircle.image,
             style: .plain,
             target: self,
             action: #selector(menuTapped)

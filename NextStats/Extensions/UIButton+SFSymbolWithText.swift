@@ -7,11 +7,11 @@
 //
 
 import UIKit
-
+// TODO: Either use or remove this
 extension UIButton {
-    func sfSymbolWithText(symbol: String, text: String, color: UIColor) {
+    func sfSymbolWithText(symbol: SFSymbol, text: String, color: UIColor) {
         let attachment = NSTextAttachment()
-        attachment.image = UIImage(systemName: symbol)?.withTintColor(color)
+        attachment.image = symbol.image?.withTintColor(color)
 
         let imageString = NSMutableAttributedString(attachment: attachment)
         let text = NSAttributedString(string: " \(text)")

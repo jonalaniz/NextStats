@@ -13,9 +13,9 @@ enum ProgressCellIcon {
 
     var image: UIImage? {
         switch self {
-        case .storage: return UIImage(systemName: "internaldrive")
-        case .memory: return UIImage(systemName: "memorychip")
-        case .swap: return UIImage(systemName: "memorychip.fill")
+        case .storage: return SFSymbol.internalDrive.image
+        case .memory: return SFSymbol.memorychip.image
+        case .swap: return SFSymbol.swap.image
         }
     }
 }

@@ -63,7 +63,7 @@ class ServerHeaderView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .cellBackground
         config.cornerStyle = .medium
-        config.image = ServerHeaderIcon.user.image
+        config.image = SFSymbol.user.image
         config.title = .localized(.users)
         config.baseForegroundColor = .theme
         config.imagePadding = 8
@@ -77,7 +77,7 @@ class ServerHeaderView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .cellBackground
         config.cornerStyle = .medium
-        config.image = ServerHeaderIcon.safari.image
+        config.image = SFSymbol.safari.image
         config.title = .localized(.serverHeaderVisit)
         config.baseForegroundColor = .theme
         config.imagePadding = 8

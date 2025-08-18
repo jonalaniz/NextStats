@@ -38,7 +38,7 @@ class StatsViewController: BaseTableViewController {
 
     override func setupNavigationController() {
         let moreButton = UIBarButtonItem(
-            image: UIImage(systemName: "ellipsis.circle"),
+            image: SFSymbol.ellipsisCircle.image,
             style: .plain,
             target: self,
             action: #selector(menuTapped)
@@ -59,12 +59,12 @@ class StatsViewController: BaseTableViewController {
     override func setupToolbar() {
         guard SystemVersion.isiOS26 else { return }
         let usersButtonView = createToolbarButton(
-            image: ServerHeaderIcon.user.name,
+            image: SFSymbol.user,
             text: .localized(.users),
             action: #selector(userManagementPressed)
         )
         let visitButtonView = createToolbarButton(
-            image: ServerHeaderIcon.safari.name,
+            image: SFSymbol.safari,
             action: #selector(openInSafari)
         )
 
@@ -163,12 +163,12 @@ class StatsViewController: BaseTableViewController {
     // MARK: - Helper Methods
 
     private func createToolbarButton(
-        image: String, text: String? = nil, action: Selector
+        image: SFSymbol, text: String? = nil, action: Selector
     ) -> UIBarButtonItem {
         let button = UIButton(type: .system)
         button.addTarget(self, action: action, for: .touchUpInside)
 
-        if let systemImage = UIImage(systemName: image) {
+        if let systemImage = image.image{
             button.setImage(systemImage, for: .normal)
         }
 
