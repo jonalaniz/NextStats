@@ -58,6 +58,7 @@ final class MainCoordinator: NSObject, Coordinator {
         statsViewController.coordinator = self
         statsDataManager.delegate = self
         statsDataManager.errorHandler = self
+        serverManager.delegate = self
     }
 
     func childDidFinish(_ child: Coordinator?) {

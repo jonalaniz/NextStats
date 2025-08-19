@@ -30,9 +30,6 @@ final class ServerViewController: BaseTableViewController {
         tableStyle = isMacCatalyst() ? .plain : .insetGrouped
         delegate = self
         super.viewDidLoad()
-        // TODO: WHY THE FUCK IS THIS HERE AND NOT IN THE COORDINATOR
-        serverManager.delegate = coordinator
-
         serverManager.pingServers()
         tableView.dataSource = dataSource
         add(noServersViewController)
