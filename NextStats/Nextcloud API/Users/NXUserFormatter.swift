@@ -83,8 +83,6 @@ class NXUserFormatter: NSObject {
         return [
             emailSection, quotaSection, statusSection, capabilitiesSection
         ]
-
-//        delegate?.stateDidChange(.dataCaptured(sections))
     }
 
     private func emailSection(_ addresses: [String]) -> [TableRow] {
