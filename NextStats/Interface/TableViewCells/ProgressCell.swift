@@ -123,8 +123,17 @@ class ProgressCell: BaseTableViewCell {
 
     func configure(free: Int, total: Int, type: ProgressCellIcon) {
         let used = total - free
-        let usedString = Units(kilobytes: used).readableUnit
-        let totalString = Units(kilobytes: total).readableUnit
+        let usedString: String
+        let totalString: String
+
+        if type == .storage {
+            usedString = Units(bytes: used).readableUnit
+            totalString = Units(bytes: total).readableUnit
+        } else {
+            usedString = Units(kilobytes: used).readableUnit
+            totalString = Units(kilobytes: total).readableUnit
+        }
+
         let label = "\(usedString) of \(totalString) Used"
 
         set(icon: type)
