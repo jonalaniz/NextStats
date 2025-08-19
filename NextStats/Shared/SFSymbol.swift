@@ -9,8 +9,12 @@
 import UIKit
 
 enum SFSymbol: String {
+    case addServer = "externaldrive.fill.badge.plus"
     case cheveron = "chevron.right"
+    case ellipsis = "ellipsis"
     case ellipsisCircle = "ellipsis.circle"
+    case info = "info"
+    case infoFilled = "info.circle.fill"
     case internalDrive = "internaldrive"
     case memorychip = "memorychip"
     case safari = "safari.fill"
