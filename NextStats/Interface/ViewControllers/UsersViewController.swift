@@ -59,14 +59,31 @@ class UsersViewController: BaseTableViewController {
             target: self,
             action: #selector(dismissController)
         )
+        navigationItem.leftBarButtonItem = dismissButton
+
+        guard !SystemVersion.isiOS26 else { return }
+
         let newUserButton = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
             action: #selector(showNewUserController)
         )
-        navigationItem.leftBarButtonItem = dismissButton
         navigationItem.rightBarButtonItem = newUserButton
         navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+
+    override func setupToolbar() {
+        if #available(iOS 26.0, *) {
+            let button = UIBarButtonItem(
+                image: SFSymbol.plus.image,
+                style: .prominent,
+                target: self,
+                action: #selector(showNewUserController)
+            )
+            toolbarItems = [.flexibleSpace(), button]
+            button.isEnabled = false
+            navigationController?.isToolbarHidden = false
+        }
     }
 
     override func registerCells() {
@@ -85,6 +102,7 @@ class UsersViewController: BaseTableViewController {
     }
 
     private func showTableView() {
+        toolbarItems?.last?.isEnabled = true
         navigationItem.rightBarButtonItem?.isEnabled = true
         tableView.isHidden = false
         loadingView.remove()

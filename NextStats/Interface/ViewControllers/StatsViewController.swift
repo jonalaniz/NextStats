@@ -37,15 +37,34 @@ class StatsViewController: BaseTableViewController {
     // MARK: - Configurtion
 
     override func setupNavigationController() {
+        navigationItem.largeTitleDisplayMode = .never
+
         let moreButton = UIBarButtonItem(
-            image: SFSymbol.ellipsisCircle.image,
+            image: SFSymbol.ellipsis.image,
             style: .plain,
             target: self,
             action: #selector(menuTapped)
         )
 
-        navigationItem.rightBarButtonItem = moreButton
-        navigationItem.largeTitleDisplayMode = .never
+        if SystemVersion.isiOS26 {
+            let usersButton = UIBarButtonItem(
+                image: SFSymbol.user.image,
+                style: .plain,
+                target: self,
+                action: #selector(userManagementPressed)
+            )
+            let visitServerButton = UIBarButtonItem(
+                image: SFSymbol.safari.image,
+                style: .plain,
+                target: self,
+                action: #selector(openInSafari)
+            )
+            navigationItem.rightBarButtonItems = [
+                moreButton, usersButton, visitServerButton
+            ]
+        } else {
+            navigationItem.rightBarButtonItem = moreButton
+        }
 
         if isMacCatalyst() {
             self.navigationController?.setNavigationBarHidden(
@@ -54,27 +73,6 @@ class StatsViewController: BaseTableViewController {
         } else {
             navigationController?.isNavigationBarHidden = false
         }
-    }
-
-    override func setupToolbar() {
-        guard SystemVersion.isiOS26 else { return }
-        let usersButtonView = createToolbarButton(
-            image: SFSymbol.user,
-            text: .localized(.users),
-            action: #selector(userManagementPressed)
-        )
-        let visitButtonView = createToolbarButton(
-            image: SFSymbol.safari,
-            action: #selector(openInSafari)
-        )
-
-        toolbarItems = [
-            .flexibleSpace(),
-            usersButtonView,
-            .fixedSpace(10),
-            visitButtonView
-        ]
-        navigationController?.isToolbarHidden = false
     }
 
     override func registerCells() {
@@ -162,25 +160,25 @@ class StatsViewController: BaseTableViewController {
 
     // MARK: - Helper Methods
 
-    private func createToolbarButton(
-        image: SFSymbol, text: String? = nil, action: Selector
-    ) -> UIBarButtonItem {
-        let button = UIButton(type: .system)
-        button.addTarget(self, action: action, for: .touchUpInside)
-
-        if let systemImage = image.image{
-            button.setImage(systemImage, for: .normal)
-        }
-
-        if let text = text {
-            button.setTitle(" \(text)", for: .normal)
-            button.titleLabel?.font = .preferredFont(
-                forTextStyle: .headline
-            )
-        }
-
-        return UIBarButtonItem(customView: button)
-    }
+//    private func createToolbarButton(
+//        image: SFSymbol, text: String? = nil, action: Selector
+//    ) -> UIBarButtonItem {
+//        let button = UIButton(type: .system)
+//        button.addTarget(self, action: action, for: .touchUpInside)
+//
+//        if let systemImage = image.image {
+//            button.setImage(systemImage, for: .normal)
+//        }
+//
+//        if let text = text {
+//            button.setTitle(" \(text)", for: .normal)
+//            button.titleLabel?.font = .preferredFont(
+//                forTextStyle: .headline
+//            )
+//        }
+//
+//        return UIBarButtonItem(customView: button)
+//    }
 
     private func makeAlertController() -> UIAlertController {
         let alert = UIAlertController(

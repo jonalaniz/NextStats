@@ -37,7 +37,7 @@ final class InfoViewController: BaseTableViewController {
 
     override func setupNavigationController() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
+            barButtonSystemItem: .cancel,
             target: self,
             action: #selector(dismissController))
     }

@@ -48,6 +48,7 @@ final class ServerViewController: BaseTableViewController {
     // MARK: - Configuration
 
     override func setupNavigationController() {
+        super.setupNavigationController()
         let navigationBar = navigationController?.navigationBar
         let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
         navigationBar?.titleTextAttributes = attributes
@@ -74,19 +75,26 @@ final class ServerViewController: BaseTableViewController {
     }
 
     override func setupToolbar() {
+        let isiOS26 = SystemVersion.isiOS26
+        let infoSymbol = isiOS26 ? SFSymbol.info : SFSymbol.infoFilled
         let addServerButtonView = createToolbarButton(
-            image: "externaldrive.fill.badge.plus",
+            symbol: .addServer,
             text: .localized(.serverAddButton),
             action: #selector(addServerPressed))
 
         let aboutButtonView = createToolbarButton(
-            image: "info.circle.fill",
+            symbol: infoSymbol,
             action: #selector(infoButtonPressed)
         )
 
-        toolbarItems = [
-            addServerButtonView, .flexibleSpace(), aboutButtonView
-        ]
+        if SystemVersion.isiOS26 {
+            navigationItem.rightBarButtonItem = aboutButtonView
+            toolbarItems = [.flexibleSpace(), addServerButtonView]
+        } else {
+            toolbarItems = [
+                addServerButtonView, .flexibleSpace(), aboutButtonView
+            ]
+        }
     }
 
     override func registerCells() {
@@ -123,18 +131,33 @@ final class ServerViewController: BaseTableViewController {
         let hasServers = serverManager.serverCount() > 0
         tableView.isHidden = !hasServers
         noServersViewController.view.isHidden = hasServers
-        navigationItem.rightBarButtonItem = hasServers ? editButtonItem : nil
+
+        if SystemVersion.isiOS26 {
+            navigationItem.leftBarButtonItem = editButton(hasServers)
+        } else {
+            navigationItem.rightBarButtonItem = editButton(hasServers)
+        }
     }
 
     // MARK: - Helper Methods
 
     private func createToolbarButton(
-        image: String, text: String? = nil, action: Selector
+        symbol: SFSymbol, text: String? = nil, action: Selector
+    ) -> UIBarButtonItem {
+        if #available(iOS 26, *) {
+            toolbarButton26(symbol: symbol, text: text, action: action)
+        } else {
+            toolbarButtonPre26(symbol: symbol, text: text, action: action)
+        }
+    }
+
+    private func toolbarButtonPre26(
+        symbol: SFSymbol, text: String? = nil, action: Selector
     ) -> UIBarButtonItem {
         let button = UIButton(type: .system)
         button.addTarget(self, action: action, for: .touchUpInside)
 
-        if let systemImage = UIImage(systemName: image) {
+        if let systemImage = symbol.image {
             button.setImage(systemImage, for: .normal)
         }
 
@@ -146,6 +169,24 @@ final class ServerViewController: BaseTableViewController {
         }
 
         return UIBarButtonItem(customView: button)
+    }
+
+    @available(iOS 26.0, *)
+    private func toolbarButton26(
+        symbol: SFSymbol, text: String? = nil, action: Selector
+    ) -> UIBarButtonItem {
+        let barButtonItem = UIBarButtonItem(
+            image: symbol.image,
+            style: symbol == .addServer ? .prominent : .plain,
+            target: self,
+            action: action
+        )
+
+        return barButtonItem
+    }
+
+    private func editButton(_ valid: Bool) -> UIBarButtonItem? {
+        return valid ? editButtonItem : nil
     }
 }
 
