@@ -42,14 +42,14 @@ extension ToolbarDelegate: NSToolbarDelegate {
         switch itemIdentifier {
         case .addServer:
             let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            item.image = Symbols.plus
+            item.image = SFSymbol.plus.image
             item.label = "Add Server"
             item.action = #selector(MainCoordinator.addServerClicked)
             item.target = coordinator
             toolbarItem = item
         case .menu:
             let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-            item.image = Symbols.ellipsisCircle.image
+            item.image = SFSymbol.ellipsis.image
             item.label = "Server Menu"
             item.action = #selector(MainCoordinator.menuClicked)
             item.target = coordinator

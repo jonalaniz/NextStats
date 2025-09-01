@@ -9,6 +9,8 @@
 import UIKit
 
 final class NewUserDataSource: NSObject, UITableViewDataSource {
+
+    // MARK: - Properties
     let userFactory = NXUserFactory.shared
     var textFieldDelegate = TextFieldDelegate.shared
 

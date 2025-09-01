@@ -145,7 +145,6 @@
 		56F23EEE2E0E694200B3052B /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23EED2E0E694200B3052B /* BaseTableViewController.swift */; };
 		56F23FA92E11203600B3052B /* GenericCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F23FA82E11203600B3052B /* GenericCell.swift */; };
 		56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */; };
-		56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */; };
 		56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F7F8F324D78C9E00C667E4 /* NextServer.swift */; };
 		56F90C1427AD107F00C39C69 /* StatsViewController+MenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */; };
 		56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */; };
@@ -305,7 +304,6 @@
 		56F23EED2E0E694200B3052B /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		56F23FA82E11203600B3052B /* GenericCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCell.swift; sourceTree = "<group>"; };
 		56F7A19D26A98857004B0C5F /* ServerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHeaderView.swift; sourceTree = "<group>"; };
-		56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+SFSymbolWithText.swift"; sourceTree = "<group>"; };
 		56F7F8F324D78C9E00C667E4 /* NextServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextServer.swift; sourceTree = "<group>"; };
 		56F90C1327AD107F00C39C69 /* StatsViewController+MenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+MenuActions.swift"; sourceTree = "<group>"; };
 		56FE82DA2D6362DC001E2294 /* NewUserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserDataSource.swift; sourceTree = "<group>"; };
@@ -339,7 +337,6 @@
 				5647A6472BA4D8EF000D51F7 /* String+Extensions.swift */,
 				5601D7FB25E31A5500993D31 /* UIActivityIndicatorView+Activate-Deactivate.swift */,
 				5601D7F525E3199400993D31 /* UIApplication+AppVersion.swift */,
-				56F7A19F26A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift */,
 				5695048326A0DD1100FB2F78 /* UIToolbar+ConfigureAppearance.swift */,
 				56E0AD8026ADA4360090ACB6 /* UIViewController+Child.swift */,
 				563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */,
@@ -949,7 +946,6 @@
 				5647A6462BA4CD4B000D51F7 /* NewUserViewController.swift in Sources */,
 				5647A6482BA4D8EF000D51F7 /* String+Extensions.swift in Sources */,
 				56F7F8F424D78C9E00C667E4 /* NextServer.swift in Sources */,
-				56F7A1A026A9A5CA004B0C5F /* UIButton+SFSymbolWithText.swift in Sources */,
 				569F2C7526AAF61A001122F2 /* XMLStackParser.swift in Sources */,
 				567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */,
 				56F23EEC2E0E686100B3052B /* BaseDataSource.swift in Sources */,
