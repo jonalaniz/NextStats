@@ -122,6 +122,13 @@ class ProgressCell: BaseTableViewCell {
     }
 
     func configure(free: Int, total: Int, type: ProgressCellIcon) {
+        guard free != -1 && total != -1 else {
+            detailLabel.text = "not set"
+            set(icon: type)
+            progressView.progress = 0
+            return
+        }
+
         let used = total - free
         let usedString: String
         let totalString: String

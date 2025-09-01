@@ -102,7 +102,12 @@ class NXUserFormatter: NSObject {
             let used = user?.data.quota.used,
             let total = user?.data.quota.total
         else {
-            return [TableRow(title: "Quota", secondaryText: nil)]
+            return [
+                TableRow(
+                    title: "not set",
+                    progressData: ProgressCellData.noData()
+                )
+            ]
         }
 
         let free = total - used
