@@ -17,6 +17,12 @@ final class SelectionViewController: UITableViewController {
     var selectable: [String]
     var selections: Set<String>
 
+    private let backgroundView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "background")
+        return imageView
+    }()
+
     // MARK: - Init
 
     init(data: [String], type: SelectionType, selections: [String]?) {
@@ -35,6 +41,7 @@ final class SelectionViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = selectionType.title
+        tableView.backgroundView = backgroundView
     }
 
     override func viewWillDisappear(_ animated: Bool) {
