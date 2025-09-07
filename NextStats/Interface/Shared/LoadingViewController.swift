@@ -41,7 +41,9 @@ class LoadingViewController: BaseViewController {
     override func setupView() {
         super.setupView()
         view.addSubview(stackView)
-        stackView.addArrangedSubview(activityIndicator)
+        if !SystemVersion.isiOS26 {
+            stackView.addArrangedSubview(activityIndicator)
+        }
         stackView.addArrangedSubview(textLabel)
     }
 

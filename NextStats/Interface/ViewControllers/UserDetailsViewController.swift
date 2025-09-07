@@ -67,13 +67,9 @@ final class UserDetailsViewController: BaseTableViewController {
     private func setNavigationBarColor() {
         guard let enabled = user?.data.enabled
         else { return }
-        let navigationBar = navigationController?.navigationBar
-        let color: UIColor = enabled ? .theme : .systemGray
-        let attributes = [
-            NSAttributedString.Key.foregroundColor: color
-        ]
-        navigationBar?.titleTextAttributes = attributes
-        navigationBar?.largeTitleTextAttributes = attributes
+        navigationController?.navigationBar.setColor(
+            enabled ? .theme : .systemGray
+        )
     }
 
     @objc func menuTapped() {

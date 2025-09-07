@@ -114,17 +114,18 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
             else { return }
 
             userFactory.postUser(data: data, to: server)
-            // Show a spinner or something
+            newUserViewController.setLoadingState()
         case .sucess:
             // Stop Spinner
             parentCoordinator?.updateUsers()
             popOverNavController.dismiss(animated: true)
-        case .readyToBuild: newUserViewController.enableNextButton()
+        case .readyToBuild: newUserViewController.enableDoneButton()
         }
     }
 
     func error(_ error: NXUserFactoryErrorType) {
-        // Stop spinner
+        newUserViewController.resetState()
+
         switch error {
         case .application(let error):
             handleFactoryError(error)

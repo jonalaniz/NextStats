@@ -27,10 +27,10 @@ class UsersViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         delegate = self
-
         tableStyle = .insetGrouped
         titleText = .localized(.users)
         super.viewDidLoad()
+        configureButtonsAndPlacement()
         tableView.dataSource = dataSource
         showLoadingView()
     }
@@ -47,42 +47,28 @@ class UsersViewController: BaseTableViewController {
     // MARK: - Setup
 
     override func setupNavigationController() {
-        let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.theme
-        ]
-        let navigationBar = navigationController?.navigationBar
-        navigationBar?.titleTextAttributes = attributes
-        navigationBar?.largeTitleTextAttributes = attributes
-
-        let dismissButton = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(dismissController)
-        )
-        navigationItem.leftBarButtonItem = dismissButton
-
-        guard !SystemVersion.isiOS26 else { return }
-
-        let newUserButton = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(showNewUserController)
-        )
-        navigationItem.rightBarButtonItem = newUserButton
-        navigationItem.rightBarButtonItem?.isEnabled = false
+        navigationController?.navigationBar.applyTheme()
     }
 
-    override func setupToolbar() {
+    private func configureButtonsAndPlacement() {
+        // Dismiss Button - Always the same
+        navigationItem.leftBarButtonItem = makeDismissButton()
+
+        // Add User Button
+        let addUserButton = makeAddUserButton()
+        addUserButton.isEnabled = false
+
+        // Specific placements per OS
         if #available(iOS 26.0, *) {
-            let button = UIBarButtonItem(
-                image: SFSymbol.plus.image,
-                style: .prominent,
-                target: self,
-                action: #selector(showNewUserController)
-            )
-            toolbarItems = [.flexibleSpace(), button]
-            button.isEnabled = false
+            // Add User Button goes into Toolbar
+            toolbarItems = [.flexibleSpace(), addUserButton]
             navigationController?.isToolbarHidden = false
+
+            // iOS 26 gets a loading button
+            navigationItem.rightBarButtonItem = LoadingBarButtonItem()
+        } else {
+            // Add User Button goes to RightBarButtonItem
+            navigationItem.rightBarButtonItem = addUserButton
         }
     }
 
@@ -90,6 +76,32 @@ class UsersViewController: BaseTableViewController {
         tableView.register(
             UserCell.self,
             forCellReuseIdentifier: UserCell.reuseIdentifier
+        )
+    }
+
+    // MARK: - Buttons
+    private func makeAddUserButton() -> UIBarButtonItem {
+        if #available(iOS 26.0, *) {
+            return UIBarButtonItem(
+                image: SFSymbol.plus.image,
+                style: .prominent,
+                target: self,
+                action: #selector(showNewUserController)
+            )
+        } else {
+            return UIBarButtonItem(
+                barButtonSystemItem: .add,
+                target: self,
+                action: #selector(showNewUserController)
+            )
+        }
+    }
+
+    private func makeDismissButton() -> UIBarButtonItem {
+        UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(dismissController)
         )
     }
 
@@ -102,8 +114,13 @@ class UsersViewController: BaseTableViewController {
     }
 
     private func showTableView() {
-        toolbarItems?.last?.isEnabled = true
-        navigationItem.rightBarButtonItem?.isEnabled = true
+        if #available(iOS 26, *) {
+            navigationItem.rightBarButtonItem = nil
+            toolbarItems?.last?.isEnabled = true
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+
         tableView.isHidden = false
         loadingView.remove()
         tableView.reloadData()

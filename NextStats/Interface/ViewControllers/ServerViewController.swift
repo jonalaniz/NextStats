@@ -49,10 +49,7 @@ final class ServerViewController: BaseTableViewController {
 
     override func setupNavigationController() {
         super.setupNavigationController()
-        let navigationBar = navigationController?.navigationBar
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.theme]
-        navigationBar?.titleTextAttributes = attributes
-        navigationBar?.largeTitleTextAttributes = attributes
+        navigationController?.navigationBar.applyTheme()
         navigationController?.toolbar.configureAppearance()
 
         if isMacCatalyst() {

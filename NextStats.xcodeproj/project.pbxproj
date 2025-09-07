@@ -65,6 +65,8 @@
 		565EFE672BB6007500100D94 /* NewUserStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE662BB6007500100D94 /* NewUserStatusCode.swift */; };
 		565EFE692BB6175C00100D94 /* NXUserFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */; };
 		565EFE712BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */; };
+		566353712E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566353702E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift */; };
+		566353732E6CAA4500918EDA /* LoadingBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566353722E6CAA4500918EDA /* LoadingBarButtonItem.swift */; };
 		5671B6932B639D950026E4A0 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671B6922B639D950026E4A0 /* ProgressCell.swift */; };
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
@@ -110,6 +112,7 @@
 		56B55E482E15DABB006578DF /* String+Escape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B55E472E15DABB006578DF /* String+Escape.swift */; };
 		56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */; };
 		56B597AA2CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B597A92CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift */; };
+		56B9831D2E6E00D800AC8B8D /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 56B9831C2E6E00D800AC8B8D /* AppIcon.icon */; };
 		56BB28E626A79A0A00F0D8DC /* ToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */; };
 		56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56BCF6B32487CA8D0048B991 /* NXServerManager.swift */; };
 		56C1840C26C1A9A100992B35 /* NXServerManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */; };
@@ -223,6 +226,8 @@
 		565EFE662BB6007500100D94 /* NewUserStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserStatusCode.swift; sourceTree = "<group>"; };
 		565EFE682BB6175C00100D94 /* NXUserFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactoryDelegate.swift; sourceTree = "<group>"; };
 		565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainCoordinator+NXServerManagerDelegate.swift"; sourceTree = "<group>"; };
+		566353702E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+ApplyTheme.swift"; sourceTree = "<group>"; };
+		566353722E6CAA4500918EDA /* LoadingBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingBarButtonItem.swift; sourceTree = "<group>"; };
 		5671B6922B639D950026E4A0 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
 		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -269,6 +274,7 @@
 		56B55E472E15DABB006578DF /* String+Escape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Escape.swift"; sourceTree = "<group>"; };
 		56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsersCoordinator+ErrorHandling.swift"; sourceTree = "<group>"; };
 		56B597A92CEDE2D10060B42B /* StatsViewController+ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsViewController+ErrorHandling.swift"; sourceTree = "<group>"; };
+		56B9831C2E6E00D800AC8B8D /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		56BB28E526A79A0A00F0D8DC /* ToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDelegate.swift; sourceTree = "<group>"; };
 		56BCF6B32487CA8D0048B991 /* NXServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManager.swift; sourceTree = "<group>"; };
 		56C1840B26C1A9A100992B35 /* NXServerManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXServerManagerDelegate.swift; sourceTree = "<group>"; };
@@ -342,6 +348,7 @@
 				563D542D2D0FAAEF00382FF8 /* URL+AppendingPathComponentSafely.swift */,
 				5601D80125E31AA000993D31 /* WKWebView+Cookies.swift */,
 				56AAA3D92D5E18FE009DC223 /* UIView+BlurView.swift */,
+				566353702E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -461,6 +468,7 @@
 				56557EE223C8B09A008CF684 /* NextStats */,
 				565975B925567DF70043C007 /* NextStatsTests */,
 				56557EE123C8B09A008CF684 /* Products */,
+				56B9831C2E6E00D800AC8B8D /* AppIcon.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -680,6 +688,7 @@
 				56557EF923CA6E89008CF684 /* WebViewController.swift */,
 				567D82642BB1305D007BF135 /* SelectionViewController.swift */,
 				560938702D63269200DEAF40 /* TextFieldDelegate.swift */,
+				566353722E6CAA4500918EDA /* LoadingBarButtonItem.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -881,6 +890,7 @@
 				56557EF023C8B09C008CF684 /* LaunchScreen.storyboard in Resources */,
 				56D4ACE92BB9DD5E00C640EB /* PrivacyInfo.xcprivacy in Resources */,
 				56557EED23C8B09C008CF684 /* Assets.xcassets in Resources */,
+				56B9831D2E6E00D800AC8B8D /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1026,6 +1036,7 @@
 				56F7A19E26A98857004B0C5F /* ServerHeaderView.swift in Sources */,
 				56BCF6B42487CA8D0048B991 /* NXServerManager.swift in Sources */,
 				5671B6932B639D950026E4A0 /* ProgressCell.swift in Sources */,
+				566353712E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift in Sources */,
 				56AAA3DC2D5E19AA009DC223 /* BaseTableViewCell.swift in Sources */,
 				5601D80625E31C4900993D31 /* String+Localized.swift in Sources */,
 				56E6834126B245A800C1E17C /* IAP Helper.swift in Sources */,
@@ -1048,6 +1059,7 @@
 				562C25902CB9F631001BF067 /* ServiceMethod.swift in Sources */,
 				562C25912CB9F631001BF067 /* HeaderKeyValue.swift in Sources */,
 				562C25922CB9F631001BF067 /* APIManagerError.swift in Sources */,
+				566353732E6CAA4500918EDA /* LoadingBarButtonItem.swift in Sources */,
 				56B597A62CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift in Sources */,
 				562C25942CB9F631001BF067 /* URLRequest+Headers.swift in Sources */,
 				562C25952CB9F631001BF067 /* Managable.swift in Sources */,

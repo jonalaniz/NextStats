@@ -20,28 +20,17 @@ final class NewUserViewController: BaseTableViewController {
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
-        titleText = .localized(.newUser)
-        tableStyle = .insetGrouped
         delegate = self
+        tableStyle = .insetGrouped
+        titleText = .localized(.newUser)
         super.viewDidLoad()
     }
 
     // MARK: - Configuration
 
     override func setupNavigationController() {
-        let cancel = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(cancelPressed)
-        )
-        let done = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(donePressed)
-        )
-
-        navigationItem.leftBarButtonItem = cancel
-        navigationItem.rightBarButtonItem = done
+        navigationItem.leftBarButtonItem = makeCancelButton()
+        navigationItem.rightBarButtonItem = makeDoneButton()
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
 
@@ -59,6 +48,23 @@ final class NewUserViewController: BaseTableViewController {
         )
     }
 
+    // MARK: - Buttons
+    private func makeCancelButton() -> UIBarButtonItem {
+        UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(cancelPressed)
+        )
+    }
+
+    private func makeDoneButton() -> UIBarButtonItem {
+        UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(donePressed)
+        )
+    }
+
     @objc func cancelPressed() {
         coordinator?.didFinish()
     }
@@ -67,8 +73,21 @@ final class NewUserViewController: BaseTableViewController {
         coordinator?.createUser()
     }
 
-    func enableNextButton() {
+    func enableDoneButton() {
         navigationItem.rightBarButtonItem?.isEnabled = true
+    }
+
+    func setLoadingState() {
+        navigationItem.rightBarButtonItem = LoadingBarButtonItem()
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        UIView.animate(withDuration: 0.25) {
+            self.tableView.layer.opacity = 0.5
+        }
+    }
+
+    func resetState() {
+        navigationItem.rightBarButtonItem = makeDoneButton()
+        tableView.layer.opacity = 1
     }
 }
 

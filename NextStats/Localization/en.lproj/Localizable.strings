@@ -52,7 +52,7 @@
 // MARK: - Statistics View
 
 /* Text = "Fetching data" */
-"stats.screen.fetchingData" = "Fetching data";
+"stats.screen.fetchingData" = "Fetching data...";
 
 /* Text = "Select or add a server to view statistics" */
 "stats.screen.selectServerLabel" = "Select or add a server to view statistics";
