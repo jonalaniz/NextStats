@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoServersViewController: BaseViewController {
+final class NoServersViewController: BaseViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ class NoServersViewController: BaseViewController {
 
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Greyscale-Icon")
+        imageView.image = AppIcon.clear.image
         imageView.layer.cornerRadius = 38
         imageView.clipsToBounds = true
 
@@ -47,6 +47,7 @@ class NoServersViewController: BaseViewController {
         stackView.addArrangedSubview(textLabel)
     }
 
+    // TODO: Fix alignment with pre and post iOS 26
     override func constrainView() {
         super.constrainView()
         NSLayoutConstraint.activate([

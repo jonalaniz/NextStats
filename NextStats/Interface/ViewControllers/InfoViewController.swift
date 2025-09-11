@@ -19,13 +19,19 @@ final class InfoViewController: BaseTableViewController {
     private let dataManager = InfoDataManager.shared
     private var products = [SKProduct]()
 
+    // MARK: - Views
+    let headerView = InfoHeaderView()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         titleText = "Info"
         prefersLargeTitles = false
         tableStyle = .insetGrouped
-        tableViewHeaderView = InfoHeaderView()
+        headerView.frame.size.height = headerView.systemLayoutSizeFitting(
+            UIView.layoutFittingCompressedSize
+        ).height
+        tableViewHeaderView = headerView
         dataManager.delegate = self
         delegate = self
         super.viewDidLoad()

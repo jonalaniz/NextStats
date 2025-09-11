@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServerHeaderView: UIView {
+final class ServerHeaderView: UIView {
 
     // MARK: - Properties
 
