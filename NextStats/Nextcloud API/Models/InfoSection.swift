@@ -13,7 +13,7 @@ enum InfoSection: Int, CaseIterable {
 
     var title: String {
         switch self {
-        case .icon: return "App Icon"
+        case .icon: return SystemVersion.isiOS26 ? "" : "App Icon"
         case .development: return .localized(.infoScreenDevHeader)
         case .translators: return .localized(.infoScreenLocaleHeader)
         case .licenses: return .localized(.infoScreenLicenseHeader)
@@ -31,7 +31,7 @@ enum InfoSection: Int, CaseIterable {
 
     var rows: Int {
         switch self {
-        case .icon: return 1
+        case .icon: return SystemVersion.isiOS26 ? 0 : 1
         case .development: return Developer.allCases.count
         case .translators: return Translator.allCases.count
         case .licenses: return License.allCases.count
