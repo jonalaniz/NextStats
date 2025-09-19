@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view controller that displays a list of users.
-class UsersViewController: BaseTableViewController {
+final class UsersViewController: BaseTableViewController {
 
     // MARK: - Coordinator
 
@@ -17,7 +17,7 @@ class UsersViewController: BaseTableViewController {
 
     // MARK: - Properties
 
-    let dataSource = UsersDataSource()
+    private let dataSource = UsersDataSource()
 
     // MARK: - Views
 

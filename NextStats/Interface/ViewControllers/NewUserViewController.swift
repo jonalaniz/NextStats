@@ -9,6 +9,7 @@
 import UIKit
 
 final class NewUserViewController: BaseTableViewController {
+
     // MARK: - Coordinator
 
     weak var coordinator: NewUserCoordinator?
@@ -24,9 +25,10 @@ final class NewUserViewController: BaseTableViewController {
         tableStyle = .insetGrouped
         titleText = .localized(.newUser)
         super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .never
     }
 
-    // MARK: - Configuration
+    // MARK: - Setup
 
     override func setupNavigationController() {
         navigationItem.leftBarButtonItem = makeCancelButton()
