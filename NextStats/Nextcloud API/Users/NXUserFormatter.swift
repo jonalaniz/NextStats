@@ -8,8 +8,9 @@
 
 import UIKit
 
-class NXUserFormatter: NSObject {
-    /// Returns the shared `UserDataManager` instance
+final class NXUserFormatter: NSObject {
+
+    /// Returns the shared `NXUserFormatter` instance
     public static let shared = NXUserFormatter()
 
     weak var delegate: NXDataManagerDelegate?

@@ -74,7 +74,6 @@
 		567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82552BA7A710007BF135 /* NewUserCoordinator.swift */; };
 		567D82612BAA18C4007BF135 /* NXUserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82602BAA18C4007BF135 /* NXUserFactory.swift */; };
 		567D82652BB1305D007BF135 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82642BB1305D007BF135 /* SelectionViewController.swift */; };
-		567D82672BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82662BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift */; };
 		567D82692BB1B2A4007BF135 /* QuotaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82682BB1B2A4007BF135 /* QuotaType.swift */; };
 		5689895023D4CF9F00D13B12 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */; };
 		5689895223D4CFC300D13B12 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */; };
@@ -236,7 +235,6 @@
 		567D82552BA7A710007BF135 /* NewUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserCoordinator.swift; sourceTree = "<group>"; };
 		567D82602BAA18C4007BF135 /* NXUserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXUserFactory.swift; sourceTree = "<group>"; };
 		567D82642BB1305D007BF135 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
-		567D82662BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewUserCoordinator+SelectionViewDelegate.swift"; sourceTree = "<group>"; };
 		567D82682BB1B2A4007BF135 /* QuotaType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotaType.swift; sourceTree = "<group>"; };
 		5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
@@ -724,7 +722,6 @@
 				5601D7AE25E0E8D100993D31 /* MainCoordinator.swift */,
 				565EFE702BB7366700100D94 /* MainCoordinator+NXServerManagerDelegate.swift */,
 				567D82552BA7A710007BF135 /* NewUserCoordinator.swift */,
-				567D82662BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift */,
 				569F2CA026AB2358001122F2 /* UsersCoordinator.swift */,
 				56B597A52CEDE0000060B42B /* UsersCoordinator+ErrorHandling.swift */,
 			);
@@ -1042,7 +1039,6 @@
 				569F2C7A26AAF61A001122F2 /* DecodingErrorExtension.swift in Sources */,
 				5601D7F625E3199400993D31 /* UIApplication+AppVersion.swift in Sources */,
 				56F23EE22E0E56AD00B3052B /* ActivityRow.swift in Sources */,
-				567D82672BB14500007BF135 /* NewUserCoordinator+SelectionViewDelegate.swift in Sources */,
 				5634EC3B2B6C4D8D00468AC0 /* NXUserFormatter.swift in Sources */,
 				56B55E482E15DABB006578DF /* String+Escape.swift in Sources */,
 				56AAA3D52D5B579F009DC223 /* UserSection.swift in Sources */,

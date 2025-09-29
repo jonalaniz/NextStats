@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NXUserFactory: NSObject {
+final class NXUserFactory: NSObject {
     public static let shared = NXUserFactory()
 
     weak var delegate: NXUserFactoryDelegate?

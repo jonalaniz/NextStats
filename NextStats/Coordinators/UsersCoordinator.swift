@@ -116,6 +116,7 @@ final class UsersCoordinator: NSObject, Coordinator {
 
 extension UsersCoordinator: UsersManagerDelegate {
     func userDeleted() {
+        userDetailsController.userDeleted()
         usersViewController.tableView.reloadData()
         navigationController.popViewController(animated: true)
     }
