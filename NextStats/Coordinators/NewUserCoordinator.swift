@@ -21,8 +21,8 @@ final class NewUserCoordinator: NSObject, Coordinator {
 
     // MARK: - View Controllers
 
-    let newUserViewController: NewUserViewController
-    let popOverNavController = UINavigationController()
+    private let newUserViewController: NewUserViewController
+    private let popOverNavController = UINavigationController()
     private let navigationController: UINavigationController
     var splitViewController: UISplitViewController
 
@@ -194,5 +194,25 @@ extension NewUserCoordinator: NXUserFactoryDelegate {
     private func dismissView(action: UIAlertAction! = nil) {
         parentCoordinator?.updateUsers()
         popOverNavController.dismiss(animated: true)
+    }
+}
+
+// MARK: - SelectionViewDelegate
+
+extension NewUserCoordinator: SelectionViewDelegate {
+    func selected(_ selected: [String], type: SelectionType) {
+        switch type {
+        case .groups: userFactory.set(groups: selected)
+        case .subAdmin: userFactory.set(adminOf: selected)
+        case .quota: break
+        }
+
+        newUserViewController.tableView.reloadData()
+    }
+
+    func selected(_ selection: String, type: SelectionType) {
+        if type == .quota { userFactory.set(quota: selection) }
+
+        newUserViewController.tableView.reloadData()
     }
 }
