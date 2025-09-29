@@ -1237,7 +1237,7 @@
 				CODE_SIGN_ENTITLEMENTS = NextStats/NextStats.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.2.0.1;
+				CURRENT_PROJECT_VERSION = 3.2.0.2;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStats/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "NextStats - A Nextcloud monitor and utility";
@@ -1268,7 +1268,7 @@
 				CODE_SIGN_ENTITLEMENTS = NextStats/NextStats.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3.2.0.1;
+				CURRENT_PROJECT_VERSION = 3.2.0.2;
 				DEVELOPMENT_TEAM = 2445G329LF;
 				INFOPLIST_FILE = NextStats/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "NextStats - A Nextcloud monitor and utility";
