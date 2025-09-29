@@ -31,25 +31,18 @@ final class UserDetailsViewController: BaseTableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        setNavigationBarColor()
+        updateNavigationBarColor()
     }
 
     // MARK: - Setup
 
     override func setupNavigationController() {
-        let moreButton = UIBarButtonItem(
-            image: SFSymbol.ellipsis.image,
-            style: .plain,
-            target: self,
-            action: #selector(menuTapped)
-        )
-        navigationItem.rightBarButtonItem = moreButton
+        navigationItem.rightBarButtonItem = makeMoreButton()
     }
 
     override func registerCells() {
         tableView.register(
-            GenericCell.self,
-            forCellReuseIdentifier: GenericCell.reuseIdentifier
+            GenericCell.self, forCellReuseIdentifier: GenericCell.reuseIdentifier
         )
         tableView.register(
             ProgressCell.self, forCellReuseIdentifier: ProgressCell.reuseIdentifier
@@ -64,7 +57,18 @@ final class UserDetailsViewController: BaseTableViewController {
         dataSource.sections = sections
     }
 
-    private func setNavigationBarColor() {
+    // MARK: - UI
+
+    private func makeMoreButton() -> UIBarButtonItem {
+        return UIBarButtonItem(
+            image: SFSymbol.ellipsis.image,
+            style: .plain,
+            target: self,
+            action: #selector(menuTapped)
+        )
+    }
+
+    private func updateNavigationBarColor() {
         guard let enabled = user?.data.enabled
         else { return }
         navigationController?.navigationBar.setColor(
@@ -72,76 +76,79 @@ final class UserDetailsViewController: BaseTableViewController {
         )
     }
 
-    @objc func menuTapped() {
+    // MARK: - Menu
+
+    @objc private func menuTapped() {
         guard let user = user else { return }
-        let ableTitle: String = user.data.enabled ? .localized(.disable) : .localized(.enable)
+        present(makeMenuFor(user: user), animated: true)
+    }
+
+    private func makeMenuFor(user: User) -> UIAlertController {
+        let toggleTitle: String = user.data.enabled ? .localized(.disable) : .localized(.enable)
+
+        let actions = [
+            UIAlertAction(title: toggleTitle, style: .default, handler: toggleAbility),
+            UIAlertAction(title: .localized(.delete), style: .destructive, handler: requestConfirmation),
+            UIAlertAction(title: .localized(.statsActionCancel), style: .cancel)
+        ]
 
         let alertController = UIAlertController(
             title: nil, message: nil, preferredStyle: .actionSheet
         )
-        alertController.addAction(
-            UIAlertAction(
-                title: ableTitle,
-                style: .default,
-                handler: toggleAbility
-            )
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.delete),
-                style: .destructive,
-                handler: showScareSheet)
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.statsActionCancel),
-                style: .cancel
-            )
-        )
-        let popover = alertController.popoverPresentationController
+
+        actions.forEach(alertController.addAction)
+
+        configurePopover(for: alertController)
+
+        return alertController
+    }
+
+    private func configurePopover(for alert: UIAlertController) {
+        let popover = alert.popoverPresentationController
         if #available(iOS 16.0, *) {
             popover?.sourceItem = navigationItem.rightBarButtonItem
         } else {
             popover?.barButtonItem = navigationItem.rightBarButtonItem
         }
-        present(alertController, animated: true)
     }
 
-    func toggleAbility(action: UIAlertAction) {
+    // MARK: - Actions
+
+    private func toggleAbility(action: UIAlertAction) {
         guard let user = user else { return }
         coordinator?.toggle(user: user.data.id)
     }
 
-    func showScareSheet(action: UIAlertAction) {
+    private func requestConfirmation(action: UIAlertAction) {
         guard let user = user else { return }
-        let alertController = UIAlertController(
+        let actions = [
+            UIAlertAction(title: .localized(.delete), style: .destructive, handler: deleteUser),
+            UIAlertAction(title: .localized(.statsActionCancel), style: .cancel)
+        ]
+
+        let alert = UIAlertController(
             title: .localized(.deleteUser),
             message: "\(String.localized(.deleteUserMessage)) \(user.data.id)",
             preferredStyle: .alert)
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.delete),
-                style: .destructive,
-                handler: deleteUser)
-        )
-        alertController.addAction(
-            UIAlertAction(
-                title: .localized(.statsActionCancel),
-                style: .cancel
-            )
-        )
 
-        present(alertController, animated: true)
+        actions.forEach(alert.addAction)
+
+        present(alert, animated: true)
     }
 
-    func deleteUser(action: UIAlertAction) {
+    private func deleteUser(action: UIAlertAction) {
         guard let user = user else { return }
+        navigationItem.rightBarButtonItem = LoadingBarButtonItem()
         coordinator?.delete(user: user.data.id)
+    }
+
+    func userDeleted() {
+        navigationItem.rightBarButtonItem = makeMoreButton()
     }
 
     func toggleUser() {
         user?.data.enabled.toggle()
-        setNavigationBarColor()
+        updateNavigationBarColor()
     }
 }
 
@@ -149,10 +156,7 @@ final class UserDetailsViewController: BaseTableViewController {
 
 extension UserDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Get number of sections
-        let sections = tableView.numberOfSections
-
-        if sections == UserSection.allCases.count {
+        if tableView.numberOfSections == UserSection.allCases.count {
             return height(for: indexPath.section)
         } else {
             return height(for: indexPath.section + 1)
