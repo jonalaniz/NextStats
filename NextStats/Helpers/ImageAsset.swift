@@ -19,7 +19,7 @@ enum ImageAsset {
 
     private var name: String {
         switch self {
-        case .appIcon: SystemVersion.isiOS26 ? "icon26-clear" : "Greyscale-Icon"
+        case .appIcon: SystemVersion.isiOS26 ? "icon26" : "nextstat-logo"
         case .appIconClear: SystemVersion.isiOS26 ? "icon26-clear" : "Greyscale-Icon"
         case .connectImage: SystemVersion.isiOS26 ? "ios26-nextcloud-drive-connect" : "nextcloud-drive-connect"
         }
