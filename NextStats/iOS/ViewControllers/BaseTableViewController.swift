@@ -35,6 +35,7 @@ class BaseTableViewController: UIViewController {
     func setupView() {
         if let titleText = titleText { title = titleText }
         navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
+        view.backgroundColor = .systemBackground
     }
 
     func setupNavigationController() {}
