@@ -18,8 +18,9 @@ class AddServerHeaderView: UIView {
     }()
 
     private let imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "nextcloud-drive-connect"))
+        let imageView = UIImageView(image: ImageAsset.connectImage.image)
         imageView.contentMode = .scaleAspectFit
+        imageView.addGlow()
 
         return imageView
     }()

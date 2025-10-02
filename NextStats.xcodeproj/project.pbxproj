@@ -68,7 +68,7 @@
 		566353712E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566353702E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift */; };
 		566353732E6CAA4500918EDA /* LoadingBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566353722E6CAA4500918EDA /* LoadingBarButtonItem.swift */; };
 		5671B6932B639D950026E4A0 /* ProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5671B6922B639D950026E4A0 /* ProgressCell.swift */; };
-		567AF08D2E7329E500BEFF8B /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567AF08C2E7329E500BEFF8B /* AppIcon.swift */; };
+		567AF08D2E7329E500BEFF8B /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567AF08C2E7329E500BEFF8B /* ImageAsset.swift */; };
 		567BF629258ACD60000E64D9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56557EF923CA6E89008CF684 /* WebViewController.swift */; };
 		567BF637258ADE5D000E64D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 567BF639258ADE5D000E64D9 /* Localizable.strings */; };
 		567D82562BA7A710007BF135 /* NewUserCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567D82552BA7A710007BF135 /* NewUserCoordinator.swift */; };
@@ -229,7 +229,7 @@
 		566353702E6CA45400918EDA /* UINavigationBar+ApplyTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+ApplyTheme.swift"; sourceTree = "<group>"; };
 		566353722E6CAA4500918EDA /* LoadingBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingBarButtonItem.swift; sourceTree = "<group>"; };
 		5671B6922B639D950026E4A0 /* ProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCell.swift; sourceTree = "<group>"; };
-		567AF08C2E7329E500BEFF8B /* AppIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcon.swift; sourceTree = "<group>"; };
+		567AF08C2E7329E500BEFF8B /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
 		567BF638258ADE5D000E64D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567BF63C258ADE74000E64D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		567D82552BA7A710007BF135 /* NewUserCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserCoordinator.swift; sourceTree = "<group>"; };
@@ -450,7 +450,7 @@
 				5689895123D4CFC300D13B12 /* KeychainItemAccessibility.swift */,
 				5689894F23D4CF9F00D13B12 /* KeychainWrapper.swift */,
 				560547D62E3938E600B8649C /* SystemVersion.swift */,
-				567AF08C2E7329E500BEFF8B /* AppIcon.swift */,
+				567AF08C2E7329E500BEFF8B /* ImageAsset.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -629,6 +629,7 @@
 			isa = PBXGroup;
 			children = (
 				56C781A72AD8957200872988 /* AddServerHeaderView.swift */,
+				569EC31E25B4F7F600B955EC /* InfoHeaderView.swift */,
 			);
 			path = HeaderViews;
 			sourceTree = "<group>";
@@ -649,7 +650,6 @@
 		56DB681F26AEEBF60015CB04 /* Info */ = {
 			isa = PBXGroup;
 			children = (
-				569EC31E25B4F7F600B955EC /* InfoHeaderView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -928,7 +928,7 @@
 				56B55E412E15D892006578DF /* _XMLDecoder+SingleValueDecodingContainer.swift in Sources */,
 				56E0AD8126ADA4360090ACB6 /* UIViewController+Child.swift in Sources */,
 				56F23EE72E0E595200B3052B /* TableRow.swift in Sources */,
-				567AF08D2E7329E500BEFF8B /* AppIcon.swift in Sources */,
+				567AF08D2E7329E500BEFF8B /* ImageAsset.swift in Sources */,
 				569F2CA826AC34D7001122F2 /* NXUsersManager.swift in Sources */,
 				56FE82DB2D6362DC001E2294 /* NewUserDataSource.swift in Sources */,
 				56F23EDE2E0E561800B3052B /* MemoryRow.swift in Sources */,

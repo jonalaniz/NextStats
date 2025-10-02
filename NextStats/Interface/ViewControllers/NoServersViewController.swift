@@ -22,7 +22,7 @@ final class NoServersViewController: BaseViewController {
 
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = AppIcon.clear.image
+        imageView.image = ImageAsset.appIconClear.image
         imageView.layer.cornerRadius = 38
         imageView.clipsToBounds = true
 

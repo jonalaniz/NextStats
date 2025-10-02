@@ -24,7 +24,7 @@ class InfoHeaderView: UIView {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = AppIcon.normal.image
+        imageView.image = ImageAsset.appIcon.image
         imageView.addGlow()
 
         return imageView
